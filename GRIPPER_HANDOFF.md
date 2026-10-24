@@ -10,9 +10,8 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 ### Repository and Onshape
 - This repo (`Gripper-Claude_Onshape_V2`) is standalone and holds only the v2 design work.
 - **Git:** show `git status` and `git diff` before any commit. Commit or push only when Anurag says so, and explain each git command the first time it comes up. Don't add other remotes or reference other repositories.
-- **The v2 design goes in a new Onshape document named `GripperV2`.** Don't modify the original document "Lead Screw Gripper"; it stays as the rev 6 record.
-  - **Recommended:** make `GripperV2` as a copy of the original. That keeps Assembly 1 and its 19 mates, which attach to the feature's named mate connectors. A blank document would mean rebuilding the Feature Studio, Part Studio and assembly from scratch.
-  - Ask Anurag whether he wants a copy or a blank document, and whether he'll create it himself. You can also create it through Chrome with his OK, after he has logged in.
+- **The v2 design goes in the Onshape document `GripperV2`** (ids in section 3). Don't modify the original document "Lead Screw Gripper"; it stays as the rev 6 record.
+  - `GripperV2` was created on 2026-10-24 as a copy of the original, through Chrome. It keeps Assembly 1 and its 19 mates, which attach to the feature's named mate connectors.
 - **Leave `gripper_fabrication_rev6/` unchanged as the reference.** Do v2 work in a new folder, `gripper_fabrication_rev7/`, starting from a copy of `rev6/source/`.
 
 ### Session rules
@@ -26,6 +25,16 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 
 ### Design language
 Simple and cohesive. Every feature must serve a function. No decorative features and no mixed edge treatments.
+
+### Materials and parts
+- **Printed parts are ABS, not PETG.** Rev 6 assumed PETG everywhere, so rev 7 must update:
+  - the yield in `structural.py` (PETG 45 MPa). Use the chosen ABS filament's datasheet value, roughly 30–35 MPa in-plane, so the plastic-limited safety factors drop by about a quarter. The lowest rev 6 factor (3.6, steel dowel bending) doesn't change;
+  - the density in `export.py` (ABS 1.04 g/cm³ instead of 1.27);
+  - the `(PETG)` labels and print settings in the BOM and the design report;
+  - the M3 tightening torque: 0.2 N·m puts about 20 MPa under a button head, so re-check it against the ABS yield.
+- ABS shrinks and warps more than PETG. Reprint the fit coupons in ABS and retune the fits from them. Print in an enclosure.
+- **Pads are printed TPU 95A** (Anurag's printer handles TPU).
+- **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price.
 
 ---
 
@@ -95,7 +104,12 @@ All lengths in mm, in the CAD frame:
 - https://cad.onshape.com/documents/95059d2be7659a57baadd94c
 - Feature Studio `60047d773e42d7742cd036f6`, Part Studio `c621af76ed54a2221b355024`, Assembly `621a9c0dfd69e86e15b36ea6`.
 - 49 parts. 19 mate features, with one slider (−20.83 mm open … +11.2 mm closed, relative to the 30 mm pose).
-- In `GripperV2`, the document and element ids are different. Read them from `GripperV2` and record them in the v2 notes.
+
+### Onshape `GripperV2` (the v2 document; edit only this one)
+- https://cad.onshape.com/documents/21eb00e5286d05130362fe39 (workspace `68767ad57d3e567f86546d97`)
+- Feature Studio `fde66efd92d58004e5d8d280`, Part Studio `f5d5018b17c7abc84df66214`, Assembly 1 `b8167d0fe4641b107965a991`.
+- Also copied: the assembly "Robot export" `38318d1f8e8ae84b4e65fae0` (24 mate features) and two BOM tabs.
+- Checked at creation: 49 parts, 19 mate features in Assembly 1, and Feature Studio code identical to `rev6/onshape/LeadScrewGripper.fs` (SHA-256 starts `e8dd4f49c0a87082`).
 
 ### ROS 2
 A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, made when that phase starts.
@@ -119,7 +133,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 - **Length:** both sets extend **12 mm forward**, so the face runs from about x 41 to **83** (about 42 mm long instead of about 30).
   - Narrow tip keeps the current nose shape, shifted forward.
   - Wide tip ends **blunt**, about 8 mm thick at the end. A sharp wedge would be too weak.
-- **Contact face:** 2 mm rubber (TPU 95A print or cast silicone; propose one). No serrations.
+- **Contact face:** 2 mm printed TPU 95A, held mechanically (a slide-in dovetail is planned; no glue). No serrations.
 - **Must fix:** with the wide set, the finger body just behind the seam (heel region x 37–41, on the old face line) sits about 10 mm proud of the wide face. Trim it back on both fingers and keep the ≥ 1.18 mm O2-spacer clearance.
 - Add a **"Tip set" (Narrow / Wide)** dialog option to the generated feature. The gap readout should then show the true face-to-face gap for the chosen set.
 - **Checks:** both sets through `check.py` (all poses), the clearance scan, tip-block strength at the seam, and the narrow set at gap 0.
@@ -133,6 +147,10 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 ### D. Controller mount and cabling
 - Raspberry Pi Pico + TMC2209 on the **cover top**: bosses or heat-set inserts, an optional minimal lid, and a cable exit with strain relief. Route the motor cable.
 - **ROS 2 link:** USB serial from the Pico.
+- **Power:** 3S LiPo, about 650 mAh, XT30 plug, through a switch and a ~3 A fuse to the TMC2209 motor supply.
+  - LiPo packs have no protection board. The Pico reads the pack voltage through a divider and disables the driver below about 10.5 V (3.5 V per cell). Charge only with a balance charger.
+  - The Pico runs from USB, and from a small 5 V buck on the pack fed into VSYS through a Schottky diode, so both can be connected at once. Confirm against the "Powering Pico" section of the Pico datasheet.
+  - Battery placement (stand base or cover) is decided in this step.
 
 ### E. Keep fs_gen and GripperV2 stable
 - **Append new SPEC entries at the END** so existing part ids stay stable.
@@ -140,15 +158,22 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 - The carriage must stay an `ext` op.
 - Existing feature instances keep their old dialog values after a code change. Set them, then confirm with Mass properties.
 
+### F. Bench stand (no robot arm for now)
+- A stand that holds the gripper for bench demos and sim-to-real tests.
+- Proposed: mount it through the existing ISO 9409-50-4-M6 adapter face, so the same gripper later bolts to an arm unchanged.
+- Propose jaw orientation, height and footprint to Anurag before designing.
+
 ---
 
-## 5. Open items: ask Anurag before designing
+## 5. Decisions (answered 2026-10-24)
 
-1. **Onshape `GripperV2`:** confirm whether it's a copy of the original (recommended) or a blank document, and who creates it.
-2. **Power:** a 3S Li-ion pack (BMS, XT30, ~3 A fuse, switch, Pico voltage monitor) was chosen earlier. Later, a 12 V adapter was proposed instead, because USB is tethered anyway. **Not confirmed.**
-3. **Load cell:** proposed to **drop**, since force sensing isn't a goal. Not confirmed.
-4. **Pad material:** TPU print or cast silicone.
-5. **Real robot arm:** whether he has access to one (decides arm demo vs. bench stand).
+1. **Onshape `GripperV2`:** a copy of the original, created through Chrome. Done; ids in section 3.
+2. **Power:** a small, light battery: 3S LiPo (~650 mAh, XT30), plus a balance charger, since Anurag doesn't have one. The 12 V adapter idea is dropped. Details in 4D.
+3. **Load cell:** dropped.
+4. **Pad material:** printed TPU 95A, held mechanically. Final shape in step B.
+5. **Robot arm:** none for now. Plan for a bench stand (4F).
+6. **Print material:** ABS, not PETG (see "Materials and parts" in section 0).
+7. **Parts sourcing:** Amazon US, choosing items that deliver quickly.
 
 ---
 
@@ -177,16 +202,18 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 
 **Steps (check in after each):**
 1. Copy `rev6/source/` → `rev7/source/` and confirm the pipeline reproduces rev 6 results unchanged.
-2. **B:** tip blocks + pads, both sets → checks + renders → show Anurag.
-3. **C:** encoder pocket and magnet cap.
-4. **D:** controller mount and cable exits.
-5. **A:** Tr8x8 constants, re-run analysis and structural checks, update the docs.
-6. Onshape `GripperV2`: Feature Studio, Part Studio and assembly checks.
-7. Later, and only where Anurag says: ROS 2 for v2 (joint limits and tip-set offsets, export from `GripperV2`).
+2. **ABS:** switch the material constants to ABS, re-run the structural and fastener checks, and update the print notes. Anurag prints the fit coupons in ABS; retune the fits from his results.
+3. **B:** tip blocks + TPU pads, both sets → checks + renders → show Anurag.
+4. **C:** encoder pocket and magnet cap.
+5. **D:** controller mount, battery wiring and cable exits.
+6. **F:** bench stand.
+7. **A:** Tr8x8 constants, re-run analysis and structural checks, update the docs.
+8. Onshape `GripperV2`: Feature Studio, Part Studio and assembly checks.
+9. Later, and only where Anurag says: ROS 2 for v2 (joint limits and tip-set offsets, export from `GripperV2`).
 
 ---
 
-## 7. Planned purchased parts (approximate)
+## 7. Planned purchased parts (approximate, Amazon US)
 
 | Item | ~Cost |
 |---|---|
@@ -194,5 +221,8 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 | TMC2209 + Raspberry Pi Pico | $12 |
 | AS5600 board + 6×2.5 mm diametric magnet | $5 |
 | M3 heat-set inserts + screws | $5 |
-| TPU filament or silicone for pads | $5 |
-| 12 V supply (or 3S pack + BMS, XT30, fuse, switch, if battery is confirmed) | $15–30 |
+| TPU 95A filament for pads (1 spool) | $20 |
+| 3S LiPo, ~650 mAh, XT30 | $15–20 |
+| LiPo balance charger | $25–35 |
+| Switch, ~3 A fuse, XT30 pigtail, 5 V buck, Schottky diode | $10 |
+| Bench stand hardware | TBD in step 6 |

@@ -1,4 +1,4 @@
-"""Fit-test coupons (rev 6): print these first, in PETG with the same settings as the real parts.
+"""Fit-test coupons (rev 6): print these first, in the real parts' material (design.MAT; ABS since rev 7) with the same printer and settings.
 They copy the real fits: pivot bores, the crank/finger layer stack, the 608 cradle with the thrust collar, and the carriage tongue/channel."""
 import cadquery as cq, numpy as np, json, os
 import design as D
@@ -51,7 +51,7 @@ bb = plate.BoundingBox()
 # add/refresh the coupons entry in ../print_parts.json (export.py keeps it when it rewrites the file)
 pp = '../print_parts.json'
 PP = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] != '13_FitTest_coupons.stl']
-PP.append(dict(file='13_FitTest_coupons.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), mass_g_solid_PETG=round(plate.Volume()/1000*1.27, 1),
+PP.append(dict(file='13_FitTest_coupons.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(plate.Volume()/1000*D.MAT_RHO, 1),
                bbox_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)], orientation='flat',
                note='print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper'))
 json.dump(sorted(PP, key=lambda e: e['file']), open(pp, 'w'), indent=1)

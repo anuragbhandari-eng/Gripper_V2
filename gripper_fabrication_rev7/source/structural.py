@@ -5,7 +5,7 @@ R = json.load(open('results.json')); P = R['params']
 t_low, t_mid, t_up = D.Z_B1 - D.Z_B0, D.Z_M1 - D.Z_M0, D.Z_U1 - D.Z_U0   # printed layer thicknesses (mm)
 t_spacer = D.Z_U0 - D.Z_B1
 op, lim = R['pin_loads_envelope_op'], R['pin_loads_envelope_limit200']
-PETG = dict(sy=45.0, allow=22.5)      # MPa, printed in-plane (along rasters); allowable = sy/2
+PR = dict(sy=D.MAT_SY, allow=D.MAT_SY/2, allow_z=D.MAT_SZ/2)   # MPa, printed: in-plane (along rasters) and across layers; allowable = strength/2
 d = 4.0
 rows = []
 # motor / driver
@@ -31,30 +31,30 @@ span = zB - zA; RA = (zB - zP)/span; RB = (zP - zA)/span     # reaction shares b
 M_dow = lim['O2']*(zP - zA)*(zB - zP)/span
 add('Dowel Ø4 bending, simply supported base↔cover', lim['O2'], 32*M_dow/(np.pi*d**3), 600, 'hardened ISO 8734, yield >1200 MPa; cover hole close fit Ø4.0')
 # bearing stress on printed bores
-add('Finger bore at F2 on shoulder (%.1f mm)' % t_mid, lim['F2'], lim['F2']/(d*t_mid), PETG['allow'], 'PETG bearing')
-add('Finger bore at F1 (%.1f mm)' % t_mid, lim['F1'], lim['F1']/(d*t_mid), PETG['allow'], '')
-add('FrontCrank bores at O2 (%.1f+%.1f plates + %.1f spacer)' % (t_low, t_up, t_spacer), lim['O2'], lim['O2']/(d*(t_low + t_up + t_spacer)), PETG['allow'], '')
-add('Base dowel press hole (%.0f%% share, 6 mm)' % (100*RA), lim['O2'], RA*lim['O2']/(d*6.0), PETG['allow'], 'beam reaction')
-add('Cover dowel hole (%.0f%% share, 3.9 mm)' % (100*RB), lim['O2'], RB*lim['O2']/(d*3.9), PETG['allow'], 'beam reaction; needs the close fit')
-add('ConRod bores (%.1f mm)' % t_mid, lim['rod'], lim['rod']/(d*t_mid), PETG['allow'], '')
-add('Carriage ears at C (%.1f + %.1f mm)' % (D.Z_B1, t_up), lim['C'], lim['C']/(d*(D.Z_B1 + t_up)), PETG['allow'], '')
+add('Finger bore at F2 on shoulder (%.1f mm)' % t_mid, lim['F2'], lim['F2']/(d*t_mid), PR['allow'], D.MAT + ' bearing')
+add('Finger bore at F1 (%.1f mm)' % t_mid, lim['F1'], lim['F1']/(d*t_mid), PR['allow'], '')
+add('FrontCrank bores at O2 (%.1f+%.1f plates + %.1f spacer)' % (t_low, t_up, t_spacer), lim['O2'], lim['O2']/(d*(t_low + t_up + t_spacer)), PR['allow'], '')
+add('Base dowel press hole (%.0f%% share, 6 mm)' % (100*RA), lim['O2'], RA*lim['O2']/(d*6.0), PR['allow'], 'beam reaction')
+add('Cover dowel hole (%.0f%% share, 3.9 mm)' % (100*RB), lim['O2'], RB*lim['O2']/(d*3.9), PR['allow'], 'beam reaction; needs the close fit')
+add('ConRod bores (%.1f mm)' % t_mid, lim['rod'], lim['rod']/(d*t_mid), PR['allow'], '')
+add('Carriage ears at C (%.1f + %.1f mm)' % (D.Z_B1, t_up), lim['C'], lim['C']/(d*(D.Z_B1 + t_up)), PR['allow'], '')
 # tear-out ligaments: boss R5.5, hole R2.1 -> 3.4 mm ligaments, double
-add('Finger boss tear-out at F2', lim['F2'], lim['F2']/(2*3.4*t_mid), PETG['allow']*0.6, 'shear allowable 0.6σ')
+add('Finger boss tear-out at F2', lim['F2'], lim['F2']/(2*3.4*t_mid), PR['allow']*0.6, 'shear allowable 0.6σ')
 # two-force members (axial)
-add('FrontCrank (two-force) net section', lim['F2'], lim['F2']/((11-4.2)*(t_low + t_up)), PETG['allow'], 'axial only')
-add('ConRod (two-force) net section', lim['rod'], lim['rod']/((10-4.2)*t_mid), PETG['allow'], 'axial only')
+add('FrontCrank (two-force) net section', lim['F2'], lim['F2']/((11-4.2)*(t_low + t_up)), PR['allow'], 'axial only')
+add('ConRod (two-force) net section', lim['rod'], lim['rod']/((10-4.2)*t_mid), PR['allow'], 'axial only')
 # bell crank bending (3-force member): section 11 mm from O1, width 18.2, plates 6+4
 Z = (t_low*18.2**2/6) + (t_up*18.2**2/6)
-add('BellCrank bending near O1 (two plates)', lim['F1'], lim['F1']*(28-11)/Z, PETG['allow'], 'conservative: full F1 ⟂ arm')
+add('BellCrank bending near O1 (two plates)', lim['F1'], lim['F1']*(28-11)/Z, PR['allow'], 'conservative: full F1 ⟂ arm')
 # finger jaw: grip at max MA with 200 N screw force
 Fg_max = 200*R['MA']['max']
-add('Finger jaw root (in-plane, 25 mm deep x %.1f)' % t_mid, Fg_max, Fg_max*30/(t_mid*25**2/6), PETG['allow'], 'cantilever 30 mm to contact')
-add('Jaw extension root (z=14.1 layer plane)', Fg_max*0.6, Fg_max*0.6*6/(33*25**2/6), 10.0, 'interlayer, allow 10 MPa')
+add('Finger jaw root (in-plane, 25 mm deep x %.1f)' % t_mid, Fg_max, Fg_max*30/(t_mid*25**2/6), PR['allow'], 'cantilever 30 mm to contact')
+add('Jaw extension root (z=14.1 layer plane)', Fg_max*0.6, Fg_max*0.6*6/(33*25**2/6), PR['allow_z'], 'interlayer, allow %.0f MPa' % PR['allow_z'])
 # thrust path (rev 6): grip thrust goes screw -> collar -> 608 inner ring -> balls -> outer ring -> block front lip
 Fs_lim = 200.0
 r_or = 8.5                                        # 608 outer-ring face inner radius (approx.)
-add('Block front lip bearing on 608 outer ring', Fs_lim, Fs_lim/(np.pi*(11.0**2 - r_or**2)), PETG['allow'], 'PETG bearing, grip thrust')
-add('Block front lip shear-out (%.0f mm wall)' % (D.X_BLK1 - D.X_BRG1), Fs_lim, Fs_lim/(np.pi*22.0*(D.X_BLK1 - D.X_BRG1)), PETG['allow']*0.6, 'shear allowable 0.6σ')
+add('Block front lip bearing on 608 outer ring', Fs_lim, Fs_lim/(np.pi*(11.0**2 - r_or**2)), PR['allow'], D.MAT + ' bearing, grip thrust')
+add('Block front lip shear-out (%.0f mm wall)' % (D.X_BLK1 - D.X_BRG1), Fs_lim, Fs_lim/(np.pi*22.0*(D.X_BLK1 - D.X_BRG1)), PR['allow']*0.6, 'shear allowable 0.6σ')
 C0_608 = 1370.0                                   # N, 608 static load rating (radial); axial static taken as 0.5*C0
 thrust = dict(load_N=Fs_lim, bearing608_axial_static_capacity_N=0.5*C0_608, ratio=round(0.5*C0_608/Fs_lim, 1),
               note='collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly')

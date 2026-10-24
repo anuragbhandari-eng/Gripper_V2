@@ -4,16 +4,16 @@ import design as D, check as C, cadquery as cq
 R = json.load(open('results.json')); S = json.load(open('results_struct.json'))
 Fs_stall = S['driver']['Fs_range_at_set_N'][1]            # N, clamp/stall force at the set current
 lim = R['pin_loads_envelope_limit200']
-PETG_y, PETG_tau = 45.0, 0.58*45.0                          # MPa (printed, in-plane)
+PR_y, PR_tau = D.MAT_SY, 0.58*D.MAT_SY                      # MPa (printed, in-plane)
 STEEL_tau = 0.58*640.0                                      # 8.8 class shear yield
 As_M3 = 5.03                                                # mm^2, M3 stress area (fully threaded button heads)
 A_head = np.pi/4*(D.BH_DK**2 - 3.4**2)                      # under-head bearing annulus on a D3.4 hole
 # ---- mass & centre of gravity of everything that hangs on the 4 adapter side screws (gap 30) ----
-rho = {'PETG': 1.27e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (PETG taken solid = conservative)
+rho = {D.MAT: D.MAT_RHO*1e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (printed parts taken solid = conservative)
 def mat(n):
     if n.startswith(('T8_Nut',)): return 'BRASS'
     if n.startswith(('Dowel', 'SS_', 'BH', 'LeadScrew', 'Bearing608')): return 'STEEL'
-    return 'PETG'
+    return D.MAT
 th = np.arcsin(30/(2*D.L) + np.sin(D.TH_C))
 m_tot = 0.0; mx = 0.0
 for n, (ops, M) in D.pose(th).items():
@@ -37,15 +37,15 @@ rows = []
 def add(item, load, stress, allow_yield, note):
     rows.append(dict(item=item, load_N=round(load, 1), stress_MPa=round(stress, 2), SF_yield=round(allow_yield/stress, 1), note=note))
 add('Side screw M3x8, shank shear (mount, x2 dynamic)', F_side, F_side/As_M3, STEEL_tau, '8.8 steel; ignores clamp friction')
-add('Side wall hole bearing, 3.8 mm wall (mount)', F_side, F_side/(3.0*3.8), PETG_y, 'base/cover side wall')
-add('Adapter insert bearing in PETG (mount)', F_side, F_side/(4.6*5.7), PETG_y, 'insert OD 4.6 x 5.7 mm')
+add('Side wall hole bearing, 3.8 mm wall (mount)', F_side, F_side/(3.0*3.8), PR_y, 'base/cover side wall')
+add('Adapter insert bearing in %s (mount)' % D.MAT, F_side, F_side/(4.6*5.7), PR_y, 'insert OD 4.6 x 5.7 mm')
 F_mot = Fs_stall/4
-add('Motor screw head on PETG (open-stop stall, tension)', F_mot, F_mot/A_head, PETG_y, '4 screws share the stall force')
+add('Motor screw head on %s (open-stop stall, tension)' % D.MAT, F_mot, F_mot/A_head, PR_y, '4 screws share the stall force')
 F_nut = Fs_stall/2
-add('Nut screw pull-out, self-tapped 4.4 mm (open-stop stall)', F_nut, F_nut/(np.pi*2.5*4.4), PETG_tau, 'shear at the D2.5 pilot wall')
+add('Nut screw pull-out, self-tapped 4.4 mm (open-stop stall)', F_nut, F_nut/(np.pi*2.5*4.4), PR_tau, 'shear at the D2.5 pilot wall')
 add('Nut screw head on brass flange', F_nut, F_nut/A_head, 200.0, 'CuZn yield ~200 MPa')
 F_cov = 4*0.45*lim['O2']/6
-add('Cover screw bearing in cover (200 N limit case)', F_cov, F_cov/(3.0*(D.Z_C1 - 3.2 - D.Z_C0)), PETG_y, 'all four dowel reactions on 6 screws')
+add('Cover screw bearing in cover (200 N limit case)', F_cov, F_cov/(3.0*(D.Z_C1 - 3.2 - D.Z_C0)), PR_y, 'all four dowel reactions on 6 screws')
 # ---- engagement table (mm) ----
 seat_cov = D.Z_C1 - 3.2; seat_side = D.Y_RAIL1 - 3.2
 def row(screw, L, clamp, hole_bottom_gap, into):

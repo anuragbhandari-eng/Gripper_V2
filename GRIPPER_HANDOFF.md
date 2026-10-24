@@ -27,12 +27,12 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 Simple and cohesive. Every feature must serve a function. No decorative features and no mixed edge treatments.
 
 ### Materials and parts
-- **Printed parts are ABS, not PETG.** Rev 6 assumed PETG everywhere, so rev 7 must update:
-  - the yield in `structural.py` (PETG 45 MPa). Use the chosen ABS filament's datasheet value, roughly 30–35 MPa in-plane, so the plastic-limited safety factors drop by about a quarter. The lowest rev 6 factor (3.6, steel dowel bending) doesn't change;
-  - the density in `export.py` (ABS 1.04 g/cm³ instead of 1.27);
-  - the `(PETG)` labels and print settings in the BOM and the design report;
-  - the M3 tightening torque: 0.2 N·m puts about 20 MPa under a button head, so re-check it against the ABS yield.
-- ABS shrinks and warps more than PETG. Reprint the fit coupons in ABS and retune the fits from them. Print in an enclosure.
+- **Printed parts are ABS, not PETG** (done in step 2). The material lives in one place, `design.py` (`MAT`, `MAT_SY`, `MAT_SZ`, `MAT_RHO`), and every script reads it from there.
+  - Parts are printed at Anurag's university fablab; the spool brand isn't known. So the values are conservative generic ABS: 30 MPa in-plane yield (low end of 30–40), 12 MPa across layers, 1.04 g/cm³.
+  - Result vs rev 6: plastic safety factors drop by a third. Structural min SF 3.6 → **2.9** (finger bore at F2 and finger jaw root; now the plastic governs, not the dowel). Fasteners min SF 4.3 → **3.0** (side-wall hole bearing). Gripper mass 763 → 695 g.
+  - M3 tightening limit lowered from 0.2 to **0.15 N·m**, so the stress under a button head keeps SF ≈ 2.
+  - The generated `.fs` now sets ABS and 1.04 g/cm³ on the printed parts; `GripperV2` needs that update in step 8.
+- ABS shrinks and warps more than PETG. Reprint the fit coupons in ABS on the fablab printer and retune the fits from them. Print in an enclosure, part-cooling fan low or off, brim on the base and cover.
 - **Pads are printed TPU 95A** (Anurag's printer handles TPU).
 - **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price.
 

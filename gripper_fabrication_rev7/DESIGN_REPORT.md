@@ -11,11 +11,11 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Carriage stroke | 32.0 mm = 16.0 screw turns (Tr8×2) |
 | Grip force per jaw | ≥ 33.1 N anywhere in range at 0.45 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×2 self-locking (lead angle 5.2°): holds the payload with power off |
-| Structure | Min safety factor 3.6 vs yield at a 200 N screw-force limit case (the motor clamps at 96–175 N at 0.45 A) |
+| Structure | Min safety factor 2.9 vs yield at a 200 N screw-force limit case (the motor clamps at 96–175 N at 0.45 A) |
 | Motion check | 0 collisions over 41 poses (all 49 parts, including the 16 modelled screws); only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
-| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF 4.3 under mount, stall and limit loads; tighten ≤ 0.2 N·m |
-| Printed volume | 333 cm³ PETG (~233 g at typical infill) + motor ~280 g |
+| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF 3.0 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
+| Printed volume | 333 cm³ ABS (~191 g at typical infill) + motor ~280 g |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 2. Mechanism and dimensions
@@ -74,21 +74,21 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 1600 steps/mm at 
 |---|---|---|---|---|
 | Shoulder screw Ø4 double shear (12.9 steel) | 309.3 | 12.31 | 10.75 | 81.3 |
 | Dowel Ø4 bending, simply supported base↔cover | 309.3 | 329.91 | 288.08 | 3.6 |
-| Finger bore at F2 on shoulder (7.6 mm) | 309.3 | 10.17 | 8.88 | 4.4 |
-| Finger bore at F1 (7.6 mm) | 192.4 | 6.33 | 5.53 | 7.1 |
-| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 309.3 | 4.32 | 3.77 | 10.4 |
-| Base dowel press hole (55% share, 6 mm) | 309.3 | 7.05 | 6.16 | 6.4 |
-| Cover dowel hole (45% share, 3.9 mm) | 309.3 | 8.98 | 7.84 | 5.0 |
-| ConRod bores (7.6 mm) | 156.4 | 5.14 | 4.49 | 8.7 |
-| Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 3.38 | 11.6 |
-| Finger boss tear-out at F2 | 309.3 | 5.98 | 5.23 | 4.5 |
-| FrontCrank (two-force) net section | 309.3 | 4.64 | 4.05 | 9.7 |
-| ConRod (two-force) net section | 156.4 | 3.55 | 3.1 | 12.7 |
-| BellCrank bending near O1 (two plates) | 192.4 | 6.04 | 5.28 | 7.4 |
-| Finger jaw root (in-plane, 25 mm deep x 7.6) | 273.0 | 10.34 | 9.03 | 4.4 |
-| Jaw extension root (z=14.1 layer plane) | 163.8 | 0.29 | 0.25 | 70.0 |
-| Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 1.14 | 34.5 |
-| Block front lip shear-out (8 mm wall) | 200.0 | 0.36 | 0.32 | 74.6 |
+| Finger bore at F2 on shoulder (7.6 mm) | 309.3 | 10.17 | 8.88 | 2.9 |
+| Finger bore at F1 (7.6 mm) | 192.4 | 6.33 | 5.53 | 4.7 |
+| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 309.3 | 4.32 | 3.77 | 6.9 |
+| Base dowel press hole (55% share, 6 mm) | 309.3 | 7.05 | 6.16 | 4.3 |
+| Cover dowel hole (45% share, 3.9 mm) | 309.3 | 8.98 | 7.84 | 3.3 |
+| ConRod bores (7.6 mm) | 156.4 | 5.14 | 4.49 | 5.8 |
+| Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 3.38 | 7.8 |
+| Finger boss tear-out at F2 | 309.3 | 5.98 | 5.23 | 3.0 |
+| FrontCrank (two-force) net section | 309.3 | 4.64 | 4.05 | 6.5 |
+| ConRod (two-force) net section | 156.4 | 3.55 | 3.1 | 8.5 |
+| BellCrank bending near O1 (two plates) | 192.4 | 6.04 | 5.28 | 5.0 |
+| Finger jaw root (in-plane, 25 mm deep x 7.6) | 273.0 | 10.34 | 9.03 | 2.9 |
+| Jaw extension root (z=14.1 layer plane) | 163.8 | 0.29 | 0.25 | 42.0 |
+| Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 1.14 | 23.0 |
+| Block front lip shear-out (8 mm wall) | 200.0 | 0.36 | 0.32 | 49.8 |
 
 **Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor's own bearing no longer takes the full reaction. Limit case 200 N vs ≈ 685 N 608 static axial capacity. Collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly.
 
@@ -96,22 +96,22 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 1600 steps/mm at 
 The dowel is modelled as a beam on two supports: the 6 mm press socket in the base and the 3.9 mm close-fit hole in the cover. The cover hole must be reamed to Ø4.0 so it carries its share; with a loose cover hole the base socket would see the full bending moment.
 
 
-PETG printed in-plane yield taken as 45 MPa. All link loads are in the print plane (along the rasters). Interlayer stress appears only at the jaw-block root (≈0.3 MPa).
+ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spool brand is not fixed) and 12 MPa across layers. All link loads are in the print plane (along the rasters). Interlayer stress appears only at the jaw-block root (≈0.3 MPa).
 
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 763 g (printed parts taken as solid, conservative), CG at x = -27 mm; payload at x = 82.5 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.85 N·m (×2 dynamic).
+Gripper mass 695 g (printed parts taken as solid, conservative), CG at x = -29 mm; payload at x = 82.5 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.72 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 120.2 | 23.91 | 15.5 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 120.2 | 10.55 | 4.3 | base/cover side wall |
-| Adapter insert bearing in PETG (mount) | 120.2 | 4.59 | 9.8 | insert OD 4.6 x 5.7 mm |
-| Motor screw head on PETG (open-stop stall, tension) | 43.6 | 2.66 | 16.9 | 4 screws share the stall force |
-| Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 87.3 | 2.53 | 10.3 | shear at the D2.5 pilot wall |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 114.8 | 22.81 | 16.3 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 114.8 | 10.07 | 3.0 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 114.8 | 4.38 | 6.9 | insert OD 4.6 x 5.7 mm |
+| Motor screw head on ABS (open-stop stall, tension) | 43.6 | 2.66 | 11.3 | 4 screws share the stall force |
+| Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 87.3 | 2.53 | 6.9 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 87.3 | 5.31 | 37.7 | CuZn yield ~200 MPa |
-| Cover screw bearing in cover (200 N limit case) | 92.8 | 7.36 | 6.1 | all four dowel reactions on 6 screws |
+| Cover screw bearing in cover (200 N limit case) | 92.8 | 7.36 | 4.1 | all four dowel reactions on 6 screws |
 
 | Screw | Clamp mm | Thread engaged mm | Tip to hole bottom mm | Into |
 |---|---|---|---|---|
@@ -121,7 +121,7 @@ Gripper mass 763 g (printed parts taken as solid, conservative), CG at x = -27 m
 | Side wall to adapter M3x8 | 4.0 | 4.0 | 2.5 | insert 5.7 (hole 6.5) |
 | Nut flange M3x8 | 3.6 | 4.4 | 2.6 | self-tapped D2.5 pilot, 7 deep |
 
-**Tightening:** a button head bears on 16.4 mm² of PETG. At 0.2 N·m an M3 makes about 330 N of clamp, about 20 MPa under the head (PETG yields near 45 MPa). Tighten every M3 to **0.2 N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.
+**Tightening:** a button head bears on 16.4 mm² of ABS. At 0.15 N·m an M3 makes about 250 N of clamp, about 15 MPa under the head (ABS taken as 30 MPa, so SF ≈ 2.0). Tighten every M3 to **0.15 N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.
 
 ## 6. Motion, clearance and printability checks
 
@@ -144,10 +144,10 @@ Gripper mass 763 g (printed parts taken as solid, conservative), CG at x = -27 m
 | 11_Finger_A.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: jaw block up |
 | 12_Finger_B_mirrored.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: mirror of 11 |
 
-**Print 13_FitTest_coupons.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
+**Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
 
-Print settings: PETG, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.
+Print settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.
 
 ## 7. Onshape
 
@@ -207,17 +207,17 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 9. Bolt the adapter to the robot flange first (4× M6×12). Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.
 10. Driver: 0.45 A RMS, 1/16 µstep. Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm. In use, cap the commanded opening at 60 mm so the carriage never hits the stop at speed. Calibrate grip once with a kitchen scale between the jaws.
 
-Tighten every M3 to 0.2 N·m or less (snug with the short arm of the key). More crushes the PETG under the head.
+Tighten every M3 to 0.15 N·m or less (snug with the short arm of the key). More crushes the ABS under the head.
 
 ## 9. Assumptions, limits, verify before buying
 
 - Rigid links, quasi-static, equal load sharing between the two sides, Coulomb friction in the screw only (pivot friction lowers grip a few %; the current setting has margin).
 - Verify on receipt: motor body ≤ 40 mm (the adapter sits 1 mm behind it), pilot Ø22×2, M3 holes on 31 mm square; nut flange Ø22×3.5 and body Ø10.2 (edit NUT_* in design.py if different); shoulder-screw head ≤ Ø7.5×3.5 and thread ≤ 6 mm.
 - Robot flange: I assumed a Ø31.5 H7 centring recess (spigot 31.44 × 3 mm) and the Ø6 pin on the PCD at +Z, between bolts. Check your robot drawing.
-- μ = 0.35 is conservative for serrated PETG. A thin TPU or rubber pad on the jaw face roughly doubles the slip margin.
-- PETG creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF/ASA.
+- μ = 0.35 is conservative for printed serrations. A thin TPU or rubber pad on the jaw face roughly doubles the slip margin.
+- ABS creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF.
 - Motor connector: the adapter sits 1 mm behind the motor, so the cable must leave from a side face. Mount the motor with the connector facing up, through the cover's U-slot.
-- M6×12 puts 6 mm of thread into the robot flange. Check your flange's thread depth, and use a washer or modest torque on the PETG.
+- M6×12 puts 6 mm of thread into the robot flange. Check your flange's thread depth, and use a washer or modest torque on the ABS.
 - Thrust: the collar and the motor's internal bearing share the screw load in a way that depends on how the collar is set. Check the motor datasheet's axial load rating anyway, and don't preload the collar.
 - The jaws also move fore-aft: 16.5 mm in total over the stroke. They are furthest forward near a 15 mm gap and furthest back fully open (15.4 mm behind the closed position). That is inherent to this linkage; teach grasp poses at the gap you'll use.
 - Not modelled: wiring, a limit switch (sensorless homing assumed), cable strain relief.

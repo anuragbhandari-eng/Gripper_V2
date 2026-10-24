@@ -13,7 +13,7 @@ GAP_OPEN = 66.0                                    # open hard stop: 66 mm (60 m
 TH_O = brentq(lambda t: 2*face_y(P, t) - GAP_OPEN, 0, D2R(80))
 # ---- requirements ----
 m, g = 0.5, 9.81; W = m*g
-mu_jaw = 0.35          # printed PETG serrations on typical plastic/metal (conservative; TPU pad ~0.7+)
+mu_jaw = 0.35          # printed serrations on typical plastic/metal (conservative; TPU pad ~0.7+)
 dyn = 2.0              # load factor for robot accel up to 1 g
 SF_slip = 1.5
 Fg_req = W*dyn*SF_slip/(2*mu_jaw)                  # per jaw

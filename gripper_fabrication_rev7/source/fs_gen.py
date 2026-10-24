@@ -18,18 +18,17 @@ def enc_op(op, pr):
         return '[%s,"box",[%s],[%s]]' % (a, ','.join(map(f, pr[1])), ','.join(map(f, pr[2])))
 def enc_ops(ops): return '[\n        ' + ',\n        '.join(enc_op(o, p) for o, p in ops) + ']'
 
-PETG = '[0.30,0.50,0.85]'
 SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
-    ('Base', D.base(), 'ground', False, '[0.24,0.26,0.29]', 'PETG', False),
-    ('Cover', D.cover(), 'ground', False, '[0.29,0.32,0.35]', 'PETG', False),
-    ('Adapter ISO9409-50', D.adapter(), 'ground', False, '[0.18,0.20,0.23]', 'PETG', False),
-    ('Carriage', D.carriage(), 'car', False, '[0.55,0.58,0.61]', 'PETG', False),
-    ('BellCrank Lower', D.bc_plate(True), 'bc', True, '[0.79,0.80,0.82]', 'PETG', False),
-    ('BellCrank Upper', D.bc_plate(False), 'bc', True, '[0.79,0.80,0.82]', 'PETG', False),
-    ('FrontCrank Lower', D.fc_plate(True), 'fc', True, '[0.79,0.80,0.82]', 'PETG', False),
-    ('FrontCrank Upper', D.fc_plate(False), 'fc', True, '[0.79,0.80,0.82]', 'PETG', False),
-    ('ConRod', D.conrod(), 'rod', True, '[0.71,0.73,0.75]', 'PETG', False),
-    ('Finger', D.finger(), 'finger', True, '[0.91,0.45,0.16]', 'PETG', False),
+    ('Base', D.base(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
+    ('Cover', D.cover(), 'ground', False, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Adapter ISO9409-50', D.adapter(), 'ground', False, '[0.18,0.20,0.23]', D.MAT, False),
+    ('Carriage', D.carriage(), 'car', False, '[0.55,0.58,0.61]', D.MAT, False),
+    ('BellCrank Lower', D.bc_plate(True), 'bc', True, '[0.79,0.80,0.82]', D.MAT, False),
+    ('BellCrank Upper', D.bc_plate(False), 'bc', True, '[0.79,0.80,0.82]', D.MAT, False),
+    ('FrontCrank Lower', D.fc_plate(True), 'fc', True, '[0.79,0.80,0.82]', D.MAT, False),
+    ('FrontCrank Upper', D.fc_plate(False), 'fc', True, '[0.79,0.80,0.82]', D.MAT, False),
+    ('ConRod', D.conrod(), 'rod', True, '[0.71,0.73,0.75]', D.MAT, False),
+    ('Finger', D.finger(), 'finger', True, '[0.91,0.45,0.16]', D.MAT, False),
     ('NEMA17 linear stepper 40mm', D.motor(), 'ground', False, '[0.13,0.14,0.15]', 'STEEL', True),
     ('Tr8x2 lead screw (cut %.1fmm)' % D.SCREW_LEN, D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
     ('Tr8 brass flange nut', D.nut(), 'car', False, '[0.79,0.64,0.29]', 'BRASS', True),
@@ -49,7 +48,7 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     for nm, seat, ax, ln, frame in D.FASTENERS] + [  # rev 6: thrust collar, appended so existing part ids stay put
     ('Lock collar 8x14x7 (thrust)', D.collar(), 'ground', False, '[0.70,0.72,0.75]', 'STEEL', True)]
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
-              THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX)
+              THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO)
 
 mcs = []
 for s, sfx in ((1, ' U'), (-1, ' L')):
@@ -138,7 +137,7 @@ function dressPart(context is Context, q is Query, name is string, p is map)
 {
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.NAME, "value" : name });
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.APPEARANCE, "value" : color(p.color[0], p.color[1], p.color[2]) });
-    var dens = 1.27;
+    var dens = %(RHO)s;
     if (p.mat == "STEEL")
         dens = 7.85;
     if (p.mat == "BRASS")

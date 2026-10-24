@@ -1,43 +1,43 @@
 {
- "mass_g": 763.0,
- "x_cg_mm": -26.6,
+ "mass_g": 695.0,
+ "x_cg_mm": -29.0,
  "x_payload_mm": 82.5,
  "x_mount_mm": -98.5,
- "M_pitch_Nm": 2.85,
+ "M_pitch_Nm": 2.72,
  "rows": [
   {
    "item": "Side screw M3x8, shank shear (mount, x2 dynamic)",
-   "load_N": 120.2,
-   "stress_MPa": 23.91,
-   "SF_yield": 15.5,
+   "load_N": 114.8,
+   "stress_MPa": 22.81,
+   "SF_yield": 16.3,
    "note": "8.8 steel; ignores clamp friction"
   },
   {
    "item": "Side wall hole bearing, 3.8 mm wall (mount)",
-   "load_N": 120.2,
-   "stress_MPa": 10.55,
-   "SF_yield": 4.3,
+   "load_N": 114.8,
+   "stress_MPa": 10.07,
+   "SF_yield": 3.0,
    "note": "base/cover side wall"
   },
   {
-   "item": "Adapter insert bearing in PETG (mount)",
-   "load_N": 120.2,
-   "stress_MPa": 4.59,
-   "SF_yield": 9.8,
+   "item": "Adapter insert bearing in ABS (mount)",
+   "load_N": 114.8,
+   "stress_MPa": 4.38,
+   "SF_yield": 6.9,
    "note": "insert OD 4.6 x 5.7 mm"
   },
   {
-   "item": "Motor screw head on PETG (open-stop stall, tension)",
+   "item": "Motor screw head on ABS (open-stop stall, tension)",
    "load_N": 43.6,
    "stress_MPa": 2.66,
-   "SF_yield": 16.9,
+   "SF_yield": 11.3,
    "note": "4 screws share the stall force"
   },
   {
    "item": "Nut screw pull-out, self-tapped 4.4 mm (open-stop stall)",
    "load_N": 87.3,
    "stress_MPa": 2.53,
-   "SF_yield": 10.3,
+   "SF_yield": 6.9,
    "note": "shear at the D2.5 pilot wall"
   },
   {
@@ -51,7 +51,7 @@
    "item": "Cover screw bearing in cover (200 N limit case)",
    "load_N": 92.8,
    "stress_MPa": 7.36,
-   "SF_yield": 6.1,
+   "SF_yield": 4.1,
    "note": "all four dowel reactions on 6 screws"
   }
  ],
@@ -92,6 +92,6 @@
    "into": "self-tapped D2.5 pilot, 7 deep"
   }
  ],
- "min_SF": 4.3,
+ "min_SF": 3.0,
  "head_bearing_area_mm2": 16.4
 }

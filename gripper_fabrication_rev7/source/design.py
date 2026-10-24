@@ -32,6 +32,11 @@ R_M3 = 1.7      # Ø3.4 clearance
 R_BOSS = 5.5    # link end boss
 R_SPACER = 5.0  # crank spacer boss in M layer
 SH_HEAD_R, SH_HEAD_H = 3.5, 3.0   # shoulder screw head Ø7 x 3
+# ---------- printed-part material (rev 7: ABS; rev 6 was PETG, 45 MPa, 1.27 g/cm3) ----------
+MAT = 'ABS'
+MAT_SY = 30.0     # MPa, printed in-plane yield: low end of generic FDM ABS (30-40 MPa); fablab spool, brand unknown
+MAT_SZ = 12.0     # MPa, across layers: 0.4 x in-plane, conservative (rev 6 used 20 for PETG)
+MAT_RHO = 1.04    # g/cm3
 
 # ---------- X layout ----------
 CAR_X0, CAR_X1 = -14.0, 12.0     # carriage body relative to pin C

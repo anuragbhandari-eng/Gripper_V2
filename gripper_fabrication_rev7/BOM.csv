@@ -1,17 +1,17 @@
 ID,Item,Qty,Note
-PRINT,01_Base (PETG),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 106.84 cm3"
-PRINT,02_Cover (PETG),1,flat top face on bed; orientation flip_x; 91.62 cm3
-PRINT,03_Adapter_ISO9409-50-4-M6 (PETG),1,"gripper-side face on bed, spigot up; orientation front_down; 37.95 cm3"
-PRINT,04_Carriage (PETG),1,"rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots; orientation rear_down; 20.16 cm3"
-PRINT,05_BellCrank_Lower_A (PETG),1,spacer boss up; orientation flat; 5.52 cm3
-PRINT,06_BellCrank_Lower_B_mirrored (PETG),1,mirror of 05 (other side); orientation flat; 5.52 cm3
-PRINT,07_BellCrank_Upper (PETG),2,same part both sides (flip one); orientation flat; 3.07 cm3
-PRINT,08_FrontCrank_Lower (PETG),2,spacer boss up; orientation flat; 2.78 cm3
-PRINT,09_FrontCrank_Upper (PETG),2,; orientation flat; 1.43 cm3
-PRINT,10_ConRod (PETG),2,; orientation flat; 2.41 cm3
-PRINT,11_Finger_A (PETG),1,jaw block up; orientation flat; 23.17 cm3
-PRINT,12_Finger_B_mirrored (PETG),1,mirror of 11; orientation flat; 23.17 cm3
-PRINT,13_FitTest_coupons (PETG),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
+PRINT,01_Base (ABS),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 106.84 cm3"
+PRINT,02_Cover (ABS),1,flat top face on bed; orientation flip_x; 91.62 cm3
+PRINT,03_Adapter_ISO9409-50-4-M6 (ABS),1,"gripper-side face on bed, spigot up; orientation front_down; 37.95 cm3"
+PRINT,04_Carriage (ABS),1,"rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots; orientation rear_down; 20.16 cm3"
+PRINT,05_BellCrank_Lower_A (ABS),1,spacer boss up; orientation flat; 5.52 cm3
+PRINT,06_BellCrank_Lower_B_mirrored (ABS),1,mirror of 05 (other side); orientation flat; 5.52 cm3
+PRINT,07_BellCrank_Upper (ABS),2,same part both sides (flip one); orientation flat; 3.07 cm3
+PRINT,08_FrontCrank_Lower (ABS),2,spacer boss up; orientation flat; 2.78 cm3
+PRINT,09_FrontCrank_Upper (ABS),2,; orientation flat; 1.43 cm3
+PRINT,10_ConRod (ABS),2,; orientation flat; 2.41 cm3
+PRINT,11_Finger_A (ABS),1,jaw block up; orientation flat; 23.17 cm3
+PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 23.17 cm3
+PRINT,13_FitTest_coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
 P1,"NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x2 lead screw (lead 2 mm, single start) >= 85 mm",1,"Cut screw to 81.5 mm +/- 0.5 from motor face (end flush with the 608 face), chamfer end"
 P2,"Tr8x2 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16) - usually supplied with P1",1,
 P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust into the block front lip

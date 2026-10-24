@@ -29,7 +29,7 @@ info = []
 for fn, ops, how, qty, note in PRINT:
     s = orient(cq_part(ops), how); bb = s.BoundingBox()
     cq.exporters.export(s, f'{OUT}/stl/{fn}.stl', tolerance=0.02, angularTolerance=0.1)
-    info.append(dict(file=fn + '.stl', qty=qty, volume_cm3=round(s.Volume()/1000, 2), mass_g_solid_PETG=round(s.Volume()/1000*1.27, 1),
+    info.append(dict(file=fn + '.stl', qty=qty, volume_cm3=round(s.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(s.Volume()/1000*D.MAT_RHO, 1),
                      bbox_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)], orientation=how, note=note))
 pp = f'{OUT}/print_parts.json'   # keep entries written by other scripts (13_FitTest_coupons from fit_coupons.py)
 keep = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] not in {i['file'] for i in info}]

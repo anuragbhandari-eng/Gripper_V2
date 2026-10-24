@@ -5,6 +5,8 @@ PARTS = [p for p in PP if not p['file'].startswith('13_')]   # the 12 gripper pr
 CP = next(p for p in PP if p['file'].startswith('13_'))       # fit-test coupons (print first, not part of the gripper)
 OUT = '..'
 P = D.P
+T_M3 = 0.15                 # N·m, M3 tightening limit (rev 6: 0.2 on PETG)
+F_CL = T_M3/(0.2*0.003)     # N, clamp from T = K·F·d with K = 0.2, d = 3 mm
 # ---- gap table ----
 rows = []
 for g in range(0, 67, 6):
@@ -27,8 +29,8 @@ bom = [
 ]
 with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['ID', 'Item', 'Qty', 'Note'])
-    for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + ' (PETG)', p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
-    w.writerow(['PRINT', '13_FitTest_coupons (PETG)', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
+    for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + f' ({D.MAT})', p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
+    w.writerow(['PRINT', f'13_FitTest_coupons ({D.MAT})', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
     for b in bom: w.writerow(b)
 _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D.L*(np.sin(_th) - np.sin(D.TH_C))
 FA = dict(travel=float(_x.max() - _x.min()), gap_fwd=float(_g[np.argmax(_x)]), open_behind_closed=float(_x[0] - _x[-1]))
@@ -49,8 +51,8 @@ A(f'| Holding | Tr8×2 self-locking (lead angle {R["screw"]["lead_angle_deg"]:.1
 A(f'| Structure | Min safety factor {S["min_SF"]} vs yield at a 200 N screw-force limit case (the motor clamps at {drv["Fs_range_at_set_N"][0]:.0f}–{drv["Fs_range_at_set_N"][1]:.0f} N at 0.45 A) |')
 A(f'| Motion check | 0 collisions over 41 poses (all 49 parts, including the 16 modelled screws); only intended joint/stack contacts below 0.8 mm |')
 A(f'| Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ {S["thrust"]["bearing608_axial_static_capacity_N"]:.0f} N vs {S["thrust"]["load_N"]:.0f} N limit ({S["thrust"]["ratio"]}×) |')
-A(f'| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF {FX["min_SF"]} under mount, stall and limit loads; tighten ≤ 0.2 N·m |')
-A(f'| Printed volume | {printed_cm3:.0f} cm³ PETG (~{printed_cm3*1.27*0.55:.0f} g at typical infill) + motor ~280 g |')
+A(f'| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF {FX["min_SF"]} under mount, stall and limit loads; tighten ≤ {T_M3} N·m |')
+A(f'| Printed volume | {printed_cm3:.0f} cm³ {D.MAT} (~{printed_cm3*D.MAT_RHO*0.55:.0f} g at typical infill) + motor ~280 g |')
 A(f'| Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |\n')
 A('## 2. Mechanism and dimensions\n')
 A('Reference measured from the video (143 frames, hole centres tracked; rigid distances constant to <1 px). Link ratios kept exactly, scaled to crank length L = 28 mm.\n')
@@ -80,22 +82,22 @@ A('| Check | Load N | σ limit MPa | σ op MPa | SF yield |\n|---|---|---|---|--
 for r_ in S['rows']: A(f'| {r_["item"]} | {r_["load_limit_N"]} | {r_["stress_limit_MPa"]} | {r_["stress_op_MPa"]} | {r_["SF_yield_at_limit"]} |')
 A(f'\n**Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor\'s own bearing no longer takes the full reaction. Limit case {S["thrust"]["load_N"]:.0f} N vs ≈ {S["thrust"]["bearing608_axial_static_capacity_N"]:.0f} N 608 static axial capacity. {S["thrust"]["note"][0].upper() + S["thrust"]["note"][1:]}.\n')
 A('\nThe dowel is modelled as a beam on two supports: the 6 mm press socket in the base and the 3.9 mm close-fit hole in the cover. The cover hole must be reamed to Ø4.0 so it carries its share; with a loose cover hole the base socket would see the full bending moment.\n')
-A('\nPETG printed in-plane yield taken as 45 MPa. All link loads are in the print plane (along the rasters). Interlayer stress appears only at the jaw-block root (≈0.3 MPa).\n')
+A(f'\n{D.MAT} printed in-plane yield taken as {D.MAT_SY:.0f} MPa (low end of generic FDM ABS; the spool brand is not fixed) and {D.MAT_SZ:.0f} MPa across layers. All link loads are in the print plane (along the rasters). Interlayer stress appears only at the jaw-block root (≈0.3 MPa).\n')
 A('\n### 5.1 Fasteners (every screw is modelled)\n')
 A(f'Gripper mass {FX["mass_g"]:.0f} g (printed parts taken as solid, conservative), CG at x = {FX["x_cg_mm"]:.0f} mm; payload at x = {FX["x_payload_mm"]} mm; mount at x = {FX["x_mount_mm"]} mm. Pitch moment at the mount {FX["M_pitch_Nm"]} N·m (×2 dynamic).\n')
 A('| Check | Load N | Stress MPa | SF yield | Note |\n|---|---|---|---|---|')
 for r_ in FX['rows']: A(f'| {r_["item"]} | {r_["load_N"]} | {r_["stress_MPa"]} | {r_["SF_yield"]} | {r_["note"]} |')
 A('\n| Screw | Clamp mm | Thread engaged mm | Tip to hole bottom mm | Into |\n|---|---|---|---|---|')
 for e in FX['engagement']: A(f'| {e["screw"]} | {e["clamp_mm"]} | {e["thread_mm"]} | {e["tip_to_hole_bottom_mm"]} | {e["into"]} |')
-A(f'\n**Tightening:** a button head bears on {FX["head_bearing_area_mm2"]} mm² of PETG. At 0.2 N·m an M3 makes about 330 N of clamp, about 20 MPa under the head (PETG yields near 45 MPa). Tighten every M3 to **0.2 N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.\n')
+A(f'\n**Tightening:** a button head bears on {FX["head_bearing_area_mm2"]} mm² of {D.MAT}. At {T_M3} N·m an M3 makes about {F_CL:.0f} N of clamp, about {F_CL/FX["head_bearing_area_mm2"]:.0f} MPa under the head ({D.MAT} taken as {D.MAT_SY:.0f} MPa, so SF ≈ {D.MAT_SY*FX["head_bearing_area_mm2"]/F_CL:.1f}). Tighten every M3 to **{T_M3} N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.\n')
 A('## 6. Motion, clearance and printability checks\n')
 A('- 3D boolean interference over 41 poses from closed to fully open, every part pair, both sides: **0 collisions**. Minimum-distance scan: all pairs under 0.8 mm are intended (shoulder screws in crank bores 0.05, dowels and shoulder screws in running bores 0.1, z-stack gaps 0.2 below / 0.3 above each moving layer, crank plates on base 0.3, fingers meeting at closed, carriage on the open stop). Lock collar 1.0 mm radial to the block; cover 1.38 mm from the front crank at closed.')
 A('- Every part is a single valid solid. FeatureScript round-trip rebuild gives identical volumes.')
 A('- Print orientation (no supports): links and fingers 0 mm² overhang; base, cover and adapter only hole tops and counterbore steps; carriage printed rear face down, so the nut recess opens upward and nothing needs a bridge or support.\n')
 A('| Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |\n|---|---|---|---|---|')
 for p in PARTS: A(f'| {p["file"]} | {p["qty"]} | {p["volume_cm3"]} | {" × ".join(map(str, p["bbox_mm"]))} | {p["orientation"]}: {p["note"]} |')
-A('\n**Print 13_FitTest_coupons.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
-A('\nPrint settings: PETG, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.\n')
+A(f'\n**Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in {D.MAT} on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
+A('\nPrint settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.\n')
 A('## 7. Onshape\n')
 A('**Status:** the Onshape document is at **rev 6** (updated 2026-10-13). Feature Studio 1 holds the rev 6 `LeadScrewGripper.fs` (exact SHA-256 match with the local file) and the lock collar is in the frame group of Assembly 1.\n')
 A('Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059d2be7659a57baadd94c/w/0895a7ec4eaef76618deb3e3/e/621a9c0dfd69e86e15b36ea6\n')
@@ -150,15 +152,15 @@ for i, s_ in enumerate([
  'Bolt the adapter to the robot flange first (4× M6×12). Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.',
  'Driver: 0.45 A RMS, 1/16 µstep. Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm. In use, cap the commanded opening at 60 mm so the carriage never hits the stop at speed. Calibrate grip once with a kitchen scale between the jaws.']):
     A(f'{i+1}. {s_}')
-A('\nTighten every M3 to 0.2 N·m or less (snug with the short arm of the key). More crushes the PETG under the head.')
+A(f'\nTighten every M3 to {T_M3} N·m or less (snug with the short arm of the key). More crushes the {D.MAT} under the head.')
 A('\n## 9. Assumptions, limits, verify before buying\n')
 A('- Rigid links, quasi-static, equal load sharing between the two sides, Coulomb friction in the screw only (pivot friction lowers grip a few %; the current setting has margin).')
 A('- Verify on receipt: motor body ≤ 40 mm (the adapter sits 1 mm behind it), pilot Ø22×2, M3 holes on 31 mm square; nut flange Ø22×3.5 and body Ø10.2 (edit NUT_* in design.py if different); shoulder-screw head ≤ Ø7.5×3.5 and thread ≤ 6 mm.')
 A('- Robot flange: I assumed a Ø31.5 H7 centring recess (spigot 31.44 × 3 mm) and the Ø6 pin on the PCD at +Z, between bolts. Check your robot drawing.')
-A('- μ = 0.35 is conservative for serrated PETG. A thin TPU or rubber pad on the jaw face roughly doubles the slip margin.')
-A('- PETG creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF/ASA.')
+A('- μ = 0.35 is conservative for printed serrations. A thin TPU or rubber pad on the jaw face roughly doubles the slip margin.')
+A(f'- {D.MAT} creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF.')
 A('- Motor connector: the adapter sits 1 mm behind the motor, so the cable must leave from a side face. Mount the motor with the connector facing up, through the cover\'s U-slot.')
-A('- M6×12 puts 6 mm of thread into the robot flange. Check your flange\'s thread depth, and use a washer or modest torque on the PETG.')
+A(f'- M6×12 puts 6 mm of thread into the robot flange. Check your flange\'s thread depth, and use a washer or modest torque on the {D.MAT}.')
 A('- Thrust: the collar and the motor\'s internal bearing share the screw load in a way that depends on how the collar is set. Check the motor datasheet\'s axial load rating anyway, and don\'t preload the collar.')
 A('- The jaws also move fore-aft: %.1f mm in total over the stroke. They are furthest forward near a %.0f mm gap and furthest back fully open (%.1f mm behind the closed position). That is inherent to this linkage; teach grasp poses at the gap you\'ll use.' % (FA['travel'], FA['gap_fwd'], FA['open_behind_closed']))
 A('- Not modelled: wiring, a limit switch (sensorless homing assumed), cable strain relief.')

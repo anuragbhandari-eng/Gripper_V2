@@ -46,9 +46,15 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
       'BHS_Side_Cover': 'Button head M3x8 side (cover)', 'BHN_Nut': 'Button head M3x8 nut'}[nm],
      D.button_screw(seat, ax, ln), 'car' if frame == 'car' else 'ground', True, '[0.10,0.10,0.10]', 'STEEL', True)
     for nm, seat, ax, ln, frame in D.FASTENERS] + [  # rev 6: thrust collar, appended so existing part ids stay put
-    ('Lock collar 8x14x7 (thrust)', D.collar(), 'ground', False, '[0.70,0.72,0.75]', 'STEEL', True)]
+    ('Lock collar 8x14x7 (thrust)', D.collar(), 'ground', False, '[0.70,0.72,0.75]', 'STEEL', True)] + [
+    # rev 7: bolt-on tip blocks, pads and their screws, appended so existing part ids stay put
+    ('Tip block', D.tip_block(False), 'finger', True, '[0.91,0.45,0.16]', D.MAT, False),
+    ('Pad TPU', D.pad(False), 'finger', True, '[0.12,0.12,0.13]', 'TPU', False)] + [
+    ({'BHT_Tip_A': 'Button head M3x16 tip (rear)', 'BHT_Tip_B': 'Button head M3x16 tip (front)'}[nm],
+     D.button_screw(seat, ax, ln), 'finger', True, '[0.10,0.10,0.10]', 'STEEL', True) for nm, seat, ax, ln in D.TIP_FASTENERS]
+WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
-              THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO)
+              THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)
 
 mcs = []
 for s, sfx in ((1, ' U'), (-1, ' L')):
@@ -60,8 +66,9 @@ mcs += ['["Base", "SL", 0]', '["Carriage", "SL", 0]']
 MCS = '[\n        ' + ',\n        '.join(mcs) + ']'
 parts_src = []
 for k, (nm, ops, kind, mir, col, mat, pur) in enumerate(SPEC):
-    parts_src.append('    { "name" : "%s", "kind" : "%s", "mirror" : %s, "color" : %s, "mat" : "%s", "purchased" : %s,\n      "ops" : %s }'
-                     % (nm, kind, 'true' if mir else 'false', col, mat, 'true' if pur else 'false', enc_ops(ops)))
+    parts_src.append('    { "name" : "%s", "kind" : "%s", "mirror" : %s, "color" : %s, "mat" : "%s", "purchased" : %s,\n      "ops" : %s%s }'
+                     % (nm, kind, 'true' if mir else 'false', col, mat, 'true' if pur else 'false', enc_ops(ops),
+                        (',\n      "opsW" : ' + enc_ops(WIDE[nm])) if nm in WIDE else ''))
 
 FS = r'''FeatureScript 3083;
 import(path : "onshape/std/common.fs", version : "3083.0");
@@ -72,17 +79,28 @@ import(path : "onshape/std/common.fs", version : "3083.0");
 
 const GAP_BOUNDS = { (millimeter) : [0, 30, %(GAPMAX)s] } as LengthBoundSpec;
 
+export enum TipSet
+{
+    annotation { "Name" : "Narrow (gap 0-66 mm)" }
+    NARROW,
+    annotation { "Name" : "Wide (gap 20-86 mm)" }
+    WIDE
+}
+
 annotation { "Feature Type Name" : "Lead Screw Gripper", "Feature Type Description" : "Builds the full gripper at a given jaw gap" }
 export const leadScrewGripper = defineFeature(function(context is Context, id is Id, definition is map)
     precondition
     {
-        annotation { "Name" : "Jaw gap" }
+        annotation { "Name" : "Jaw gap (narrow tips)" }
         isLength(definition.gap, GAP_BOUNDS);
+        annotation { "Name" : "Tip set", "Default" : TipSet.NARROW }
+        definition.tipSet is TipSet;
         annotation { "Name" : "Include purchased parts", "Default" : true }
         definition.purchased is boolean;
     }
     {
         const kin = gripperKinematics(definition.gap / millimeter);
+        const wide = definition.tipSet == TipSet.WIDE;
         const parts = partSpecs();
         var bodies = {};
         for (var k = 0; k < size(parts); k += 1)
@@ -91,7 +109,7 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
             if (p.purchased && !definition.purchased)
                 continue;
             const pid = id + ("p" ~ k);
-            const body = buildPart(context, pid, p.ops);
+            const body = buildPart(context, pid, (wide && p.opsW != undefined) ? p.opsW : p.ops);
             const T = poseTransform(p.kind, kin);
             opTransform(context, id + ("t" ~ k), { "bodies" : body, "transform" : T });
             dressPart(context, body, p.mirror ? p.name ~ " U" : p.name, p);
@@ -126,7 +144,10 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
             setProperty(context, { "entities" : qCreatedBy(id + ("mc" ~ j), EntityType.BODY), "propertyType" : PropertyType.NAME,
                         "value" : "MC " ~ m[1] ~ (m[2] > 0 ? " U " : (m[2] < 0 ? " L " : " ")) ~ m[0] });
         }
-    }, { "gap" : 30 * millimeter, "purchased" : true });
+        // true pad-to-pad gap for the chosen tip set (the wide faces sit %(WOFS)s mm further out per side)
+        const faceGap = definition.gap / millimeter + (wide ? 2 * %(WOFS)s : 0);
+        reportFeatureInfo(context, id, "Pad-to-pad gap: " ~ roundToPrecision(faceGap, 1) ~ " mm (" ~ (wide ? "wide" : "narrow") ~ " tips)");
+    }, { "gap" : 30 * millimeter, "tipSet" : TipSet.NARROW, "purchased" : true });
 
 function mateConnectorSpecs() returns array
 {
@@ -142,6 +163,8 @@ function dressPart(context is Context, q is Query, name is string, p is map)
         dens = 7.85;
     if (p.mat == "BRASS")
         dens = 8.5;
+    if (p.mat == "TPU")
+        dens = 1.21;
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.MATERIAL, "value" : material(p.mat, dens * gram / centimeter ^ 3) });
 }
 

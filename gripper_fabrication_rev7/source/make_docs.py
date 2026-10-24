@@ -20,16 +20,17 @@ bom = [
  ('P12', 'Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)', 1, 'Behind the 608, against its inner ring: takes the screw reaction when gripping'),
  ('P4', 'Dowel pin ISO 8734 / DIN 6325, D4 m6 x 32, hardened', 4, 'Fixed pivots O1, O2 (press into base)'),
  ('P5', 'Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (e.g. Bambu Lab AA123)', 8, 'Moving pivots F1, F2, D, C x2 sides'),
- ('P6', 'M3 heat-set insert, M3 x 5.7, for D4.0 hole', 18, 'Buy 25'),
+ ('P6', 'M3 heat-set insert, M3 x 5.7, for D4.0 hole', 22, 'Buy 25 (rev 7: +4 in the finger tongues)'),
  ('P7', 'M3 x 8 button head screw ISO 7380', 12, '4 motor (3.5 mm into the motor), 2 cover-to-post, 2 nut flange (self-tap into D2.5 pilots), 4 side walls to adapter'),
  ('P8', 'M3 x 20 button head screw ISO 7380', 4, 'Cover to motor wall (2) and bearing block (2)'),
+ ('P13', 'M3 x 16 button head screw ISO 7380', 4, 'Tip blocks to the finger tongues (2 per side), rev 7'),
  ('P9', 'M6 x 12 socket head cap screw ISO 4762 (6 mm into the robot flange; check its thread depth)', 4, 'Adapter to ISO 9409-1-50-4-M6 flange'),
  ('P10', 'Grease: PTFE/lithium for lead screw and pivots', 1, ''),
  ('P11', 'Stepper driver TMC2209 (or equivalent, current-limited 0.45 A RMS), 12-24 V supply', 1, 'Electronics, not modelled'),
 ]
 with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['ID', 'Item', 'Qty', 'Note'])
-    for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + f' ({D.MAT})', p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
+    for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + f" ({p.get('material', D.MAT)})", p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
     w.writerow(['PRINT', f'13_FitTest_coupons ({D.MAT})', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
     for b in bom: w.writerow(b)
 _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D.L*(np.sin(_th) - np.sin(D.TH_C))

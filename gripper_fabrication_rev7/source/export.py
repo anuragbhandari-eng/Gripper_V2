@@ -22,14 +22,20 @@ PRINT = [  # file, ops, orientation, qty, note
     ('08_FrontCrank_Lower', D.fc_plate(True), 'flat', 2, 'spacer boss up'),
     ('09_FrontCrank_Upper', D.fc_plate(False), 'flat', 2, ''),
     ('10_ConRod', D.conrod(), 'flat', 2, ''),
-    ('11_Finger_A', D.finger(), 'flat', 1, 'jaw block up'),
+    ('11_Finger_A', D.finger(), 'flat', 1, 'tongue forward; M layer only since rev 7'),
     ('12_Finger_B_mirrored', mirror_ops(D.finger()), 'flat', 1, 'mirror of 11'),
+    # rev 7: bolt-on tip sets (13 is the fit-coupon plate from fit_coupons.py)
+    ('14_TipBlock_Narrow_A', D.tip_block(False), 'flip_x', 1, 'narrow set; top face on bed, tongue pocket up'),
+    ('15_TipBlock_Narrow_B_mirrored', mirror_ops(D.tip_block(False)), 'flip_x', 1, 'mirror of 14'),
+    ('16_TipBlock_Wide_A', D.tip_block(True), 'flip_x', 1, 'wide set; top face on bed, tongue pocket up'),
+    ('17_TipBlock_Wide_B_mirrored', mirror_ops(D.tip_block(True)), 'flip_x', 1, 'mirror of 16'),
+    ('18_Pad_TPU95A', mirror_ops(D.pad(False)), 'side_py_down', 4, 'TPU 95A, contact face on bed; 2 per tip set (same pad fits both)'),
 ]
 info = []
 for fn, ops, how, qty, note in PRINT:
     s = orient(cq_part(ops), how); bb = s.BoundingBox()
     cq.exporters.export(s, f'{OUT}/stl/{fn}.stl', tolerance=0.02, angularTolerance=0.1)
-    info.append(dict(file=fn + '.stl', qty=qty, volume_cm3=round(s.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(s.Volume()/1000*D.MAT_RHO, 1),
+    info.append(dict(file=fn + '.stl', qty=qty, volume_cm3=round(s.Volume()/1000, 2), material=(mat := D.PAD_MAT if 'Pad' in fn else D.MAT), mass_g_solid=round(s.Volume()/1000*(D.PAD_RHO if mat == D.PAD_MAT else D.MAT_RHO), 1),
                      bbox_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)], orientation=how, note=note))
 pp = f'{OUT}/print_parts.json'   # keep entries written by other scripts (13_FitTest_coupons from fit_coupons.py)
 keep = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] not in {i['file'] for i in info}]

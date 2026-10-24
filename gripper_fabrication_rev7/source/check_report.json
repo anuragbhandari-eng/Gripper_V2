@@ -53,12 +53,52 @@
   "Finger_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 23172.4
+   "vol": 8699.4
   },
   "Finger_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 23172.4
+   "vol": 8699.4
+  },
+  "TipBlock_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 17376.8
+  },
+  "TipBlock_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 17376.8
+  },
+  "Pad_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1793.6
+  },
+  "Pad_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1793.6
+  },
+  "BHT_Tip_A_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_A_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_B_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_B_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
   },
   "SS_F1_U": {
    "valid": true,

@@ -11,11 +11,11 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Carriage stroke | 32.0 mm = 16.0 screw turns (Tr8×2) |
 | Grip force per jaw | ≥ 33.1 N anywhere in range at 0.45 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×2 self-locking (lead angle 5.2°): holds the payload with power off |
-| Structure | Min safety factor 2.9 vs yield at a 200 N screw-force limit case (the motor clamps at 96–175 N at 0.45 A) |
+| Structure | Min safety factor 1.7 vs yield at a 200 N screw-force limit case (the motor clamps at 96–175 N at 0.45 A) |
 | Motion check | 0 collisions over 41 poses (all 49 parts, including the 16 modelled screws); only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
-| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF 3.0 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | 333 cm³ ABS (~191 g at typical infill) + motor ~280 g |
+| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
+| Printed volume | 369 cm³ ABS (~211 g at typical infill) + motor ~280 g |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 2. Mechanism and dimensions
@@ -72,21 +72,24 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 1600 steps/mm at 
 
 | Check | Load N | σ limit MPa | σ op MPa | SF yield |
 |---|---|---|---|---|
-| Shoulder screw Ø4 double shear (12.9 steel) | 309.3 | 12.31 | 10.75 | 81.3 |
-| Dowel Ø4 bending, simply supported base↔cover | 309.3 | 329.91 | 288.08 | 3.6 |
-| Finger bore at F2 on shoulder (7.6 mm) | 309.3 | 10.17 | 8.88 | 2.9 |
-| Finger bore at F1 (7.6 mm) | 192.4 | 6.33 | 5.53 | 4.7 |
-| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 309.3 | 4.32 | 3.77 | 6.9 |
-| Base dowel press hole (55% share, 6 mm) | 309.3 | 7.05 | 6.16 | 4.3 |
-| Cover dowel hole (45% share, 3.9 mm) | 309.3 | 8.98 | 7.84 | 3.3 |
+| Shoulder screw Ø4 double shear (12.9 steel) | 543.0 | 21.61 | 18.87 | 46.3 |
+| Dowel Ø4 bending, simply supported base↔cover | 543.0 | 579.27 | 505.82 | 2.1 |
+| Finger bore at F2 on shoulder (7.6 mm) | 543.0 | 17.86 | 15.6 | 1.7 |
+| Finger bore at F1 (7.6 mm) | 315.2 | 10.37 | 9.05 | 2.9 |
+| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 543.0 | 7.58 | 6.62 | 4.0 |
+| Base dowel press hole (55% share, 6 mm) | 543.0 | 12.38 | 10.81 | 2.4 |
+| Cover dowel hole (45% share, 3.9 mm) | 543.0 | 15.76 | 13.77 | 1.9 |
 | ConRod bores (7.6 mm) | 156.4 | 5.14 | 4.49 | 5.8 |
 | Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 3.38 | 7.8 |
-| Finger boss tear-out at F2 | 309.3 | 5.98 | 5.23 | 3.0 |
-| FrontCrank (two-force) net section | 309.3 | 4.64 | 4.05 | 6.5 |
+| Finger boss tear-out at F2 | 543.0 | 10.51 | 9.18 | 1.7 |
+| FrontCrank (two-force) net section | 543.0 | 8.15 | 7.12 | 3.7 |
 | ConRod (two-force) net section | 156.4 | 3.55 | 3.1 | 8.5 |
-| BellCrank bending near O1 (two plates) | 192.4 | 6.04 | 5.28 | 5.0 |
-| Finger jaw root (in-plane, 25 mm deep x 7.6) | 273.0 | 10.34 | 9.03 | 2.9 |
-| Jaw extension root (z=14.1 layer plane) | 163.8 | 0.29 | 0.25 | 42.0 |
+| BellCrank bending near O1 (two plates) | 315.2 | 9.9 | 8.65 | 3.0 |
+| Finger body at the tip seam (23.8 mm deep x 7.6) | 273.0 | 16.04 | 14.0 | 1.9 |
+| Tip block layer plane at the tongue top (z=14.1) | 163.8 | 0.35 | 0.31 | 34.2 |
+| Tip screw insert bearing in the finger tongue | 466.9 | 17.81 | 15.55 | 1.7 |
+| Tip screw shank bearing in the tip block | 466.9 | 17.89 | 15.62 | 1.7 |
+| Tongue flank bearing in the tip block pocket (20 mm long) | 859.9 | 11.31 | 9.88 | 2.7 |
 | Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 1.14 | 23.0 |
 | Block front lip shear-out (8 mm wall) | 200.0 | 0.36 | 0.32 | 49.8 |
 
@@ -101,17 +104,17 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 695 g (printed parts taken as solid, conservative), CG at x = -29 mm; payload at x = 82.5 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.72 N·m (×2 dynamic).
+Gripper mass 710 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.84 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 114.8 | 22.81 | 16.3 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 114.8 | 10.07 | 3.0 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 114.8 | 4.38 | 6.9 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 119.7 | 23.8 | 15.6 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 119.7 | 10.5 | 2.9 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 119.7 | 4.57 | 6.6 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 43.6 | 2.66 | 11.3 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 87.3 | 2.53 | 6.9 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 87.3 | 5.31 | 37.7 | CuZn yield ~200 MPa |
-| Cover screw bearing in cover (200 N limit case) | 92.8 | 7.36 | 4.1 | all four dowel reactions on 6 screws |
+| Cover screw bearing in cover (200 N limit case) | 162.9 | 12.93 | 2.3 | all four dowel reactions on 6 screws |
 
 | Screw | Clamp mm | Thread engaged mm | Tip to hole bottom mm | Into |
 |---|---|---|---|---|
@@ -120,6 +123,7 @@ Gripper mass 695 g (printed parts taken as solid, conservative), CG at x = -29 m
 | Cover to post M3x8 | 4.2 | 3.8 | 2.7 | insert 5.7 (hole 6.5) |
 | Side wall to adapter M3x8 | 4.0 | 4.0 | 2.5 | insert 5.7 (hole 6.5) |
 | Nut flange M3x8 | 3.6 | 4.4 | 2.6 | self-tapped D2.5 pilot, 7 deep |
+| Tip block to tongue M3x16 | 8.7 | 7.3 | 0.3 | insert 5.7 in the finger tongue (through hole) |
 
 **Tightening:** a button head bears on 16.4 mm² of ABS. At 0.15 N·m an M3 makes about 250 N of clamp, about 15 MPa under the head (ABS taken as 30 MPa, so SF ≈ 2.0). Tighten every M3 to **0.15 N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.
 
@@ -141,8 +145,13 @@ Gripper mass 695 g (printed parts taken as solid, conservative), CG at x = -29 m
 | 08_FrontCrank_Lower.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
 | 09_FrontCrank_Upper.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
 | 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
-| 11_Finger_A.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: jaw block up |
-| 12_Finger_B_mirrored.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: mirror of 11 |
+| 11_Finger_A.stl | 1 | 8.7 | 66.5 × 40.9 × 7.6 | flat: tongue forward; M layer only since rev 7 |
+| 12_Finger_B_mirrored.stl | 1 | 8.7 | 66.5 × 40.9 × 7.6 | flat: mirror of 11 |
+| 14_TipBlock_Narrow_A.stl | 1 | 17.38 | 45.0 × 33.3 × 19.5 | flip_x: narrow set; top face on bed, tongue pocket up |
+| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 17.38 | 45.0 × 33.3 × 19.5 | flip_x: mirror of 14 |
+| 16_TipBlock_Wide_A.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: wide set; top face on bed, tongue pocket up |
+| 17_TipBlock_Wide_B_mirrored.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: mirror of 16 |
+| 18_Pad_TPU95A.stl | 4 | 1.79 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
 
 **Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 

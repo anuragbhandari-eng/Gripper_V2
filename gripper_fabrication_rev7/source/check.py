@@ -68,7 +68,7 @@ def run(nposes=21, verbose=True):
 if __name__ == '__main__':
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 9
     rep, hits = run(n)
-    json.dump(dict(parts=rep, hits={'|'.join(k): v for k, v in hits.items()}), open('check_report.json', 'w'), indent=1)
+    json.dump(dict(parts=rep, hits={'|'.join(k): v for k, v in hits.items()}), open('check_report_wide.json' if D.TIP_WIDE else 'check_report.json', 'w'), indent=1)   # rev 7: GRIPPER_TIPSET=wide checks the wide tips
 
 def clearance(nposes=31, thresh=0.6):
     """Min 3D distance between part pairs (moving involved). Reports pairs closer than thresh, min over poses."""

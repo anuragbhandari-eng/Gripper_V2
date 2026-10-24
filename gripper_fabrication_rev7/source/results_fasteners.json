@@ -1,29 +1,29 @@
 {
- "mass_g": 695.0,
- "x_cg_mm": -29.0,
- "x_payload_mm": 82.5,
+ "mass_g": 710.0,
+ "x_cg_mm": -26.3,
+ "x_payload_mm": 89.0,
  "x_mount_mm": -98.5,
- "M_pitch_Nm": 2.72,
+ "M_pitch_Nm": 2.84,
  "rows": [
   {
    "item": "Side screw M3x8, shank shear (mount, x2 dynamic)",
-   "load_N": 114.8,
-   "stress_MPa": 22.81,
-   "SF_yield": 16.3,
+   "load_N": 119.7,
+   "stress_MPa": 23.8,
+   "SF_yield": 15.6,
    "note": "8.8 steel; ignores clamp friction"
   },
   {
    "item": "Side wall hole bearing, 3.8 mm wall (mount)",
-   "load_N": 114.8,
-   "stress_MPa": 10.07,
-   "SF_yield": 3.0,
+   "load_N": 119.7,
+   "stress_MPa": 10.5,
+   "SF_yield": 2.9,
    "note": "base/cover side wall"
   },
   {
    "item": "Adapter insert bearing in ABS (mount)",
-   "load_N": 114.8,
-   "stress_MPa": 4.38,
-   "SF_yield": 6.9,
+   "load_N": 119.7,
+   "stress_MPa": 4.57,
+   "SF_yield": 6.6,
    "note": "insert OD 4.6 x 5.7 mm"
   },
   {
@@ -49,9 +49,9 @@
   },
   {
    "item": "Cover screw bearing in cover (200 N limit case)",
-   "load_N": 92.8,
-   "stress_MPa": 7.36,
-   "SF_yield": 4.1,
+   "load_N": 162.9,
+   "stress_MPa": 12.93,
+   "SF_yield": 2.3,
    "note": "all four dowel reactions on 6 screws"
   }
  ],
@@ -90,8 +90,15 @@
    "thread_mm": 4.4,
    "tip_to_hole_bottom_mm": 2.6,
    "into": "self-tapped D2.5 pilot, 7 deep"
+  },
+  {
+   "screw": "Tip block to tongue M3x16",
+   "clamp_mm": 8.7,
+   "thread_mm": 7.3,
+   "tip_to_hole_bottom_mm": 0.3,
+   "into": "insert 5.7 in the finger tongue (through hole)"
   }
  ],
- "min_SF": 3.0,
+ "min_SF": 2.3,
  "head_bearing_area_mm2": 16.4
 }

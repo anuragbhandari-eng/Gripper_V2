@@ -81,8 +81,9 @@ def mirror_ops(ops):
         elif pr[0] == 'box':
             (x0, y0, z0), (x1, y1, z1) = pr[1], pr[2]
             out.append((op, ('box', (x0, -y1, z0), (x1, -y0, z1))))
-        elif pr[0] == 'extx':
-            out.append((op, ('extx', mirror_loop(pr[1]), pr[2], pr[3])))
+        elif pr[0] == 'extx':   # loop is in (Y, Z): mirror its first coordinate
+            m = lambda p: (-p[0], p[1]); lp = pr[1]
+            out.append((op, ('extx', dict(start=m(lp['start']), segs=[(s[0],) + tuple(m(p) for p in s[1:]) for s in lp['segs']]), pr[2], pr[3])))
     return out
 
 def clean_loop(loop, tol=1e-4):

@@ -8,7 +8,7 @@
  "FrontCrank Lower": 2783.6,
  "FrontCrank Upper": 1428.7,
  "ConRod": 2407.3,
- "Finger": 23172.4,
+ "Finger": 8699.4,
  "NEMA17 linear stepper 40mm": 70613.7,
  "Tr8x2 lead screw (cut 81.5mm)": 3997.8,
  "Tr8 brass flange nut": 1381.5,
@@ -27,5 +27,11 @@
  "Button head M3x8 side (base)": 94.5,
  "Button head M3x8 side (cover)": 94.5,
  "Button head M3x8 nut": 94.5,
- "Lock collar 8x14x7 (thrust)": 725.7
+ "Lock collar 8x14x7 (thrust)": 725.7,
+ "Tip block": 17376.9,
+ "Tip block (wide)": 11410.7,
+ "Pad TPU": 1793.6,
+ "Pad TPU (wide)": 1793.6,
+ "Button head M3x16 tip (rear)": 151.0,
+ "Button head M3x16 tip (front)": 151.0
 }

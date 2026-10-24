@@ -9,8 +9,13 @@ PRINT,07_BellCrank_Upper (ABS),2,same part both sides (flip one); orientation fl
 PRINT,08_FrontCrank_Lower (ABS),2,spacer boss up; orientation flat; 2.78 cm3
 PRINT,09_FrontCrank_Upper (ABS),2,; orientation flat; 1.43 cm3
 PRINT,10_ConRod (ABS),2,; orientation flat; 2.41 cm3
-PRINT,11_Finger_A (ABS),1,jaw block up; orientation flat; 23.17 cm3
-PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 23.17 cm3
+PRINT,11_Finger_A (ABS),1,tongue forward; M layer only since rev 7; orientation flat; 8.7 cm3
+PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 8.7 cm3
+PRINT,14_TipBlock_Narrow_A (ABS),1,"narrow set; top face on bed, tongue pocket up; orientation flip_x; 17.38 cm3"
+PRINT,15_TipBlock_Narrow_B_mirrored (ABS),1,mirror of 14; orientation flip_x; 17.38 cm3
+PRINT,16_TipBlock_Wide_A (ABS),1,"wide set; top face on bed, tongue pocket up; orientation flip_x; 11.41 cm3"
+PRINT,17_TipBlock_Wide_B_mirrored (ABS),1,mirror of 16; orientation flip_x; 11.41 cm3
+PRINT,18_Pad_TPU95A (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.79 cm3"
 PRINT,13_FitTest_coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
 P1,"NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x2 lead screw (lead 2 mm, single start) >= 85 mm",1,"Cut screw to 81.5 mm +/- 0.5 from motor face (end flush with the 608 face), chamfer end"
 P2,"Tr8x2 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16) - usually supplied with P1",1,
@@ -18,9 +23,10 @@ P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust in
 P12,"Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)",1,"Behind the 608, against its inner ring: takes the screw reaction when gripping"
 P4,"Dowel pin ISO 8734 / DIN 6325, D4 m6 x 32, hardened",4,"Fixed pivots O1, O2 (press into base)"
 P5,"Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (e.g. Bambu Lab AA123)",8,"Moving pivots F1, F2, D, C x2 sides"
-P6,"M3 heat-set insert, M3 x 5.7, for D4.0 hole",18,Buy 25
+P6,"M3 heat-set insert, M3 x 5.7, for D4.0 hole",22,Buy 25 (rev 7: +4 in the finger tongues)
 P7,M3 x 8 button head screw ISO 7380,12,"4 motor (3.5 mm into the motor), 2 cover-to-post, 2 nut flange (self-tap into D2.5 pilots), 4 side walls to adapter"
 P8,M3 x 20 button head screw ISO 7380,4,Cover to motor wall (2) and bearing block (2)
+P13,M3 x 16 button head screw ISO 7380,4,"Tip blocks to the finger tongues (2 per side), rev 7"
 P9,M6 x 12 socket head cap screw ISO 4762 (6 mm into the robot flange; check its thread depth),4,Adapter to ISO 9409-1-50-4-M6 flange
 P10,Grease: PTFE/lithium for lead screw and pivots,1,
 P11,"Stepper driver TMC2209 (or equivalent, current-limited 0.45 A RMS), 12-24 V supply",1,"Electronics, not modelled"

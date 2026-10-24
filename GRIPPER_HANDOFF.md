@@ -16,6 +16,7 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 
 ### Session rules
 - **Don't start designing until Anurag says go.** Work one small step at a time and check in after each.
+  - **Override (2026-10-24, from Anurag):** commit automatically after each step (local commits; still no push) and don't stop for questions until the complete v2 design is in `GripperV2` in Onshape. Make the calls yourself and list them in the report.
 - **Never sign in to anything** (Onshape, GitHub, anything else). Ask him to sign in.
 - **No `sudo`.** Show him the command and let him run it in his own terminal.
 - **Keep CAD tools out of system Python.** Use the venv `~/.venvs/gripper`, and never install into the system Python that ROS 2 uses.

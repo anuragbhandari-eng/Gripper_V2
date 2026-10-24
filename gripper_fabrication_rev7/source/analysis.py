@@ -4,6 +4,7 @@ import json, numpy as np, matplotlib; matplotlib.use('Agg'); import matplotlib.p
 from params import make, REF
 from kin import geom, s_of, ds_dth, face_y, transmission, statics
 from scipy.optimize import brentq
+import design as D
 
 P = make(28.0)
 D2R = np.radians
@@ -41,11 +42,13 @@ Fs_lim = 200.0                                      # structural limit case (dri
 T_op_hi = Fs_op*lead/(2*np.pi*eta(mu_s_hi))         # worst friction -> most torque
 T_op_lo = Fs_op*lead/(2*np.pi*eta(mu_s_lo))
 loads_op = [statics(P, t, Fg_target) for t in th[::20]]
+XC_PAD = (D.SEAM_X + D.TIP_R - D.F2L[0], D.FACE_X1 - D.F2L[0])   # rev 7: grip anywhere on the pad, heel to far tip (x rel. F2)
 def pin_env(Fs_total):
     out = {k: 0.0 for k in ['F1','F2','O1','O2','D','C','rod','N']}
     for t, ma in zip(th[::4], MA[::4]):
-        st = statics(P, t, Fs_total*ma)
-        for k in out: out[k] = max(out[k], abs(st[k]))
+        for xc in np.linspace(*XC_PAD, 7):
+            st = statics(dict(P, xc_rel_F2=xc), t, Fs_total*ma)
+            for k in out: out[k] = max(out[k], abs(st[k]))
     return out
 env_op = pin_env(Fs_op); env_lim = pin_env(Fs_lim)
 
@@ -65,7 +68,7 @@ R = dict(
   motor=dict(Fs_op_N=float(Fs_op), T_op_Nm_range=[float(T_op_lo), float(T_op_hi)], T_hold_assumed=T_hold,
              torque_fraction_of_hold=float(T_op_hi/T_hold), Fs_at_full_hold_mu010=float(2*np.pi*eta(0.10)*T_hold/lead),
              Fg_at_gap60_with_Fs_op=float(Fs_op*np.interp(60, gap, MA)), Fs_lim_N=Fs_lim),
-  pin_loads_envelope_op=env_op, pin_loads_envelope_limit200=env_lim,
+  pin_loads_envelope_op=env_op, pin_loads_envelope_limit200=env_lim, pin_contact_x_rel_F2=list(map(float, XC_PAD)),
   checks=dict(deriv_fd_max_rel_err=float(err_fd), virtual_work_vs_FBD_max_rel_err=float(max(vw)),
               inverse_solve_max_err_rad=float(max(rt))))
 json.dump(R, open('results.json','w'), indent=1)

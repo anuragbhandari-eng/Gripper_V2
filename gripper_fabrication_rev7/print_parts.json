@@ -142,27 +142,27 @@
  {
   "file": "11_Finger_A.stl",
   "qty": 1,
-  "volume_cm3": 23.17,
+  "volume_cm3": 8.7,
   "material": "ABS",
-  "mass_g_solid": 24.1,
+  "mass_g_solid": 9.0,
   "bbox_mm": [
-   79.5,
-   49.0,
-   19.5
+   66.5,
+   40.9,
+   7.6
   ],
   "orientation": "flat",
-  "note": "jaw block up"
+  "note": "tongue forward; M layer only since rev 7"
  },
  {
   "file": "12_Finger_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 23.17,
+  "volume_cm3": 8.7,
   "material": "ABS",
-  "mass_g_solid": 24.1,
+  "mass_g_solid": 9.0,
   "bbox_mm": [
-   79.5,
-   49.0,
-   19.5
+   66.5,
+   40.9,
+   7.6
   ],
   "orientation": "flat",
   "note": "mirror of 11"
@@ -180,5 +180,75 @@
   ],
   "orientation": "flat",
   "note": "print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper"
+ },
+ {
+  "file": "14_TipBlock_Narrow_A.stl",
+  "qty": 1,
+  "volume_cm3": 17.38,
+  "material": "ABS",
+  "mass_g_solid": 18.1,
+  "bbox_mm": [
+   45.0,
+   33.3,
+   19.5
+  ],
+  "orientation": "flip_x",
+  "note": "narrow set; top face on bed, tongue pocket up"
+ },
+ {
+  "file": "15_TipBlock_Narrow_B_mirrored.stl",
+  "qty": 1,
+  "volume_cm3": 17.38,
+  "material": "ABS",
+  "mass_g_solid": 18.1,
+  "bbox_mm": [
+   45.0,
+   33.3,
+   19.5
+  ],
+  "orientation": "flip_x",
+  "note": "mirror of 14"
+ },
+ {
+  "file": "16_TipBlock_Wide_A.stl",
+  "qty": 1,
+  "volume_cm3": 11.41,
+  "material": "ABS",
+  "mass_g_solid": 11.9,
+  "bbox_mm": [
+   45.0,
+   23.3,
+   19.5
+  ],
+  "orientation": "flip_x",
+  "note": "wide set; top face on bed, tongue pocket up"
+ },
+ {
+  "file": "17_TipBlock_Wide_B_mirrored.stl",
+  "qty": 1,
+  "volume_cm3": 11.41,
+  "material": "ABS",
+  "mass_g_solid": 11.9,
+  "bbox_mm": [
+   45.0,
+   23.3,
+   19.5
+  ],
+  "orientation": "flip_x",
+  "note": "mirror of 16"
+ },
+ {
+  "file": "18_Pad_TPU95A.stl",
+  "qty": 4,
+  "volume_cm3": 1.79,
+  "material": "TPU",
+  "mass_g_solid": 2.2,
+  "bbox_mm": [
+   38.0,
+   19.5,
+   3.4
+  ],
+  "orientation": "side_py_down",
+  "note": "TPU 95A, contact face on bed; 2 per tip set (same pad fits both)"
  }
 ]

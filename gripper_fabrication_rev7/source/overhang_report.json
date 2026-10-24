@@ -126,5 +126,61 @@
  "13_FitTest_coupons.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
+ },
+ "14_TipBlock_Narrow_A.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    3.2,
+    42.2,
+    [
+     15.2,
+     6.2
+    ]
+   ]
+  ]
+ },
+ "15_TipBlock_Narrow_B_mirrored.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    3.2,
+    42.2,
+    [
+     15.2,
+     6.2
+    ]
+   ]
+  ]
+ },
+ "16_TipBlock_Wide_A.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    3.2,
+    42.2,
+    [
+     15.2,
+     6.2
+    ]
+   ]
+  ]
+ },
+ "17_TipBlock_Wide_B_mirrored.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    3.2,
+    42.2,
+    [
+     15.2,
+     6.2
+    ]
+   ]
+  ]
+ },
+ "18_Pad_TPU95A.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
  }
 }

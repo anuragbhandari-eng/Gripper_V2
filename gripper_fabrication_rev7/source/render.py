@@ -1,7 +1,7 @@
 import numpy as np, matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import design as D, check as C
-COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a',
+COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a', 'TipBlock': '#e8742a', 'Pad': '#202124', 'BHT_': '#1b1b1b',
        'BellCrank': '#c9cdd2', 'FrontCrank': '#c9cdd2', 'ConRod': '#b4b9bf', 'SS_': '#1b1b1b', 'Motor': '#222326',
        'LeadScrew': '#c4c6c8', 'T8_Nut': '#c9a24a', 'Bearing608': '#a9adb2', 'Dowel': '#dcdcdc'}
 def color(n):

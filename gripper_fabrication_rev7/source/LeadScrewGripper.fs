@@ -7,17 +7,28 @@ import(path : "onshape/std/common.fs", version : "3083.0");
 
 const GAP_BOUNDS = { (millimeter) : [0, 30, 66] } as LengthBoundSpec;
 
+export enum TipSet
+{
+    annotation { "Name" : "Narrow (gap 0-66 mm)" }
+    NARROW,
+    annotation { "Name" : "Wide (gap 20-86 mm)" }
+    WIDE
+}
+
 annotation { "Feature Type Name" : "Lead Screw Gripper", "Feature Type Description" : "Builds the full gripper at a given jaw gap" }
 export const leadScrewGripper = defineFeature(function(context is Context, id is Id, definition is map)
     precondition
     {
-        annotation { "Name" : "Jaw gap" }
+        annotation { "Name" : "Jaw gap (narrow tips)" }
         isLength(definition.gap, GAP_BOUNDS);
+        annotation { "Name" : "Tip set", "Default" : TipSet.NARROW }
+        definition.tipSet is TipSet;
         annotation { "Name" : "Include purchased parts", "Default" : true }
         definition.purchased is boolean;
     }
     {
         const kin = gripperKinematics(definition.gap / millimeter);
+        const wide = definition.tipSet == TipSet.WIDE;
         const parts = partSpecs();
         var bodies = {};
         for (var k = 0; k < size(parts); k += 1)
@@ -26,7 +37,7 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
             if (p.purchased && !definition.purchased)
                 continue;
             const pid = id + ("p" ~ k);
-            const body = buildPart(context, pid, p.ops);
+            const body = buildPart(context, pid, (wide && p.opsW != undefined) ? p.opsW : p.ops);
             const T = poseTransform(p.kind, kin);
             opTransform(context, id + ("t" ~ k), { "bodies" : body, "transform" : T });
             dressPart(context, body, p.mirror ? p.name ~ " U" : p.name, p);
@@ -61,7 +72,10 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
             setProperty(context, { "entities" : qCreatedBy(id + ("mc" ~ j), EntityType.BODY), "propertyType" : PropertyType.NAME,
                         "value" : "MC " ~ m[1] ~ (m[2] > 0 ? " U " : (m[2] < 0 ? " L " : " ")) ~ m[0] });
         }
-    }, { "gap" : 30 * millimeter, "purchased" : true });
+        // true pad-to-pad gap for the chosen tip set (the wide faces sit 10 mm further out per side)
+        const faceGap = definition.gap / millimeter + (wide ? 2 * 10 : 0);
+        reportFeatureInfo(context, id, "Pad-to-pad gap: " ~ roundToPrecision(faceGap, 1) ~ " mm (" ~ (wide ? "wide" : "narrow") ~ " tips)");
+    }, { "gap" : 30 * millimeter, "tipSet" : TipSet.NARROW, "purchased" : true });
 
 function mateConnectorSpecs() returns array
 {
@@ -103,6 +117,8 @@ function dressPart(context is Context, q is Query, name is string, p is map)
         dens = 7.85;
     if (p.mat == "BRASS")
         dens = 8.5;
+    if (p.mat == "TPU")
+        dens = 1.21;
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.MATERIAL, "value" : material(p.mat, dens * gram / centimeter ^ 3) });
 }
 
@@ -359,11 +375,12 @@ function partSpecs() returns array
         [0,"cyl",[22.6751,0,5.5],[22.6751,0,15.1],2.1]] },
     { "name" : "Finger", "kind" : "finger", "mirror" : true, "color" : [0.91,0.45,0.16], "mat" : "ABS", "purchased" : false,
       "ops" : [
-        [1,"ext",[1.7813,5.2036],[[1,-4.668,2.9086,-3.8862,-3.892],[0,34.8803,-42.6009],[1,35.853,-43.2501,37,-43.478],[0,71,-43.478],[1,73.6944,-41.7971,73.3695,-38.6381],[0,53.4695,-13.0101],[1,52.8436,-12.4087,52.0716,-12.0117],[0,1.7813,5.2036]],6.5,14.1],
-        [1,"ext",[41,-8.2217],[[0,41,-43.478],[0,71,-43.478],[1,73.6944,-41.7971,73.3695,-38.6381],[0,53.4695,-13.0101],[1,52.8436,-12.4087,52.0716,-12.0117],[0,41,-8.2217]],14.09,26],
-        [0,"ext",[36.5,-44.478],[[0,70.5,-44.478],[0,70.5,-43.478],[0,70,-43.478],[0,69,-42.678],[0,68,-43.478],[0,67,-42.678],[0,66,-43.478],[0,65,-42.678],[0,64,-43.478],[0,63,-42.678],[0,62,-43.478],[0,61,-42.678],[0,60,-43.478],[0,59,-42.678],[0,58,-43.478],[0,57,-42.678],[0,56,-43.478],[0,55,-42.678],[0,54,-43.478],[0,53,-42.678],[0,52,-43.478],[0,51,-42.678],[0,50,-43.478],[0,49,-42.678],[0,48,-43.478],[0,47,-42.678],[0,46,-43.478],[0,45,-42.678],[0,44,-43.478],[0,43,-42.678],[0,42,-43.478],[0,41,-42.678],[0,40,-43.478],[0,39,-42.678],[0,38,-43.478],[0,36.5,-43.478],[0,36.5,-44.478]],5.5,27],
-        [0,"cyl",[0,0,5.5],[0,0,27],2.1],
-        [0,"cyl",[32.2712,-29.8824,5.5],[32.2712,-29.8824,27],2.1]] },
+        [1,"ext",[41,-31.978],[[0,41,-8.2217],[0,1.7813,5.2036],[1,-4.7219,2.8202,-3.7369,-4.0356],[0,28.5344,-33.918],[1,31.3865,-35.3108,34.5332,-34.8958],[0,41,-31.978]],6.5,14.1],
+        [1,"ext",[40,-27],[[0,60,-27],[1,60.7071,-26.7071,61,-26],[0,61,-19],[1,60.7071,-18.2929,60,-18],[0,40,-18],[1,39.2929,-18.2929,39,-19],[0,39,-26],[1,39.2929,-26.7071,40,-27]],6.5,14.1],
+        [0,"cyl",[0,0,5.5],[0,0,15.1],2.1],
+        [0,"cyl",[32.2712,-29.8824,5.5],[32.2712,-29.8824,15.1],2.1],
+        [0,"cyl",[46,-22.5,5.5],[46,-22.5,15.1],2],
+        [0,"cyl",[55,-22.5,5.5],[55,-22.5,15.1],2]] },
     { "name" : "NEMA17 linear stepper 40mm", "kind" : "ground", "mirror" : false, "color" : [0.13,0.14,0.15], "mat" : "STEEL", "purchased" : true,
       "ops" : [
         [1,"extx",[-16.65,-10.85],[[0,16.65,-10.85],[0,21.15,-6.35],[0,21.15,26.95],[0,16.65,31.45],[0,-16.65,31.45],[0,-21.15,26.95],[0,-21.15,-6.35],[0,-16.65,-10.85]],-90.4867,-50.4867],
@@ -461,6 +478,40 @@ function partSpecs() returns array
     { "name" : "Lock collar 8x14x7 (thrust)", "kind" : "ground", "mirror" : false, "color" : [0.70,0.72,0.75], "mat" : "STEEL", "purchased" : true,
       "ops" : [
         [1,"cyl",[17.0475,0,10.3],[24.0475,0,10.3],7],
-        [0,"cyl",[16.0475,0,10.3],[25.0475,0,10.3],4]] }
+        [0,"cyl",[16.0475,0,10.3],[25.0475,0,10.3],4]] },
+    { "name" : "Tip block", "kind" : "finger", "mirror" : true, "color" : [0.91,0.45,0.16], "mat" : "ABS", "purchased" : false,
+      "ops" : [
+        [1,"ext",[41,-8.2217],[[0,41,-38.478],[1,41.8787,-40.5993,44,-41.478],[0,83,-41.478],[1,85.7771,-39.6127,85.1008,-36.3363],[0,65.2008,-16.8161],[1,64.6752,-16.4046,64.0716,-16.1195],[0,41,-8.2217]],6.5,26],
+        [0,"ext",[40.15,-27.15],[[0,60,-27.15],[1,60.8132,-26.8132,61.15,-26],[0,61.15,-19],[1,60.8132,-18.1868,60,-17.85],[0,40.15,-17.85],[1,39.3368,-18.1868,39,-19],[0,39,-26],[1,39.3368,-26.8132,40.15,-27.15]],5.5,14.1],
+        [0,"extx",[-41.488,13.75],[[0,-39.978,12.25],[0,-39.978,20.25],[0,-41.488,18.75],[0,-41.488,13.75]],40,80.5],
+        [0,"cyl",[46,-22.5,14.09],[46,-22.5,27],1.7],
+        [0,"cyl",[46,-22.5,22.8],[46,-22.5,27],3.1],
+        [0,"cyl",[55,-22.5,14.09],[55,-22.5,27],1.7],
+        [0,"cyl",[55,-22.5,22.8],[55,-22.5,27],3.1]],
+      "opsW" : [
+        [1,"ext",[41,-8.2217],[[0,41,-28.478],[1,41.8787,-30.5993,44,-31.478],[0,83,-31.478],[1,85.1213,-30.5993,86,-28.478],[0,86,-25.7699],[1,85.4408,-24.0256,83.9716,-22.9316],[0,41,-8.2217]],6.5,26],
+        [0,"ext",[40.15,-27.15],[[0,60,-27.15],[1,60.8132,-26.8132,61.15,-26],[0,61.15,-19],[1,60.8132,-18.1868,60,-17.85],[0,40.15,-17.85],[1,39.3368,-18.1868,39,-19],[0,39,-26],[1,39.3368,-26.8132,40.15,-27.15]],5.5,14.1],
+        [0,"extx",[-31.488,13.75],[[0,-29.978,12.25],[0,-29.978,20.25],[0,-31.488,18.75],[0,-31.488,13.75]],40,80.5],
+        [0,"cyl",[46,-22.5,14.09],[46,-22.5,27],1.7],
+        [0,"cyl",[46,-22.5,22.8],[46,-22.5,27],3.1],
+        [0,"cyl",[55,-22.5,14.09],[55,-22.5,27],1.7],
+        [0,"cyl",[55,-22.5,22.8],[55,-22.5,27],3.1]] },
+    { "name" : "Pad TPU", "kind" : "finger", "mirror" : true, "color" : [0.12,0.12,0.13], "mat" : "TPU", "purchased" : false,
+      "ops" : [
+        [1,"box",[44.5,-43.478,6.5],[82.5,-41.478,26]],
+        [1,"extx",[-41.488,13.8207],[[0,-40.078,12.42],[0,-40.078,20.08],[0,-41.488,18.6793],[0,-41.488,13.8207]],44.5,80]],
+      "opsW" : [
+        [1,"box",[44.5,-33.478,6.5],[82.5,-31.478,26]],
+        [1,"extx",[-31.488,13.8207],[[0,-30.078,12.42],[0,-30.078,20.08],[0,-31.488,18.6793],[0,-31.488,13.8207]],44.5,80]] },
+    { "name" : "Button head M3x16 tip (rear)", "kind" : "finger", "mirror" : true, "color" : [0.10,0.10,0.10], "mat" : "STEEL", "purchased" : true,
+      "ops" : [
+        [1,"cyl",[46,-22.5,24.45],[46,-22.5,22.8],2.85],
+        [1,"cyl",[46,-22.5,22.81],[46,-22.5,6.8],1.5],
+        [0,"cyl",[46,-22.5,24.46],[46,-22.5,23.45],1.15]] },
+    { "name" : "Button head M3x16 tip (front)", "kind" : "finger", "mirror" : true, "color" : [0.10,0.10,0.10], "mat" : "STEEL", "purchased" : true,
+      "ops" : [
+        [1,"cyl",[55,-22.5,24.45],[55,-22.5,22.8],2.85],
+        [1,"cyl",[55,-22.5,22.81],[55,-22.5,6.8],1.5],
+        [0,"cyl",[55,-22.5,24.46],[55,-22.5,23.45],1.15]] }
     ];
 }

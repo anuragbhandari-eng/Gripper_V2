@@ -1,0 +1,290 @@
+{
+ "parts": {
+  "BellCrank_Lower_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 5517.5
+  },
+  "BellCrank_Lower_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 5517.5
+  },
+  "BellCrank_Upper_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 3073.1
+  },
+  "BellCrank_Upper_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 3073.1
+  },
+  "FrontCrank_Lower_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2783.6
+  },
+  "FrontCrank_Lower_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2783.6
+  },
+  "FrontCrank_Upper_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1428.7
+  },
+  "FrontCrank_Upper_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1428.7
+  },
+  "ConRod_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2407.3
+  },
+  "ConRod_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2407.3
+  },
+  "Finger_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 8699.4
+  },
+  "Finger_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 8699.4
+  },
+  "TipBlock_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 11410.7
+  },
+  "TipBlock_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 11410.7
+  },
+  "Pad_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1793.6
+  },
+  "Pad_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1793.6
+  },
+  "BHT_Tip_A_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_A_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_B_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHT_Tip_B_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "SS_F1_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_F1_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_F2_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_F2_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_D_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_D_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_C_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "SS_C_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 291.8
+  },
+  "Carriage": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 20162.4
+  },
+  "T8_Nut": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1381.5
+  },
+  "Base": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 106844.5
+  },
+  "Cover": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 91622.8
+  },
+  "Adapter": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 37946.0
+  },
+  "Motor": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 70613.7
+  },
+  "LeadScrew": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 3997.8
+  },
+  "Bearing608": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2309.1
+  },
+  "LockCollar": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 725.7
+  },
+  "BHS_Motor_Base_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Motor_Base_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Motor_Cover_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Motor_Cover_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Cover_Wall_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 179.3
+  },
+  "BHS_Cover_Wall_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 179.3
+  },
+  "BHS_Cover_Block_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 179.3
+  },
+  "BHS_Cover_Block_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 179.3
+  },
+  "BHS_Cover_Post_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Cover_Post_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Side_Base_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Side_Base_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Side_Cover_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHS_Side_Cover_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHN_Nut_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHN_Nut_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "Dowel_O1_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 402.1
+  },
+  "Dowel_O1_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 402.1
+  },
+  "Dowel_O2_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 402.1
+  },
+  "Dowel_O2_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 402.1
+  }
+ },
+ "hits": {}
+}

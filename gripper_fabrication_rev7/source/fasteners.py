@@ -9,10 +9,11 @@ STEEL_tau = 0.58*640.0                                      # 8.8 class shear yi
 As_M3 = 5.03                                                # mm^2, M3 stress area (fully threaded button heads)
 A_head = np.pi/4*(D.BH_DK**2 - 3.4**2)                      # under-head bearing annulus on a D3.4 hole
 # ---- mass & centre of gravity of everything that hangs on the 4 adapter side screws (gap 30) ----
-rho = {D.MAT: D.MAT_RHO*1e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (printed parts taken solid = conservative)
+rho = {D.MAT: D.MAT_RHO*1e-3, D.PAD_MAT: D.PAD_RHO*1e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (printed parts taken solid = conservative)
 def mat(n):
     if n.startswith(('T8_Nut',)): return 'BRASS'
     if n.startswith(('Dowel', 'SS_', 'BH', 'LeadScrew', 'Bearing608')): return 'STEEL'
+    if n.startswith('Pad'): return D.PAD_MAT
     return D.MAT
 th = np.arcsin(30/(2*D.L) + np.sin(D.TH_C))
 m_tot = 0.0; mx = 0.0
@@ -29,7 +30,7 @@ x_mount = D.X_AD0 + 7.0                                     # side-screw plane
 g = 9.81; dyn = 2.0; m_pay = 500.0
 F1 = D.geom(D.P, th)['F1'] if hasattr(D, 'geom') else None
 from kin import geom
-x_pay = geom(D.P, th)['F1'][0] + (D.EXT_X0 + D.JAW_X1)/2    # payload at the middle of the jaw block
+x_pay = geom(D.P, th)['F1'][0] + (D.SEAM_X + D.FACE_X1)/2   # payload at the middle of the pads (rev 7 tips)
 M_pitch = g*dyn*(m_tot*(x_cg - x_mount) + m_pay*(x_pay - x_mount))*1e-6   # N*m
 dz = D.AD_SCREW_Z[1] - D.AD_SCREW_Z[0]
 F_side = M_pitch*1e3/dz/2 + g*dyn*(m_tot + m_pay)*1e-3/4   # N per screw: moment couple per side + direct shear
@@ -56,6 +57,7 @@ eng = [
  row('Cover to post M3x8', 8, seat_cov - D.Z_C0, (seat_cov - 8) - (D.Z_C0 - 6.5), 'insert 5.7 (hole 6.5)'),
  row('Side wall to adapter M3x8', 8, seat_side - D.AD_HW, (seat_side - 8) - (D.AD_HW - 6.5), 'insert 5.7 (hole 6.5)'),
  row('Nut flange M3x8', 8, D.NUT_FL_T + 0.1, 7.0 - (8 - D.NUT_FL_T - 0.1), 'self-tapped D2.5 pilot, 7 deep'),
+ row('Tip block to tongue M3x16', 16, D.Z_JAW - 3.2 - D.Z_M1, (D.Z_JAW - 3.2 - 16) - D.Z_M0, 'insert 5.7 in the finger tongue (through hole)'),
 ]
 out = dict(mass_g=round(m_tot, 0), x_cg_mm=round(x_cg, 1), x_payload_mm=round(x_pay, 1), x_mount_mm=round(x_mount, 1),
            M_pitch_Nm=round(M_pitch, 2), rows=rows, engagement=eng, min_SF=min(r['SF_yield'] for r in rows),

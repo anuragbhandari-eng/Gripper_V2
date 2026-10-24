@@ -1,6 +1,7 @@
 """Gripper geometry: every part as CSG ops in its LOCAL frame + pose transforms. Single source of truth.
 Assembly frame: X forward (screw axis direction), Y outward (upper side = +Y), Z up from base-plate top.
 Origin: X at fixed pivot O1, Y on centerline, Z=0 at base-plate top."""
+import os
 import numpy as np
 from params import make
 from kin import geom
@@ -138,16 +139,72 @@ def _body_edge_y(x):
     c2 = np.array(TOP_C); dd = np.linalg.norm(c2); u = c2/dd; p = np.array([-u[1], u[0]])
     a = (R_BOSS - TOP_R)/dd; n = a*u + np.sqrt(1 - a*a)*p
     return (R_BOSS - n[0]*x)/n[1]
+# ---------- rev 7: bolt-on tip blocks (v2 change B) ----------
+# The finger splits at the raised-jaw edge (x = 41); the F2 boss and the O2-spacer clearance sit behind the seam.
+# Two tip sets bolt onto the same finger body: narrow (pad face on the rev 6 face line, gap 0-66) and wide (pad face
+# 10 mm further out per side, gap 20-86). Both run 12 mm further forward than rev 6. The pad is the same for both.
+TIP_WIDE = os.environ.get('GRIPPER_TIPSET', 'narrow') == 'wide'   # which set the local checks place
+SEAM_X = EXT_X0
+TIP_EXT, WIDE_OFS, PAD_T, TIP_R = 12.0, 10.0, 2.0, 3.0
+FACE_X1 = NOSE_C[0] + TIP_EXT                 # 83: end of the contact face (nose tangent)
+SEAM_Y0 = FACE_Y + WIDE_OFS + 1.5             # finger edge at the seam: 1.5 mm behind the wide pad face
+EDGE_S = _body_edge_y(1.0) - _body_edge_y(0.0)   # slope of the finger's outer edge
+TONGUE_X1, TONGUE_Y = SEAM_X + 20.0, (-27.0, -18.0)   # finger tongue inside the tip block (M layer), carries 2 inserts;
+TIP_SCREW_X, TIP_SCREW_Y = (46.0, 55.0), -22.5          # 20 mm long so its flank bearing alone carries the far-tip moment
+PAD_X = (SEAM_X + TIP_R + 0.5, FACE_X1 - 0.5)   # pad length: heel tangent to nose tangent, 0.5 mm in at each end
+PAD_ZC, PAD_KEY = (Z_M0 + Z_JAW)/2, (5.0, 8.0, 1.5)   # pad dovetail: mouth width, root width, depth (45 deg flanks)
+PAD_MAT, PAD_RHO = 'TPU', 1.21                   # TPU 95A, g/cm3
+
+def tip_face_y(wide):
+    """Rigid contact face of a tip block (finger frame); the 2 mm pad sits in front of it."""
+    return FACE_Y + PAD_T + (WIDE_OFS if wide else 0.0)
+
+def _pad_key_loop(yf, s):
+    """Dovetail section in (y, z) at the face yf, opening into the block; s = gap to the groove (0 for the groove)."""
+    wm, wb, d = PAD_KEY
+    y0, y1 = yf - 0.01, yf + d - 2*s
+    k = 1.0/np.cos(np.arctan((wb - wm)/2/d))          # flank gap s measured square to the slanted flank
+    hw = lambda y: (wm + (wb - wm)*(y - y0)/(d + 0.01))/2 - k*s
+    return poly_loop([(y0, PAD_ZC - hw(y0)), (y1, PAD_ZC - hw(y1)), (y1, PAD_ZC + hw(y1)), (y0, PAD_ZC + hw(y0))])
+
 def finger():
-    """Convex outline: F1 and F2 bosses, r3 top corner, r3 nose, r3 heel; serrated face; raised jaw block."""
-    body = hull_circles([((0, 0), R_BOSS), (tuple(F2L), R_BOSS), (TOP_C, TOP_R), (NOSE_C, NOSE_R), (HEEL_C, HEEL_R)])
-    jaw = hull_circles([((EXT_X0, FACE_Y), 0), (NOSE_C, NOSE_R), (TOP_C, TOP_R), ((EXT_X0, _body_edge_y(EXT_X0)), 0)])
+    """Finger body (rev 7): F1 and F2 bosses back to the seam at x = 41, plus the tongue that carries a tip block.
+    The heel is trimmed to 1.5 mm behind the wide pad face, so the back edge now runs F1 boss -> F2 boss, further
+    from the O2 spacer than rev 6. M layer only: prints flat."""
+    body = hull_circles([((0, 0), R_BOSS), (tuple(F2L), R_BOSS), ((SEAM_X, SEAM_Y0), 0), ((SEAM_X, _body_edge_y(SEAM_X)), 0)])
     ops = [('add', ('ext', body, Z_M0, Z_M1)),
-           ('add', ('ext', jaw, Z_M1 - 0.01, Z_JAW)),
-           ('cut', ('ext', _serration_cut(), Z_M0 - 1, Z_JAW + 1)),
-           ('cut', ('cyl', (0, 0, Z_M0-1), (0, 0, Z_JAW+1), R_RUN)),
-           ('cut', ('cyl', (F2L[0], F2L[1], Z_M0-1), (F2L[0], F2L[1], Z_JAW+1), R_RUN))]
+           ('add', ('ext', rrect_loop(SEAM_X - 2, TONGUE_Y[0], TONGUE_X1, TONGUE_Y[1], 1.0), Z_M0, Z_M1)),
+           ('cut', ('cyl', (0, 0, Z_M0-1), (0, 0, Z_M1+1), R_RUN)),
+           ('cut', ('cyl', (F2L[0], F2L[1], Z_M0-1), (F2L[0], F2L[1], Z_M1+1), R_RUN))]
+    ops += [('cut', ('cyl', (x, TIP_SCREW_Y, Z_M0 - 1), (x, TIP_SCREW_Y, Z_M1 + 1), R_INS)) for x in TIP_SCREW_X]
     return ops
+
+def tip_block(wide):
+    """Bolt-on tip block (finger frame), full jaw height z 6.5-26. Slides up onto the finger's tongue; 2x M3x16 from
+    the top into the tongue inserts. Narrow: rev 6 nose moved 12 mm forward. Wide: blunt end about 8 mm thick, top
+    edge continuing the finger's outer edge. Pad dovetail groove along the face, open at the rear (x = 41).
+    Prints upside down (top face on the bed), so the tongue pocket opens upward."""
+    yf = tip_face_y(wide); yh = yf + TIP_R
+    if wide:
+        front = [((FACE_X1, yh), TIP_R), ((FACE_X1, _body_edge_y(FACE_X1) - TIP_R*np.hypot(1, EDGE_S)), TIP_R)]
+    else:
+        front = [((FACE_X1, yh), TIP_R), ((TOP_C[0] + TIP_EXT, TOP_C[1] + TIP_EXT*EDGE_S), TOP_R)]
+    outline = hull_circles([((SEAM_X + TIP_R, yh), TIP_R)] + front + [((SEAM_X, _body_edge_y(SEAM_X)), 0)])
+    c = 0.15   # slide fit round the tongue
+    ops = [('add', ('ext', outline, Z_M0, Z_JAW)),
+           ('cut', ('ext', rrect_loop(SEAM_X - 2, TONGUE_Y[0] - c, TONGUE_X1 + c, TONGUE_Y[1] + c, 1.0 + c), Z_M0 - 1, Z_M1)),
+           ('cut', ('extx', _pad_key_loop(yf, 0.0), SEAM_X - 1, PAD_X[1] - 2.0))]
+    for x in TIP_SCREW_X:
+        ops += [('cut', ('cyl', (x, TIP_SCREW_Y, Z_M1 - 0.01), (x, TIP_SCREW_Y, Z_JAW + 1), R_M3)),
+                ('cut', ('cyl', (x, TIP_SCREW_Y, Z_JAW - 3.2), (x, TIP_SCREW_Y, Z_JAW + 1), 3.1))]
+    return ops
+
+def pad(wide):
+    """TPU 95A contact pad, 2 mm thick, full jaw height; its dovetail key slides into the tip block's groove from the
+    rear before the tip block goes on. The same pad fits both sets."""
+    yf = tip_face_y(wide)
+    return [('add', ('box', (PAD_X[0], yf - PAD_T, Z_M0), (PAD_X[1], yf, Z_JAW))),
+            ('add', ('extx', _pad_key_loop(yf, 0.05), PAD_X[0], PAD_X[1] - 2.5))]
 
 # ================= carriage (local: origin at (C_x, 0, 0)) =================
 NUT_FL_R, NUT_FL_T, NUT_BODY_R, NUT_LEN = 11.0, 3.5, 5.1, 15.0
@@ -323,6 +380,8 @@ FASTENERS = [  # name, seat, axis, length, frame
     ('BHS_Side_Cover',  (X_AD0 + 7.0, Y_RAIL1 - 3.2, AD_SCREW_Z[1]), (0, -1, 0), 8.0, 'ground'),
     ('BHN_Nut',         (POCKET_X0 + 0.1 + NUT_FL_T, NUT_SCREW_Y, Z_S), (-1, 0, 0), 8.0, 'car'),
 ]
+# rev 7: tip-block screws, finger frame (kept apart from FASTENERS so the Onshape part ids of the others stay put)
+TIP_FASTENERS = [(nm, (x, TIP_SCREW_Y, Z_JAW - 3.2), (0, 0, -1), 16.0) for nm, x in zip(('BHT_Tip_A', 'BHT_Tip_B'), TIP_SCREW_X)]
 
 # ================= poses =================
 def rotz(a):
@@ -331,8 +390,10 @@ def Tm(R=np.eye(3), t=(0, 0, 0)):
     M = np.eye(4); M[:3, :3] = R; M[:3, 3] = t; return M
 MIR = np.diag([1, -1, 1, 1.0])   # Y mirror (applied to already-mirrored geometry, so we instead mirror ops)
 
-def pose(th):
-    """Return dict name -> (ops, 4x4 transform). Lower side = mirrored ops with mirrored transforms."""
+def pose(th, wide=None):
+    """Return dict name -> (ops, 4x4 transform). Lower side = mirrored ops with mirrored transforms.
+    wide: tip set to place (default TIP_WIDE)."""
+    wide = TIP_WIDE if wide is None else wide
     g = geom(P, th); F1 = g['F1']; D = g['D']; C = g['C']
     rod_ang = np.arctan2(D[1] - C[1], D[0] - C[0])
     parts = {}
@@ -346,6 +407,10 @@ def pose(th):
     add('FrontCrank_Upper', fc_plate(False), Tm(rotz(th), (O2[0], O2[1], 0)))
     add('ConRod', conrod(), Tm(rotz(rod_ang), (C[0], C[1], 0)))
     add('Finger', finger(), Tm(np.eye(3), (F1[0], F1[1], 0)))
+    add('TipBlock', tip_block(wide), Tm(np.eye(3), (F1[0], F1[1], 0)))
+    add('Pad', pad(wide), Tm(np.eye(3), (F1[0], F1[1], 0)))
+    for nm, seat, ax, ln in TIP_FASTENERS:
+        add(nm, button_screw(seat, ax, ln), Tm(np.eye(3), (F1[0], F1[1], 0)))
     for nm, pt in (('SS_F1', F1), ('SS_F2', g['F2']), ('SS_D', D), ('SS_C', C)):
         add(nm, shoulder_screw(), Tm(np.eye(3), (pt[0], pt[1], 0)))
     parts['Carriage'] = (carriage(), Tm(np.eye(3), (C[0], 0, 0)))
@@ -359,9 +424,10 @@ def pose(th):
         parts['Dowel_' + nm + '_U'] = (dowel(c, 1), np.eye(4)); parts['Dowel_' + nm + '_L'] = (dowel(c, -1), np.eye(4))
     return parts
 
-MOVING = lambda n: any(n.startswith(k) for k in ('BellCrank', 'FrontCrank', 'ConRod', 'Finger', 'SS_', 'Carriage', 'T8_Nut', 'BHN_'))
+MOVING = lambda n: any(n.startswith(k) for k in ('BellCrank', 'FrontCrank', 'ConRod', 'Finger', 'SS_', 'Carriage', 'T8_Nut', 'BHN_',
+                                                  'TipBlock', 'Pad', 'BHT_'))
 PRINTED = ['Base', 'Cover', 'Adapter', 'Carriage', 'BellCrank_Lower_U', 'BellCrank_Upper_U', 'FrontCrank_Lower_U',
-           'FrontCrank_Upper_U', 'ConRod_U', 'Finger_U', 'Finger_L']
+           'FrontCrank_Upper_U', 'ConRod_U', 'Finger_U', 'Finger_L', 'TipBlock_U', 'TipBlock_L', 'Pad_U']
 if __name__ == '__main__':
     print('theta open %.2f deg; S %.2f..%.2f; blk %.2f..%.2f; wall %.2f..%.2f; adapter %.2f..%.2f; screw len %.1f'
           % (np.degrees(TH_O), S_MIN, S_MAX, X_BLK0, X_BLK1, X_WALL0, X_WALL1, X_AD0, X_AD1, SCREW_LEN))

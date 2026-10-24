@@ -9,9 +9,10 @@ js = re.sub(r',\s*\]', ']', js)
 specs = json.loads(js)
 import design as D
 minseg = 1e9; out = {}
-for sp in specs:
+def decode(raw):
+    global minseg
     ops = []
-    for o in sp['ops']:
+    for o in raw:
         op = 'add' if o[0] == 1 else 'cut'
         if o[1] in ('ext', 'extx'):
             cur = np.array(o[2]); segs = []
@@ -21,7 +22,10 @@ for sp in specs:
             ops.append((op, (o[1], dict(start=PT(*o[2]), segs=segs), o[4], o[5])))
         elif o[1] == 'cyl': ops.append((op, ('cyl', tuple(o[2]), tuple(o[3]), o[4])))
         else: ops.append((op, ('box', tuple(o[2]), tuple(o[3]))))
-    s = cq_part(ops); out[sp['name']] = round(s.Volume(), 1)
+    return ops
+for sp in specs:
+    out[sp['name']] = round(cq_part(decode(sp['ops'])).Volume(), 1)
+    if 'opsW' in sp: out[sp['name'] + ' (wide)'] = round(cq_part(decode(sp['opsW'])).Volume(), 1)   # rev 7 wide tip set
 print('min segment length in any loop: %.4f mm' % minseg)
 print(json.dumps(out, indent=0))
 json.dump(out, open('fs_volumes.json', 'w'), indent=1)

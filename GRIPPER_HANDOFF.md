@@ -10,7 +10,9 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 ### Repository and Onshape
 - This repo (`Gripper-Claude_Onshape_V2`) is standalone and holds only the v2 design work.
 - **Git:** show `git status` and `git diff` before any commit. Commit or push only when Anurag says so, and explain each git command the first time it comes up. Don't add other remotes or reference other repositories.
-- **Don't modify the original Onshape document "Lead Screw Gripper"; it stays as the rev 6 record.** v2 work happens in a **copy of that document** (for example "Lead Screw Gripper v2"). Ask Anurag to make the copy, or make it through Chrome with his OK after he has logged in.
+- **The v2 design goes in a new Onshape document named `GripperV2`.** Don't modify the original document "Lead Screw Gripper"; it stays as the rev 6 record.
+  - **Recommended:** make `GripperV2` as a copy of the original. That keeps Assembly 1 and its 19 mates, which attach to the feature's named mate connectors. A blank document would mean rebuilding the Feature Studio, Part Studio and assembly from scratch.
+  - Ask Anurag whether he wants a copy or a blank document, and whether he'll create it himself. You can also create it through Chrome with his OK, after he has logged in.
 - **Leave `gripper_fabrication_rev6/` unchanged as the reference.** Do v2 work in a new folder, `gripper_fabrication_rev7/`, starting from a copy of `rev6/source/`.
 
 ### Session rules
@@ -93,7 +95,7 @@ All lengths in mm, in the CAD frame:
 - https://cad.onshape.com/documents/95059d2be7659a57baadd94c
 - Feature Studio `60047d773e42d7742cd036f6`, Part Studio `c621af76ed54a2221b355024`, Assembly `621a9c0dfd69e86e15b36ea6`.
 - 49 parts. 19 mate features, with one slider (−20.83 mm open … +11.2 mm closed, relative to the 30 mm pose).
-- In a copy of the document, element ids change. Re-read them.
+- In `GripperV2`, the document and element ids are different. Read them from `GripperV2` and record them in the v2 notes.
 
 ### ROS 2
 A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, made when that phase starts.
@@ -132,7 +134,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 - Raspberry Pi Pico + TMC2209 on the **cover top**: bosses or heat-set inserts, an optional minimal lid, and a cable exit with strain relief. Route the motor cable.
 - **ROS 2 link:** USB serial from the Pico.
 
-### E. Keep fs_gen and the Onshape copy stable
+### E. Keep fs_gen and GripperV2 stable
 - **Append new SPEC entries at the END** so existing part ids stay stable.
 - Keep the `mateConnectorSpecs` order.
 - The carriage must stay an `ext` op.
@@ -142,7 +144,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 
 ## 5. Open items: ask Anurag before designing
 
-1. **Onshape copy:** confirm the copy's name and who makes it.
+1. **Onshape `GripperV2`:** confirm whether it's a copy of the original (recommended) or a blank document, and who creates it.
 2. **Power:** a 3S Li-ion pack (BMS, XT30, ~3 A fuse, switch, Pico voltage monitor) was chosen earlier. Later, a 12 V adapter was proposed instead, because USB is tethered anyway. **Not confirmed.**
 3. **Load cell:** proposed to **drop**, since force sensing isn't a goal. Not confirmed.
 4. **Pad material:** TPU print or cast silicone.
@@ -164,7 +166,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 
 Every part must be one valid solid, with zero collisions over all poses and printable with no supports. Look at the renders.
 
-**Onshape, only after local checks pass, and only in the v2 copy:**
+**Onshape, only after local checks pass, and only in `GripperV2`:**
 - **Route:** Claude in Chrome on cad.onshape.com, with Anurag logged in.
 - **Updating the Feature Studio:**
   - Paste through the Ace editor, or patch through browser-session REST (`POST /featurestudios`, with the `X-XSRF-TOKEN` header from the `XSRF-TOKEN` cookie). Both cost 0 FeatureScript MCP requests.
@@ -179,8 +181,8 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 3. **C:** encoder pocket and magnet cap.
 4. **D:** controller mount and cable exits.
 5. **A:** Tr8x8 constants, re-run analysis and structural checks, update the docs.
-6. Onshape v2 copy: Feature Studio, Part Studio and assembly checks.
-7. Later, and only where Anurag says: ROS 2 for v2 (joint limits and tip-set offsets, export from the v2 Onshape copy).
+6. Onshape `GripperV2`: Feature Studio, Part Studio and assembly checks.
+7. Later, and only where Anurag says: ROS 2 for v2 (joint limits and tip-set offsets, export from `GripperV2`).
 
 ---
 

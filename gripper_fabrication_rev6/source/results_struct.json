@@ -1,0 +1,163 @@
+{
+ "rows": [
+  {
+   "item": "Shoulder screw \u00d84 double shear (12.9 steel)",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 12.31,
+   "stress_op_MPa": 10.75,
+   "SF_yield_at_limit": 81.3,
+   "note": "\u03c4 vs ~1000 MPa shear-yield class, huge margin"
+  },
+  {
+   "item": "Dowel \u00d84 bending, simply supported base\u2194cover",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 329.91,
+   "stress_op_MPa": 288.08,
+   "SF_yield_at_limit": 3.6,
+   "note": "hardened ISO 8734, yield >1200 MPa; cover hole close fit \u00d84.0"
+  },
+  {
+   "item": "Finger bore at F2 on shoulder (7.6 mm)",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 10.17,
+   "stress_op_MPa": 8.88,
+   "SF_yield_at_limit": 4.4,
+   "note": "PETG bearing"
+  },
+  {
+   "item": "Finger bore at F1 (7.6 mm)",
+   "load_limit_N": 192.4,
+   "stress_limit_MPa": 6.33,
+   "stress_op_MPa": 5.53,
+   "SF_yield_at_limit": 7.1,
+   "note": ""
+  },
+  {
+   "item": "FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer)",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 4.32,
+   "stress_op_MPa": 3.77,
+   "SF_yield_at_limit": 10.4,
+   "note": ""
+  },
+  {
+   "item": "Base dowel press hole (55% share, 6 mm)",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 7.05,
+   "stress_op_MPa": 6.16,
+   "SF_yield_at_limit": 6.4,
+   "note": "beam reaction"
+  },
+  {
+   "item": "Cover dowel hole (45% share, 3.9 mm)",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 8.98,
+   "stress_op_MPa": 7.84,
+   "SF_yield_at_limit": 5.0,
+   "note": "beam reaction; needs the close fit"
+  },
+  {
+   "item": "ConRod bores (7.6 mm)",
+   "load_limit_N": 156.4,
+   "stress_limit_MPa": 5.14,
+   "stress_op_MPa": 4.49,
+   "SF_yield_at_limit": 8.7,
+   "note": ""
+  },
+  {
+   "item": "Carriage ears at C (6.3 + 3.8 mm)",
+   "load_limit_N": 156.4,
+   "stress_limit_MPa": 3.87,
+   "stress_op_MPa": 3.38,
+   "SF_yield_at_limit": 11.6,
+   "note": ""
+  },
+  {
+   "item": "Finger boss tear-out at F2",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 5.98,
+   "stress_op_MPa": 5.23,
+   "SF_yield_at_limit": 4.5,
+   "note": "shear allowable 0.6\u03c3"
+  },
+  {
+   "item": "FrontCrank (two-force) net section",
+   "load_limit_N": 309.3,
+   "stress_limit_MPa": 4.64,
+   "stress_op_MPa": 4.05,
+   "SF_yield_at_limit": 9.7,
+   "note": "axial only"
+  },
+  {
+   "item": "ConRod (two-force) net section",
+   "load_limit_N": 156.4,
+   "stress_limit_MPa": 3.55,
+   "stress_op_MPa": 3.1,
+   "SF_yield_at_limit": 12.7,
+   "note": "axial only"
+  },
+  {
+   "item": "BellCrank bending near O1 (two plates)",
+   "load_limit_N": 192.4,
+   "stress_limit_MPa": 6.04,
+   "stress_op_MPa": 5.28,
+   "SF_yield_at_limit": 7.4,
+   "note": "conservative: full F1 \u27c2 arm"
+  },
+  {
+   "item": "Finger jaw root (in-plane, 25 mm deep x 7.6)",
+   "load_limit_N": 273.0,
+   "stress_limit_MPa": 10.34,
+   "stress_op_MPa": 9.03,
+   "SF_yield_at_limit": 4.4,
+   "note": "cantilever 30 mm to contact"
+  },
+  {
+   "item": "Jaw extension root (z=14.1 layer plane)",
+   "load_limit_N": 163.8,
+   "stress_limit_MPa": 0.29,
+   "stress_op_MPa": 0.25,
+   "SF_yield_at_limit": 70.0,
+   "note": "interlayer, allow 10 MPa"
+  },
+  {
+   "item": "Block front lip bearing on 608 outer ring",
+   "load_limit_N": 200.0,
+   "stress_limit_MPa": 1.31,
+   "stress_op_MPa": 1.14,
+   "SF_yield_at_limit": 34.5,
+   "note": "PETG bearing, grip thrust"
+  },
+  {
+   "item": "Block front lip shear-out (8 mm wall)",
+   "load_limit_N": 200.0,
+   "stress_limit_MPa": 0.36,
+   "stress_op_MPa": 0.32,
+   "SF_yield_at_limit": 74.6,
+   "note": "shear allowable 0.6\u03c3"
+  }
+ ],
+ "driver": {
+  "I_rated_A": 1.5,
+  "T_hold_Nm": 0.4,
+  "I_set_rms_A": 0.45,
+  "T_at_set_Nm": 0.12,
+  "Fs_range_at_set_N": [
+   95.7,
+   174.6
+  ],
+  "Fs_needed_N": 72.4,
+  "Fs_operating_max_N": 174.6,
+  "grip_min_per_jaw_N": 33.1,
+  "grip_at60_worstfriction_N": 72.0,
+  "within_200N_limit": true,
+  "speed_note": "600 rpm -> 20 mm/s -> full stroke 1.6 s"
+ },
+ "thrust": {
+  "load_N": 200.0,
+  "bearing608_axial_static_capacity_N": 685.0,
+  "ratio": 3.4,
+  "note": "collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly"
+ },
+ "min_SF": 3.6
+}

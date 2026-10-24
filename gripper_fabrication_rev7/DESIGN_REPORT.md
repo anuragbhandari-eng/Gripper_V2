@@ -15,7 +15,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Motion check | 0 collisions over 41 poses (all 49 parts, including the 16 modelled screws); only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | 369 cm³ ABS (~211 g at typical infill) + motor ~280 g |
+| Printed volume | 692 cm³ ABS (~396 g at typical infill) + motor ~280 g |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 2. Mechanism and dimensions
@@ -91,7 +91,7 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 1600 steps/mm at 
 | Tip screw shank bearing in the tip block | 466.9 | 17.89 | 15.62 | 1.7 |
 | Tongue flank bearing in the tip block pocket (20 mm long) | 859.9 | 11.31 | 9.88 | 2.7 |
 | Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 1.14 | 23.0 |
-| Block front lip shear-out (8 mm wall) | 200.0 | 0.36 | 0.32 | 49.8 |
+| Block front lip shear-out (1.45 mm lip) | 200.0 | 2.0 | 1.74 | 9.0 |
 
 **Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor's own bearing no longer takes the full reaction. Limit case 200 N vs ≈ 685 N 608 static axial capacity. Collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly.
 
@@ -104,13 +104,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 710 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.84 N·m (×2 dynamic).
+Gripper mass 728 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 119.7 | 23.8 | 15.6 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 119.7 | 10.5 | 2.9 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 119.7 | 4.57 | 6.6 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.2 | 24.09 | 15.4 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 121.2 | 10.63 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 121.2 | 4.62 | 6.5 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 43.6 | 2.66 | 11.3 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 87.3 | 2.53 | 6.9 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 87.3 | 5.31 | 37.7 | CuZn yield ~200 MPa |
@@ -135,8 +135,8 @@ Gripper mass 710 g (printed parts taken as solid, conservative), CG at x = -26 m
 
 | Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |
 |---|---|---|---|---|
-| 01_Base.stl | 1 | 106.84 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
-| 02_Cover.stl | 1 | 91.62 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
+| 01_Base.stl | 1 | 106.99 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
+| 02_Cover.stl | 1 | 91.36 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
 | 03_Adapter_ISO9409-50-4-M6.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
 | 04_Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
 | 05_BellCrank_Lower_A.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
@@ -152,6 +152,9 @@ Gripper mass 710 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 16_TipBlock_Wide_A.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: wide set; top face on bed, tongue pocket up |
 | 17_TipBlock_Wide_B_mirrored.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: mirror of 16 |
 | 18_Pad_TPU95A.stl | 4 | 1.79 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
+| 19_EncoderPuck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
+| 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
+| 21_Stand_Base.stl | 1 | 185.58 | 150.0 × 150.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
 
 **Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
@@ -196,7 +199,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 - Rev 6 in Onshape (record: source/results_onshape_rev6.json): all 49 part volumes within 0.9 mm³ of the local model; 19/19 assembly features OK. Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, same as rev 5; a request past the limit clamps. Onshape evCollision: the collar only touches the screw and the 608 inner ring and sits 1.0 mm from the base and cover; at the open stop the carriage touches only the base (channel and stop) and the nut is 3.1 mm from the collar.
 - FeatureScript MCP usage: 15 API requests in total (56 → 71 of 2,500). All browser work in Onshape (rev 3 to rev 6) used none.
 - Rev 6 (local, after an outside design review):
-  - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to 81.5 mm (was 78.0) and ends flush with the 608 face.
+  - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to 78.5 mm (was 78.0) and ends flush with the 608 face.
   - Section through the thrust path: images/rev6_thrust_section.png.
   - Layer stack: finger / conrod now 6.5–14.1 (7.6 mm = 38 layers) and upper crank plates 14.4–18.2 (3.8 mm), with the screw axis at 10.3. Gaps went from 0.1 to 0.2 below and 0.3 above each moving layer.
   - Fit coupons (13_FitTest_coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.
@@ -207,7 +210,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 
 1. Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2). Base: 2 motor-wall joint, 2 bearing block, 2 posts. Adapter: 4 side holes.
 2. Press the 4 dowels into the base (O1, O2 both sides; 6 mm deep, square to the plate). Ream the 4 cover dowel holes to Ø4.0.
-3. Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to 81.5 mm ± 0.5 from the motor face, so its end sits flush with the 608 face (never proud of the 1 mm front recess). Chamfer, clean and grease it.
+3. Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to 78.5 mm ± 0.5 from the motor face, so its end sits flush with the 608 face (never proud of the 1 mm front recess). Chamfer, clean and grease it.
 4. Slide the nut into the carriage from the front: body into the bore, flange into the front recess, two flange holes at 3 and 9 o'clock. Fit 2× M3×8 button heads into the Ø2.5 pilots, snug only.
 5. Spin the carriage onto the motor screw from its rear. Slide the lock collar on (set screw loose), then the 608ZZ onto the screw tip.
 6. Lay motor + screw + carriage + bearing into the base: motor connector facing up, pilot into the wall recess, carriage tongue in the channel, 608 in the lower cradle against the front lip, collar behind it. Fit the 2 lower motor screws (M3×8) through the access slots with a 2.5 mm ball-end driver. Push the collar forward until it just touches the 608 inner ring (no preload) and tighten its set screw. Run the carriage end to end by hand, then tighten the 2 nut screws.

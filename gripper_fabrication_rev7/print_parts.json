@@ -2,9 +2,9 @@
  {
   "file": "01_Base.stl",
   "qty": 1,
-  "volume_cm3": 106.84,
+  "volume_cm3": 106.99,
   "material": "ABS",
-  "mass_g_solid": 111.1,
+  "mass_g_solid": 111.3,
   "bbox_mm": [
    145.3,
    130.9,
@@ -16,9 +16,9 @@
  {
   "file": "02_Cover.stl",
   "qty": 1,
-  "volume_cm3": 91.62,
+  "volume_cm3": 91.36,
   "material": "ABS",
-  "mass_g_solid": 95.3,
+  "mass_g_solid": 95.0,
   "bbox_mm": [
    145.3,
    130.9,
@@ -250,5 +250,47 @@
   ],
   "orientation": "side_py_down",
   "note": "TPU 95A, contact face on bed; 2 per tip set (same pad fits both)"
+ },
+ {
+  "file": "19_EncoderPuck.stl",
+  "qty": 1,
+  "volume_cm3": 0.07,
+  "material": "ABS",
+  "mass_g_solid": 0.1,
+  "bbox_mm": [
+   7.9,
+   7.9,
+   2.9
+  ],
+  "orientation": "rear_down",
+  "note": "magnet pocket up; glue to the screw end"
+ },
+ {
+  "file": "20_Stand_HeadBracket.stl",
+  "qty": 1,
+  "volume_cm3": 137.36,
+  "material": "ABS",
+  "mass_g_solid": 142.9,
+  "bbox_mm": [
+   103.8,
+   52.0,
+   30.0
+  ],
+  "orientation": "rear_down",
+  "note": "bench stand; back face on bed, nut pockets and column hole open upward"
+ },
+ {
+  "file": "21_Stand_Base.stl",
+  "qty": 1,
+  "volume_cm3": 185.58,
+  "material": "ABS",
+  "mass_g_solid": 193.0,
+  "bbox_mm": [
+   150.0,
+   150.0,
+   28.0
+  ],
+  "orientation": "front_down",
+  "note": "bench stand; table face on bed, column socket up"
  }
 ]

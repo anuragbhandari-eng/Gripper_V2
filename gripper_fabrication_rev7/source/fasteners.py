@@ -9,16 +9,19 @@ STEEL_tau = 0.58*640.0                                      # 8.8 class shear yi
 As_M3 = 5.03                                                # mm^2, M3 stress area (fully threaded button heads)
 A_head = np.pi/4*(D.BH_DK**2 - 3.4**2)                      # under-head bearing annulus on a D3.4 hole
 # ---- mass & centre of gravity of everything that hangs on the 4 adapter side screws (gap 30) ----
-rho = {D.MAT: D.MAT_RHO*1e-3, D.PAD_MAT: D.PAD_RHO*1e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (printed parts taken solid = conservative)
+rho = {D.MAT: D.MAT_RHO*1e-3, D.PAD_MAT: D.PAD_RHO*1e-3, 'FR4': 1.85e-3, 'STEEL': 7.85e-3, 'BRASS': 8.5e-3}   # g/mm^3 (printed parts taken solid = conservative)
 def mat(n):
     if n.startswith(('T8_Nut',)): return 'BRASS'
     if n.startswith(('Dowel', 'SS_', 'BH', 'LeadScrew', 'Bearing608')): return 'STEEL'
     if n.startswith('Pad'): return D.PAD_MAT
+    if n.startswith(('Protoboard', 'Pico', 'TMC2209', 'Buck', 'AS5600')): return 'FR4'
+    if n.startswith('Magnet'): return 'STEEL'
+    if n.startswith('Standoff'): return 'BRASS'
     return D.MAT
 th = np.arcsin(30/(2*D.L) + np.sin(D.TH_C))
 m_tot = 0.0; mx = 0.0
 for n, (ops, M) in D.pose(th).items():
-    if n == 'Adapter': continue
+    if n == 'Adapter' or n.startswith(('Stand', 'Column', 'Battery')): continue   # mount check: the gripper only
     s = cq.Shape.cast(C.place(C.solid(ops), M))
     if n == 'Motor':
         m = 280.0                                           # g, typical 40 mm NEMA 17 (body only)

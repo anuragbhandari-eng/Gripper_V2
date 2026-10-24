@@ -30,6 +30,9 @@ PRINT = [  # file, ops, orientation, qty, note
     ('16_TipBlock_Wide_A', D.tip_block(True), 'flip_x', 1, 'wide set; top face on bed, tongue pocket up'),
     ('17_TipBlock_Wide_B_mirrored', mirror_ops(D.tip_block(True)), 'flip_x', 1, 'mirror of 16'),
     ('18_Pad_TPU95A', mirror_ops(D.pad(False)), 'side_py_down', 4, 'TPU 95A, contact face on bed; 2 per tip set (same pad fits both)'),
+    ('19_EncoderPuck', D.enc_puck(), 'rear_down', 1, 'magnet pocket up; glue to the screw end'),
+    ('20_Stand_HeadBracket', D.stand_bracket(), 'rear_down', 1, 'bench stand; back face on bed, nut pockets and column hole open upward'),
+    ('21_Stand_Base', D.stand_base(), 'front_down', 1, 'bench stand; table face on bed, column socket up'),
 ]
 info = []
 for fn, ops, how, qty, note in PRINT:

@@ -55,7 +55,19 @@ MOTOR_LEN = 40.0
 X_MOT_REAR = X_WALL0 - MOTOR_LEN
 X_AD1 = X_MOT_REAR - 1.0         # adapter front face
 X_AD0 = X_AD1 - 14.0             # robot face
-SCREW_TIP = X_BRG1              # screw end flush with the 608 front face; the 1 mm front recess gives +-0.5 mm cut tolerance before the tip could rub the lip
+# rev 7 (v2 change C): AS5600 encoder at the screw's front end. The screw is cut 3 mm shorter, so a printed puck holding
+# a 6 x 2.5 diametric magnet fills the end of the 608 bore (magnet face flush with the 608 front face). The board stands
+# across the block front, chip facing the magnet, in a slot split between base and cover (like the 608 cradle).
+ENC_CUT = 3.0                     # screw end this far inside the 608 bore (cut -0.5/+0: never long)
+SCREW_TIP = X_BRG1 - ENC_CUT
+MAG_D, MAG_T = 6.0, 2.5
+ENC_GAP, ENC_CHIP_T, ENC_PCB_T, ENC_PCB_W = 0.8, 1.75, 1.6, 23.0   # magnet face to chip face (AS5600: 0.5-3 mm); SOIC-8; board
+X_CHIP = X_BRG1 - 0.1 + ENC_GAP   # chip face (magnet face sits 0.1 inside the 608 face)
+X_PCB0 = X_CHIP + ENC_CHIP_T      # board back face (chip side) on the ledge in front of the lip
+X_SLOT0, X_SLOT1 = X_PCB0, X_PCB0 + ENC_PCB_T + 0.2
+ENC_SLOT_H = ENC_PCB_W/2 + 0.2    # slot half-size (y and z)
+ENC_WIN_R = 8.5                   # window through the lip for the chip; the lip still backs the whole 608 outer ring
+ENC_RELIEF = 9.8                  # square relief, 1 mm deep, for parts on the chip side of the board
 SCREW_LEN = SCREW_TIP - X_WALL0
 Y_RAIL0, Y_RAIL1 = 24.5, 31.5   # adapter side walls >= 1.37 mm around the M6 counterbores
 POST_C = O1 + 15.0*np.array([np.cos(np.radians(150)), np.sin(np.radians(150))])
@@ -245,7 +257,8 @@ def plate_outline():
     return hull_circles(pts)
 
 MW_BOLT_Y = 26.0; MW_BOLT_X = (X_WALL0 + X_WALL1)/2
-BLK_BOLT = (X_BRG1 + 3.5, 8.5)   # rev 6: inboard, so the block's front corners can be R6
+BLK_BOLT = (X_BLK0 + 5.0, 16.0)   # rev 7: on ears at the rear of the block (rev 6 had them at the front, where the encoder board now sits)
+BLK_EAR_R = 4.0                    # ear 1 mm in front of the open-stop face, >= 2.3 mm from the O2 crank bosses
 BLK_HW = 13.5   # 2.47 mm wall round the 608
 BLK_FRONT_R = 6.0   # rev 6: R6 front corners keep >= 1.3 mm from the front cranks at full close (block is 4.5 mm longer)
 def block_loop():
@@ -271,6 +284,9 @@ def _common_ground(lower):
     else:
         ops += [('add', ('ext', rrect_loop(X_WALL0, -Y_RAIL1, X_WALL1, Y_RAIL1, 2.0), Z_S, z1)),
                 ('add', ('ext', block_loop(), Z_S, Z_C0 + 0.01))]
+    for sgn in (1, -1):   # rev 7: block-bolt ears
+        ear = hull_circles([((BLK_BOLT[0], sgn*BLK_BOLT[1]), BLK_EAR_R), ((BLK_BOLT[0], sgn*(BLK_HW - BLK_EAR_R)), BLK_EAR_R)])
+        ops.append(('add', ('ext', ear, -0.01, Z_S) if lower else ('ext', ear, Z_S, Z_C0 + 0.01)))
     # posts (on base, rising to cover)
     if lower:
         for sgn in (1, -1):
@@ -280,7 +296,13 @@ def _common_ground(lower):
             ('cut', ('cyl', (X_WALL0-1, 0, Z_S), (X_WALL1 + 1, 0, Z_S), 6.0)),            # screw clearance
             ('cut', ('cyl', (X_BRG0, 0, Z_S), (X_BRG1, 0, Z_S), 11.03)),                 # 608 seat
             ('cut', ('cyl', (X_BLK0-1, 0, Z_S), (X_BRG0+0.01, 0, Z_S), 8.0)),            # rear lip hole (thrust collar runs inside it)
-            ('cut', ('cyl', (X_BRG1-0.01, 0, Z_S), (X_BRG1 + 1.0, 0, Z_S), 6.3))]        # front recess: clears the 608 inner ring and the screw end; the lip backs the outer ring (grip thrust)
+            ('cut', ('cyl', (X_BRG1-0.01, 0, Z_S), (X_PCB0 - 1.0, 0, Z_S), ENC_WIN_R)),   # rev 7: chip window; the lip still backs the 608 outer ring (grip thrust)
+            ('cut', ('box', (X_PCB0 - 1.0, -ENC_RELIEF, Z_S - ENC_RELIEF), (X_PCB0 + 0.01, ENC_RELIEF, Z_S + ENC_RELIEF))),   # relief for chip-side parts
+            ('cut', ('box', (X_SLOT0, -ENC_SLOT_H, Z_S - ENC_SLOT_H), (X_SLOT1, ENC_SLOT_H, Z_S + ENC_SLOT_H)))]   # AS5600 board slot
+    if not lower:   # encoder wires leave straight up through the cover, next to the controller
+        ops.append(('cut', ('box', (X_SLOT0 - 0.3, -5.0, Z_S), (X_SLOT1 + 0.3, 5.0, Z_C1 + 1))))
+        for hx, hy in CTRL_HOLES:   # rev 7: inserts for the controller standoffs, pressed into the cover top
+            ops.append(('cut', ('cyl', (hx, hy, Z_C1 - 6.5), (hx, hy, Z_C1 + 1), R_INS)))
     zm = Z_S - MOTOR_HOLE if lower else Z_S + MOTOR_HOLE
     for sgn in (1, -1):
         ops.append(('cut', ('cyl', (X_WALL0-1, sgn*MOTOR_HOLE, zm), (X_WALL1+1, sgn*MOTOR_HOLE, zm), R_M3)))
@@ -352,6 +374,19 @@ def collar():   # thrust collar on the screw, front face against the 608 inner r
 def bearing608():
     return [('add', ('cyl', (X_BRG0, 0, Z_S), (X_BRG1, 0, Z_S), 11.0)),
             ('cut', ('cyl', (X_BRG0 - 1, 0, Z_S), (X_BRG1 + 1, 0, Z_S), 4.0))]
+def enc_puck():
+    """Printed magnet puck (rev 7): slides into the 608 bore in front of the screw end and is glued to it (turns with
+    the screw); the magnet sits in its front pocket, 0.1 mm inside the 608 face."""
+    xm = X_BRG1 - 0.1
+    return [('add', ('cyl', (SCREW_TIP, 0, Z_S), (xm, 0, Z_S), 3.95)),
+            ('cut', ('cyl', (xm - MAG_T, 0, Z_S), (xm + 1, 0, Z_S), MAG_D/2 + 0.05))]
+def magnet():   # 6 x 2.5 diametric NdFeB, glued into the puck
+    xm = X_BRG1 - 0.1
+    return [('add', ('cyl', (xm - MAG_T, 0, Z_S), (xm, 0, Z_S), MAG_D/2))]
+def as5600():   # AS5600 module, simplified: 23 x 23 board, SOIC-8 chip facing the magnet
+    h = ENC_PCB_W/2
+    return [('add', ('box', (X_PCB0, -h, Z_S - h), (X_PCB0 + ENC_PCB_T, h, Z_S + h))),
+            ('add', ('box', (X_CHIP, -2.5, Z_S - 3.0), (X_PCB0 + 0.01, 2.5, Z_S + 3.0)))]
 def dowel(c, sgn):
     return [('add', ('cyl', (c[0], sgn*c[1], -6.0), (c[0], sgn*c[1], 26.0), 2.0))]   # ISO 8734 4 x 32
 def shoulder_screw():   # local: axis at origin, shoulder seat at z=Z_B1
@@ -380,6 +415,80 @@ FASTENERS = [  # name, seat, axis, length, frame
     ('BHS_Side_Cover',  (X_AD0 + 7.0, Y_RAIL1 - 3.2, AD_SCREW_Z[1]), (0, -1, 0), 8.0, 'ground'),
     ('BHN_Nut',         (POCKET_X0 + 0.1 + NUT_FL_T, NUT_SCREW_Y, Z_S), (-1, 0, 0), 8.0, 'car'),
 ]
+# ================= rev 7: controller on the cover top (v2 change D) =================
+# Pico + TMC2209 + 5 V buck + battery monitor on one 50 x 70 mm protoboard (drill its corners to 3.2 mm on a 44 x 64 mm
+# pattern). It sits on 4x M3 x 10 standoffs screwed into heat-set inserts pressed into the cover top; the encoder wires
+# come up through the slit just in front of it. Cables are zip-tied to the board's grid holes for strain relief.
+CTRL_C, CTRL_SIZE, CTRL_HOLE = (-1.0, 0.0), (50.0, 70.0), (22.0, 32.0)   # board centre (x, y), size, hole offsets
+CTRL_HOLES = [(CTRL_C[0] + sx*CTRL_HOLE[0], CTRL_C[1] + sy*CTRL_HOLE[1]) for sx in (-1, 1) for sy in (-1, 1)]
+Z_PCB = Z_C1 + 10.0                                  # board underside (10 mm standoffs)
+def protoboard():
+    (cx, cy), (w, l) = CTRL_C, CTRL_SIZE
+    return [('add', ('box', (cx - w/2, cy - l/2, Z_PCB), (cx + w/2, cy + l/2, Z_PCB + 1.6)))] + \
+           [('cut', ('cyl', (hx, hy, Z_PCB - 1), (hx, hy, Z_PCB + 3), 1.6)) for hx, hy in CTRL_HOLES]
+def standoff(x):   # M3 x 10 male-female standoff (round stand-in) on the +y side; male end in the cover insert
+    y = CTRL_C[1] + CTRL_HOLE[1]
+    return [('add', ('cyl', (x, y, Z_C1), (x, y, Z_PCB), 2.75)),
+            ('add', ('cyl', (x, y, Z_C1 - 6.0), (x, y, Z_C1 + 0.01), 1.5)),
+            ('cut', ('cyl', (x, y, Z_PCB - 6.0), (x, y, Z_PCB + 1), 1.25))]
+def pico():   # Raspberry Pi Pico on header pins, long axis along y, USB at the -y end
+    z0, x0, x1 = Z_PCB + 1.6 + 2.5, CTRL_C[0] - 23.0, CTRL_C[0] - 2.0
+    return [('add', ('box', (x0, -25.5, z0), (x1, 25.5, z0 + 1.0))),
+            ('add', ('box', ((x0 + x1)/2 - 4.0, -26.8, z0 + 1.0), ((x0 + x1)/2 + 4.0, -21.0, z0 + 3.7)))]
+def tmc2209():   # StepStick-size TMC2209 module on female headers, with its heatsink
+    z0, x0, y0 = Z_PCB + 1.6 + 8.5, CTRL_C[0] + 4.0, 3.0
+    return [('add', ('box', (x0, y0, z0), (x0 + 15.24, y0 + 20.32, z0 + 1.6))),
+            ('add', ('box', (x0 + 3.1, y0 + 5.2, z0 + 1.6), (x0 + 12.1, y0 + 14.2, z0 + 6.6)))]
+def buck():   # MP1584 mini buck module: battery -> 5 V into the Pico's VSYS through a Schottky diode
+    z0, x0, y0 = Z_PCB + 1.6 + 2.5, CTRL_C[0] + 2.5, -28.0
+    return [('add', ('box', (x0, y0, z0), (x0 + 22.0, y0 + 17.0, z0 + 4.0)))]
+
+# ================= rev 7: bench stand (v2 change F) =================
+# The gripper hangs jaws-down from a 2020 aluminium extrusion. A printed head bracket takes the ISO 9409 adapter (its
+# 4 M6 screws, M6 x 20 here, run into M6 nuts dropped into the bracket from the back) and clamps the column with 2x M5
+# into T-nuts; the column stands in a printed base that also carries the battery. Gripper frame: +x points down, the
+# table is the plane x = X_TABLE.
+COL_A, COL_Z, COL_LEN = 20.0, -44.0, 400.0     # extrusion size, axis z (y = 0), length
+X_TABLE, BASE_T = 145.0, 8.0                    # narrow tips ~32 mm above the base at gap 0; slide the bracket to change
+X_COL1 = X_TABLE - BASE_T                       # column foot stands on the base plate
+BRK_T = 30.0                                    # head bracket depth behind the adapter face
+BAT = (31.0, 65.0, -52.0, 14.0, 18.0)           # battery tray y0, y1, z0, z1, pack height (3S 650 mAh, about 62 x 30 x 18)
+def _col_loop(c):
+    return rrect_loop(-COL_A/2 - c, COL_Z - COL_A/2 - c, COL_A/2 + c, COL_Z + COL_A/2 + c, 0.5)
+def stand_bracket():
+    """Head bracket: adapter face with the Ø31.5 spigot recess and 4 M6 nut pockets (open at the back, nut bears on the
+    pocket floor 9 mm behind the face), square hole for the column, 2 M5 holes into T-nuts. Prints back face down."""
+    x0, x1 = X_AD0 - BRK_T, X_AD0
+    ops = [('add', ('extx', rrect_loop(-26.0, COL_Z - 16.0, 26.0, Z_S + AD_HZ + 4.0, 4.0), x0, x1)),
+           ('cut', ('extx', _col_loop(0.2), x0 - 1, x1 + 1)),
+           ('cut', ('cyl', (x1 - 3.3, 0, Z_S), (x1 + 1, 0, Z_S), 15.85))]
+    for a in (45, 135, 225, 315):
+        y, z = 25*np.cos(np.radians(a)), Z_S + 25*np.sin(np.radians(a))
+        ops += [('cut', ('cyl', (x1 - 15.0, y, z), (x1 + 1, y, z), 3.3)),
+                ('cut', ('extx', hex_loop(y, z, 10.2), x0 - 1, x1 - 9.0))]
+    for x in (x0 + 8.0, x1 - 8.0):
+        ops.append(('cut', ('cyl', (x, 0, COL_Z - 17.0), (x, 0, COL_Z - COL_A/2 + 0.01), 2.75)))
+    return ops
+def stand_base():
+    """Base plate (table face down) with the column socket, an M5 x 16 up into the column end, and a battery tray with
+    two strap slots."""
+    x0, x1 = X_TABLE - BASE_T, X_TABLE
+    ops = [('add', ('extx', rrect_loop(-75.0, -70.0, 75.0, 80.0, 8.0), x0, x1)),
+           ('add', ('extx', rrect_loop(-17.0, COL_Z - 17.0, 17.0, COL_Z + 17.0, 4.0), x0 - 20.0, x0 + 0.01)),
+           ('cut', ('extx', _col_loop(0.2), x0 - 21.0, x0)),
+           ('cut', ('cyl', (x0 - 0.01, 0, COL_Z), (x1 + 1, 0, COL_Z), 2.75)),
+           ('cut', ('cyl', (x1 - 4.5, 0, COL_Z), (x1 + 1, 0, COL_Z), 4.6))]
+    y0, y1, z0, z1, _ = BAT
+    ops.append(('cut', ('extx', rrect_loop(y0, z0, y1, z1, 2.0), x0 - 1, x0 + 3.0)))
+    for z in (z0 - 4.0, z1 + 4.0):
+        ops.append(('cut', ('extx', rrect_loop(y0 + 3.0, z - 1.6, y1 - 3.0, z + 1.6, 1.5), x0 - 1, x1 + 1)))   # strap slots
+    return ops
+def column():   # 2020 extrusion (slots not modelled)
+    return [('add', ('extx', _col_loop(0.0), X_COL1 - COL_LEN, X_COL1))]
+def battery():   # 3S LiPo envelope in its tray
+    y0, y1, z0, z1, t = BAT; x0 = X_TABLE - BASE_T + 3.0
+    return [('add', ('box', (x0 - t, y0 + 1.5, z0 + 2.0), (x0, y1 - 1.5, z1 - 2.0)))]
+
 # rev 7: tip-block screws, finger frame (kept apart from FASTENERS so the Onshape part ids of the others stay put)
 TIP_FASTENERS = [(nm, (x, TIP_SCREW_Y, Z_JAW - 3.2), (0, 0, -1), 16.0) for nm, x in zip(('BHT_Tip_A', 'BHT_Tip_B'), TIP_SCREW_X)]
 
@@ -416,8 +525,12 @@ def pose(th, wide=None):
     parts['Carriage'] = (carriage(), Tm(np.eye(3), (C[0], 0, 0)))
     parts['T8_Nut'] = (nut(), Tm(np.eye(3), (C[0], 0, 0)))
     for nm, ops in (('Base', base()), ('Cover', cover()), ('Adapter', adapter()), ('Motor', motor()),
-                    ('LeadScrew', leadscrew()), ('Bearing608', bearing608()), ('LockCollar', collar())):
+                    ('LeadScrew', leadscrew()), ('Bearing608', bearing608()), ('LockCollar', collar()),
+                    ('EncPuck', enc_puck()), ('Magnet', magnet()), ('AS5600', as5600()),
+                    ('Protoboard', protoboard()), ('Pico', pico()), ('TMC2209', tmc2209()), ('Buck', buck()),
+                    ('StandBracket', stand_bracket()), ('StandBase', stand_base()), ('Column', column()), ('Battery', battery())):
         parts[nm] = (ops, np.eye(4))
+    add('Standoff_R', standoff(CTRL_C[0] - CTRL_HOLE[0]), np.eye(4)); add('Standoff_F', standoff(CTRL_C[0] + CTRL_HOLE[0]), np.eye(4))
     for nm, seat, ax, ln, frame in FASTENERS:
         add(nm, button_screw(seat, ax, ln), Tm(np.eye(3), (C[0], 0, 0)) if frame == 'car' else np.eye(4))
     for c, nm in ((O1, 'O1'), (O2, 'O2')):

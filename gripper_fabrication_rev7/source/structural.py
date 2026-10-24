@@ -67,7 +67,8 @@ Fg60 = 200*R['MA']['at_gap_60']
 Fs_lim = 200.0
 r_or = 8.5                                        # 608 outer-ring face inner radius (approx.)
 add('Block front lip bearing on 608 outer ring', Fs_lim, Fs_lim/(np.pi*(11.0**2 - r_or**2)), PR['allow'], D.MAT + ' bearing, grip thrust')
-add('Block front lip shear-out (%.0f mm wall)' % (D.X_BLK1 - D.X_BRG1), Fs_lim, Fs_lim/(np.pi*22.0*(D.X_BLK1 - D.X_BRG1)), PR['allow']*0.6, 'shear allowable 0.6σ')
+t_lip = D.X_PCB0 - 1.0 - D.X_BRG1                    # rev 7: lip between the 608 and the encoder relief
+add('Block front lip shear-out (%.2f mm lip)' % t_lip, Fs_lim, Fs_lim/(np.pi*22.0*t_lip), PR['allow']*0.6, 'shear allowable 0.6σ; encoder board in front')
 C0_608 = 1370.0                                   # N, 608 static load rating (radial); axial static taken as 0.5*C0
 thrust = dict(load_N=Fs_lim, bearing608_axial_static_capacity_N=0.5*C0_608, ratio=round(0.5*C0_608/Fs_lim, 1),
               note='collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly')

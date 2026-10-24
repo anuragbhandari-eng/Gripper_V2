@@ -52,6 +52,23 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     ('Pad TPU', D.pad(False), 'finger', True, '[0.12,0.12,0.13]', 'TPU', False)] + [
     ({'BHT_Tip_A': 'Button head M3x16 tip (rear)', 'BHT_Tip_B': 'Button head M3x16 tip (front)'}[nm],
      D.button_screw(seat, ax, ln), 'finger', True, '[0.10,0.10,0.10]', 'STEEL', True) for nm, seat, ax, ln in D.TIP_FASTENERS]
+SPEC += [  # rev 7 (C): encoder at the screw's front end
+    ('Encoder magnet puck', D.enc_puck(), 'ground', False, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Magnet 6x2.5 diametric', D.magnet(), 'ground', False, '[0.62,0.62,0.66]', 'STEEL', True),
+    ('AS5600 encoder board', D.as5600(), 'ground', False, '[0.10,0.28,0.62]', 'FR4', True)]
+SPEC += [  # rev 7 (D): controller on the cover top
+    ('Protoboard 50x70', D.protoboard(), 'ground', False, '[0.16,0.42,0.22]', 'FR4', True),
+    ('Standoff M3x10 rear', D.standoff(D.CTRL_C[0] - D.CTRL_HOLE[0]), 'ground', True, '[0.80,0.70,0.35]', 'BRASS', True),
+    ('Standoff M3x10 front', D.standoff(D.CTRL_C[0] + D.CTRL_HOLE[0]), 'ground', True, '[0.80,0.70,0.35]', 'BRASS', True),
+    ('Raspberry Pi Pico', D.pico(), 'ground', False, '[0.10,0.45,0.20]', 'FR4', True),
+    ('TMC2209 driver', D.tmc2209(), 'ground', False, '[0.50,0.12,0.55]', 'FR4', True),
+    ('Buck 5V MP1584', D.buck(), 'ground', False, '[0.12,0.22,0.55]', 'FR4', True)]
+STAND = [  # rev 7 (F): bench stand, built when the dialog's "Include bench stand" is on
+    ('Stand head bracket', D.stand_bracket(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
+    ('Stand base', D.stand_base(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
+    ('Extrusion 2020 x 400', D.column(), 'ground', False, '[0.76,0.77,0.79]', 'ALU', True),
+    ('LiPo 3S 650mAh', D.battery(), 'ground', False, '[0.16,0.16,0.18]', 'LIPO', True)]
+SPEC += STAND
 WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
               THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)
@@ -66,8 +83,9 @@ mcs += ['["Base", "SL", 0]', '["Carriage", "SL", 0]']
 MCS = '[\n        ' + ',\n        '.join(mcs) + ']'
 parts_src = []
 for k, (nm, ops, kind, mir, col, mat, pur) in enumerate(SPEC):
-    parts_src.append('    { "name" : "%s", "kind" : "%s", "mirror" : %s, "color" : %s, "mat" : "%s", "purchased" : %s,\n      "ops" : %s%s }'
-                     % (nm, kind, 'true' if mir else 'false', col, mat, 'true' if pur else 'false', enc_ops(ops),
+    parts_src.append('    { "name" : "%s", "kind" : "%s", "mirror" : %s, "color" : %s, "mat" : "%s", "purchased" : %s,%s\n      "ops" : %s%s }'
+                     % (nm, kind, 'true' if mir else 'false', col, mat, 'true' if pur else 'false',
+                        ' "stand" : true,' if nm in [s[0] for s in STAND] else '', enc_ops(ops),
                         (',\n      "opsW" : ' + enc_ops(WIDE[nm])) if nm in WIDE else ''))
 
 FS = r'''FeatureScript 3083;
@@ -97,6 +115,8 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
         definition.tipSet is TipSet;
         annotation { "Name" : "Include purchased parts", "Default" : true }
         definition.purchased is boolean;
+        annotation { "Name" : "Include bench stand", "Default" : true }
+        definition.stand is boolean;
     }
     {
         const kin = gripperKinematics(definition.gap / millimeter);
@@ -106,7 +126,7 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
         for (var k = 0; k < size(parts); k += 1)
         {
             const p = parts[k];
-            if (p.purchased && !definition.purchased)
+            if ((p.purchased && !definition.purchased) || (p.stand == true && !definition.stand))
                 continue;
             const pid = id + ("p" ~ k);
             const body = buildPart(context, pid, (wide && p.opsW != undefined) ? p.opsW : p.ops);
@@ -147,7 +167,7 @@ export const leadScrewGripper = defineFeature(function(context is Context, id is
         // true pad-to-pad gap for the chosen tip set (the wide faces sit %(WOFS)s mm further out per side)
         const faceGap = definition.gap / millimeter + (wide ? 2 * %(WOFS)s : 0);
         reportFeatureInfo(context, id, "Pad-to-pad gap: " ~ roundToPrecision(faceGap, 1) ~ " mm (" ~ (wide ? "wide" : "narrow") ~ " tips)");
-    }, { "gap" : 30 * millimeter, "tipSet" : TipSet.NARROW, "purchased" : true });
+    }, { "gap" : 30 * millimeter, "tipSet" : TipSet.NARROW, "purchased" : true, "stand" : true });
 
 function mateConnectorSpecs() returns array
 {
@@ -165,6 +185,12 @@ function dressPart(context is Context, q is Query, name is string, p is map)
         dens = 8.5;
     if (p.mat == "TPU")
         dens = 1.21;
+    if (p.mat == "FR4")
+        dens = 1.85;
+    if (p.mat == "ALU")
+        dens = 2.7;
+    if (p.mat == "LIPO")
+        dens = 1.8;
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.MATERIAL, "value" : material(p.mat, dens * gram / centimeter ^ 3) });
 }
 

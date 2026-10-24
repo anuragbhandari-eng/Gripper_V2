@@ -29,14 +29,22 @@
   ]
  },
  "02_Cover.stl": {
-  "overhang45_mm2": 217.0,
+  "overhang45_mm2": 267.3,
   "flat_down_groups_top3": [
    [
     3.2,
     126.6,
     [
-     87.2,
+     74.2,
      123.1
+    ]
+   ],
+   [
+    6.5,
+    50.2,
+    [
+     48.0,
+     68.0
     ]
    ],
    [
@@ -45,14 +53,6 @@
     [
      1.0,
      66.3
-    ]
-   ],
-   [
-    5.4,
-    4.6,
-    [
-     4.5,
-     31.5
     ]
    ]
   ]
@@ -182,5 +182,51 @@
  "18_Pad_TPU95A.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
+ },
+ "19_EncoderPuck.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "20_Stand_HeadBracket.stl": {
+  "overhang45_mm2": 274.5,
+  "flat_down_groups_top3": [
+   [
+    21.0,
+    223.6,
+    [
+     47.1,
+     45.6
+    ]
+   ],
+   [
+    24.7,
+    4.8,
+    [
+     5.8,
+     0.8
+    ]
+   ],
+   [
+    10.7,
+    4.8,
+    [
+     5.8,
+     0.8
+    ]
+   ]
+  ]
+ },
+ "21_Stand_Base.stl": {
+  "overhang45_mm2": 42.7,
+  "flat_down_groups_top3": [
+   [
+    4.5,
+    42.7,
+    [
+     9.2,
+     9.2
+    ]
+   ]
+  ]
  }
 }

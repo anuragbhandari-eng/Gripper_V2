@@ -153,12 +153,12 @@
    "note": "ABS bearing, grip thrust"
   },
   {
-   "item": "Block front lip shear-out (8 mm wall)",
+   "item": "Block front lip shear-out (1.45 mm lip)",
    "load_limit_N": 200.0,
-   "stress_limit_MPa": 0.36,
-   "stress_op_MPa": 0.32,
-   "SF_yield_at_limit": 49.8,
-   "note": "shear allowable 0.6\u03c3"
+   "stress_limit_MPa": 2.0,
+   "stress_op_MPa": 1.74,
+   "SF_yield_at_limit": 9.0,
+   "note": "shear allowable 0.6\u03c3; encoder board in front"
   }
  ],
  "driver": {

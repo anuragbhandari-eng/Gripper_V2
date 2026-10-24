@@ -153,12 +153,12 @@
   "Base": {
    "valid": true,
    "nsolids": 1,
-   "vol": 106844.5
+   "vol": 106988.9
   },
   "Cover": {
    "valid": true,
    "nsolids": 1,
-   "vol": 91622.8
+   "vol": 91355.4
   },
   "Adapter": {
    "valid": true,
@@ -173,7 +173,7 @@
   "LeadScrew": {
    "valid": true,
    "nsolids": 1,
-   "vol": 3997.8
+   "vol": 3847.0
   },
   "Bearing608": {
    "valid": true,
@@ -184,6 +184,81 @@
    "valid": true,
    "nsolids": 1,
    "vol": 725.7
+  },
+  "EncPuck": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 69.1
+  },
+  "Magnet": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 70.7
+  },
+  "AS5600": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 898.9
+  },
+  "Protoboard": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 5548.5
+  },
+  "Pico": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1196.3
+  },
+  "TMC2209": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 900.5
+  },
+  "Buck": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 1496.0
+  },
+  "StandBracket": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 137357.4
+  },
+  "StandBase": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 185669.8
+  },
+  "Column": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 159914.2
+  },
+  "Battery": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 34596.0
+  },
+  "Standoff_R_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 250.5
+  },
+  "Standoff_R_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 250.5
+  },
+  "Standoff_F_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 250.5
+  },
+  "Standoff_F_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 250.5
   },
   "BHS_Motor_Base_U": {
    "valid": true,

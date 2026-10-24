@@ -25,7 +25,7 @@ Read this whole file before doing anything. Companion image: `docs/offset_pad_se
 - **Never publish, show or mention the private reference** (`lead_screw_gripper_video.mp4`, `lead screw image.png`, or the reference design they show).
 
 ### Design language
-Simple and cohesive, Apple-like. Every feature must serve a function. No decorative features and no mixed edge treatments.
+Simple and cohesive. Every feature must serve a function. No decorative features and no mixed edge treatments.
 
 ---
 

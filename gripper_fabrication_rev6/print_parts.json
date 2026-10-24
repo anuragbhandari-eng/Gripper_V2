@@ -1,0 +1,171 @@
+[
+ {
+  "file": "01_Base.stl",
+  "qty": 1,
+  "volume_cm3": 106.84,
+  "mass_g_solid_PETG": 135.7,
+  "bbox_mm": [
+   145.3,
+   130.9,
+   31.1
+  ],
+  "orientation": "flat",
+  "note": "bottom face on bed; 4 walls, 30% gyroid"
+ },
+ {
+  "file": "02_Cover.stl",
+  "qty": 1,
+  "volume_cm3": 91.62,
+  "mass_g_solid_PETG": 116.4,
+  "bbox_mm": [
+   145.3,
+   130.9,
+   19.2
+  ],
+  "orientation": "flip_x",
+  "note": "flat top face on bed"
+ },
+ {
+  "file": "03_Adapter_ISO9409-50-4-M6.stl",
+  "qty": 1,
+  "volume_cm3": 37.95,
+  "mass_g_solid_PETG": 48.2,
+  "bbox_mm": [
+   59.0,
+   48.6,
+   17.0
+  ],
+  "orientation": "front_down",
+  "note": "gripper-side face on bed, spigot up"
+ },
+ {
+  "file": "04_Carriage.stl",
+  "qty": 1,
+  "volume_cm3": 20.16,
+  "mass_g_solid_PETG": 25.6,
+  "bbox_mm": [
+   27.8,
+   60.8,
+   26.0
+  ],
+  "orientation": "rear_down",
+  "note": "rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots"
+ },
+ {
+  "file": "05_BellCrank_Lower_A.stl",
+  "qty": 1,
+  "volume_cm3": 5.52,
+  "mass_g_solid_PETG": 7.0,
+  "bbox_mm": [
+   39.0,
+   31.9,
+   14.1
+  ],
+  "orientation": "flat",
+  "note": "spacer boss up"
+ },
+ {
+  "file": "06_BellCrank_Lower_B_mirrored.stl",
+  "qty": 1,
+  "volume_cm3": 5.52,
+  "mass_g_solid_PETG": 7.0,
+  "bbox_mm": [
+   39.0,
+   31.9,
+   14.1
+  ],
+  "orientation": "flat",
+  "note": "mirror of 05 (other side)"
+ },
+ {
+  "file": "07_BellCrank_Upper.stl",
+  "qty": 2,
+  "volume_cm3": 3.07,
+  "mass_g_solid_PETG": 3.9,
+  "bbox_mm": [
+   39.0,
+   31.9,
+   3.8
+  ],
+  "orientation": "flat",
+  "note": "same part both sides (flip one)"
+ },
+ {
+  "file": "08_FrontCrank_Lower.stl",
+  "qty": 2,
+  "volume_cm3": 2.78,
+  "mass_g_solid_PETG": 3.5,
+  "bbox_mm": [
+   39.0,
+   11.0,
+   14.1
+  ],
+  "orientation": "flat",
+  "note": "spacer boss up"
+ },
+ {
+  "file": "09_FrontCrank_Upper.stl",
+  "qty": 2,
+  "volume_cm3": 1.43,
+  "mass_g_solid_PETG": 1.8,
+  "bbox_mm": [
+   39.0,
+   11.0,
+   3.8
+  ],
+  "orientation": "flat",
+  "note": ""
+ },
+ {
+  "file": "10_ConRod.stl",
+  "qty": 2,
+  "volume_cm3": 2.41,
+  "mass_g_solid_PETG": 3.1,
+  "bbox_mm": [
+   33.7,
+   11.0,
+   7.6
+  ],
+  "orientation": "flat",
+  "note": ""
+ },
+ {
+  "file": "11_Finger_A.stl",
+  "qty": 1,
+  "volume_cm3": 23.17,
+  "mass_g_solid_PETG": 29.4,
+  "bbox_mm": [
+   79.5,
+   49.0,
+   19.5
+  ],
+  "orientation": "flat",
+  "note": "jaw block up"
+ },
+ {
+  "file": "12_Finger_B_mirrored.stl",
+  "qty": 1,
+  "volume_cm3": 23.17,
+  "mass_g_solid_PETG": 29.4,
+  "bbox_mm": [
+   79.5,
+   49.0,
+   19.5
+  ],
+  "orientation": "flat",
+  "note": "mirror of 11"
+ },
+ {
+  "file": "13_FitTest_coupons.stl",
+  "qty": 1,
+  "volume_cm3": 16.03,
+  "mass_g_solid_PETG": 20.4,
+  "bbox_mm": [
+   110.0,
+   49.0,
+   14.1
+  ],
+  "orientation": "flat",
+  "note": "print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper"
+ }
+]

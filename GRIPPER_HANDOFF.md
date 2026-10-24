@@ -172,7 +172,7 @@ Every part must be one valid solid, with zero collisions over all poses and prin
   - Paste through the Ace editor, or patch through browser-session REST (`POST /featurestudios`, with the `X-XSRF-TOKEN` header from the `XSRF-TOKEN` cookie). Both cost 0 FeatureScript MCP requests.
   - Read the code back, compare its hash against the local file, then Commit.
 - **Volumes:** compare Part Studio volumes against local.
-- **FeatureScript MCP:** **5 API requests or fewer per session**, counted on his Onshape API counter. Ask before using more. `test_feature` costs about 9 requests: don't use it without asking.
+- **FeatureScript MCP:** **10 API requests or fewer per session**, counted on his Onshape API counter. Ask before using more. `test_feature` costs about 9 requests: don't use it without asking.
 - **FeatureScript gotchas:** version 3083; `box` is a reserved word; a checkbox default needs `"Default" : true`; never import the Part Studio from the Feature Studio.
 
 **Steps (check in after each):**

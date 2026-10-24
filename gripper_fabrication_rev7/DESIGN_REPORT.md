@@ -127,13 +127,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 728 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
+Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.89 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.2 | 24.09 | 15.4 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 121.2 | 10.63 | 2.8 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 121.2 | 4.62 | 6.5 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.14 | 15.4 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 27.4 | 1.67 | 18.0 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 54.9 | 1.59 | 11.0 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 54.9 | 3.34 | 59.9 | CuZn yield ~200 MPa |
@@ -188,7 +188,7 @@ Print settings: ABS in an enclosed printer (a draft shield at minimum), part-coo
 
 **Status (rev 7, 2026-10-24):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
 
-- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (41780 characters, SHA-256 f8f3a1e48e7280c4…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
+- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (42104 characters, SHA-256 05ef67f130b2d4b1…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
 - The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 72 parts; every volume is within 1.3 mm³ of the local model, and the wide set matches too.
 - Assembly 1: 72 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, tips follow the fingers; past the limit it clamps. Left at 0 (gap 30). Record: source/results_onshape_rev7.json.
 - Pictures: images/onshape_v2_assembly_iso.png, images/onshape_v2_assembly_top.png, images/onshape_v2_partstudio_iso.png. The "Robot export" assembly is unchanged (ROS 2 phase).

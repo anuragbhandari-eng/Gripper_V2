@@ -208,17 +208,17 @@
   "Pico": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1196.3
+   "vol": 1841.4
   },
   "TMC2209": {
    "valid": true,
    "nsolids": 1,
-   "vol": 900.5
+   "vol": 1777.9
   },
   "Buck": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1496.0
+   "vol": 1559.5
   },
   "StandBracket": {
    "valid": true,
@@ -228,7 +228,7 @@
   "StandBase": {
    "valid": true,
    "nsolids": 1,
-   "vol": 185669.8
+   "vol": 185580.2
   },
   "Column": {
    "valid": true,

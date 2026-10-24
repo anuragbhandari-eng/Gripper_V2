@@ -1,22 +1,78 @@
 {
  "date": "2026-10-24",
- "document": {"name": "GripperV2", "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
-              "workspace": "68767ad57d3e567f86546d97", "feature_studio": "fde66efd92d58004e5d8d280",
-              "part_studio": "f5d5018b17c7abc84df66214", "assembly_1": "b8167d0fe4641b107965a991"},
- "feature_studio": {"source": "onshape/LeadScrewGripper.fs", "chars": 41780, "sha256_first16": "f8f3a1e48e7280c4",
-                    "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"},
- "part_studio": {"parts": 72, "feature_status": "INFO (the pad-to-pad gap readout)",
-                 "dialog": {"gap": "30 mm", "tipSet": "NARROW", "purchased": true, "stand": true},
-                 "volumes_vs_local_max_diff_mm3": 1.3, "volumes_worst": "Base 106990.2 vs 106988.9",
-                 "wide_set_check": {"tip_block_mm3": 11410.7, "pad_mm3": 1793.6, "local": [11410.7, 1793.6], "parts": 72,
-                                    "note": "tipSet switched to WIDE, checked, switched back to NARROW"}},
- "assembly_1": {"instances": 72, "features": 21, "features_ok": 21,
-                "groups_added": ["Finger U + tip", "Finger L + tip"], "frame_fixed_members": 40,
-                "slider": {"open_-20.83mm": {"carriage_mm": 20.83, "finger_U_mm": [-15.43, 18.0]},
-                           "closed_+11.2mm": {"carriage_mm": -11.2, "finger_U_mm": [0.01, -15.0]},
-                           "past_limit_-30mm": "clamps at -20.83", "left_at_mm": 0},
-                "tip_parts_follow_fingers": true, "static_new_parts_follow_base": true,
-                "note": "The slider was at -4.70 mm when the new parts were inserted, so they first went in offset from the fingers; they were moved back to the gap-30 pose (identity) with the slider at 0 before the finger groups were recreated."},
+ "document": {
+  "name": "GripperV2",
+  "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
+  "workspace": "68767ad57d3e567f86546d97",
+  "feature_studio": "fde66efd92d58004e5d8d280",
+  "part_studio": "f5d5018b17c7abc84df66214",
+  "assembly_1": "b8167d0fe4641b107965a991"
+ },
+ "feature_studio": {
+  "source": "onshape/LeadScrewGripper.fs",
+  "chars": 42104,
+  "sha256_first16": "05ef67f130b2d4b1",
+  "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
+ },
+ "part_studio": {
+  "parts": 72,
+  "feature_status": "INFO (the pad-to-pad gap readout)",
+  "dialog": {
+   "gap": "30 mm",
+   "tipSet": "NARROW",
+   "purchased": true,
+   "stand": true
+  },
+  "volumes_vs_local_max_diff_mm3": 1.3,
+  "volumes_worst": "Base 106990.2 vs 106988.9",
+  "wide_set_check": {
+   "tip_block_mm3": 11410.7,
+   "pad_mm3": 1793.6,
+   "local": [
+    11410.7,
+    1793.6
+   ],
+   "parts": 72,
+   "note": "tipSet switched to WIDE, checked, switched back to NARROW"
+  }
+ },
+ "assembly_1": {
+  "instances": 72,
+  "features": 21,
+  "features_ok": 21,
+  "groups_added": [
+   "Finger U + tip",
+   "Finger L + tip"
+  ],
+  "frame_fixed_members": 40,
+  "slider": {
+   "open_-20.83mm": {
+    "carriage_mm": 20.83,
+    "finger_U_mm": [
+     -15.43,
+     18.0
+    ]
+   },
+   "closed_+11.2mm": {
+    "carriage_mm": -11.2,
+    "finger_U_mm": [
+     0.01,
+     -15.0
+    ]
+   },
+   "past_limit_-30mm": "clamps at -20.83",
+   "left_at_mm": 0
+  },
+  "tip_parts_follow_fingers": true,
+  "static_new_parts_follow_base": true,
+  "note": "The slider was at -4.70 mm when the new parts were inserted, so they first went in offset from the fingers; they were moved back to the gap-30 pose (identity) with the slider at 0 before the finger groups were recreated."
+ },
  "robot_export_assembly": "unchanged; it is the ROS 2 export assembly and does not include the v2 tip parts yet",
- "images": ["images/onshape_v2_assembly_iso.png", "images/onshape_v2_assembly_top.png", "images/onshape_v2_partstudio_iso.png"]
+ "images": [
+  "images/onshape_v2_assembly_iso.png",
+  "images/onshape_v2_assembly_top.png",
+  "images/onshape_v2_partstudio_iso.png",
+  "images/onshape_v2_assembly_front.png"
+ ],
+ "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK."
 }

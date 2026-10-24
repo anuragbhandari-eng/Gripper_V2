@@ -433,17 +433,22 @@ def standoff(x):   # M3 x 10 male-female standoff (round stand-in) on the +y sid
     return [('add', ('cyl', (x, y, Z_C1), (x, y, Z_PCB), 2.75)),
             ('add', ('cyl', (x, y, Z_C1 - 6.0), (x, y, Z_C1 + 0.01), 1.5)),
             ('cut', ('cyl', (x, y, Z_PCB - 6.0), (x, y, Z_PCB + 1), 1.25))]
-def pico():   # Raspberry Pi Pico on header pins, long axis along y, USB at the -y end
-    z0, x0, x1 = Z_PCB + 1.6 + 2.5, CTRL_C[0] - 23.0, CTRL_C[0] - 2.0
+def _strip(xc, y0, y1, z0, h):   # header strip (plastic body), one row along y
+    return ('add', ('box', (xc - 1.27, y0, z0), (xc + 1.27, y1, z0 + h + 0.01)))   # sits on the board, overlaps the module
+def pico():   # Raspberry Pi Pico on 2x 20-pin male headers (2.5 mm body), long axis along y, USB at the -y end
+    zb = Z_PCB + 1.6; z0, x0, x1 = zb + 2.5, CTRL_C[0] - 23.0, CTRL_C[0] - 2.0; xc = (x0 + x1)/2
     return [('add', ('box', (x0, -25.5, z0), (x1, 25.5, z0 + 1.0))),
-            ('add', ('box', ((x0 + x1)/2 - 4.0, -26.8, z0 + 1.0), ((x0 + x1)/2 + 4.0, -21.0, z0 + 3.7)))]
-def tmc2209():   # StepStick-size TMC2209 module on female headers, with its heatsink
-    z0, x0, y0 = Z_PCB + 1.6 + 8.5, CTRL_C[0] + 4.0, 3.0
+            ('add', ('box', (xc - 4.0, -26.8, z0 + 1.0), (xc + 4.0, -21.0, z0 + 3.7))),
+            _strip(xc - 8.89, -25.4, 25.4, zb, 2.5), _strip(xc + 8.89, -25.4, 25.4, zb, 2.5)]   # rows 17.78 apart
+def tmc2209():   # StepStick-size TMC2209 module in 2x 8-pin female headers (8.5 mm), with its heatsink
+    zb = Z_PCB + 1.6; z0, x0, y0 = zb + 8.5, CTRL_C[0] + 4.0, 3.0; xc = x0 + 7.62
     return [('add', ('box', (x0, y0, z0), (x0 + 15.24, y0 + 20.32, z0 + 1.6))),
-            ('add', ('box', (x0 + 3.1, y0 + 5.2, z0 + 1.6), (x0 + 12.1, y0 + 14.2, z0 + 6.6)))]
-def buck():   # MP1584 mini buck module: battery -> 5 V into the Pico's VSYS through a Schottky diode
-    z0, x0, y0 = Z_PCB + 1.6 + 2.5, CTRL_C[0] + 2.5, -28.0
-    return [('add', ('box', (x0, y0, z0), (x0 + 22.0, y0 + 17.0, z0 + 4.0)))]
+            ('add', ('box', (x0 + 3.1, y0 + 5.2, z0 + 1.6), (x0 + 12.1, y0 + 14.2, z0 + 6.6))),
+            _strip(xc - 6.35, y0, y0 + 20.32, zb, 8.5), _strip(xc + 6.35, y0, y0 + 20.32, zb, 8.5)]   # rows 12.7 apart
+def buck():   # MP1584 mini buck module on 2-pin headers at its IN and OUT ends: battery -> 5 V into VSYS via a Schottky
+    zb = Z_PCB + 1.6; z0, x0, y0 = zb + 2.5, CTRL_C[0] + 2.5, -28.0
+    return [('add', ('box', (x0, y0, z0), (x0 + 22.0, y0 + 17.0, z0 + 4.0))),
+            _strip(x0 + 1.5, y0 + 6.0, y0 + 11.0, zb, 2.5), _strip(x0 + 20.5, y0 + 6.0, y0 + 11.0, zb, 2.5)]
 
 # ================= rev 7: bench stand (v2 change F) =================
 # The gripper hangs jaws-down from a 2020 aluminium extrusion. A printed head bracket takes the ISO 9409 adapter (its

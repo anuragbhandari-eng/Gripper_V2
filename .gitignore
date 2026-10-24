@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Generated outputs (rebuild with the scripts in source/)
+gripper_fabrication_rev*/stl/
+gripper_fabrication_rev*/step/
+gripper_fabrication_rev*/images/build_guide/
+
+# OS / editor
+.DS_Store
+.vscode/
+*.log

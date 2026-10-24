@@ -20,7 +20,7 @@ SF_slip = 1.5
 Fg_req = W*dyn*SF_slip/(2*mu_jaw)                  # per jaw
 Fg_target = 25.0
 # ---- screw / motor ----
-lead = 2.0e-3; d_mean = 7.0e-3; half_ang = D2R(15)
+lead = D.LEAD*1e-3; d_mean = 7.0e-3; half_ang = D2R(15)   # rev 7: Tr8x8
 lam = np.arctan(lead/(np.pi*d_mean))
 def eta(mu): ph = np.arctan(mu/np.cos(half_ang)); return np.tan(lam)/np.tan(lam+ph)
 def selflock(mu): return np.arctan(mu/np.cos(half_ang)) > lam
@@ -58,12 +58,12 @@ R = dict(
                h_face_below_F1=float(P['h'])),
   window=dict(th_closed_deg=float(np.degrees(TH_C)), th_open_deg=float(np.degrees(TH_O)), gap_max_mm=GAP_OPEN,
               C_x_closed=float(s[0]), C_x_open=float(s[-1]), stroke_mm=float(s[-1]-s[0]),
-              screw_turns=float((s[-1]-s[0])/2.0)),
+              screw_turns=float((s[-1]-s[0])/D.LEAD)),
   transmission=dict(mu_min_deg=float(mu_t.min()), mu_max_deg=float(mu_t.max()), rod_angle_max_deg=float(rod.max()),
                     ds_dth_min=float(G.min()), ds_dth_max=float(G.max()), toggle_in_window=bool((G<=0).any())),
   MA=dict(min=float(MA.min()), at_gap_0=float(MA[0]), at_gap_60=float(np.interp(60, gap, MA)), max=float(MA.max())),
   requirement=dict(W_N=W, mu_jaw=mu_jaw, dyn=dyn, SF_slip=SF_slip, Fg_req_per_jaw=float(Fg_req), Fg_target=Fg_target),
-  screw=dict(lead_mm=2.0, lead_angle_deg=float(np.degrees(lam)), eta_mu010=float(eta(0.10)), eta_mu025=float(eta(0.25)),
+  screw=dict(lead_mm=D.LEAD, lead_angle_deg=float(np.degrees(lam)), eta_mu010=float(eta(0.10)), eta_mu025=float(eta(0.25)),
              self_locking_mu010=bool(selflock(0.10)), self_locking_mu025=bool(selflock(0.25))),
   motor=dict(Fs_op_N=float(Fs_op), T_op_Nm_range=[float(T_op_lo), float(T_op_hi)], T_hold_assumed=T_hold,
              torque_fraction_of_hold=float(T_op_hi/T_hold), Fs_at_full_hold_mu010=float(2*np.pi*eta(0.10)*T_hold/lead),

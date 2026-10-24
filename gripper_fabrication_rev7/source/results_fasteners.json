@@ -28,23 +28,23 @@
   },
   {
    "item": "Motor screw head on ABS (open-stop stall, tension)",
-   "load_N": 43.6,
-   "stress_MPa": 2.66,
-   "SF_yield": 11.3,
+   "load_N": 27.4,
+   "stress_MPa": 1.67,
+   "SF_yield": 18.0,
    "note": "4 screws share the stall force"
   },
   {
    "item": "Nut screw pull-out, self-tapped 4.4 mm (open-stop stall)",
-   "load_N": 87.3,
-   "stress_MPa": 2.53,
-   "SF_yield": 6.9,
+   "load_N": 54.9,
+   "stress_MPa": 1.59,
+   "SF_yield": 11.0,
    "note": "shear at the D2.5 pilot wall"
   },
   {
    "item": "Nut screw head on brass flange",
-   "load_N": 87.3,
-   "stress_MPa": 5.31,
-   "SF_yield": 37.7,
+   "load_N": 54.9,
+   "stress_MPa": 3.34,
+   "SF_yield": 59.9,
    "note": "CuZn yield ~200 MPa"
   },
   {

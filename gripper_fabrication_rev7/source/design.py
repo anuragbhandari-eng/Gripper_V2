@@ -33,6 +33,8 @@ R_M3 = 1.7      # Ø3.4 clearance
 R_BOSS = 5.5    # link end boss
 R_SPACER = 5.0  # crank spacer boss in M layer
 SH_HEAD_R, SH_HEAD_H = 3.5, 3.0   # shoulder screw head Ø7 x 3
+LEAD, USTEP = 8.0, 16              # rev 7 (v2 change A): Tr8x8 (4-start, 8 mm lead; rev 6 Tr8x2); 1/16 microstepping
+STEPS_PER_MM = 200*USTEP/LEAD      # 400 (rev 6: 1600)
 # ---------- printed-part material (rev 7: ABS; rev 6 was PETG, 45 MPa, 1.27 g/cm3) ----------
 MAT = 'ABS'
 MAT_SY = 30.0     # MPa, printed in-plane yield: low end of generic FDM ABS (30-40 MPa); fablab spool, brand unknown

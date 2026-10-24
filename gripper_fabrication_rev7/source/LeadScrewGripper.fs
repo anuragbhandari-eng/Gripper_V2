@@ -410,7 +410,7 @@ function partSpecs() returns array
         [0,"cyl",[-55.4867,-15.5,25.8],[-49.4867,-15.5,25.8],1.25],
         [0,"cyl",[-55.4867,15.5,-5.2],[-49.4867,15.5,-5.2],1.25],
         [0,"cyl",[-55.4867,-15.5,-5.2],[-49.4867,-15.5,-5.2],1.25]] },
-    { "name" : "Tr8x2 lead screw (cut 78.5mm)", "kind" : "ground", "mirror" : false, "color" : [0.77,0.78,0.78], "mat" : "STEEL", "purchased" : true,
+    { "name" : "Tr8x8 lead screw (cut 78.5mm)", "kind" : "ground", "mirror" : false, "color" : [0.77,0.78,0.78], "mat" : "STEEL", "purchased" : true,
       "ops" : [
         [1,"cyl",[-48.4867,0,10.3],[28.0475,0,10.3],4]] },
     { "name" : "Tr8 brass flange nut", "kind" : "car", "mirror" : false, "color" : [0.79,0.64,0.29], "mat" : "BRASS", "purchased" : true,

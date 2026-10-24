@@ -30,7 +30,7 @@
   "C_x_closed": -27.486699157493593,
   "C_x_open": 4.547532819834386,
   "stroke_mm": 32.03423197732798,
-  "screw_turns": 16.01711598866399
+  "screw_turns": 4.004278997165997
  },
  "transmission": {
   "mu_min_deg": 59.3761817303854,
@@ -55,22 +55,22 @@
   "Fg_target": 25.0
  },
  "screw": {
-  "lead_mm": 2.0,
-  "lead_angle_deg": 5.196508218148936,
-  "eta_mu010": 0.46324813129085995,
-  "eta_mu025": 0.25389912799244846,
-  "self_locking_mu010": true,
-  "self_locking_mu025": true
+  "lead_mm": 8.0,
+  "lead_angle_deg": 19.990512792909147,
+  "eta_mu010": 0.7491426329718984,
+  "eta_mu025": 0.5292808019550512,
+  "self_locking_mu010": false,
+  "self_locking_mu025": false
  },
  "motor": {
   "Fs_op_N": 72.37973285038068,
   "T_op_Nm_range": [
-   0.0497340042396247,
-   0.09074148740795632
+   0.12301627760374487,
+   0.17411691064943963
   ],
   "T_hold_assumed": 0.4,
-  "torque_fraction_of_hold": 0.22685371851989078,
-  "Fs_at_full_hold_mu010": 582.1347704210264,
+  "torque_fraction_of_hold": 0.43529227662359904,
+  "Fs_at_full_hold_mu010": 235.35009922354308,
   "Fg_at_gap60_with_Fs_op": 54.4587166901086,
   "Fs_lim_N": 200.0
  },

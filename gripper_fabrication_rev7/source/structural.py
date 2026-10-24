@@ -11,13 +11,16 @@ rows = []
 # motor / driver
 T_hold, I_rated = 0.40, 1.5
 eta_hi, eta_lo = R['screw']['eta_mu010'], R['screw']['eta_mu025']
-I_set = 0.45
+lead = R['screw']['lead_mm']*1e-3
+# rev 7 (Tr8x8): the lowest current (0.05 A steps) that still gives the operating screw force with worst-case friction
+I_set = round(float(np.ceil(R['motor']['Fs_op_N']*lead/(2*np.pi*eta_lo*T_hold/I_rated)/0.05 - 1e-9)*0.05), 2)
 T_set = T_hold*I_set/I_rated
-Fs_best = 2*np.pi*eta_hi*T_set/0.002; Fs_worst = 2*np.pi*eta_lo*T_set/0.002
+Fs_best = 2*np.pi*eta_hi*T_set/lead; Fs_worst = 2*np.pi*eta_lo*T_set/lead
 drv = dict(I_rated_A=I_rated, T_hold_Nm=T_hold, I_set_rms_A=I_set, T_at_set_Nm=round(T_set, 3),
            Fs_range_at_set_N=[round(Fs_worst, 1), round(Fs_best, 1)], Fs_needed_N=round(R['motor']['Fs_op_N'], 1), Fs_operating_max_N=round(Fs_best, 1),
            grip_min_per_jaw_N=round(Fs_worst*R['MA']['min'], 1), grip_at60_worstfriction_N=round(Fs_worst*R['MA']['at_gap_60'], 1),
-           within_200N_limit=bool(Fs_best <= 200), speed_note='600 rpm -> 20 mm/s -> full stroke 1.6 s')
+           within_200N_limit=bool(Fs_best <= 200),
+           speed_note='600 rpm -> %.0f mm/s -> full stroke %.1f s' % (10*R['screw']['lead_mm'], R['window']['stroke_mm']/(10*R['screw']['lead_mm'])))
 
 def add(item, load_lim, stress_lim, allow, note):
     sf = allow*2/stress_lim if stress_lim > 0 else np.inf   # SF vs yield

@@ -30,7 +30,7 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     ('ConRod', D.conrod(), 'rod', True, '[0.71,0.73,0.75]', D.MAT, False),
     ('Finger', D.finger(), 'finger', True, '[0.91,0.45,0.16]', D.MAT, False),
     ('NEMA17 linear stepper 40mm', D.motor(), 'ground', False, '[0.13,0.14,0.15]', 'STEEL', True),
-    ('Tr8x2 lead screw (cut %.1fmm)' % D.SCREW_LEN, D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
+    ('Tr8x%d lead screw (cut %.1fmm)' % (D.LEAD, D.SCREW_LEN), D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
     ('Tr8 brass flange nut', D.nut(), 'car', False, '[0.79,0.64,0.29]', 'BRASS', True),
     ('608ZZ bearing', D.bearing608(), 'ground', False, '[0.66,0.68,0.70]', 'STEEL', True),
     ('Dowel 4x32 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),

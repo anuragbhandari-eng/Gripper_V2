@@ -11,11 +11,11 @@ F_CL = T_M3/(0.2*0.003)     # N, clamp from T = K·F·d with K = 0.2, d = 3 mm
 rows = []
 for g in range(0, 67, 6):
     th = np.arcsin(g/(2*D.L) + np.sin(D.TH_C)); cx = float(geom(P, th)['C'][0])
-    rows.append((g, round(np.degrees(th), 1), round(cx, 2), round(cx - D.S_MAX, 2), int(round((D.S_MAX - cx)*1600))))
+    rows.append((g, round(np.degrees(th), 1), round(cx, 2), round(cx - D.S_MAX, 2), int(round((D.S_MAX - cx)*D.STEPS_PER_MM)), g + 2*D.WIDE_OFS))
 # ---- BOM ----
 bom = [
- ('P1', 'NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x2 lead screw (lead 2 mm, single start) >= 85 mm', 1, 'Cut screw to %.1f mm +/- 0.5 from motor face (end flush with the 608 face), chamfer end' % D.SCREW_LEN),
- ('P2', 'Tr8x2 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16) - usually supplied with P1', 1, ''),
+ ('P1', 'NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x8 lead screw (lead 8 mm, 4 start) >= 85 mm', 1, 'Cut screw to %.1f mm -0.5/+0 from motor face (never long: the encoder puck fills the last 3 mm of the 608 bore), chamfer end' % D.SCREW_LEN),
+ ('P2', 'Tr8x8 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16; check on the listing) - usually supplied with P1', 1, ''),
  ('P3', '608ZZ ball bearing 8 x 22 x 7', 1, 'Screw tip support; carries the grip thrust into the block front lip'),
  ('P12', 'Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)', 1, 'Behind the 608, against its inner ring: takes the screw reaction when gripping'),
  ('P4', 'Dowel pin ISO 8734 / DIN 6325, D4 m6 x 32, hardened', 4, 'Fixed pivots O1, O2 (press into base)'),
@@ -26,7 +26,20 @@ bom = [
  ('P13', 'M3 x 16 button head screw ISO 7380', 4, 'Tip blocks to the finger tongues (2 per side), rev 7'),
  ('P9', 'M6 x 12 socket head cap screw ISO 4762 (6 mm into the robot flange; check its thread depth)', 4, 'Adapter to ISO 9409-1-50-4-M6 flange'),
  ('P10', 'Grease: PTFE/lithium for lead screw and pivots', 1, ''),
- ('P11', 'Stepper driver TMC2209 (or equivalent, current-limited 0.45 A RMS), 12-24 V supply', 1, 'Electronics, not modelled'),
+ ('P11', 'TMC2209 stepper driver module, StepStick size (e.g. BIGTREETECH TMC2209), UART + DIAG', 1, 'Current limit %.2f A RMS (section 4); female headers on the protoboard' % S['driver']['I_set_rms_A']),
+ ('P14', 'Raspberry Pi Pico (or Pico H with headers)', 1, 'USB serial to ROS 2; on the protoboard'),
+ ('P15', 'AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric magnet', 1, 'Solder 4 wires (VCC, GND, SDA, SCL) to the pad row, no header; pad row up'),
+ ('P16', 'Double-sided protoboard 50 x 70 mm', 1, 'Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern'),
+ ('P17', 'M3 x 10 male-female standoff + M3 x 6 screw', 4, 'Controller board to the cover-top inserts'),
+ ('P18', 'MP1584 mini buck module (set to 5.0 V) + 1N5817 Schottky diode', 1, 'Battery -> Pico VSYS through the diode, so USB and battery can both be connected'),
+ ('P19', '3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g)', 1, 'In the stand base tray, Velcro strap through the two slots'),
+ ('P20', 'LiPo balance charger (2-4S, XH balance lead)', 1, 'Charge only with this'),
+ ('P21', 'XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A', 1, 'Battery -> switch -> fuse -> TMC2209 VM and buck input'),
+ ('P22', 'Resistors 100 k + 27 k (battery divider into Pico ADC0), 100 uF 25 V capacitor at TMC2209 VM', 1, ''),
+ ('P23', '2020 aluminium extrusion, 400 mm (V-slot or T-slot)', 1, 'Bench stand column'),
+ ('P24', 'M5 drop-in T-nut + M5 x 10 screw (2), M5 x 16 screw (1)', 1, 'Head bracket to column (2), base to column end (1, tap the end M5)'),
+ ('P25', 'M6 x 20 socket head cap screw ISO 4762 + M6 hex nut', 4, 'Adapter to the stand head bracket (nuts drop into the bracket from the back)'),
+ ('P26', 'TPU 95A filament', 1, 'Contact pads (18_Pad_TPU95A, 4 pcs)'),
 ]
 with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['ID', 'Item', 'Qty', 'Note'])
@@ -36,6 +49,11 @@ with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
 _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D.L*(np.sin(_th) - np.sin(D.TH_C))
 FA = dict(travel=float(_x.max() - _x.min()), gap_fwd=float(_g[np.argmax(_x)]), open_behind_closed=float(_x[0] - _x[-1]))
 printed_cm3 = sum(p['volume_cm3']*p['qty'] for p in PARTS)
+_grp = lambda pre: sum(p['volume_cm3']*p['qty'] for p in PARTS if p['file'][:3] in pre)
+cm3_stand, cm3_wide = _grp(('20_', '21_')), _grp(('16_', '17_'))
+cm3_gripper = printed_cm3 - cm3_stand - cm3_wide            # gripper with the narrow set (pads in TPU)
+import json as _j
+_CK = _j.load(open('check_report.json'))
 W, M, T, MO, SC = R['window'], R['MA'], R['transmission'], R['motor'], R['requirement']
 drv = S['driver']
 md = []
@@ -45,16 +63,32 @@ A('Generated from the verified model (design.py → results.json, results_struct
 A('## 1. Summary\n')
 A('| Item | Value |\n|---|---|')
 A(f'| Mechanism | Reference architecture kept: parallelogram finger (pure translation) + 90° bell crank + conrod to lead-screw carriage, 1 DOF, mirrored |')
-A(f'| Jaw range | 0 → {W["gap_max_mm"]:.0f} mm (spec 0–60 mm) |')
-A(f'| Carriage stroke | {W["stroke_mm"]:.1f} mm = {W["screw_turns"]:.1f} screw turns (Tr8×2) |')
-A(f'| Grip force per jaw | ≥ {drv["grip_min_per_jaw_N"]} N anywhere in range at 0.45 A RMS, worst-case screw friction (needs {SC["Fg_req_per_jaw"]:.1f} N for 500 g) |')
-A(f'| Holding | Tr8×2 self-locking (lead angle {R["screw"]["lead_angle_deg"]:.1f}°): holds the payload with power off |')
-A(f'| Structure | Min safety factor {S["min_SF"]} vs yield at a 200 N screw-force limit case (the motor clamps at {drv["Fs_range_at_set_N"][0]:.0f}–{drv["Fs_range_at_set_N"][1]:.0f} N at 0.45 A) |')
-A(f'| Motion check | 0 collisions over 41 poses (all 49 parts, including the 16 modelled screws); only intended joint/stack contacts below 0.8 mm |')
+A(f'| Jaw range | narrow tips 0 → {W["gap_max_mm"]:.0f} mm, wide tips {2*D.WIDE_OFS:.0f} → {W["gap_max_mm"] + 2*D.WIDE_OFS:.0f} mm (pad to pad; firmware caps the opening at 60 / 80 mm) |')
+A(f'| Carriage stroke | {W["stroke_mm"]:.1f} mm = {W["screw_turns"]:.1f} screw turns (Tr8×8, {D.STEPS_PER_MM:.0f} steps/mm at 1/16 µstep) |')
+A(f'| Grip force per jaw | ≥ {drv["grip_min_per_jaw_N"]} N anywhere in range at {drv["I_set_rms_A"]} A RMS, worst-case screw friction (needs {SC["Fg_req_per_jaw"]:.1f} N for 500 g) |')
+A(f'| Holding | Tr8×8 is back-drivable (lead angle {R["screw"]["lead_angle_deg"]:.1f}°): the driver hold current keeps the grip; with power off the jaws can be pushed open |')
+A(f'| Structure | Min safety factor {S["min_SF"]} vs yield at a 200 N screw-force limit case (the motor clamps at {drv["Fs_range_at_set_N"][0]:.0f}–{drv["Fs_range_at_set_N"][1]:.0f} N at {drv["I_set_rms_A"]} A). Tip rows assume a far-tip grip at the 66 mm stop; at the 60 mm firmware cap they are {S["tip"]["factor_at_cap"]}× higher |')
+A(f'| Motion check | {sum(len(v) for v in _CK["hits"].values())} collisions over 41 poses ({len(_CK["parts"])} parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |')
 A(f'| Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ {S["thrust"]["bearing608_axial_static_capacity_N"]:.0f} N vs {S["thrust"]["load_N"]:.0f} N limit ({S["thrust"]["ratio"]}×) |')
-A(f'| Fasteners | 2 screw sizes (12× M3×8, 4× M3×20 button head); min SF {FX["min_SF"]} under mount, stall and limit loads; tighten ≤ {T_M3} N·m |')
-A(f'| Printed volume | {printed_cm3:.0f} cm³ {D.MAT} (~{printed_cm3*D.MAT_RHO*0.55:.0f} g at typical infill) + motor ~280 g |')
+A(f'| Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×16, 4× M3×20 button head); min SF {FX["min_SF"]} under mount, stall and limit loads; tighten ≤ {T_M3} N·m |')
+A(f'| Printed volume | gripper with the narrow set {cm3_gripper:.0f} cm³ (~{cm3_gripper*D.MAT_RHO*0.55:.0f} g at typical infill) + motor ~280 g; wide set {cm3_wide:.0f} cm³; bench stand {cm3_stand:.0f} cm³ |')
 A(f'| Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |\n')
+A('## 1a. Rev 7 (v2) changes\n')
+A(f'- **B, tip sets:** each finger splits at x = {D.SEAM_X:.0f} mm. A tip block slides up onto a {D.TONGUE_X1 - D.SEAM_X:.0f} mm tongue on the finger and takes 2× M3×16 from the top. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face {D.WIDE_OFS:.0f} mm further out per side (20–86 mm), blunt end. Both run {D.TIP_EXT:.0f} mm further forward (pad x {D.SEAM_X + D.TIP_R:.0f}–{D.FACE_X1:.0f}). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.')
+A(f'- **Trade-offs of the longer tips:** the gripper is {D.TIP_EXT:.0f} mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.')
+A(f'- **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut {D.ENC_CUT:.0f} mm shorter). The board stands in a slot across the bearing block, {D.ENC_GAP} mm air gap; the block bolts moved to ears at the rear of the block.')
+A('- **D, controller:** Pico + TMC2209 + 5 V buck + battery divider on a 50 × 70 mm protoboard, on 4 standoffs in heat-set inserts in the cover top. USB serial to ROS 2.')
+A(f'- **A, drive:** Tr8×8 (lead {D.LEAD:.0f} mm): {W["screw_turns"]:.1f} turns over the stroke, {D.STEPS_PER_MM:.0f} steps/mm, {drv["speed_note"]}. Driver {drv["I_set_rms_A"]} A RMS. Not self-locking.')
+A('- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed base with a battery tray. Slide the bracket to set the height.')
+A(f'- **Power:** 3S LiPo (about 650 mAh, XT30) → switch → 3 A fuse → TMC2209 VM and the buck → Schottky → Pico VSYS. Firmware stops below 10.5 V.')
+A(f'- **Material:** printed parts in {D.MAT} (taken as {D.MAT_SY:.0f} MPa); pads in TPU 95A.\n')
+A('| Pico pin | Connects to |\n|---|---|')
+for pin, to in (('GP2', 'TMC2209 STEP'), ('GP3', 'TMC2209 DIR'), ('GP4', 'TMC2209 EN'), ('GP5', 'TMC2209 DIAG (stall detect for homing)'),
+                ('GP8 / GP9 (UART1)', 'TMC2209 PDN_UART (1 k in series on TX)'), ('GP0 / GP1 (I2C0)', 'AS5600 SDA / SCL'),
+                ('GP26 (ADC0)', 'Battery divider 100 k / 27 k (12.6 V reads 2.68 V)'), ('3V3 / GND', 'AS5600 VCC / GND, TMC2209 VIO / GND'),
+                ('VSYS', '5 V buck output through the 1N5817')):
+    A(f'| {pin} | {to} |')
+A('')
 A('## 2. Mechanism and dimensions\n')
 A('Reference measured from the video (143 frames, hole centres tracked; rigid distances constant to <1 px). Link ratios kept exactly, scaled to crank length L = 28 mm.\n')
 A('| Parameter | Value (mm / deg) | Ratio to L |\n|---|---|---|')
@@ -70,15 +104,15 @@ A(f'- No toggle or singularity in the window: ds/dθ {T["ds_dth_min"]:.1f}–{T[
 A(f'- Mechanical advantage (grip per jaw ÷ total screw force): {M["at_gap_0"]:.3f} at 0 mm, {M["at_gap_60"]:.3f} at 60 mm, {M["max"]:.3f} at 66 mm. Grip rises as the jaws open.')
 A(f'- Cross-checks: analytic vs finite-difference ds/dθ {R["checks"]["deriv_fd_max_rel_err"]:.1e}; virtual work vs free-body statics {R["checks"]["virtual_work_vs_FBD_max_rel_err"]:.0e}; inverse solve {R["checks"]["inverse_solve_max_err_rad"]:.0e} rad.')
 A(f'- Grip requirement: 500 g, μ = {SC["mu_jaw"]} (printed serrations), ×{SC["dyn"]:.0f} dynamic, ×{SC["SF_slip"]} slip SF → {SC["Fg_req_per_jaw"]:.1f} N per jaw; target 25 N.\n')
-A('Jaw gap ↔ carriage position (for firmware; home = open stop, 1600 steps/mm at 1/16 µstep):\n')
-A('| Gap mm | Crank θ° | C_x mm | Carriage from open stop mm | Steps from home |\n|---|---|---|---|---|')
+A(f'Jaw gap ↔ carriage position (for firmware; home = open stop, {D.STEPS_PER_MM:.0f} steps/mm at 1/16 µstep; the AS5600 also counts screw turns, {D.LEAD:.0f} mm per turn):\n')
+A('| Gap mm (narrow) | Crank θ° | C_x mm | Carriage from open stop mm | Steps from home | Gap mm (wide) |\n|---|---|---|---|---|---|')
 for r_ in rows: A('| ' + ' | '.join(map(str, r_)) + ' |')
 A('\n## 4. Motor and driver sizing\n')
 A(f'- Screw force for ≥ 25 N everywhere: {MO["Fs_op_N"]:.1f} N → torque {MO["T_op_Nm_range"][0]:.3f}–{MO["T_op_Nm_range"][1]:.3f} N·m (screw η {R["screw"]["eta_mu025"]:.2f}–{R["screw"]["eta_mu010"]:.2f}).')
 A(f'- **Set driver current to {drv["I_set_rms_A"]} A RMS** (for a {drv["I_rated_A"]} A / {drv["T_hold_Nm"]} N·m motor): screw force {drv["Fs_range_at_set_N"][0]}–{drv["Fs_range_at_set_N"][1]} N → grip ≥ {drv["grip_min_per_jaw_N"]} N per jaw, and stays below the 200 N structural limit even with a well-greased screw.')
 A(f'- **Warning:** at full rated current the motor can push ~{MO["Fs_at_full_hold_mu010"]:.0f} N, far above what the printed parts are sized for. The current limit is a safety item.')
-A(f'- Speed: {drv["speed_note"]}. Self-locking means no holding current is needed for the payload. Keep a low hold current anyway so the step position is not lost.\n')
-A(f'## 5. Structural checks (200 N screw-force limit case; σ op = at the {drv["Fs_operating_max_N"]} N stall force at 0.45 A)\n')
+A(f'- Speed: {drv["speed_note"]}. The Tr8×8 is not self-locking, so keep the hold current on while gripping (TMC2209 IHOLD); the AS5600 confirms the position after any slip.\n')
+A(f'## 5. Structural checks (200 N screw-force limit case; σ op = at the {drv["Fs_operating_max_N"]} N stall force at {drv["I_set_rms_A"]} A)\n')
 A('| Check | Load N | σ limit MPa | σ op MPa | SF yield |\n|---|---|---|---|---|')
 for r_ in S['rows']: A(f'| {r_["item"]} | {r_["load_limit_N"]} | {r_["stress_limit_MPa"]} | {r_["stress_op_MPa"]} | {r_["SF_yield_at_limit"]} |')
 A(f'\n**Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor\'s own bearing no longer takes the full reaction. Limit case {S["thrust"]["load_N"]:.0f} N vs ≈ {S["thrust"]["bearing608_axial_static_capacity_N"]:.0f} N 608 static axial capacity. {S["thrust"]["note"][0].upper() + S["thrust"]["note"][1:]}.\n')
@@ -142,28 +176,34 @@ A('  - Re-checked: 49 valid parts, 0 collisions over 41 poses, intended contacts
 A('- Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any CAD package as a 49-part assembly.\n')
 A('## 8. Assembly sequence\n')
 for i, s_ in enumerate([
- 'Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2). Base: 2 motor-wall joint, 2 bearing block, 2 posts. Adapter: 4 side holes.',
+ 'Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2), Finger tongues (2 each). Base: 2 motor-wall joint, 2 bearing-block ears, 2 posts. Adapter: 4 side holes. Cover top: 4 for the controller standoffs.',
  'Press the 4 dowels into the base (O1, O2 both sides; 6 mm deep, square to the plate). Ream the 4 cover dowel holes to Ø4.0.',
- 'Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to %.1f mm ± 0.5 from the motor face, so its end sits flush with the 608 face (never proud of the 1 mm front recess). Chamfer, clean and grease it.' % D.SCREW_LEN,
+ 'Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to %.1f mm -0.5/+0 from the motor face, so its end sits %.0f mm inside the 608 bore (never longer: the encoder puck fills the rest). Chamfer, clean and grease it.' % (D.SCREW_LEN, D.ENC_CUT),
  'Slide the nut into the carriage from the front: body into the bore, flange into the front recess, two flange holes at 3 and 9 o\'clock. Fit 2× M3×8 button heads into the Ø2.5 pilots, snug only.',
  'Spin the carriage onto the motor screw from its rear. Slide the lock collar on (set screw loose), then the 608ZZ onto the screw tip.',
  'Lay motor + screw + carriage + bearing into the base: motor connector facing up, pilot into the wall recess, carriage tongue in the channel, 608 in the lower cradle against the front lip, collar behind it. Fit the 2 lower motor screws (M3×8) through the access slots with a 2.5 mm ball-end driver. Push the collar forward until it just touches the 608 inner ring (no preload) and tighten its set screw. Run the carriage end to end by hand, then tighten the 2 nut screws.',
+ 'Encoder: glue the magnet into the printed puck (flush), slide the puck into the 608 bore against the screw end and glue it to the screw end with a drop of CA. Solder 4 wires (VCC, GND, SDA, SCL) to the AS5600 pad row, drop the board into the slot in front of the 608 (chip toward the magnet, pads up) and lead the wires up through the slit in the cover.',
  'Per side: BellCrank Lower on O1 and FrontCrank Lower on O2 (bosses up). Finger onto F1/F2, conrod onto D and between the carriage ears at C. BellCrank Upper and FrontCrank Upper on top. Shoulder screws at F1, F2, D, C into the lower-plate/ear inserts.',
- 'Cover onto the dowels (press evenly; close fit). 2× M3×20 at the motor wall, 2× M3×20 at the bearing block, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.',
- 'Bolt the adapter to the robot flange first (4× M6×12). Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.',
- 'Driver: 0.45 A RMS, 1/16 µstep. Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm. In use, cap the commanded opening at 60 mm so the carriage never hits the stop at speed. Calibrate grip once with a kitchen scale between the jaws.']):
+ 'Tip blocks: slide a TPU pad into the tip block groove from the rear, push the tip block up onto the finger tongue from below and fit 2× M3×16 from the top. To change sets, take the 2 screws out and slide the block off downward.',
+ 'Cover onto the dowels (press evenly; close fit). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.',
+ 'Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.',
+ 'Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.',
+ 'Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.',
+ 'Driver: %.2f A RMS, 1/16 µstep (%.0f steps/mm). Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.' % (S['driver']['I_set_rms_A'], D.STEPS_PER_MM)]):
     A(f'{i+1}. {s_}')
 A(f'\nTighten every M3 to {T_M3} N·m or less (snug with the short arm of the key). More crushes the {D.MAT} under the head.')
 A('\n## 9. Assumptions, limits, verify before buying\n')
 A('- Rigid links, quasi-static, equal load sharing between the two sides, Coulomb friction in the screw only (pivot friction lowers grip a few %; the current setting has margin).')
 A('- Verify on receipt: motor body ≤ 40 mm (the adapter sits 1 mm behind it), pilot Ø22×2, M3 holes on 31 mm square; nut flange Ø22×3.5 and body Ø10.2 (edit NUT_* in design.py if different); shoulder-screw head ≤ Ø7.5×3.5 and thread ≤ 6 mm.')
 A('- Robot flange: I assumed a Ø31.5 H7 centring recess (spigot 31.44 × 3 mm) and the Ø6 pin on the PCD at +Z, between bolts. Check your robot drawing.')
-A('- μ = 0.35 is conservative for printed serrations. A thin TPU or rubber pad on the jaw face roughly doubles the slip margin.')
+A('- μ = 0.35 is kept as the design value. The TPU 95A pads typically give more (about 0.6–0.7), which roughly doubles the slip margin.')
 A(f'- {D.MAT} creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF.')
 A('- Motor connector: the adapter sits 1 mm behind the motor, so the cable must leave from a side face. Mount the motor with the connector facing up, through the cover\'s U-slot.')
 A(f'- M6×12 puts 6 mm of thread into the robot flange. Check your flange\'s thread depth, and use a washer or modest torque on the {D.MAT}.')
 A('- Thrust: the collar and the motor\'s internal bearing share the screw load in a way that depends on how the collar is set. Check the motor datasheet\'s axial load rating anyway, and don\'t preload the collar.')
 A('- The jaws also move fore-aft: %.1f mm in total over the stroke. They are furthest forward near a %.0f mm gap and furthest back fully open (%.1f mm behind the closed position). That is inherent to this linkage; teach grasp poses at the gap you\'ll use.' % (FA['travel'], FA['gap_fwd'], FA['open_behind_closed']))
-A('- Not modelled: wiring, a limit switch (sensorless homing assumed), cable strain relief.')
+A('- Not modelled: wiring and connectors, zip ties, a limit switch (sensorless homing assumed), the stand T-nuts and M5/M6 hardware, the M3 screws on top of the standoffs.')
+A('- Wide tips: the F2 pivot boss, 3–14 mm behind the seam, sits about 1.9 mm proud of the wide pad face. Round objects never reach it; a flat object longer than the pads that reaches back past the seam would touch it. A 7 mm offset instead of 10 would clear it (gap 14–80 mm).')
+A('- AS5600 module size: designed for 23 × 23 mm boards (most listings are 22–23 mm). The slot is 23.4 mm; the chip must be centred on the board, and parts on the chip side must sit within the 19.6 mm relief.')
 open(f'{OUT}/DESIGN_REPORT.md', 'w').write('\n'.join(md) + '\n')
 print('ok', printed_cm3)

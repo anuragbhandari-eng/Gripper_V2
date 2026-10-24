@@ -214,6 +214,30 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 
 ---
 
+## 6a. Status (2026-10-24): v2 design complete, local and in `GripperV2`
+
+Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full numbers: `gripper_fabrication_rev7/DESIGN_REPORT.md` (section 1a has the v2 summary and the Pico wiring table). Onshape record: `rev7/source/results_onshape_rev7.json`.
+
+- **Checks:** 72 valid parts, 0 collisions over 41 poses for both tip sets (`check.py 41`; run `GRIPPER_TIPSET=wide python3 check.py 41` for the wide set, which writes `*_wide.json`). Only intended contacts under 0.8 mm.
+- **Structure (ABS 30 MPa, 200 N screw-force limit, far-tip grip at the 66 mm stop):** min SF 1.7 (finger bore and boss at F2, tip screws). At the 60 mm firmware cap these rows are 1.81× higher (≥ 3.0). Tongue alone carries the seam moment at SF 2.7. Fasteners min SF 2.3.
+- **Drive:** Tr8x8, driver 0.70 A RMS (stall 78–110 N), grip ≥ 26.8 N per jaw, 400 steps/mm, full stroke 0.4 s, not self-locking.
+- **Onshape `GripperV2`:** Feature Studio updated (SHA-256 `f8f3a1e48e7280c4`), 72 parts within 1.3 mm³ of local, dialog has Tip set + Include bench stand. Assembly 1: 72 instances, 21/21 features OK, new groups "Finger U + tip" / "Finger L + tip", slider verified at both limits, left at 0. FeatureScript MCP requests used: 0.
+
+**Calls made without asking (Anurag said not to stop for questions):**
+1. Tip joint: finger keeps a 20 mm tongue; tip block slides up onto it, 2× M3×16 from the top into inserts in the tongue. Pad: one TPU pad for both sets, 45° dovetail key sliding in from the rear.
+2. Wide offset kept at 10 mm. Side effect: the F2 boss (3–14 mm behind the seam) sits 1.9 mm proud of the wide pad face. A 7 mm offset would clear it (gap 14–80).
+3. Encoder: screw cut 3 mm shorter (78.5 mm); printed puck with the magnet inside the 608 bore; board in a slot across the block. The block bolts moved to rear ears because the board spans their old position.
+4. Controller: protoboard on 4 M3×10 standoffs into inserts in the cover top (the cover prints top-down, so no printed bosses). Strain relief = zip ties to the board grid.
+5. Bench stand: gripper hangs jaws-down from a 2020 × 400 column; printed head bracket (M6×20 into nuts) and base with battery tray.
+6. Driver current is computed in `structural.py` (lowest 0.05 A step that meets the 25 N grip target).
+7. Found and fixed: `prims.mirror_ops` mirrored `extx` profiles in z instead of y (first used by the pad dovetail).
+
+**Still open (for Anurag):**
+- Print `13_FitTest_coupons.stl` in ABS at the fablab and report the fits; retune `R_RUN`, `R_SNUG`, the 608 seat etc. from the results.
+- Buy parts (section 7 / BOM.csv). Check on receipt: AS5600 board ≤ 23 × 23 mm with the chip centred; Tr8x8 nut flange and holes; motor screw ≥ 78.5 mm usable.
+- Firmware (Pico): STEP/DIR/EN, UART config, stall homing, AS5600 turn counting, battery cut-off at 10.5 V. Pin map in the report.
+- ROS 2 phase: update the "Robot export" assembly with the tip parts.
+
 ## 7. Planned purchased parts (approximate, Amazon US)
 
 | Item | ~Cost |
@@ -225,5 +249,7 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 | TPU 95A filament for pads (1 spool) | $20 |
 | 3S LiPo, ~650 mAh, XT30 | $15–20 |
 | LiPo balance charger | $25–35 |
-| Switch, ~3 A fuse, XT30 pigtail, 5 V buck, Schottky diode | $10 |
-| Bench stand hardware | TBD in step 6 |
+| Switch, ~3 A fuse, XT30 pigtail + extension, 5 V buck, Schottky diode, divider resistors | $15 |
+| 50 × 70 mm protoboard, 4× M3×10 standoffs | $10 |
+| 2020 extrusion 400 mm, M5 T-nuts + screws, 4× M6×20 + M6 nuts | $20 |
+| M3×16 button heads (4) and 4 more heat-set inserts | in the M3 kit |

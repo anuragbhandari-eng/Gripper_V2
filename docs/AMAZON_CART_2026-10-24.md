@@ -6,6 +6,13 @@ Everything below was added to the Amazon US cart in Chrome (guest cart, not sign
 
 Items marked "Only N left" were low in stock on 2026-10-24.
 
+## One-click links
+
+If the cart is gone, for example after clearing cookies or switching browser, these links put the items back. Amazon asks you to sign in first. It then shows the list with one "Add to cart" button, and nothing is ordered.
+
+- [Add all 31 cart items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FHHWXJLV&Quantity.1=1&ASIN.2=B0DYNNW8N8&Quantity.2=1&ASIN.3=B08SK2LNNV&Quantity.3=1&ASIN.4=B0F54H1RMS&Quantity.4=1&ASIN.5=B0HG8TLLFL&Quantity.5=1&ASIN.6=B0F54GL2HL&Quantity.6=1&ASIN.7=B0FDQB7CX1&Quantity.7=1&ASIN.8=B08BCRZZS3&Quantity.8=1&ASIN.9=B0DRYBNWWQ&Quantity.9=1&ASIN.10=B0GF1NNQPS&Quantity.10=1&ASIN.11=B000XBH9HI&Quantity.11=1&ASIN.12=B08SMDY3SQ&Quantity.12=1&ASIN.13=B09X33TBY3&Quantity.13=1&ASIN.14=B09KGWC1PT&Quantity.14=1&ASIN.15=B0DQBXGP88&Quantity.15=1&ASIN.16=B07BLSRZYJ&Quantity.16=1&ASIN.17=B01MQGMOKI&Quantity.17=1&ASIN.18=B07Q5H1SLY&Quantity.18=1&ASIN.19=B0BWRM1M56&Quantity.19=1&ASIN.20=B0FG8CV6KP&Quantity.20=1&ASIN.21=B0FS23G6KD&Quantity.21=1&ASIN.22=B09LYHHS9J&Quantity.22=1&ASIN.23=B0BB1YNC4M&Quantity.23=1&ASIN.24=B0FWKN4JDJ&Quantity.24=1&ASIN.25=B0FH26ZN3N&Quantity.25=1&ASIN.26=B013U1CP08&Quantity.26=1&ASIN.27=B00VVI1L1W&Quantity.27=1&ASIN.28=B099MRRKJ2&Quantity.28=1&ASIN.29=B0DMCS8KW4&Quantity.29=1&ASIN.30=B0DLBJ5FTJ&Quantity.30=1&ASIN.31=B01N8VNX8Q&Quantity.31=1)
+- [Add the 5 fablab-first items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0BXNWK6NS&Quantity.1=1&ASIN.2=B0FT362FV2&Quantity.2=1&ASIN.3=B0H4K2PDF6&Quantity.3=1&ASIN.4=B0G49C758F&Quantity.4=1&ASIN.5=B0166FFFS4&Quantity.5=1) (only if the fablab doesn't have them)
+
 ## In the cart
 
 | BOM | What | Pack | ASIN | Price |

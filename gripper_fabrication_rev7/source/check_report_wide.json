@@ -53,22 +53,22 @@
   "Finger_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 8699.4
+   "vol": 10192.9
   },
   "Finger_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 8699.4
+   "vol": 10192.9
   },
   "TipBlock_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 11410.7
+   "vol": 10125.0
   },
   "TipBlock_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 11410.7
+   "vol": 10125.0
   },
   "Pad_U": {
    "valid": true,
@@ -83,22 +83,22 @@
   "BHT_Tip_A_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_A_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_B_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_B_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "SS_F1_U": {
    "valid": true,
@@ -208,17 +208,17 @@
   "Pico": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1196.3
+   "vol": 1841.4
   },
   "TMC2209": {
    "valid": true,
    "nsolids": 1,
-   "vol": 900.5
+   "vol": 1777.9
   },
   "Buck": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1496.0
+   "vol": 1559.5
   },
   "StandBracket": {
    "valid": true,
@@ -228,7 +228,7 @@
   "StandBase": {
    "valid": true,
    "nsolids": 1,
-   "vol": 185669.8
+   "vol": 185580.2
   },
   "Column": {
    "valid": true,

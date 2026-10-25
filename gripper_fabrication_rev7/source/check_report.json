@@ -53,22 +53,22 @@
   "Finger_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 8699.4
+   "vol": 10192.9
   },
   "Finger_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 8699.4
+   "vol": 10192.9
   },
   "TipBlock_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 17376.8
+   "vol": 16091.2
   },
   "TipBlock_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 17376.8
+   "vol": 16091.2
   },
   "Pad_U": {
    "valid": true,
@@ -83,22 +83,22 @@
   "BHT_Tip_A_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_A_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_B_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "BHT_Tip_B_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 151.0
+   "vol": 108.6
   },
   "SS_F1_U": {
    "valid": true,

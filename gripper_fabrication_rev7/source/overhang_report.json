@@ -116,12 +116,30 @@
   "flat_down_groups_top3": []
  },
  "11_Finger_A.stl": {
-  "overhang45_mm2": 0.0,
-  "flat_down_groups_top3": []
+  "overhang45_mm2": 25.1,
+  "flat_down_groups_top3": [
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
  },
  "12_Finger_B_mirrored.stl": {
-  "overhang45_mm2": 0.0,
-  "flat_down_groups_top3": []
+  "overhang45_mm2": 25.1,
+  "flat_down_groups_top3": [
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
  },
  "13_FitTest_coupons.stl": {
   "overhang45_mm2": 0.0,
@@ -131,11 +149,11 @@
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
-    3.2,
+    1.8,
     42.2,
     [
-     15.2,
-     6.2
+     13.2,
+     7.4
     ]
    ]
   ]
@@ -144,11 +162,11 @@
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
-    3.2,
+    1.8,
     42.2,
     [
-     15.2,
-     6.2
+     13.2,
+     7.4
     ]
    ]
   ]
@@ -157,11 +175,11 @@
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
-    3.2,
+    1.8,
     42.2,
     [
-     15.2,
-     6.2
+     13.2,
+     7.4
     ]
    ]
   ]
@@ -170,11 +188,11 @@
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
-    3.2,
+    1.8,
     42.2,
     [
-     15.2,
-     6.2
+     13.2,
+     7.4
     ]
    ]
   ]

@@ -55,16 +55,25 @@ arm_tip = D.FACE_X1 - D.SEAM_X                                   # seam to far-t
 seam_d = D._body_edge_y(D.SEAM_X) - D.SEAM_Y0                    # finger body depth at the seam
 M_seam = Fg_max*arm_tip
 add('Finger body at the tip seam (%.1f mm deep x %.1f)' % (seam_d, t_mid), Fg_max, M_seam/(t_mid*seam_d**2/6), PR['allow'], 'far-tip grip, cantilever %.0f mm' % arm_tip)
-add('Tip block layer plane at the tongue top (z=14.1)', Fg_max*0.6, Fg_max*0.6*6/(arm_tip*20**2/6), PR['allow_z'], 'interlayer, allow %.0f MPa' % PR['allow_z'])
-# seam joint: the moment is carried as an x-couple between the 2 tip screws and the top edge of the seam,
-# and in parallel by the tongue bearing on its pocket flank; each path is checked alone with the full moment
-arm_scr = (D._body_edge_y(D.SEAM_X) - 2.0) - D.TIP_SCREW_Y
-F_scr = M_seam/arm_scr/2
-add('Tip screw insert bearing in the finger tongue', F_scr, F_scr/(4.6*5.7), PR['allow'], 'per screw; moment arm %.1f mm to the seam top edge' % arm_scr)
-add('Tip screw shank bearing in the tip block', F_scr, F_scr/(3.0*(D.Z_JAW - 3.2 - D.Z_M1)), PR['allow'], 'per screw')
+# rev 7.1 seam joint: only the tongue crosses the seam, so it carries the whole tip moment in bending at its root and
+# hands it to the tip block by bearing on the pocket flanks; the 2 tip screws only hold the block on (from below).
+t_tg, h_tg = D.TIP_Z[1] - D.Z_M0, D.tongue_top(D.SEAM_X) - D.TONGUE_Y0     # tongue thickness (z) and root depth (y)
+add('Tongue root bending at the seam (%.1f deep x %.1f)' % (h_tg, t_tg), Fg_max, M_seam/(t_tg*h_tg**2/6), PR['allow'], 'far-tip grip; in-plane (along rasters)')
 Lt = D.TONGUE_X1 - D.SEAM_X
 F_t = M_seam/(2*Lt/3)
-add('Tongue flank bearing in the tip block pocket (%.0f mm long)' % Lt, F_t, 2*F_t/(t_mid*Lt), PR['allow'], 'triangular bearing, peak value')
+add('Tongue flank bearing in the tip block pocket (%.0f mm long)' % Lt, F_t, 2*F_t/(t_tg*Lt), PR['allow'], 'triangular bearing, peak value')
+wall_w = (D.TONGUE_Y0 - 0.15) - (D.tip_face_y(True) + D.PAD_KEY[2])         # wide block: wall between pad groove and pocket
+f_low = (D.Z_M0 - D.TIP_Z[0])/(D.TIP_Z[1] - D.TIP_Z[0])                     # pad share below the tongue
+add('Tip block wall, interlayer shear at z = %.1f (wide set, %.2f mm wall)' % (D.Z_M0, wall_w), Fg_max*f_low, Fg_max*f_low/(arm_tip*wall_w), PR['allow_z']*0.6, 'pad load below the tongue')
+# grip on the top edge of the pad (small objects): the pad force sits half the pad height off the pin plane and
+# twists the finger about x; the tongue takes it in torsion and the F1/F2 bores as a bearing couple
+dz = D.TIP_Z[1] - D.Z_S
+T_x = Fg_max*dz
+b, cc = max(h_tg, t_tg), min(h_tg, t_tg); alpha = 0.208   # torsion factor of a square, conservative for b/c > 1
+add('Tongue torsion, grip on the pad edge (%.2f mm off the pin plane)' % dz, Fg_max, T_x/(alpha*b*cc**2), PR['allow_z']*0.6, 'interlayer shear allowable')
+d = 4.0
+sig_F2 = lim['F2']/(d*t_mid) + 6*(T_x/2)/(d*t_mid**2)
+add('Finger bore at F2, far-tip grip on the pad edge', lim['F2'], sig_F2, PR['allow'], 'in-plane bearing + twist couple, bore only (conservative: the crank plates above and below take the twist once the 0.2/0.3 mm gaps close)')
 Fg60 = 200*R['MA']['at_gap_60']
 # thrust path (rev 6): grip thrust goes screw -> collar -> 608 inner ring -> balls -> outer ring -> block front lip
 Fs_lim = 200.0
@@ -75,10 +84,13 @@ add('Block front lip shear-out (%.2f mm lip)' % t_lip, Fs_lim, Fs_lim/(np.pi*22.
 C0_608 = 1370.0                                   # N, 608 static load rating (radial); axial static taken as 0.5*C0
 thrust = dict(load_N=Fs_lim, bearing608_axial_static_capacity_N=0.5*C0_608, ratio=round(0.5*C0_608/Fs_lim, 1),
               note='collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly')
+Fg_use = Fs_best*R['MA']['at_gap_60']                   # in use: stall force at the set current, at the 60 mm cap
 tip = dict(Fg_max_N=round(Fg_max, 1), Fg_at_60mm_cap_N=round(Fg60, 1), factor_at_cap=round(Fg_max/Fg60, 2),
+           Fg_in_use_N=round(Fg_use, 1), factor_in_use=round(Fg_max/Fg_use, 2),
            note='Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip '
                 'is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use.')
-out = dict(rows=rows, driver=drv, thrust=thrust, tip=tip, min_SF=min(r['SF_yield_at_limit'] for r in rows))
+out = dict(rows=rows, driver=drv, thrust=thrust, tip=tip, min_SF=min(r['SF_yield_at_limit'] for r in rows),
+           min_SF_in_use=round(min(r['SF_yield_at_limit'] for r in rows)*Fg_max/Fg_use, 1))
 json.dump(out, open('results_struct.json', 'w'), indent=1)
 for r in rows: print(f"{r['item']:52s} {r['load_limit_N']:7.1f} N  σ_lim {r['stress_limit_MPa']:7.2f}  σ_op {r['stress_op_MPa']:6.2f}  SF {r['SF_yield_at_limit']}")
 print(json.dumps(drv, indent=1)); print('min SF at 200 N limit:', out['min_SF'])

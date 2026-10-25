@@ -163,10 +163,14 @@ TIP_EXT, WIDE_OFS, PAD_T, TIP_R = 12.0, 10.0, 2.0, 3.0
 FACE_X1 = NOSE_C[0] + TIP_EXT                 # 83: end of the contact face (nose tangent)
 SEAM_Y0 = FACE_Y + WIDE_OFS + 1.5             # finger edge at the seam: 1.5 mm behind the wide pad face
 EDGE_S = _body_edge_y(1.0) - _body_edge_y(0.0)   # slope of the finger's outer edge
-TONGUE_X1, TONGUE_Y = SEAM_X + 20.0, (-27.0, -18.0)   # finger tongue inside the tip block (M layer), carries 2 inserts;
-TIP_SCREW_X, TIP_SCREW_Y = (46.0, 55.0), -22.5          # 20 mm long so its flank bearing alone carries the far-tip moment
+# Rev 7.1 (design review items 1-2): the tip block and pad are centred on the pin plane z = Z_S, so a normal grip puts
+# no twist on the finger; the tongue rises from the finger body to the block top (13.55 mm) and runs 2.8 mm under the
+# outer edge, so its root section is about 16 x 13.5 mm (the rev 7.0 tongue was 9 x 7.6 mm and was overstressed).
+TIP_Z = (Z_S - 9.75, Z_S + 9.75)               # tip block and pad height (19.5 mm, as rev 6)
+TONGUE_X1, TONGUE_Y0, TONGUE_INSET = SEAM_X + 15.0, -27.3, 2.8   # tongue front, face-side edge, gap under the outer edge
+TIP_SCREW_X = (45.5, 52.5)                      # 2x M3x10 from below into inserts at the tongue's mid-depth (neutral axis)
 PAD_X = (SEAM_X + TIP_R + 0.5, FACE_X1 - 0.5)   # pad length: heel tangent to nose tangent, 0.5 mm in at each end
-PAD_ZC, PAD_KEY = (Z_M0 + Z_JAW)/2, (5.0, 8.0, 1.5)   # pad dovetail: mouth width, root width, depth (45 deg flanks)
+PAD_ZC, PAD_KEY = Z_S, (5.0, 8.0, 1.5)          # pad dovetail: mouth width, root width, depth (45 deg flanks)
 PAD_MAT, PAD_RHO = 'TPU', 1.21                   # TPU 95A, g/cm3
 
 def tip_face_y(wide):
@@ -181,23 +185,36 @@ def _pad_key_loop(yf, s):
     hw = lambda y: (wm + (wb - wm)*(y - y0)/(d + 0.01))/2 - k*s
     return poly_loop([(y0, PAD_ZC - hw(y0)), (y1, PAD_ZC - hw(y1)), (y1, PAD_ZC + hw(y1)), (y0, PAD_ZC + hw(y0))])
 
+def tongue_top(x):   # tongue edge under the outer edge (parallel to it)
+    return _body_edge_y(x) - TONGUE_INSET
+def tip_screw_y(x):  # tip screws sit at the tongue's mid-depth
+    return (tongue_top(x) + TONGUE_Y0)/2
+def _tongue_loop(c=0.0, x0=SEAM_X - 0.5):
+    """Tongue outline (c = 0) or its pocket in the tip block (c = slide gap). Tongue front corners chamfered 0.6 so
+    they clear the printed pocket corners."""
+    k = c*np.hypot(1, EDGE_S); x1 = TONGUE_X1 + c; y0 = TONGUE_Y0 - c
+    if c > 0:
+        return poly_loop([(x0, y0), (x1, y0), (x1, tongue_top(x1) + k), (x0, tongue_top(x0) + k)])
+    return poly_loop([(x0, y0), (x1 - 0.6, y0), (x1, y0 + 0.6), (x1, tongue_top(x1) - 0.6), (x1 - 0.6, tongue_top(x1 - 0.6)), (x0, tongue_top(x0))])
+
 def finger():
     """Finger body (rev 7): F1 and F2 bosses back to the seam at x = 41, plus the tongue that carries a tip block.
     The heel is trimmed to 1.5 mm behind the wide pad face, so the back edge now runs F1 boss -> F2 boss, further
-    from the O2 spacer than rev 6. M layer only: prints flat."""
+    from the O2 spacer than rev 6. The tongue rises from the M layer to the tip-block top: the finger still prints
+    flat (nothing overhangs). Inserts for the tip screws are pressed into the tongue's underside."""
     body = hull_circles([((0, 0), R_BOSS), (tuple(F2L), R_BOSS), ((SEAM_X, SEAM_Y0), 0), ((SEAM_X, _body_edge_y(SEAM_X)), 0)])
     ops = [('add', ('ext', body, Z_M0, Z_M1)),
-           ('add', ('ext', rrect_loop(SEAM_X - 2, TONGUE_Y[0], TONGUE_X1, TONGUE_Y[1], 1.0), Z_M0, Z_M1)),
+           ('add', ('ext', _tongue_loop(), Z_M0, TIP_Z[1])),
            ('cut', ('cyl', (0, 0, Z_M0-1), (0, 0, Z_M1+1), R_RUN)),
            ('cut', ('cyl', (F2L[0], F2L[1], Z_M0-1), (F2L[0], F2L[1], Z_M1+1), R_RUN))]
-    ops += [('cut', ('cyl', (x, TIP_SCREW_Y, Z_M0 - 1), (x, TIP_SCREW_Y, Z_M1 + 1), R_INS)) for x in TIP_SCREW_X]
+    ops += [('cut', ('cyl', (x, tip_screw_y(x), Z_M0 - 1), (x, tip_screw_y(x), Z_M0 + 6.5), R_INS)) for x in TIP_SCREW_X]
     return ops
 
 def tip_block(wide):
-    """Bolt-on tip block (finger frame), full jaw height z 6.5-26. Slides up onto the finger's tongue; 2x M3x16 from
-    the top into the tongue inserts. Narrow: rev 6 nose moved 12 mm forward. Wide: blunt end about 8 mm thick, top
-    edge continuing the finger's outer edge. Pad dovetail groove along the face, open at the rear (x = 41).
-    Prints upside down (top face on the bed), so the tongue pocket opens upward."""
+    """Bolt-on tip block (finger frame), z TIP_Z, centred on the pin plane. Slides up onto the finger's tongue (the
+    pocket is open at the top and the rear, with a floor under the tongue); 2x M3x10 from below through the floor into
+    the tongue inserts. Narrow: rev 6 nose moved 12 mm forward. Wide: blunt end about 8 mm thick, top edge continuing
+    the finger's outer edge. Pad dovetail groove along the face, open at the rear (x = 41). Prints flat, floor down."""
     yf = tip_face_y(wide); yh = yf + TIP_R
     if wide:
         front = [((FACE_X1, yh), TIP_R), ((FACE_X1, _body_edge_y(FACE_X1) - TIP_R*np.hypot(1, EDGE_S)), TIP_R)]
@@ -205,19 +222,20 @@ def tip_block(wide):
         front = [((FACE_X1, yh), TIP_R), ((TOP_C[0] + TIP_EXT, TOP_C[1] + TIP_EXT*EDGE_S), TOP_R)]
     outline = hull_circles([((SEAM_X + TIP_R, yh), TIP_R)] + front + [((SEAM_X, _body_edge_y(SEAM_X)), 0)])
     c = 0.15   # slide fit round the tongue
-    ops = [('add', ('ext', outline, Z_M0, Z_JAW)),
-           ('cut', ('ext', rrect_loop(SEAM_X - 2, TONGUE_Y[0] - c, TONGUE_X1 + c, TONGUE_Y[1] + c, 1.0 + c), Z_M0 - 1, Z_M1)),
+    ops = [('add', ('ext', outline, TIP_Z[0], TIP_Z[1])),
+           ('cut', ('ext', _tongue_loop(c, SEAM_X - 2), Z_M0, TIP_Z[1] + 1)),
            ('cut', ('extx', _pad_key_loop(yf, 0.0), SEAM_X - 1, PAD_X[1] - 2.0))]
     for x in TIP_SCREW_X:
-        ops += [('cut', ('cyl', (x, TIP_SCREW_Y, Z_M1 - 0.01), (x, TIP_SCREW_Y, Z_JAW + 1), R_M3)),
-                ('cut', ('cyl', (x, TIP_SCREW_Y, Z_JAW - 3.2), (x, TIP_SCREW_Y, Z_JAW + 1), 3.1))]
+        y = tip_screw_y(x)
+        ops += [('cut', ('cyl', (x, y, TIP_Z[0] - 1), (x, y, Z_M0 + 0.01), R_M3)),
+                ('cut', ('cyl', (x, y, TIP_Z[0] - 1), (x, y, TIP_Z[0] + 1.8), 3.1))]
     return ops
 
 def pad(wide):
     """TPU 95A contact pad, 2 mm thick, full jaw height; its dovetail key slides into the tip block's groove from the
     rear before the tip block goes on. The same pad fits both sets."""
     yf = tip_face_y(wide)
-    return [('add', ('box', (PAD_X[0], yf - PAD_T, Z_M0), (PAD_X[1], yf, Z_JAW))),
+    return [('add', ('box', (PAD_X[0], yf - PAD_T, TIP_Z[0]), (PAD_X[1], yf, TIP_Z[1]))),
             ('add', ('extx', _pad_key_loop(yf, 0.05), PAD_X[0], PAD_X[1] - 2.5))]
 
 # ================= carriage (local: origin at (C_x, 0, 0)) =================
@@ -497,7 +515,7 @@ def battery():   # 3S LiPo envelope in its tray
     return [('add', ('box', (x0 - t, y0 + 1.5, z0 + 2.0), (x0, y1 - 1.5, z1 - 2.0)))]
 
 # rev 7: tip-block screws, finger frame (kept apart from FASTENERS so the Onshape part ids of the others stay put)
-TIP_FASTENERS = [(nm, (x, TIP_SCREW_Y, Z_JAW - 3.2), (0, 0, -1), 16.0) for nm, x in zip(('BHT_Tip_A', 'BHT_Tip_B'), TIP_SCREW_X)]
+TIP_FASTENERS = [(nm, (x, tip_screw_y(x), TIP_Z[0] + 1.8), (0, 0, 1), 10.0) for nm, x in zip(('BHT_Tip_A', 'BHT_Tip_B'), TIP_SCREW_X)]   # from below
 
 # ================= poses =================
 def rotz(a):

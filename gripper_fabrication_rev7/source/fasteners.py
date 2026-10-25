@@ -60,7 +60,7 @@ eng = [
  row('Cover to post M3x8', 8, seat_cov - D.Z_C0, (seat_cov - 8) - (D.Z_C0 - 6.5), 'insert 5.7 (hole 6.5)'),
  row('Side wall to adapter M3x8', 8, seat_side - D.AD_HW, (seat_side - 8) - (D.AD_HW - 6.5), 'insert 5.7 (hole 6.5)'),
  row('Nut flange M3x8', 8, D.NUT_FL_T + 0.1, 7.0 - (8 - D.NUT_FL_T - 0.1), 'self-tapped D2.5 pilot, 7 deep'),
- row('Tip block to tongue M3x16', 16, D.Z_JAW - 3.2 - D.Z_M1, (D.Z_JAW - 3.2 - 16) - D.Z_M0, 'insert 5.7 in the finger tongue (through hole)'),
+ row('Tip block to tongue M3x10 (from below)', 10, D.Z_M0 - (D.TIP_Z[0] + 1.8), (D.Z_M0 + 6.5) - (D.TIP_Z[0] + 1.8 + 10), 'insert 5.7 in the tongue underside (hole 6.5)'),
 ]
 out = dict(mass_g=round(m_tot, 0), x_cg_mm=round(x_cg, 1), x_payload_mm=round(x_pay, 1), x_mount_mm=round(x_mount, 1),
            M_pitch_Nm=round(M_pitch, 2), rows=rows, engagement=eng, min_SF=min(r['SF_yield'] for r in rows),

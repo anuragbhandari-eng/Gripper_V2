@@ -142,13 +142,13 @@
  {
   "file": "11_Finger_A.stl",
   "qty": 1,
-  "volume_cm3": 8.7,
+  "volume_cm3": 10.19,
   "material": "ABS",
-  "mass_g_solid": 9.0,
+  "mass_g_solid": 10.6,
   "bbox_mm": [
-   66.5,
+   61.5,
    40.9,
-   7.6
+   13.6
   ],
   "orientation": "flat",
   "note": "tongue forward; M layer only since rev 7"
@@ -156,13 +156,13 @@
  {
   "file": "12_Finger_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 8.7,
+  "volume_cm3": 10.19,
   "material": "ABS",
-  "mass_g_solid": 9.0,
+  "mass_g_solid": 10.6,
   "bbox_mm": [
-   66.5,
+   61.5,
    40.9,
-   7.6
+   13.6
   ],
   "orientation": "flat",
   "note": "mirror of 11"
@@ -184,57 +184,57 @@
  {
   "file": "14_TipBlock_Narrow_A.stl",
   "qty": 1,
-  "volume_cm3": 17.38,
+  "volume_cm3": 16.09,
   "material": "ABS",
-  "mass_g_solid": 18.1,
+  "mass_g_solid": 16.7,
   "bbox_mm": [
    45.0,
    33.3,
    19.5
   ],
-  "orientation": "flip_x",
-  "note": "narrow set; top face on bed, tongue pocket up"
+  "orientation": "flat",
+  "note": "narrow set; floor down, tongue pocket opens upward"
  },
  {
   "file": "15_TipBlock_Narrow_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 17.38,
+  "volume_cm3": 16.09,
   "material": "ABS",
-  "mass_g_solid": 18.1,
+  "mass_g_solid": 16.7,
   "bbox_mm": [
    45.0,
    33.3,
    19.5
   ],
-  "orientation": "flip_x",
+  "orientation": "flat",
   "note": "mirror of 14"
  },
  {
   "file": "16_TipBlock_Wide_A.stl",
   "qty": 1,
-  "volume_cm3": 11.41,
+  "volume_cm3": 10.13,
   "material": "ABS",
-  "mass_g_solid": 11.9,
+  "mass_g_solid": 10.5,
   "bbox_mm": [
    45.0,
    23.3,
    19.5
   ],
-  "orientation": "flip_x",
-  "note": "wide set; top face on bed, tongue pocket up"
+  "orientation": "flat",
+  "note": "wide set; floor down, tongue pocket opens upward"
  },
  {
   "file": "17_TipBlock_Wide_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 11.41,
+  "volume_cm3": 10.13,
   "material": "ABS",
-  "mass_g_solid": 11.9,
+  "mass_g_solid": 10.5,
   "bbox_mm": [
    45.0,
    23.3,
    19.5
   ],
-  "orientation": "flip_x",
+  "orientation": "flat",
   "note": "mirror of 16"
  },
  {

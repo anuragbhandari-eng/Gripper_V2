@@ -11,16 +11,16 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Carriage stroke | 32.0 mm = 4.0 screw turns (Tr8×8, 400 steps/mm at 1/16 µstep) |
 | Grip force per jaw | ≥ 26.8 N anywhere in range at 0.7 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×8 is back-drivable (lead angle 20.0°): the driver hold current keeps the grip; with power off the jaws can be pushed open |
-| Structure | Min safety factor 1.7 vs yield at a 200 N screw-force limit case (the motor clamps at 78–110 N at 0.7 A). Tip rows assume a far-tip grip at the 66 mm stop; at the 60 mm firmware cap they are 1.81× higher |
+| Structure | Min safety factor 0.6 vs yield at a 200 N screw-force limit case (the motor clamps at 78–110 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 82.6 N per jaw) they are 3.3× higher: min SF 2.0 in use |
 | Motion check | 0 collisions over 41 poses (72 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
-| Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×16, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 346 cm³ (~198 g at typical infill) + motor ~280 g; wide set 23 cm³; bench stand 323 cm³ |
+| Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
+| Printed volume | gripper with the narrow set 347 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 323 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes
 
-- **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 20 mm tongue on the finger and takes 2× M3×16 from the top. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
+- **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
 - **Trade-offs of the longer tips:** the gripper is 12 mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
 - **D, controller:** Pico + TMC2209 + 5 V buck + battery divider on a 50 × 70 mm protoboard, on 4 standoffs in heat-set inserts in the cover top. USB serial to ROS 2.
@@ -109,10 +109,11 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 | ConRod (two-force) net section | 156.4 | 3.55 | 1.95 | 8.5 |
 | BellCrank bending near O1 (two plates) | 315.2 | 9.9 | 5.44 | 3.0 |
 | Finger body at the tip seam (23.8 mm deep x 7.6) | 273.0 | 16.04 | 8.81 | 1.9 |
-| Tip block layer plane at the tongue top (z=14.1) | 163.8 | 0.35 | 0.19 | 34.2 |
-| Tip screw insert bearing in the finger tongue | 466.9 | 17.81 | 9.78 | 1.7 |
-| Tip screw shank bearing in the tip block | 466.9 | 17.89 | 9.82 | 1.7 |
-| Tongue flank bearing in the tip block pocket (20 mm long) | 859.9 | 11.31 | 6.21 | 2.7 |
+| Tongue root bending at the seam (16.3 deep x 13.6) | 273.0 | 19.16 | 10.52 | 1.6 |
+| Tongue flank bearing in the tip block pocket (15 mm long) | 1146.5 | 11.28 | 6.2 | 2.7 |
+| Tip block wall, interlayer shear at z = 6.5 (wide set, 2.53 mm wall) | 83.3 | 0.78 | 0.43 | 9.2 |
+| Tongue torsion, grip on the pad edge (9.75 mm off the pin plane) | 273.0 | 4.28 | 2.35 | 1.7 |
+| Finger bore at F2, far-tip grip on the pad edge | 543.0 | 52.42 | 28.79 | 0.6 |
 | Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 0.72 | 23.0 |
 | Block front lip shear-out (1.45 mm lip) | 200.0 | 2.0 | 1.1 | 9.0 |
 
@@ -127,13 +128,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.89 N·m (×2 dynamic).
+Gripper mass 730 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.14 | 15.4 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.3 | 24.12 | 15.4 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 121.3 | 10.64 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 121.3 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 27.4 | 1.67 | 18.0 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 54.9 | 1.59 | 11.0 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 54.9 | 3.34 | 59.9 | CuZn yield ~200 MPa |
@@ -146,7 +147,7 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | Cover to post M3x8 | 4.2 | 3.8 | 2.7 | insert 5.7 (hole 6.5) |
 | Side wall to adapter M3x8 | 4.0 | 4.0 | 2.5 | insert 5.7 (hole 6.5) |
 | Nut flange M3x8 | 3.6 | 4.4 | 2.6 | self-tapped D2.5 pilot, 7 deep |
-| Tip block to tongue M3x16 | 8.7 | 7.3 | 0.3 | insert 5.7 in the finger tongue (through hole) |
+| Tip block to tongue M3x10 (from below) | 4.15 | 5.85 | 0.65 | insert 5.7 in the tongue underside (hole 6.5) |
 
 **Tightening:** a button head bears on 16.4 mm² of ABS. At 0.15 N·m an M3 makes about 250 N of clamp, about 15 MPa under the head (ABS taken as 30 MPa, so SF ≈ 2.0). Tighten every M3 to **0.15 N·m or less**: snug with the short arm of the key, no more. The two nut-flange screws bear on brass and self-tap into plastic; snug them only.
 
@@ -168,12 +169,12 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 08_FrontCrank_Lower.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
 | 09_FrontCrank_Upper.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
 | 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
-| 11_Finger_A.stl | 1 | 8.7 | 66.5 × 40.9 × 7.6 | flat: tongue forward; M layer only since rev 7 |
-| 12_Finger_B_mirrored.stl | 1 | 8.7 | 66.5 × 40.9 × 7.6 | flat: mirror of 11 |
-| 14_TipBlock_Narrow_A.stl | 1 | 17.38 | 45.0 × 33.3 × 19.5 | flip_x: narrow set; top face on bed, tongue pocket up |
-| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 17.38 | 45.0 × 33.3 × 19.5 | flip_x: mirror of 14 |
-| 16_TipBlock_Wide_A.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: wide set; top face on bed, tongue pocket up |
-| 17_TipBlock_Wide_B_mirrored.stl | 1 | 11.41 | 45.0 × 23.3 × 19.5 | flip_x: mirror of 16 |
+| 11_Finger_A.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: tongue forward; M layer only since rev 7 |
+| 12_Finger_B_mirrored.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: mirror of 11 |
+| 14_TipBlock_Narrow_A.stl | 1 | 16.09 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
+| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 16.09 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
+| 16_TipBlock_Wide_A.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: wide set; floor down, tongue pocket opens upward |
+| 17_TipBlock_Wide_B_mirrored.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: mirror of 16 |
 | 18_Pad_TPU95A.stl | 4 | 1.79 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
 | 19_EncoderPuck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
 | 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
@@ -248,7 +249,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 6. Lay motor + screw + carriage + bearing into the base: motor connector facing up, pilot into the wall recess, carriage tongue in the channel, 608 in the lower cradle against the front lip, collar behind it. Fit the 2 lower motor screws (M3×8) through the access slots with a 2.5 mm ball-end driver. Push the collar forward until it just touches the 608 inner ring (no preload) and tighten its set screw. Run the carriage end to end by hand, then tighten the 2 nut screws.
 7. Encoder: glue the magnet into the printed puck (flush), slide the puck into the 608 bore against the screw end and glue it to the screw end with a drop of CA. Solder 4 wires (VCC, GND, SDA, SCL) to the AS5600 pad row, drop the board into the slot in front of the 608 (chip toward the magnet, pads up) and lead the wires up through the slit in the cover.
 8. Per side: BellCrank Lower on O1 and FrontCrank Lower on O2 (bosses up). Finger onto F1/F2, conrod onto D and between the carriage ears at C. BellCrank Upper and FrontCrank Upper on top. Shoulder screws at F1, F2, D, C into the lower-plate/ear inserts.
-9. Tip blocks: slide a TPU pad into the tip block groove from the rear, push the tip block up onto the finger tongue from below and fit 2× M3×16 from the top. To change sets, take the 2 screws out and slide the block off downward.
+9. Tip blocks: slide a TPU pad into the tip block groove from the rear, push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
 10. Cover onto the dowels (press evenly; close fit). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
 11. Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.
 12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.

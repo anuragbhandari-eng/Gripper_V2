@@ -50,7 +50,7 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     # rev 7: bolt-on tip blocks, pads and their screws, appended so existing part ids stay put
     ('Tip block', D.tip_block(False), 'finger', True, '[0.91,0.45,0.16]', D.MAT, False),
     ('Pad TPU', D.pad(False), 'finger', True, '[0.12,0.12,0.13]', 'TPU', False)] + [
-    ({'BHT_Tip_A': 'Button head M3x16 tip (rear)', 'BHT_Tip_B': 'Button head M3x16 tip (front)'}[nm],
+    ({'BHT_Tip_A': 'Button head M3x10 tip (rear)', 'BHT_Tip_B': 'Button head M3x10 tip (front)'}[nm],
      D.button_screw(seat, ax, ln), 'finger', True, '[0.10,0.10,0.10]', 'STEEL', True) for nm, seat, ax, ln in D.TIP_FASTENERS]
 SPEC += [  # rev 7 (C): encoder at the screw's front end
     ('Encoder magnet puck', D.enc_puck(), 'ground', False, '[0.29,0.32,0.35]', D.MAT, False),

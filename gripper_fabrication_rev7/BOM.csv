@@ -34,7 +34,7 @@ P4,"Dowel pin D4 x 40, hardened bearing steel, +/-0.02 mm (modelled as ISO 8734 
 P27,Sintered bronze sleeve bushing 4 x 6 x 6 mm + slow-cure epoxy + paste wax,4,Bonded into the cover round the dowel tops (rev 7.1)
 P28,Locating pin D3 x 16: an M3 x 16 button screw from the kit with the head cut off (cost cut; replaces an ISO 8734 3 x 16 dowel),2,"Register the base and cover halves of the bearing block: screw into the base half, cover half slides on"
 P5,"Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (bought: MECCANIXITY 304 stainless, M3 x 6 thread, head D7 x 3)",8,"Moving pivots F1, F2, D, C x2 sides"
-P6,"M3 heat-set insert, M3 x 5.7, for D4.0 hole",22,Buy 25 (rev 7: +4 in the finger tongues)
+P6,"M3 heat-set insert, M3 x 5.7, for D4.0 hole",26,"Buy 30 (rev 7: +4 in the finger tongues, +4 in the cover top for the controller)"
 P7,M3 x 8 button head screw ISO 7380,12,"4 motor (3.5 mm into the motor), 2 cover-to-post, 2 nut flange (self-tap into D2.5 pilots), 4 side walls to adapter"
 P8,M3 x 20 button head screw ISO 7380,4,Cover to motor wall (2) and bearing block (2)
 P13,M3 x 10 button head screw ISO 7380,4,"Tip blocks to the finger tongues, from below (2 per side)"

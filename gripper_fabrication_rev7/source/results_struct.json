@@ -199,7 +199,7 @@
   "grip_min_per_jaw_N": 26.0,
   "grip_at60_worstfriction_N": 56.7,
   "within_200N_limit": true,
-  "speed_note": "600 rpm -> 80 mm/s -> full stroke 0.4 s"
+  "speed_note": "300 rpm max on the 9 V supply -> 40 mm/s -> full stroke 0.8 s"
  },
  "thrust": {
   "load_N": 200.0,
@@ -218,9 +218,10 @@
  "dynamic": {
   "J_rotor_kgm2_assumed": 6.5e-06,
   "reflected_mass_kg": 4.01,
-  "F_stop_N_at_600rpm": [
-   160,
-   507
+  "rpm_max": 300,
+  "F_stop_N_at_max_speed": [
+   80,
+   253
   ],
   "F_stop_N_at_10mm_s": [
    20,

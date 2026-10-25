@@ -45,9 +45,9 @@ P14,Raspberry Pi Pico (or Pico H with headers),1,USB serial to ROS 2; on the pro
 P15,AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric magnet,1,"Solder 4 wires (VCC, GND, SDA, SCL) to the pad row, no header; pad row up"
 P16,Double-sided protoboard 50 x 70 mm,1,Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern
 P17,"Printed spacer 25_ControllerSpacer (D5.5 x 10, replaces a brass standoff) + M3 x 16 button screw from the kit",4,Screw through the board and spacer into the cover-top insert
-P18,"Not bought (cost cut): MP1584 5 V buck + 1N5817 Schottky diode, only needed to run the Pico from the battery without USB",0,The Pico runs from the USB link to ROS 2 it needs anyway; the modelled buck spot on the board stays free
-P19,"USB-C PD power bank, about 10,000 mAh, 20 W or more, whose label lists a 12 V output (e.g. 12V 1.5A or 1.67A); use one you already own",1,Battery and charger in one: recharge it from any USB charger. Sits on the desk or zip-tied to the column (the modelled pack on the column is a placeholder)
-P20,"USB-C PD trigger (decoy) board, set to 12 V",1,Plugs into the power bank with a USB-C cable; its + and - outputs go to TMC2209 VM and the battery divider
+P18,L7805 5 V regulator + 1N5817 Schottky diode (any 1 A diode works) + 2 x 100 nF (ask the fablab first),1,"9 V line -> 7805 -> diode -> Pico VSYS: one cable from the power bank runs everything, the laptop is optional and can be plugged in at the same time"
+P19,"USB-C PD power bank, about 10,000 mAh, 20 W, any brand that says PD (all of them offer 9 V); use one you already own",1,Battery and charger in one: recharge it from any USB charger. Sits on the desk next to the stand (the modelled pack on the column is a placeholder)
+P20,"USB-C PD trigger (decoy) board, set to 9 V; check its output with a multimeter before connecting the driver",1,"USB-C cable from the power bank, or from any USB-C laptop or phone charger of 18 W or more; + and - go to TMC2209 VM, the divider and the 7805"
 P21,"Not needed with the power bank: LiPo, balance charger, XT30 pigtail, fuse holder (the bank has its own protection)",0,
 P22,"Resistors 100 k + 27 k (battery divider into Pico ADC0; 22 k also works, change the ratio in firmware) + 10 k (EN pull-up), 100 uF 35 V capacitor at TMC2209 VM; 100 nF at ADC0 optional (ask the fablab first)",1,
 P23,"2020 aluminium extrusion, 400 mm (V-slot or T-slot)",1,Bench stand column

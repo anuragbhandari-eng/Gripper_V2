@@ -16,11 +16,14 @@ lead = R['screw']['lead_mm']*1e-3
 I_set = round(float(np.ceil(R['motor']['Fs_op_N']*lead/(2*np.pi*eta_lo*T_hold/I_rated)/0.05 - 1e-9)*0.05), 2)
 T_set = T_hold*I_set/I_rated
 Fs_best = 2*np.pi*eta_hi*T_set/lead; Fs_worst = 2*np.pi*eta_lo*T_set/lead
+# 9 V USB-C PD supply: back-EMF (Ke = 0.44/(sqrt2*1.7) = 0.18 V s/rad) + 50 x 3.1 mH reactance + 2.2 ohm leave full
+# 0.7 A RMS up to about 290 rpm, so firmware caps the speed at 300 rpm (light loads still move above that)
+RPM_MAX = 300
 drv = dict(I_rated_A=I_rated, T_hold_Nm=T_hold, I_set_rms_A=I_set, T_at_set_Nm=round(T_set, 3),
            Fs_range_at_set_N=[round(Fs_worst, 1), round(Fs_best, 1)], Fs_needed_N=round(R['motor']['Fs_op_N'], 1), Fs_operating_max_N=round(Fs_best, 1),
            grip_min_per_jaw_N=round(Fs_worst*R['MA']['min'], 1), grip_at60_worstfriction_N=round(Fs_worst*R['MA']['at_gap_60'], 1),
            within_200N_limit=bool(Fs_best <= 200),
-           speed_note='600 rpm -> %.0f mm/s -> full stroke %.1f s' % (10*R['screw']['lead_mm'], R['window']['stroke_mm']/(10*R['screw']['lead_mm'])))
+           speed_note='%d rpm max on the 9 V supply -> %.0f mm/s -> full stroke %.1f s' % (RPM_MAX, RPM_MAX/60*R['screw']['lead_mm'], R['window']['stroke_mm']/(RPM_MAX/60*R['screw']['lead_mm'])))
 
 def add(item, load_lim, stress_lim, allow, note):
     sf = allow*2/stress_lim if stress_lim > 0 else np.inf   # SF vs yield
@@ -90,10 +93,10 @@ Fg_use = Fs_best*R['MA']['at_gap_60']                   # in use: stall force at
 from kin import ds_dth
 J_rot = 65e-7                                             # kg m^2 (listing: about 65 g cm2)
 m_ref = J_rot*(2*np.pi/lead)**2
-v_full, v_home = R['screw']['lead_mm']*10.0, 10.0          # mm/s: 600 rpm, homing
+v_full, v_home = R['screw']['lead_mm']*RPM_MAX/60, 10.0   # mm/s: top speed, homing
 I_home = 0.3
-dynamic = dict(J_rotor_kgm2_assumed=J_rot, reflected_mass_kg=round(m_ref, 2),
-               F_stop_N_at_600rpm=[round(v_full/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
+dynamic = dict(J_rotor_kgm2_assumed=J_rot, reflected_mass_kg=round(m_ref, 2), rpm_max=RPM_MAX,
+               F_stop_N_at_max_speed=[round(v_full/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
                F_stop_N_at_10mm_s=[round(v_home/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
                homing=dict(direction='closing: the reaction goes through collar, 608 and printed lip, not the motor bearing',
                            current_A=I_home, speed_mm_s=v_home, Fs_max_N=round(2*np.pi*eta_hi*T_hold*I_home/I_rated/lead, 1)))

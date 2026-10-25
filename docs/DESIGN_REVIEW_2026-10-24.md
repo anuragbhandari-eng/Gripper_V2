@@ -9,14 +9,14 @@ An independent agent, briefed as a senior mechanical design engineer (brief: `do
 | 2 Out-of-plane load | Fixed for normal grips: block and pad centred on the pin plane. Checked a grip on the pad edge: tongue torsion SF 1.7 / 5.6; F2 bore twist SF 0.6 limit / 2.0 in use (bore-only model, conservative) | e576355 |
 | 3 Fixed pivots | Fixed: dowel tops in bronze sleeves bonded into the cover (zero clearance, no reamer); dowels 4×36. Base socket SF 2.6, cover 4.5 | a7d0215 |
 | 4 Pad retention | Fixed: snap barb on the key catches a step at the groove entrance (checked: blocked when pulled back) | 01b9647 |
-| 5 Dynamics / homing | Documented: hard-stop estimate, homing at 0.3 A and 10 mm/s with the encoder detecting the stop. **Needs input:** the motor's axial load rating and rotor inertia | 03488d6 |
+| 5 Dynamics / homing | Fixed: hard-stop estimate; homing now **closes** at 0.3 A / 10 mm/s with the encoder detecting the stop, so the reaction goes through the collar, 608 and lip, not the motor bearing (budget motors publish no axial rating). Motor chosen: 42-40 NEMA 17 with integrated Tr8x8, 1.5 A, 0.4 N·m | 03488d6 + motor commit |
 | 6 Driver current | Documented: VREF ceiling + i_scale_analog, EN pull-up, re-init after driver reset (BOM updated) | 03488d6 |
 | 7 Battery | Fixed: strapped to the column, ≥ 45 mm from every gripper part; fuse before the switch, divider after it, balance-lead alarm | b032bca |
 | 8 Stand stability | Fixed: 180 × 170 base, 2 more M5 at the column foot, and 2 printed C-clamps with M8 star knobs that clamp the base's front corners to Anurag's desk edge (40 × 40 mm black edge; range 24–49 mm). Unclamped it would tip at about 5 N | b032bca + desk clamps |
 | 9 Grip schedule | Documented: run-current table against the gap for about 30 N per jaw | 03488d6 |
-| 10 Encoder in the 608 | **Needs a bench test** (procedure in the report section 4a) before printing the bearing block; redesign only if the field is too weak | 03488d6 |
+| 10 Encoder in the 608 | Bench test still to do when the parts arrive; ready-to-run Pico script `rev7/firmware/as5600_bench_test.py` | 03488d6 + motor commit |
 | 11 Fit coupons | Fixed: 13b (rev 7 fits, cut from the real parts) and 13c (TPU pad snap) | 7cf320d |
-| 12 Warping | Partly: 2 locating pins across the bearing-block split, flatness check in the print notes. **Needs input:** may the stand parts be printed in PLA/PETG? | 3058a98 |
+| 12 Warping | Fixed: 2 locating pins across the bearing-block split, flatness check, brims; stand stays ABS (Anurag's preference), PLA as the fallback | 3058a98 + motor commit |
 
 Items 13–39 are not addressed yet.
 

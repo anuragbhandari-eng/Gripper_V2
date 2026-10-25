@@ -25,7 +25,7 @@ PRINT,22_Stand_DeskClamp_A (ABS),1,"desk clamp; lying on its side, nut slot up, 
 PRINT,23_Stand_DeskClamp_B_mirrored (ABS),1,mirror of 22; orientation side_py_down; 52.29 cm3
 PRINT,24_Stand_ClampPad (TPU),2,desk side down; stick felt on it; orientation rear_down; 2.54 cm3
 PRINT,13_FitTest_coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
-P1,"NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x8 lead screw (lead 8 mm, 4 start) >= 85 mm",1,"Cut screw to 78.5 mm -0.5/+0 from motor face (never long: the encoder puck fills the last 3 mm of the 608 bore), chamfer end"
+P1,"NEMA 17 stepper 42 x 42 x 40 mm with integrated 300 mm Tr8x8 lead screw (4 start, 8 mm lead) and brass flange nut, 1.5 A, about 0.4 N.m (recommended: DiGiYes, Amazon US ASIN B0CG5WQK3T; any 42-40 motor with these specs fits)",1,"Cut the screw so it sticks out 76.5 mm past the D22 pilot face (78.5 mm from the mounting face), -0.5/+0: never long, the encoder puck fills the last 3 mm of the 608 bore; chamfer the end. If your motor is 0.35 N.m / 1.7 A, set T_hold and I_rated in structural.py and rerun (the current rises to about 0.9 A)"
 P2,"Tr8x8 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16; check on the listing) - usually supplied with P1",1,
 P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust into the block front lip
 P12,"Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)",1,"Behind the 608, against its inner ring: takes the screw reaction when gripping"

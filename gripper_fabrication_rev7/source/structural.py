@@ -95,7 +95,8 @@ I_home = 0.3
 dynamic = dict(J_rotor_kgm2_assumed=J_rot, reflected_mass_kg=round(m_ref, 2),
                F_stop_N_at_600rpm=[round(v_full/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
                F_stop_N_at_10mm_s=[round(v_home/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
-               homing=dict(current_A=I_home, speed_mm_s=v_home, Fs_max_N=round(2*np.pi*eta_hi*T_hold*I_home/I_rated/lead, 1)))
+               homing=dict(direction='closing: the reaction goes through collar, 608 and printed lip, not the motor bearing',
+                           current_A=I_home, speed_mm_s=v_home, Fs_max_N=round(2*np.pi*eta_hi*T_hold*I_home/I_rated/lead, 1)))
 # rev 7.1 (review item 9): run current against gap for a steady grip with worst-case friction (firmware table)
 Fg_goal, k_I = 30.0, 2*np.pi*eta_lo*T_hold/I_rated/lead   # N per jaw; N of screw force per A (worst friction)
 schedule = []

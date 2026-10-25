@@ -227,6 +227,7 @@
    58
   ],
   "homing": {
+   "direction": "closing: the reaction goes through collar, 608 and printed lip, not the motor bearing",
    "current_A": 0.3,
    "speed_mm_s": 10.0,
    "Fs_max_N": 47.1

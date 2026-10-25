@@ -116,7 +116,7 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 
 | Check | Load N | σ limit MPa | σ op MPa | SF yield |
 |---|---|---|---|---|
-| Shoulder screw Ø4 double shear (12.9 steel) | 543.0 | 21.61 | 11.52 | 46.3 |
+| Shoulder screw Ø4 double shear (304 stainless) | 543.0 | 21.61 | 11.52 | 12.0 |
 | Dowel Ø4 bending, simply supported base↔cover | 543.0 | 604.0 | 321.93 | 2.0 |
 | Finger bore at F2 on shoulder (7.6 mm) | 543.0 | 17.86 | 9.52 | 1.7 |
 | Finger bore at F1 (7.6 mm) | 315.2 | 10.37 | 5.53 | 2.9 |

@@ -28,7 +28,7 @@ def add(item, load_lim, stress_lim, allow, note):
                      stress_op_MPa=round(stress_lim*Fs_best/200.0, 2), SF_yield_at_limit=round(sf, 1), note=note))
 # pins
 Fmax = max(lim.values())
-add('Shoulder screw Ø4 double shear (12.9 steel)', Fmax, Fmax/(2*np.pi*d**2/4), 500, 'τ vs ~1000 MPa shear-yield class, huge margin')
+add('Shoulder screw Ø4 double shear (304 stainless)', Fmax, Fmax/(2*np.pi*d**2/4), 130, 'τ vs ~260 MPa shear yield (A2-70 class); bought: MECCANIXITY 304')
 zA, zB, zP = D.DOW_Z[0]/2, D.Z_C0 + D.SLV_L/2, (D.Z_B0 + D.Z_U1)/2   # supports (base socket, bonded sleeve) and load point (mm)
 span = zB - zA; RA = (zB - zP)/span; RB = (zP - zA)/span     # reaction shares base / cover
 M_dow = lim['O2']*(zP - zA)*(zB - zP)/span

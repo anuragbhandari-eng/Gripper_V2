@@ -1,12 +1,12 @@
 {
  "rows": [
   {
-   "item": "Shoulder screw \u00d84 double shear (12.9 steel)",
+   "item": "Shoulder screw \u00d84 double shear (304 stainless)",
    "load_limit_N": 543.0,
    "stress_limit_MPa": 21.61,
    "stress_op_MPa": 11.52,
-   "SF_yield_at_limit": 46.3,
-   "note": "\u03c4 vs ~1000 MPa shear-yield class, huge margin"
+   "SF_yield_at_limit": 12.0,
+   "note": "\u03c4 vs ~260 MPa shear yield (A2-70 class); bought: MECCANIXITY 304"
   },
   {
    "item": "Dowel \u00d84 bending, simply supported base\u2194cover",

@@ -237,13 +237,15 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 **Still open (for Anurag):**
 - Print the fit coupons first (13b and 13c for the rev 7 fits, then 13) in ABS at the fablab and report the fits; retune `R_RUN`, `R_SNUG`, the 608 seat etc. from the results.
 - When the AS5600, magnet and a 608 arrive: run `rev7/firmware/as5600_bench_test.py` (5-minute test) before printing the bearing block.
-- Buy parts (section 7 / BOM.csv). Check on receipt: AS5600 board ≤ 23 × 23 mm with the chip centred; Tr8x8 nut flange and holes; motor screw ≥ 78.5 mm usable.
+- Buy parts: the rest of the BOM is in the Amazon cart too (31 items, $311.61, not ordered; list, ASINs and the 5 fablab-first items in `docs/AMAZON_CART_2026-10-24.md`). Check on receipt: AS5600 board ≤ 23 × 23 mm with the chip centred; Tr8x8 nut flange and holes; motor screw ≥ 78.5 mm usable.
 - Firmware (Pico): STEP/DIR/EN, UART config, homing by **closing** at 0.3 A with the stop detected by the AS5600, AS5600 turn counting, current-against-gap table, battery cut-off at 10.5 V. Pin map and section 4a in the report.
 
 **Decisions (2026-10-24, from Anurag):** the motor is Claude's pick: YEJMKJ N17-Y42-39-SG240: 42 × 42 × 38.7 mm NEMA 17 with an integrated 240 mm Tr8x8 screw and brass flange nut, 0.44 N·m, 1.7 A, rotor about 65 g·cm² (Amazon US B0FHHWXJLV, $13.31, added to the cart 2026-10-24, not ordered; the first pick, DiGiYes B0CG5WQK3T, was unavailable). With it: driver 0.70 A, grip ≥ 26 N per jaw; because budget motors don't publish an axial bearing rating, homing closes instead of opening into the stop. Stand parts stay ABS (PLA is an acceptable fallback if they warp). The stand clamps to Anurag's desk (black edge 40 mm tall, 40 mm deep).
 - ROS 2 phase: update the "Robot export" assembly with the tip parts.
 
 ## 7. Planned purchased parts (approximate, Amazon US)
+
+Superseded on 2026-10-24 by the actual cart: `docs/AMAZON_CART_2026-10-24.md` (31 items, $311.61 before tax, not ordered). Two substitutions: 4 × 40 hardened dowels (no 4 × 36 on Amazon US; they stand 4.5 mm proud of the cover, clear of everything) and 304 stainless shoulder screws (SF 12 in shear). The estimate below is kept for reference.
 
 | Item | ~Cost |
 |---|---|

@@ -11,6 +11,8 @@ PRINT,09_FrontCrank_Upper (ABS),2,; orientation flat; 1.43 cm3
 PRINT,10_ConRod (ABS),2,; orientation flat; 2.41 cm3
 PRINT,11_Finger_A (ABS),1,tongue forward; M layer only since rev 7; orientation flat; 10.19 cm3
 PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 10.19 cm3
+PRINT,13b_FitTest_rev7 (ABS),1,"print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper; orientation flat; 23.47 cm3"
+PRINT,13c_FitTest_pad_TPU95A (TPU),1,"print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand); orientation face_down; 0.71 cm3"
 PRINT,14_TipBlock_Narrow_A (ABS),1,"narrow set; floor down, tongue pocket opens upward; orientation flat; 16.1 cm3"
 PRINT,15_TipBlock_Narrow_B_mirrored (ABS),1,mirror of 14; orientation flat; 16.1 cm3
 PRINT,16_TipBlock_Wide_A (ABS),1,"wide set; floor down, tongue pocket opens upward; orientation flat; 10.13 cm3"

@@ -145,6 +145,39 @@
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
+ "13b_FitTest_rev7.stl": {
+  "overhang45_mm2": 123.2,
+  "flat_down_groups_top3": [
+   [
+    8.0,
+    55.9,
+    [
+     10.2,
+     11.8
+    ]
+   ],
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ],
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
+ },
+ "13c_FitTest_pad_TPU95A.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
  "14_TipBlock_Narrow_A.stl": {
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [

@@ -170,9 +170,9 @@
  {
   "file": "13_FitTest_coupons.stl",
   "qty": 1,
-  "volume_cm3": 16.03,
+  "volume_cm3": 15.95,
   "material": "ABS",
-  "mass_g_solid": 16.7,
+  "mass_g_solid": 16.6,
   "bbox_mm": [
    110.0,
    49.0,
@@ -180,6 +180,34 @@
   ],
   "orientation": "flat",
   "note": "print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper"
+ },
+ {
+  "file": "13b_FitTest_rev7.stl",
+  "qty": 1,
+  "volume_cm3": 23.47,
+  "material": "ABS",
+  "mass_g_solid": 24.4,
+  "bbox_mm": [
+   131.9,
+   33.3,
+   19.5
+  ],
+  "orientation": "flat",
+  "note": "print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper"
+ },
+ {
+  "file": "13c_FitTest_pad_TPU95A.stl",
+  "qty": 1,
+  "volume_cm3": 0.71,
+  "material": "TPU",
+  "mass_g_solid": 0.9,
+  "bbox_mm": [
+   15.5,
+   19.5,
+   3.4
+  ],
+  "orientation": "face_down",
+  "note": "print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand)"
  },
  {
   "file": "14_TipBlock_Narrow_A.stl",

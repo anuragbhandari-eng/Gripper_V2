@@ -15,7 +15,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Motion check | 0 collisions over 41 poses (78 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 345 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 394 cm³ |
+| Printed volume | gripper with the narrow set 370 cm³ (~211 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 394 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes
@@ -171,6 +171,8 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
 | 11_Finger_A.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: tongue forward; M layer only since rev 7 |
 | 12_Finger_B_mirrored.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: mirror of 11 |
+| 13b_FitTest_rev7.stl | 1 | 23.47 | 131.9 × 33.3 × 19.5 | flat: print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper |
+| 13c_FitTest_pad_TPU95A.stl | 1 | 0.71 | 15.5 × 19.5 × 3.4 | face_down: print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand) |
 | 14_TipBlock_Narrow_A.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
 | 15_TipBlock_Narrow_B_mirrored.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
 | 16_TipBlock_Wide_A.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: wide set; floor down, tongue pocket opens upward |
@@ -180,7 +182,7 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
 | 21_Stand_Base.stl | 1 | 256.3 | 170.0 × 180.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
 
-**Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
+**Print the fit coupons first**, in ABS on the same printer as the real parts: 13b_FitTest_rev7.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and 13c_FitTest_pad_TPU95A.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then 13_FitTest_coupons.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
 
 Print settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover; check the base, cover and stand base on a flat surface (glass) before assembly and reprint any that rock, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).

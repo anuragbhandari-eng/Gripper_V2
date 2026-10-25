@@ -361,6 +361,20 @@
    6.0
   ],
   "orientation": "rear_down",
-  "note": "desk side down; stick felt on it"
+  "note": "desk side down; felt on it is optional"
+ },
+ {
+  "file": "25_ControllerSpacer.stl",
+  "qty": 4,
+  "volume_cm3": 0.15,
+  "material": "ABS",
+  "mass_g_solid": 0.2,
+  "bbox_mm": [
+   5.5,
+   5.5,
+   10.0
+  ],
+  "orientation": "flat",
+  "note": "end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert)"
  }
 ]

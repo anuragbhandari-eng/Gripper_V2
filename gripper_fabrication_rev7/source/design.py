@@ -473,6 +473,8 @@ def standoff(x):   # M3 x 10 male-female standoff (round stand-in) on the +y sid
     return [('add', ('cyl', (x, y, Z_C1), (x, y, Z_PCB), 2.75)),
             ('add', ('cyl', (x, y, Z_C1 - 6.0), (x, y, Z_C1 + 0.01), 1.5)),
             ('cut', ('cyl', (x, y, Z_PCB - 6.0), (x, y, Z_PCB + 1), 1.25))]
+def ctrl_spacer():   # printed alternative to the standoff (cost cut): tube D5.5 x 10 for an M3 x 16 through the board
+    return [('add', ('cyl', (0, 0, 0), (0, 0, Z_PCB - Z_C1), 2.75)), ('cut', ('cyl', (0, 0, -1), (0, 0, Z_PCB - Z_C1 + 1), 1.7))]
 def _strip(xc, y0, y1, z0, h):   # header strip (plastic body), one row along y
     return ('add', ('box', (xc - 1.27, y0, z0), (xc + 1.27, y1, z0 + h + 0.01)))   # sits on the board, overlaps the module
 def pico():   # Raspberry Pi Pico on 2x 20-pin male headers (2.5 mm body), long axis along y, USB at the -y end

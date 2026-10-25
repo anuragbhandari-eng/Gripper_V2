@@ -36,7 +36,8 @@ PRINT = [  # file, ops, orientation, qty, note
     ('21_Stand_Base', D.stand_base(), 'front_down', 1, 'bench stand; table face on bed, column socket up'),
     ('22_Stand_DeskClamp_A', D.desk_clamp(), 'side_my_down', 1, 'desk clamp; lying on its side, nut slot up, 100% infill at the corners'),
     ('23_Stand_DeskClamp_B_mirrored', mirror_ops(D.desk_clamp()), 'side_py_down', 1, 'mirror of 22'),
-    ('24_Stand_ClampPad', D.clamp_pad(), 'rear_down', 2, 'desk side down; stick felt on it'),
+    ('24_Stand_ClampPad', D.clamp_pad(), 'rear_down', 2, 'desk side down; felt on it is optional'),
+    ('25_ControllerSpacer', D.ctrl_spacer(), 'flat', 4, 'end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert)'),
 ]
 info = []
 for fn, ops, how, qty, note in PRINT:

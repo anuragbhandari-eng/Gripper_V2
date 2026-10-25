@@ -63,22 +63,22 @@
   "TipBlock_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 10125.0
+   "vol": 10133.8
   },
   "TipBlock_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 10125.0
+   "vol": 10133.8
   },
   "Pad_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1793.6
+   "vol": 1710.4
   },
   "Pad_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1793.6
+   "vol": 1710.4
   },
   "BHT_Tip_A_U": {
    "valid": true,

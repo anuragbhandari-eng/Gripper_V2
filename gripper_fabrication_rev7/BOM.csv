@@ -11,11 +11,11 @@ PRINT,09_FrontCrank_Upper (ABS),2,; orientation flat; 1.43 cm3
 PRINT,10_ConRod (ABS),2,; orientation flat; 2.41 cm3
 PRINT,11_Finger_A (ABS),1,tongue forward; M layer only since rev 7; orientation flat; 10.19 cm3
 PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 10.19 cm3
-PRINT,14_TipBlock_Narrow_A (ABS),1,"narrow set; floor down, tongue pocket opens upward; orientation flat; 16.09 cm3"
-PRINT,15_TipBlock_Narrow_B_mirrored (ABS),1,mirror of 14; orientation flat; 16.09 cm3
+PRINT,14_TipBlock_Narrow_A (ABS),1,"narrow set; floor down, tongue pocket opens upward; orientation flat; 16.1 cm3"
+PRINT,15_TipBlock_Narrow_B_mirrored (ABS),1,mirror of 14; orientation flat; 16.1 cm3
 PRINT,16_TipBlock_Wide_A (ABS),1,"wide set; floor down, tongue pocket opens upward; orientation flat; 10.13 cm3"
 PRINT,17_TipBlock_Wide_B_mirrored (ABS),1,mirror of 16; orientation flat; 10.13 cm3
-PRINT,18_Pad_TPU95A (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.79 cm3"
+PRINT,18_Pad_TPU95A (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.71 cm3"
 PRINT,19_EncoderPuck (ABS),1,magnet pocket up; glue to the screw end; orientation rear_down; 0.07 cm3
 PRINT,20_Stand_HeadBracket (ABS),1,"bench stand; back face on bed, nut pockets and column hole open upward; orientation rear_down; 137.36 cm3"
 PRINT,21_Stand_Base (ABS),1,"bench stand; table face on bed, column socket up; orientation front_down; 185.58 cm3"

@@ -20,7 +20,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 
 ## 1a. Rev 7 (v2) changes
 
-- **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
+- **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear and snaps past a step, so it cannot slide back out). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
 - **Trade-offs of the longer tips:** the gripper is 12 mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
 - **D, controller:** Pico + TMC2209 + 5 V buck + battery divider on a 50 × 70 mm protoboard, on 4 standoffs in heat-set inserts in the cover top. USB serial to ROS 2.
@@ -132,7 +132,7 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.14 | 15.4 | 8.8 steel; ignores clamp friction |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.13 | 15.4 | 8.8 steel; ignores clamp friction |
 | Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
 | Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 27.4 | 1.67 | 18.0 | 4 screws share the stall force |
@@ -171,11 +171,11 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
 | 11_Finger_A.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: tongue forward; M layer only since rev 7 |
 | 12_Finger_B_mirrored.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: mirror of 11 |
-| 14_TipBlock_Narrow_A.stl | 1 | 16.09 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
-| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 16.09 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
+| 14_TipBlock_Narrow_A.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
+| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
 | 16_TipBlock_Wide_A.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: wide set; floor down, tongue pocket opens upward |
 | 17_TipBlock_Wide_B_mirrored.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: mirror of 16 |
-| 18_Pad_TPU95A.stl | 4 | 1.79 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
+| 18_Pad_TPU95A.stl | 4 | 1.71 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
 | 19_EncoderPuck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
 | 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
 | 21_Stand_Base.stl | 1 | 185.58 | 150.0 × 150.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
@@ -249,7 +249,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 6. Lay motor + screw + carriage + bearing into the base: motor connector facing up, pilot into the wall recess, carriage tongue in the channel, 608 in the lower cradle against the front lip, collar behind it. Fit the 2 lower motor screws (M3×8) through the access slots with a 2.5 mm ball-end driver. Push the collar forward until it just touches the 608 inner ring (no preload) and tighten its set screw. Run the carriage end to end by hand, then tighten the 2 nut screws.
 7. Encoder: glue the magnet into the printed puck (flush), slide the puck into the 608 bore against the screw end and glue it to the screw end with a drop of CA. Solder 4 wires (VCC, GND, SDA, SCL) to the AS5600 pad row, drop the board into the slot in front of the 608 (chip toward the magnet, pads up) and lead the wires up through the slit in the cover.
 8. Per side: BellCrank Lower on O1 and FrontCrank Lower on O2 (bosses up). Finger onto F1/F2, conrod onto D and between the carriage ears at C. BellCrank Upper and FrontCrank Upper on top. Shoulder screws at F1, F2, D, C into the lower-plate/ear inserts.
-9. Tip blocks: slide a TPU pad into the tip block groove from the rear, push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
+9. Tip blocks: slide a TPU pad into the tip block groove from the rear and press until the barb at its rear end snaps past the step at the groove entrance (a drop of soapy water helps; pliers to remove), push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
 10. Cover: put slow-cure epoxy in the 4 oversize cover holes, lower the cover over the sleeves and dowels, fit all its screws, and let the epoxy cure with the gripper assembled (the sleeves bond to the cover where the dowels really are). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
 11. Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.
 12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.

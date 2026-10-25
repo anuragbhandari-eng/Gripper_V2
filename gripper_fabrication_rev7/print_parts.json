@@ -184,7 +184,7 @@
  {
   "file": "14_TipBlock_Narrow_A.stl",
   "qty": 1,
-  "volume_cm3": 16.09,
+  "volume_cm3": 16.1,
   "material": "ABS",
   "mass_g_solid": 16.7,
   "bbox_mm": [
@@ -198,7 +198,7 @@
  {
   "file": "15_TipBlock_Narrow_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 16.09,
+  "volume_cm3": 16.1,
   "material": "ABS",
   "mass_g_solid": 16.7,
   "bbox_mm": [
@@ -240,9 +240,9 @@
  {
   "file": "18_Pad_TPU95A.stl",
   "qty": 4,
-  "volume_cm3": 1.79,
+  "volume_cm3": 1.71,
   "material": "TPU",
-  "mass_g_solid": 2.2,
+  "mass_g_solid": 2.1,
   "bbox_mm": [
    38.0,
    19.5,

@@ -8,7 +8,7 @@
   {
    "item": "Side screw M3x8, shank shear (mount, x2 dynamic)",
    "load_N": 121.4,
-   "stress_MPa": 24.14,
+   "stress_MPa": 24.13,
    "SF_yield": 15.4,
    "note": "8.8 steel; ignores clamp friction"
   },

@@ -182,10 +182,12 @@ def tip_face_y(wide):
     """Rigid contact face of a tip block (finger frame); the 2 mm pad sits in front of it."""
     return FACE_Y + PAD_T + (WIDE_OFS if wide else 0.0)
 
-def _pad_key_loop(yf, s):
-    """Dovetail section in (y, z) at the face yf, opening into the block; s = gap to the groove (0 for the groove)."""
+PAD_SNAP = (1.1, 1.05, 3.0)   # rev 7.1 (review item 4): groove entrance depth, key depth, barb length at the key's rear
+def _pad_key_loop(yf, s, depth=None):
+    """Dovetail section in (y, z) at the face yf, opening into the block; s = gap to the groove (0 for the groove);
+    depth cuts it shallower along the same 45 deg flanks."""
     wm, wb, d = PAD_KEY
-    y0, y1 = yf - 0.01, yf + d - 2*s
+    y0, y1 = yf - 0.01, yf + (d if depth is None else depth) - 2*s
     k = 1.0/np.cos(np.arctan((wb - wm)/2/d))          # flank gap s measured square to the slanted flank
     hw = lambda y: (wm + (wb - wm)*(y - y0)/(d + 0.01))/2 - k*s
     return poly_loop([(y0, PAD_ZC - hw(y0)), (y1, PAD_ZC - hw(y1)), (y1, PAD_ZC + hw(y1)), (y0, PAD_ZC + hw(y0))])
@@ -229,7 +231,8 @@ def tip_block(wide):
     c = 0.15   # slide fit round the tongue
     ops = [('add', ('ext', outline, TIP_Z[0], TIP_Z[1])),
            ('cut', ('ext', _tongue_loop(c, SEAM_X - 2), Z_M0, TIP_Z[1] + 1)),
-           ('cut', ('extx', _pad_key_loop(yf, 0.0), SEAM_X - 1, PAD_X[1] - 2.0))]
+           ('cut', ('extx', _pad_key_loop(yf, 0.0, PAD_SNAP[0]), SEAM_X - 1, PAD_X[0] - 0.1)),   # shallow entrance
+           ('cut', ('extx', _pad_key_loop(yf, 0.0), PAD_X[0] - 0.1, PAD_X[1] - 2.0))]               # full-depth groove
     for x in TIP_SCREW_X:
         y = tip_screw_y(x)
         ops += [('cut', ('cyl', (x, y, TIP_Z[0] - 1), (x, y, Z_M0 + 0.01), R_M3)),
@@ -238,10 +241,12 @@ def tip_block(wide):
 
 def pad(wide):
     """TPU 95A contact pad, 2 mm thick, full jaw height; its dovetail key slides into the tip block's groove from the
-    rear before the tip block goes on. The same pad fits both sets."""
-    yf = tip_face_y(wide)
+    rear before the tip block goes on. A full-depth barb on the key's rear end squeezes through the groove's shallow
+    entrance and then catches on its step, so the pad can't slide back out. The same pad fits both sets."""
+    yf = tip_face_y(wide); xb = PAD_X[0] + PAD_SNAP[2]
     return [('add', ('box', (PAD_X[0], yf - PAD_T, TIP_Z[0]), (PAD_X[1], yf, TIP_Z[1]))),
-            ('add', ('extx', _pad_key_loop(yf, 0.05), PAD_X[0], PAD_X[1] - 2.5))]
+            ('add', ('extx', _pad_key_loop(yf, 0.05), PAD_X[0], xb)),                          # barb
+            ('add', ('extx', _pad_key_loop(yf, 0.05, PAD_SNAP[1] + 0.1), xb - 0.01, PAD_X[1] - 2.5))]
 
 # ================= carriage (local: origin at (C_x, 0, 0)) =================
 NUT_FL_R, NUT_FL_T, NUT_BODY_R, NUT_LEN = 11.0, 3.5, 5.1, 15.0

@@ -33,8 +33,8 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     ('Tr8x%d lead screw (cut %.1fmm)' % (D.LEAD, D.SCREW_LEN), D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
     ('Tr8 brass flange nut', D.nut(), 'car', False, '[0.79,0.64,0.29]', 'BRASS', True),
     ('608ZZ bearing', D.bearing608(), 'ground', False, '[0.66,0.68,0.70]', 'STEEL', True),
-    ('Dowel 4x32 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
-    ('Dowel 4x32 O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x36 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x36 O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F1', D.shoulder_screw(), 'ssF1', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F2', D.shoulder_screw(), 'ssF2', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 D', D.shoulder_screw(), 'ssD', True, '[0.10,0.10,0.10]', 'STEEL', True),
@@ -63,6 +63,9 @@ SPEC += [  # rev 7 (D): controller on the cover top
     ('Raspberry Pi Pico', D.pico(), 'ground', False, '[0.10,0.45,0.20]', 'FR4', True),
     ('TMC2209 driver', D.tmc2209(), 'ground', False, '[0.50,0.12,0.55]', 'FR4', True),
     ('Buck 5V MP1584', D.buck(), 'ground', False, '[0.12,0.22,0.55]', 'FR4', True)]
+SPEC += [  # rev 7.1 (review item 3): bronze sleeves bonded into the cover hold the dowel tops
+    ('Bushing 4x6x6 O1', D.sleeve(D.O1), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
+    ('Bushing 4x6x6 O2', D.sleeve(D.O2), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True)]
 STAND = [  # rev 7 (F): bench stand, built when the dialog's "Include bench stand" is on
     ('Stand head bracket', D.stand_bracket(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
     ('Stand base', D.stand_base(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),

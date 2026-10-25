@@ -12,10 +12,10 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Grip force per jaw | ≥ 26.8 N anywhere in range at 0.7 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×8 is back-drivable (lead angle 20.0°): the driver hold current keeps the grip; with power off the jaws can be pushed open |
 | Structure | Min safety factor 0.6 vs yield at a 200 N screw-force limit case (the motor clamps at 78–110 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 82.6 N per jaw) they are 3.3× higher: min SF 2.0 in use |
-| Motion check | 0 collisions over 41 poses (72 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
+| Motion check | 0 collisions over 41 poses (76 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 347 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 323 cm³ |
+| Printed volume | gripper with the narrow set 346 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 323 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes
@@ -96,12 +96,12 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 | Check | Load N | σ limit MPa | σ op MPa | SF yield |
 |---|---|---|---|---|
 | Shoulder screw Ø4 double shear (12.9 steel) | 543.0 | 21.61 | 11.87 | 46.3 |
-| Dowel Ø4 bending, simply supported base↔cover | 543.0 | 579.27 | 318.11 | 2.1 |
+| Dowel Ø4 bending, simply supported base↔cover | 543.0 | 604.0 | 331.69 | 2.0 |
 | Finger bore at F2 on shoulder (7.6 mm) | 543.0 | 17.86 | 9.81 | 1.7 |
 | Finger bore at F1 (7.6 mm) | 315.2 | 10.37 | 5.69 | 2.9 |
 | FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 543.0 | 7.58 | 4.16 | 4.0 |
-| Base dowel press hole (55% share, 6 mm) | 543.0 | 12.38 | 6.8 | 2.4 |
-| Cover dowel hole (45% share, 3.9 mm) | 543.0 | 15.76 | 8.66 | 1.9 |
+| Base dowel press hole (56% share, 6.5 mm) | 543.0 | 11.68 | 6.41 | 2.6 |
+| Cover hole on the bonded sleeve (44% share, Ø6 x 6) | 543.0 | 6.65 | 3.65 | 4.5 |
 | ConRod bores (7.6 mm) | 156.4 | 5.14 | 2.82 | 5.8 |
 | Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 2.13 | 7.8 |
 | Finger boss tear-out at F2 | 543.0 | 10.51 | 5.77 | 1.7 |
@@ -120,7 +120,7 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 **Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor's own bearing no longer takes the full reaction. Limit case 200 N vs ≈ 685 N 608 static axial capacity. Collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly.
 
 
-The dowel is modelled as a beam on two supports: the 6 mm press socket in the base and the 3.9 mm close-fit hole in the cover. The cover hole must be reamed to Ø4.0 so it carries its share; with a loose cover hole the base socket would see the full bending moment.
+The dowel is modelled as a beam on two supports: the 6.5 mm press socket in the base and the bronze sleeve bonded into the cover (rev 7.1). The sleeve is bonded with the cover on the dowels, so the top support has no clearance however the printed parts shrink; a loose top support would leave the base socket with the full bending moment (about 86–119 MPa in use).
 
 
 ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spool brand is not fixed) and 12 MPa across layers. All link loads are in the print plane (along the rasters). Interlayer stress appears only at the jaw-block root (≈0.3 MPa).
@@ -128,13 +128,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 730 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
+Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.3 | 24.12 | 15.4 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 121.3 | 10.64 | 2.8 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 121.3 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.14 | 15.4 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 27.4 | 1.67 | 18.0 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 54.9 | 1.59 | 11.0 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 54.9 | 3.34 | 59.9 | CuZn yield ~200 MPa |
@@ -159,8 +159,8 @@ Gripper mass 730 g (printed parts taken as solid, conservative), CG at x = -26 m
 
 | Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |
 |---|---|---|---|---|
-| 01_Base.stl | 1 | 106.99 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
-| 02_Cover.stl | 1 | 91.36 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
+| 01_Base.stl | 1 | 106.97 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
+| 02_Cover.stl | 1 | 90.62 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
 | 03_Adapter_ISO9409-50-4-M6.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
 | 04_Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
 | 05_BellCrank_Lower_A.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
@@ -183,7 +183,7 @@ Gripper mass 730 g (printed parts taken as solid, conservative), CG at x = -26 m
 **Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
 
-Print settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.
+Print settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).
 
 ## 7. Onshape
 
@@ -242,7 +242,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 ## 8. Assembly sequence
 
 1. Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2), Finger tongues (2 each). Base: 2 motor-wall joint, 2 bearing-block ears, 2 posts. Adapter: 4 side holes. Cover top: 4 for the controller standoffs.
-2. Press the 4 dowels into the base (O1, O2 both sides; 6 mm deep, square to the plate). Ream the 4 cover dowel holes to Ø4.0.
+2. Press the 4 dowels into the base (O1, O2 both sides; 6.5 mm deep, square to the plate). Wax the top 8 mm of each dowel (release) and slide a bronze sleeve onto each.
 3. Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to 78.5 mm -0.5/+0 from the motor face, so its end sits 3 mm inside the 608 bore (never longer: the encoder puck fills the rest). Chamfer, clean and grease it.
 4. Slide the nut into the carriage from the front: body into the bore, flange into the front recess, two flange holes at 3 and 9 o'clock. Fit 2× M3×8 button heads into the Ø2.5 pilots, snug only.
 5. Spin the carriage onto the motor screw from its rear. Slide the lock collar on (set screw loose), then the 608ZZ onto the screw tip.
@@ -250,7 +250,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 7. Encoder: glue the magnet into the printed puck (flush), slide the puck into the 608 bore against the screw end and glue it to the screw end with a drop of CA. Solder 4 wires (VCC, GND, SDA, SCL) to the AS5600 pad row, drop the board into the slot in front of the 608 (chip toward the magnet, pads up) and lead the wires up through the slit in the cover.
 8. Per side: BellCrank Lower on O1 and FrontCrank Lower on O2 (bosses up). Finger onto F1/F2, conrod onto D and between the carriage ears at C. BellCrank Upper and FrontCrank Upper on top. Shoulder screws at F1, F2, D, C into the lower-plate/ear inserts.
 9. Tip blocks: slide a TPU pad into the tip block groove from the rear, push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
-10. Cover onto the dowels (press evenly; close fit). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
+10. Cover: put slow-cure epoxy in the 4 oversize cover holes, lower the cover over the sleeves and dowels, fit all its screws, and let the epoxy cure with the gripper assembled (the sleeves bond to the cover where the dowels really are). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
 11. Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.
 12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.
 13. Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.

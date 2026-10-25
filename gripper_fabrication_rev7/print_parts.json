@@ -2,9 +2,9 @@
  {
   "file": "01_Base.stl",
   "qty": 1,
-  "volume_cm3": 106.99,
+  "volume_cm3": 106.97,
   "material": "ABS",
-  "mass_g_solid": 111.3,
+  "mass_g_solid": 111.2,
   "bbox_mm": [
    145.3,
    130.9,
@@ -16,9 +16,9 @@
  {
   "file": "02_Cover.stl",
   "qty": 1,
-  "volume_cm3": 91.36,
+  "volume_cm3": 90.62,
   "material": "ABS",
-  "mass_g_solid": 95.0,
+  "mass_g_solid": 94.2,
   "bbox_mm": [
    145.3,
    130.9,

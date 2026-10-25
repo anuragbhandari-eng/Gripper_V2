@@ -1,7 +1,7 @@
 import numpy as np, matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import design as D, check as C
-COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a', 'TipBlock': '#e8742a', 'Pad': '#202124', 'BHT_': '#1b1b1b', 'EncPuck': '#4b515a', 'Magnet': '#9ea0a8', 'AS5600': '#1c4a9e', 'Protoboard': '#2a6b38', 'Pico': '#1f7a3a', 'TMC2209': '#7a2f86', 'Buck': '#23408a', 'Standoff': '#c8b060', 'Stand': '#3d424a', 'Column': '#b9bcc0', 'Battery': '#2a2a2e',
+COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a', 'TipBlock': '#e8742a', 'Pad': '#202124', 'BHT_': '#1b1b1b', 'EncPuck': '#4b515a', 'Magnet': '#9ea0a8', 'AS5600': '#1c4a9e', 'Protoboard': '#2a6b38', 'Pico': '#1f7a3a', 'TMC2209': '#7a2f86', 'Buck': '#23408a', 'Standoff': '#c8b060', 'Sleeve': '#b8894d', 'Stand': '#3d424a', 'Column': '#b9bcc0', 'Battery': '#2a2a2e',
        'BellCrank': '#c9cdd2', 'FrontCrank': '#c9cdd2', 'ConRod': '#b4b9bf', 'SS_': '#1b1b1b', 'Motor': '#222326',
        'LeadScrew': '#c4c6c8', 'T8_Nut': '#c9a24a', 'Bearing608': '#a9adb2', 'Dowel': '#dcdcdc'}
 def color(n):

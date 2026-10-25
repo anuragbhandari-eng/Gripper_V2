@@ -11,10 +11,10 @@
   {
    "item": "Dowel \u00d84 bending, simply supported base\u2194cover",
    "load_limit_N": 543.0,
-   "stress_limit_MPa": 579.27,
-   "stress_op_MPa": 318.11,
-   "SF_yield_at_limit": 2.1,
-   "note": "hardened ISO 8734, yield >1200 MPa; cover hole close fit \u00d84.0"
+   "stress_limit_MPa": 604.0,
+   "stress_op_MPa": 331.69,
+   "SF_yield_at_limit": 2.0,
+   "note": "hardened ISO 8734, yield >1200 MPa; top held by the bonded sleeve"
   },
   {
    "item": "Finger bore at F2 on shoulder (7.6 mm)",
@@ -41,20 +41,20 @@
    "note": ""
   },
   {
-   "item": "Base dowel press hole (55% share, 6 mm)",
+   "item": "Base dowel press hole (56% share, 6.5 mm)",
    "load_limit_N": 543.0,
-   "stress_limit_MPa": 12.38,
-   "stress_op_MPa": 6.8,
-   "SF_yield_at_limit": 2.4,
+   "stress_limit_MPa": 11.68,
+   "stress_op_MPa": 6.41,
+   "SF_yield_at_limit": 2.6,
    "note": "beam reaction"
   },
   {
-   "item": "Cover dowel hole (45% share, 3.9 mm)",
+   "item": "Cover hole on the bonded sleeve (44% share, \u00d86 x 6)",
    "load_limit_N": 543.0,
-   "stress_limit_MPa": 15.76,
-   "stress_op_MPa": 8.66,
-   "SF_yield_at_limit": 1.9,
-   "note": "beam reaction; needs the close fit"
+   "stress_limit_MPa": 6.65,
+   "stress_op_MPa": 3.65,
+   "SF_yield_at_limit": 4.5,
+   "note": "beam reaction; sleeve bonded in place, zero clearance"
   },
   {
    "item": "ConRod bores (7.6 mm)",

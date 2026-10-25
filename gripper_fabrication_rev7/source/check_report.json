@@ -153,12 +153,12 @@
   "Base": {
    "valid": true,
    "nsolids": 1,
-   "vol": 106988.9
+   "vol": 106965.0
   },
   "Cover": {
    "valid": true,
    "nsolids": 1,
-   "vol": 91355.4
+   "vol": 90619.3
   },
   "Adapter": {
    "valid": true,
@@ -239,6 +239,26 @@
    "valid": true,
    "nsolids": 1,
    "vol": 34596.0
+  },
+  "Sleeve_O1_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.2
+  },
+  "Sleeve_O1_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.2
+  },
+  "Sleeve_O2_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.2
+  },
+  "Sleeve_O2_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.2
   },
   "Standoff_R_U": {
    "valid": true,
@@ -343,22 +363,22 @@
   "Dowel_O1_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 402.1
+   "vol": 452.4
   },
   "Dowel_O1_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 402.1
+   "vol": 452.4
   },
   "Dowel_O2_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 402.1
+   "vol": 452.4
   },
   "Dowel_O2_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 402.1
+   "vol": 452.4
   }
  },
  "hits": {}

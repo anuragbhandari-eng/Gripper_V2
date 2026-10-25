@@ -28,7 +28,12 @@ R_RUN = 2.1     # Ø4.2 running fit on 4 mm shoulder/dowel
 R_SNUG = 2.05   # Ø4.1 (no relative motion)
 R_INS = 2.0     # Ø4.0 hole for M3 heat-set insert (5.7 long)
 R_DOW_PRESS = 1.95
-R_DOW_CLOSE = 2.0   # cover dowel hole: print Ø4.0, ream 4.0 -> dowel held at both ends
+R_DOW_CLOSE = 2.0   # (rev 6: cover dowel hole, print Ø4.0 and ream; replaced in rev 7.1 by the bonded sleeve below)
+# rev 7.1 (design review item 3): the dowel top is held by a 4 x 6 x 6 bronze sleeve bonded with epoxy into an
+# oversize cover hole while the cover sits on the dowels, so it is supported at both ends with zero clearance no
+# matter how the printed parts shrink; wax on the dowel tops lets the cover come off again.
+DOW_Z = (-6.5, 29.5)                 # ISO 8734 4 x 36, flush with the cover top
+SLV_RI, SLV_RO, SLV_L, R_SLV_HOLE = 2.0, 3.0, 6.0, 3.2   # sleeve ID/OD radii, length; cover hole (0.2 mm epoxy gap)
 R_M3 = 1.7      # Ø3.4 clearance
 R_BOSS = 5.5    # link end boss
 R_SPACER = 5.0  # crank spacer boss in M layer
@@ -332,8 +337,8 @@ def _common_ground(lower):
     # dowel holes
     for c in (O1, O2):
         for sgn in (1, -1):
-            if lower: ops.append(('cut', ('cyl', (c[0], sgn*c[1], -6.2), (c[0], sgn*c[1], 1.0), R_DOW_PRESS)))
-            else: ops.append(('cut', ('cyl', (c[0], sgn*c[1], Z_C0-1), (c[0], sgn*c[1], 26.4), R_DOW_CLOSE)))
+            if lower: ops.append(('cut', ('cyl', (c[0], sgn*c[1], DOW_Z[0] - 0.2), (c[0], sgn*c[1], 1.0), R_DOW_PRESS)))
+            else: ops.append(('cut', ('cyl', (c[0], sgn*c[1], Z_C0-1), (c[0], sgn*c[1], Z_C1 + 1), R_SLV_HOLE)))   # sleeve bonded in
     # bolt holes: wall joint, block joint, posts
     bolts = [(MW_BOLT_X, MW_BOLT_Y), (MW_BOLT_X, -MW_BOLT_Y), (BLK_BOLT[0], BLK_BOLT[1]), (BLK_BOLT[0], -BLK_BOLT[1]),
              tuple(POST_C), (POST_C[0], -POST_C[1])]
@@ -408,7 +413,10 @@ def as5600():   # AS5600 module, simplified: 23 x 23 board, SOIC-8 chip facing t
     return [('add', ('box', (X_PCB0, -h, Z_S - h), (X_PCB0 + ENC_PCB_T, h, Z_S + h))),
             ('add', ('box', (X_CHIP, -2.5, Z_S - 3.0), (X_PCB0 + 0.01, 2.5, Z_S + 3.0)))]
 def dowel(c, sgn):
-    return [('add', ('cyl', (c[0], sgn*c[1], -6.0), (c[0], sgn*c[1], 26.0), 2.0))]   # ISO 8734 4 x 32
+    return [('add', ('cyl', (c[0], sgn*c[1], DOW_Z[0]), (c[0], sgn*c[1], DOW_Z[1]), 2.0))]   # ISO 8734 4 x 36
+def sleeve(c):   # bronze sleeve 4 x 6 x 6 on the dowel top, bonded into the cover (local: +y side)
+    return [('add', ('cyl', (c[0], c[1], Z_C0), (c[0], c[1], Z_C0 + SLV_L), SLV_RO)),
+            ('cut', ('cyl', (c[0], c[1], Z_C0 - 1), (c[0], c[1], Z_C0 + SLV_L + 1), SLV_RI))]
 def shoulder_screw():   # local: axis at origin, shoulder seat at z=Z_B1
     S = 12.0
     return [('add', ('cyl', (0, 0, Z_B1 - 4.5), (0, 0, Z_B1 + 0.01), 1.5)),
@@ -555,6 +563,7 @@ def pose(th, wide=None):
                     ('Protoboard', protoboard()), ('Pico', pico()), ('TMC2209', tmc2209()), ('Buck', buck()),
                     ('StandBracket', stand_bracket()), ('StandBase', stand_base()), ('Column', column()), ('Battery', battery())):
         parts[nm] = (ops, np.eye(4))
+    add('Sleeve_O1', sleeve(O1), np.eye(4)); add('Sleeve_O2', sleeve(O2), np.eye(4))
     add('Standoff_R', standoff(CTRL_C[0] - CTRL_HOLE[0]), np.eye(4)); add('Standoff_F', standoff(CTRL_C[0] + CTRL_HOLE[0]), np.eye(4))
     for nm, seat, ax, ln, frame in FASTENERS:
         add(nm, button_screw(seat, ax, ln), Tm(np.eye(3), (C[0], 0, 0)) if frame == 'car' else np.eye(4))

@@ -29,16 +29,16 @@ def add(item, load_lim, stress_lim, allow, note):
 # pins
 Fmax = max(lim.values())
 add('Shoulder screw Ø4 double shear (12.9 steel)', Fmax, Fmax/(2*np.pi*d**2/4), 500, 'τ vs ~1000 MPa shear-yield class, huge margin')
-zA, zB, zP = -3.0, (D.Z_C0 + 26.0)/2, (D.Z_B0 + D.Z_U1)/2          # supports and load point along the dowel (mm)
+zA, zB, zP = D.DOW_Z[0]/2, D.Z_C0 + D.SLV_L/2, (D.Z_B0 + D.Z_U1)/2   # supports (base socket, bonded sleeve) and load point (mm)
 span = zB - zA; RA = (zB - zP)/span; RB = (zP - zA)/span     # reaction shares base / cover
 M_dow = lim['O2']*(zP - zA)*(zB - zP)/span
-add('Dowel Ø4 bending, simply supported base↔cover', lim['O2'], 32*M_dow/(np.pi*d**3), 600, 'hardened ISO 8734, yield >1200 MPa; cover hole close fit Ø4.0')
+add('Dowel Ø4 bending, simply supported base↔cover', lim['O2'], 32*M_dow/(np.pi*d**3), 600, 'hardened ISO 8734, yield >1200 MPa; top held by the bonded sleeve')
 # bearing stress on printed bores
 add('Finger bore at F2 on shoulder (%.1f mm)' % t_mid, lim['F2'], lim['F2']/(d*t_mid), PR['allow'], D.MAT + ' bearing')
 add('Finger bore at F1 (%.1f mm)' % t_mid, lim['F1'], lim['F1']/(d*t_mid), PR['allow'], '')
 add('FrontCrank bores at O2 (%.1f+%.1f plates + %.1f spacer)' % (t_low, t_up, t_spacer), lim['O2'], lim['O2']/(d*(t_low + t_up + t_spacer)), PR['allow'], '')
-add('Base dowel press hole (%.0f%% share, 6 mm)' % (100*RA), lim['O2'], RA*lim['O2']/(d*6.0), PR['allow'], 'beam reaction')
-add('Cover dowel hole (%.0f%% share, 3.9 mm)' % (100*RB), lim['O2'], RB*lim['O2']/(d*3.9), PR['allow'], 'beam reaction; needs the close fit')
+add('Base dowel press hole (%.0f%% share, %.1f mm)' % (100*RA, -D.DOW_Z[0]), lim['O2'], RA*lim['O2']/(d*-D.DOW_Z[0]), PR['allow'], 'beam reaction')
+add('Cover hole on the bonded sleeve (%.0f%% share, Ø6 x %.0f)' % (100*RB, D.SLV_L), lim['O2'], RB*lim['O2']/(2*D.SLV_RO*D.SLV_L), PR['allow'], 'beam reaction; sleeve bonded in place, zero clearance')
 add('ConRod bores (%.1f mm)' % t_mid, lim['rod'], lim['rod']/(d*t_mid), PR['allow'], '')
 add('Carriage ears at C (%.1f + %.1f mm)' % (D.Z_B1, t_up), lim['C'], lim['C']/(d*(D.Z_B1 + t_up)), PR['allow'], '')
 # tear-out ligaments: boss R5.5, hole R2.1 -> 3.4 mm ligaments, double

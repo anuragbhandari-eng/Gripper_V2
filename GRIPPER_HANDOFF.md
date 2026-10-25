@@ -35,7 +35,7 @@ Simple and cohesive. Every feature must serve a function. No decorative features
   - The generated `.fs` now sets ABS and 1.04 g/cm³ on the printed parts; `GripperV2` needs that update in step 8.
 - ABS shrinks and warps more than PETG. Reprint the fit coupons in ABS on the fablab printer and retune the fits from them. Print in an enclosure, part-cooling fan low or off, brim on the base and cover.
 - **Pads are printed TPU 95A** (Anurag's printer handles TPU).
-- **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price.
+- **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price. **Do not browse or automate Amazon in a browser:** on 2026-10-24 Amazon blocked the session with "Continued access by an unauthorized AI agent violates Amazon's Conditions of Use". Find listings another way and hand Anurag the links; he adds them to the cart himself.
 
 ---
 

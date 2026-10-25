@@ -221,7 +221,7 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 - **Checks:** 72 valid parts, 0 collisions over 41 poses for both tip sets (`check.py 41`; run `GRIPPER_TIPSET=wide python3 check.py 41` for the wide set, which writes `*_wide.json`). Only intended contacts under 0.8 mm.
 - **Structure (ABS 30 MPa, 200 N screw-force limit, far-tip grip at the 66 mm stop):** min SF 1.7 (finger bore and boss at F2, tip screws). At the 60 mm firmware cap these rows are 1.81× higher (≥ 3.0). Tongue alone carries the seam moment at SF 2.7. Fasteners min SF 2.3.
 - **Drive:** Tr8x8, driver 0.70 A RMS (stall 78–110 N), grip ≥ 26.8 N per jaw, 400 steps/mm, full stroke 0.4 s, not self-locking.
-- **Onshape `GripperV2`:** Feature Studio updated (SHA-256 `05ef67f130b2d4b1`), 72 parts within 1.3 mm³ of local, dialog has Tip set + Include bench stand. Assembly 1: 72 instances, 21/21 features OK, new groups "Finger U + tip" / "Finger L + tip", slider verified at both limits, left at 0. FeatureScript MCP requests used: 0.
+- **Onshape `GripperV2`:** Feature Studio updated (rev 7.1: SHA-256 `f29064932af61cb0`), 72 parts within 1.3 mm³ of local, dialog has Tip set + Include bench stand. Assembly 1: 72 instances, 21/21 features OK, new groups "Finger U + tip" / "Finger L + tip", slider verified at both limits, left at 0. FeatureScript MCP requests used: 0.
 
 **Calls made without asking (Anurag said not to stop for questions):**
 1. Tip joint: finger keeps a 20 mm tongue; tip block slides up onto it, 2× M3×16 from the top into inserts in the tongue. Pad: one TPU pad for both sets, 45° dovetail key sliding in from the rear.
@@ -232,7 +232,7 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 6. Driver current is computed in `structural.py` (lowest 0.05 A step that meets the 25 N grip target).
 7. Found and fixed: `prims.mirror_ops` mirrored `extx` profiles in z instead of y (first used by the pad dovetail).
 
-**Resume point (2026-10-24):** the independent senior-engineer design review is done: `docs/DESIGN_REVIEW_2026-10-24.md` (39 items; the critical one is the tip-block tongue joint). Next: Anurag picks which items to fix. Later fix (commit 71eec9e): the Pico, buck and TMC2209 now include their header strips, so they no longer float above the protoboard. Nothing is pushed; ask before pushing `v2/handoff-decisions`.
+**Resume point (2026-10-24, rev 7.1):** the design review (`docs/DESIGN_REVIEW_2026-10-24.md`) items 1–12 are done where they were design changes (status table at the top of that file); GripperV2 is updated and verified (78 parts, 21/21 features OK, evCollision clean). Waiting on Anurag for the inputs listed there. Rule learned: new SPEC entries go after **every** existing entry, the stand included, or Onshape part ids shift.
 
 **Still open (for Anurag):**
 - Print `13_FitTest_coupons.stl` in ABS at the fablab and report the fits; retune `R_RUN`, `R_SNUG`, the 608 seat etc. from the results.

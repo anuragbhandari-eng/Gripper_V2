@@ -2,6 +2,24 @@
 
 An independent agent, briefed as a senior mechanical design engineer (brief: `docs/REVIEW_BRIEF.md`), reviewed the local files and the Onshape document read-only. Tags: **V** = verified with data, code or Onshape; **S** = suspected (judgement). Before relaying, the main session re-checked three items: the tongue section and stresses (1), the slider position (28) and the report wording (39). All three hold.
 
+## Status after the fixes (rev 7.1, same day)
+| Item | Status | Commit |
+|---|---|---|
+| 1 Tip joint | Fixed: tongue 16.3 × 13.6 mm root, rises to the block top; screws from below at mid-depth. Tongue root SF 1.6 at the limit, 5.3 in use (was 0.27 / 0.89) | e576355 |
+| 2 Out-of-plane load | Fixed for normal grips: block and pad centred on the pin plane. Checked a grip on the pad edge: tongue torsion SF 1.7 / 5.6; F2 bore twist SF 0.6 limit / 2.0 in use (bore-only model, conservative) | e576355 |
+| 3 Fixed pivots | Fixed: dowel tops in bronze sleeves bonded into the cover (zero clearance, no reamer); dowels 4×36. Base socket SF 2.6, cover 4.5 | a7d0215 |
+| 4 Pad retention | Fixed: snap barb on the key catches a step at the groove entrance (checked: blocked when pulled back) | 01b9647 |
+| 5 Dynamics / homing | Documented: hard-stop estimate, homing at 0.3 A and 10 mm/s with the encoder detecting the stop. **Needs input:** the motor's axial load rating and rotor inertia | 03488d6 |
+| 6 Driver current | Documented: VREF ceiling + i_scale_analog, EN pull-up, re-init after driver reset (BOM updated) | 03488d6 |
+| 7 Battery | Fixed: strapped to the column, ≥ 45 mm from every gripper part; fuse before the switch, divider after it, balance-lead alarm | b032bca |
+| 8 Stand stability | Fixed by anchoring: 180 × 170 base with 4 bench holes, 2 more M5 at the column foot. Unclamped it still tips at about 5 N. **Needs input:** can it be fixed to the bench? | b032bca |
+| 9 Grip schedule | Documented: run-current table against the gap for about 30 N per jaw | 03488d6 |
+| 10 Encoder in the 608 | **Needs a bench test** (procedure in the report section 4a) before printing the bearing block; redesign only if the field is too weak | 03488d6 |
+| 11 Fit coupons | Fixed: 13b (rev 7 fits, cut from the real parts) and 13c (TPU pad snap) | 7cf320d |
+| 12 Warping | Partly: 2 locating pins across the bearing-block split, flatness check in the print notes. **Needs input:** may the stand parts be printed in PLA/PETG? | 3058a98 |
+
+Items 13–39 are not addressed yet.
+
 ## Verdict
 The linkage, pivots, thrust path, collision sweep and the Onshape match are sound. The v2 additions are the weak spots:
 - **Tip joint:** undersized, and checked on the wrong section.

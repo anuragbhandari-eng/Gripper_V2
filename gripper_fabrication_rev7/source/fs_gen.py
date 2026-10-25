@@ -63,16 +63,16 @@ SPEC += [  # rev 7 (D): controller on the cover top
     ('Raspberry Pi Pico', D.pico(), 'ground', False, '[0.10,0.45,0.20]', 'FR4', True),
     ('TMC2209 driver', D.tmc2209(), 'ground', False, '[0.50,0.12,0.55]', 'FR4', True),
     ('Buck 5V MP1584', D.buck(), 'ground', False, '[0.12,0.22,0.55]', 'FR4', True)]
-SPEC += [  # rev 7.1 (review item 3): bronze sleeves bonded into the cover hold the dowel tops
-    ('Bushing 4x6x6 O1', D.sleeve(D.O1), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
-    ('Bushing 4x6x6 O2', D.sleeve(D.O2), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
-    ('Dowel 3x16 block', D.loc_pin(), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True)]   # review item 12
 STAND = [  # rev 7 (F): bench stand, built when the dialog's "Include bench stand" is on
     ('Stand head bracket', D.stand_bracket(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
     ('Stand base', D.stand_base(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
     ('Extrusion 2020 x 400', D.column(), 'ground', False, '[0.76,0.77,0.79]', 'ALU', True),
     ('LiPo 3S 650mAh', D.battery(), 'ground', False, '[0.16,0.16,0.18]', 'LIPO', True)]
 SPEC += STAND
+SPEC += [  # rev 7.1, appended after the stand so existing part ids stay put (review item 3): bronze sleeves bonded into the cover hold the dowel tops
+    ('Bushing 4x6x6 O1', D.sleeve(D.O1), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
+    ('Bushing 4x6x6 O2', D.sleeve(D.O2), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
+    ('Dowel 3x16 block', D.loc_pin(), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True)]   # review item 12
 WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
               THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)

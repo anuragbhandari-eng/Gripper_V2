@@ -210,11 +210,11 @@ Print settings: ABS in an enclosed printer (a draft shield at minimum), part-coo
 
 ## 7. Onshape
 
-**Status (rev 7, 2026-10-24):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
+**Status (rev 7, 2026-10-24 (rev 7.1 after the design review)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
 
-- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (42104 characters, SHA-256 05ef67f130b2d4b1…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
-- The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 72 parts; every volume is within 1.3 mm³ of the local model, and the wide set matches too.
-- Assembly 1: 72 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, tips follow the fingers; past the limit it clamps. Left at 0 (gap 30). Record: source/results_onshape_rev7.json.
+- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (43366 characters, SHA-256 f29064932af61cb0…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
+- The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 78 parts; every volume is within 1.22 mm³ of the local model, and the wide set matches too.
+- Assembly 1: 78 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, tips follow the fingers; past the limit it clamps. Left at 0 (gap 30). Record: source/results_onshape_rev7.json.
 - Pictures: images/onshape_v2_assembly_iso.png, images/onshape_v2_assembly_top.png, images/onshape_v2_partstudio_iso.png. The "Robot export" assembly is unchanged (ROS 2 phase).
 
 **Rev 6 record (original document):**

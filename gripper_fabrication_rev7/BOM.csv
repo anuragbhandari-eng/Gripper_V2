@@ -40,7 +40,7 @@ P8,M3 x 20 button head screw ISO 7380,4,Cover to motor wall (2) and bearing bloc
 P13,M3 x 10 button head screw ISO 7380,4,"Tip blocks to the finger tongues, from below (2 per side)"
 P9,M6 x 12 socket head cap screw ISO 4762 (6 mm into the robot flange; check its thread depth),4,Adapter to ISO 9409-1-50-4-M6 flange
 P10,Grease: PTFE/lithium for lead screw and pivots (ask the fablab; any light grease works),1,
-P11,"TMC2209 stepper driver module, StepStick size (e.g. BIGTREETECH TMC2209), UART + DIAG",1,"Current limit 0.70 A RMS (section 4); solder it straight to the protoboard (no sockets, to save cost)"
+P11,"TMC2209 stepper driver module, StepStick size (e.g. BIGTREETECH TMC2209), UART + DIAG",1,Current limit 0.70 A RMS (section 4); plugged into female headers on the protoboard so it can be swapped
 P14,Raspberry Pi Pico (or Pico H with headers),1,USB serial to ROS 2; on the protoboard
 P15,AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric magnet,1,"Solder 4 wires (VCC, GND, SDA, SCL) to the pad row, no header; pad row up"
 P16,Double-sided protoboard 50 x 70 mm,1,Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern

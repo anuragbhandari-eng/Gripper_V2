@@ -10,12 +10,12 @@
  },
  "feature_studio": {
   "source": "onshape/LeadScrewGripper.fs",
-  "chars": 43366,
-  "sha256_first16": "f29064932af61cb0",
+  "chars": 44356,
+  "sha256_first16": "2247dc24e097f38b",
   "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
  },
  "part_studio": {
-  "parts": 78,
+  "parts": 84,
   "feature_status": "INFO (the pad-to-pad gap readout)",
   "dialog": {
    "gap": "30 mm",
@@ -37,14 +37,14 @@
   }
  },
  "assembly_1": {
-  "instances": 78,
+  "instances": 84,
   "features": 21,
   "features_ok": 21,
   "groups_added": [
    "Finger U + tip",
    "Finger L + tip"
   ],
-  "frame_fixed_members": 46,
+  "frame_fixed_members": 52,
   "slider": {
    "open_-20.83mm": {
     "carriage_mm": 20.83,
@@ -62,6 +62,11 @@
   "rev71_added": [
    "Bushing 4x6x6 O1/O2 U/L",
    "Dowel 3x16 block U/L"
+  ],
+  "desk_clamps_added": [
+   "Stand desk clamp U/L",
+   "Stand clamp pad U/L",
+   "Knob screw M8x40 U/L"
   ]
  },
  "robot_export_assembly": "unchanged; it is the ROS 2 export assembly and does not include the v2 tip parts yet",
@@ -72,6 +77,6 @@
   "images/onshape_v2_assembly_front.png"
  ],
  "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK.",
- "onshape_interference_gap30": "evCollision over all 78 bodies through the browser session (0 MCP requests): only the intended overlaps, dowel and locating-pin press fits in the base, nut screws in the carriage pilots, motor screws in the motor threads.",
+ "onshape_interference_gap30": "evCollision over all 84 bodies (0 MCP requests): only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
  "featurescript_mcp_requests": 0
 }

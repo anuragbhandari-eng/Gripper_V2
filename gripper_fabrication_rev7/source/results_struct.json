@@ -167,6 +167,22 @@
    "stress_op_MPa": 1.1,
    "SF_yield_at_limit": 9.0,
    "note": "shear allowable 0.6\u03c3; encoder board in front"
+  },
+  {
+   "item": "Desk clamp spine bending (30 x 14, hand-tight 400 N)",
+   "load_limit_N": 400.0,
+   "stress_limit_MPa": 11.22,
+   "stress_op_MPa": 6.16,
+   "SF_yield_at_limit": 2.7,
+   "note": "prints on its side: in-plane"
+  },
+  {
+   "item": "Desk clamp lower arm at the spine (30 x 12)",
+   "load_limit_N": 400.0,
+   "stress_limit_MPa": 11.39,
+   "stress_op_MPa": 6.25,
+   "SF_yield_at_limit": 2.6,
+   "note": ""
   }
  ],
  "driver": {

@@ -537,6 +537,39 @@ def stand_base():
     return ops
 def column():   # 2020 extrusion (slots not modelled)
     return [('add', ('extx', _col_loop(0.0), X_COL1 - COL_LEN, X_COL1))]
+# ---------- rev 7.1: desk clamps (Anurag's desk: black front edge 40 mm tall, 40 mm deep) ----------
+# Two printed C-clamps at the base's front corners (+z edge, flush with the desk's front face). The upper arm sits on
+# the base plate with a boss in the corner counterbore; the spine runs down in front of the desk edge; under the desk
+# an M8 star-knob screw in a captive nut pushes a printed pad up under the black edge, 20 mm behind the front face.
+# Grips desks 24-49 mm thick. Gripper frame: the desk top is the plane x = X_TABLE, the desk below it (+x).
+DESK_T, DESK_EDGE_D = 40.0, 40.0                 # clamped edge: thickness, depth of the black section
+CLP_W, CLP_SPINE, CLP_ARM = 30.0, 14.0, 12.0     # clamp width (y), spine and lower-arm thickness
+CLP_Z0 = BASE_Z[1] + 0.5                         # spine inner face, 0.5 mm in front of the desk front face
+CLP_SCREW_Z = BASE_Z[1] - 20.0                   # pad 20 mm behind the front face, under the black edge
+CLP_X1 = X_TABLE + 55.0                          # top face of the lower arm (pad + screw travel below the desk)
+def _clamp_y():
+    return BASE_Y[1] - 12.0                      # centred on the base's front-corner hole (+y side)
+def desk_clamp():
+    """C-clamp (+y corner; the -y one is its mirror). Prints lying on its -y side (nut slot opens upward)."""
+    yc, w = _clamp_y(), CLP_W/2; y0, y1 = yc - w, yc + w
+    xa = X_TABLE - BASE_T                        # base top face
+    zc = BASE_Z[1] - 12.0                        # corner hole
+    xn = CLP_X1 + 3.0                            # captive M8 nut (13 AF x 6.5) in the lower arm
+    return [('add', ('box', (xa - 8.0, y0, zc - 8.0), (xa, y1, CLP_Z0 + CLP_SPINE))),                     # upper arm
+            ('add', ('box', (xa - 8.0, y0, CLP_Z0), (CLP_X1 + CLP_ARM, y1, CLP_Z0 + CLP_SPINE))),       # spine
+            ('add', ('box', (CLP_X1, y0, X_TABLE*0 + BASE_Z[1] - DESK_EDGE_D), (CLP_X1 + CLP_ARM, y1, CLP_Z0 + CLP_SPINE))),   # lower arm
+            ('add', ('cyl', (xa - 0.01, yc, zc), (xa + 3.5, yc, zc), 4.8)),                         # boss into the counterbore
+            ('cut', ('cyl', (CLP_X1 - 1, yc, CLP_SCREW_Z), (CLP_X1 + CLP_ARM + 1, yc, CLP_SCREW_Z), 4.25)),  # M8 clearance
+            ('cut', ('box', (xn, yc - 7.6, CLP_SCREW_Z - 6.6), (xn + 6.8, y1 + 1, CLP_SCREW_Z + 6.6)))]       # nut slot from +y
+def clamp_pad():   # printed pad under the desk edge; the knob screw tip sits in its socket
+    xp = X_TABLE + DESK_T; yc = _clamp_y()
+    return [('add', ('cyl', (xp, yc, CLP_SCREW_Z), (xp + 6.0, yc, CLP_SCREW_Z), 12.0)),
+            ('cut', ('cyl', (xp + 3.0, yc, CLP_SCREW_Z), (xp + 7.0, yc, CLP_SCREW_Z), 4.3))]
+def knob_screw():  # M8 x 40 star knob (male), tip in the pad socket, knob under the lower arm
+    xp = X_TABLE + DESK_T; yc = _clamp_y(); xk = CLP_X1 + CLP_ARM
+    return [('add', ('cyl', (xp + 3.2, yc, CLP_SCREW_Z), (xk + 0.01, yc, CLP_SCREW_Z), 4.0)),
+            ('add', ('cyl', (xk, yc, CLP_SCREW_Z), (xk + 12.0, yc, CLP_SCREW_Z), 15.0))]
+
 def battery():   # 3S LiPo envelope, strapped to the column's far face (z side away from the gripper), clear of the jaws
     x0, x1, w, t = BAT; z1 = COL_Z - COL_A/2
     return [('add', ('box', (x0, -w/2, z1 - t), (x1, w/2, z1)))]
@@ -583,6 +616,7 @@ def pose(th, wide=None):
                     ('StandBracket', stand_bracket()), ('StandBase', stand_base()), ('Column', column()), ('Battery', battery())):
         parts[nm] = (ops, np.eye(4))
     add('Sleeve_O1', sleeve(O1), np.eye(4)); add('Sleeve_O2', sleeve(O2), np.eye(4)); add('LocPin', loc_pin(), np.eye(4))
+    add('StandClamp', desk_clamp(), np.eye(4)); add('StandClampPad', clamp_pad(), np.eye(4)); add('StandKnob', knob_screw(), np.eye(4))
     add('Standoff_R', standoff(CTRL_C[0] - CTRL_HOLE[0]), np.eye(4)); add('Standoff_F', standoff(CTRL_C[0] + CTRL_HOLE[0]), np.eye(4))
     for nm, seat, ax, ln, frame in FASTENERS:
         add(nm, button_screw(seat, ax, ln), Tm(np.eye(3), (C[0], 0, 0)) if frame == 'car' else np.eye(4))

@@ -287,5 +287,51 @@
     ]
    ]
   ]
+ },
+ "22_Stand_DeskClamp_A.stl": {
+  "overhang45_mm2": 60.1,
+  "flat_down_groups_top3": [
+   [
+    19.2,
+    5.5,
+    [
+     12.0,
+     1.1
+    ]
+   ],
+   [
+    10.2,
+    4.2,
+    [
+     3.5,
+     1.2
+    ]
+   ]
+  ]
+ },
+ "23_Stand_DeskClamp_B_mirrored.stl": {
+  "overhang45_mm2": 60.1,
+  "flat_down_groups_top3": [
+   [
+    19.2,
+    5.5,
+    [
+     12.0,
+     1.1
+    ]
+   ],
+   [
+    10.2,
+    4.2,
+    [
+     3.5,
+     1.2
+    ]
+   ]
+  ]
+ },
+ "24_Stand_ClampPad.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
  }
 }

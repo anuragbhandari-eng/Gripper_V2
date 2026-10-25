@@ -12,7 +12,7 @@ An independent agent, briefed as a senior mechanical design engineer (brief: `do
 | 5 Dynamics / homing | Documented: hard-stop estimate, homing at 0.3 A and 10 mm/s with the encoder detecting the stop. **Needs input:** the motor's axial load rating and rotor inertia | 03488d6 |
 | 6 Driver current | Documented: VREF ceiling + i_scale_analog, EN pull-up, re-init after driver reset (BOM updated) | 03488d6 |
 | 7 Battery | Fixed: strapped to the column, ≥ 45 mm from every gripper part; fuse before the switch, divider after it, balance-lead alarm | b032bca |
-| 8 Stand stability | Fixed by anchoring: 180 × 170 base with 4 bench holes, 2 more M5 at the column foot. Unclamped it still tips at about 5 N. **Needs input:** can it be fixed to the bench? | b032bca |
+| 8 Stand stability | Fixed: 180 × 170 base, 2 more M5 at the column foot, and 2 printed C-clamps with M8 star knobs that clamp the base's front corners to Anurag's desk edge (40 × 40 mm black edge; range 24–49 mm). Unclamped it would tip at about 5 N | b032bca + desk clamps |
 | 9 Grip schedule | Documented: run-current table against the gap for about 30 N per jaw | 03488d6 |
 | 10 Encoder in the 608 | **Needs a bench test** (procedure in the report section 4a) before printing the bearing block; redesign only if the field is too weak | 03488d6 |
 | 11 Fit coupons | Fixed: 13b (rev 7 fits, cut from the real parts) and 13c (TPU pad snap) | 7cf320d |

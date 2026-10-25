@@ -320,5 +320,47 @@
   ],
   "orientation": "front_down",
   "note": "bench stand; table face on bed, column socket up"
+ },
+ {
+  "file": "22_Stand_DeskClamp_A.stl",
+  "qty": 1,
+  "volume_cm3": 52.29,
+  "material": "ABS",
+  "mass_g_solid": 54.4,
+  "bbox_mm": [
+   83.0,
+   54.5,
+   30.0
+  ],
+  "orientation": "side_my_down",
+  "note": "desk clamp; lying on its side, nut slot up, 100% infill at the corners"
+ },
+ {
+  "file": "23_Stand_DeskClamp_B_mirrored.stl",
+  "qty": 1,
+  "volume_cm3": 52.29,
+  "material": "ABS",
+  "mass_g_solid": 54.4,
+  "bbox_mm": [
+   83.0,
+   54.5,
+   30.0
+  ],
+  "orientation": "side_py_down",
+  "note": "mirror of 22"
+ },
+ {
+  "file": "24_Stand_ClampPad.stl",
+  "qty": 2,
+  "volume_cm3": 2.54,
+  "material": "TPU",
+  "mass_g_solid": 3.1,
+  "bbox_mm": [
+   24.0,
+   24.0,
+   6.0
+  ],
+  "orientation": "rear_down",
+  "note": "desk side down; stick felt on it"
  }
 ]

@@ -108,6 +108,12 @@ tip = dict(Fg_max_N=round(Fg_max, 1), Fg_at_60mm_cap_N=round(Fg60, 1), factor_at
            Fg_in_use_N=round(Fg_use, 1), factor_in_use=round(Fg_max/Fg_use, 2),
            note='Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip '
                 'is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use.')
+# rev 7.1: desk clamp (bench stand), hand-tight knob, taken as 400 N; the C-frame bends at the spine and the arms
+F_cl = 400.0
+w_c = D.CLP_W
+arm_s = (D.CLP_Z0 + D.CLP_SPINE/2) - D.CLP_SCREW_Z
+add('Desk clamp spine bending (%.0f x %.0f, hand-tight 400 N)' % (w_c, D.CLP_SPINE), F_cl, F_cl*arm_s/(w_c*D.CLP_SPINE**2/6), PR['allow'], 'prints on its side: in-plane')
+add('Desk clamp lower arm at the spine (%.0f x %.0f)' % (w_c, D.CLP_ARM), F_cl, F_cl*(D.CLP_Z0 - D.CLP_SCREW_Z)/(w_c*D.CLP_ARM**2/6), PR['allow'], '')
 out = dict(rows=rows, driver=drv, thrust=thrust, tip=tip, dynamic=dynamic, current_schedule=schedule,
            min_SF=min(r['SF_yield_at_limit'] for r in rows),
            min_SF_in_use=round(min(r['SF_yield_at_limit'] for r in rows)*Fg_max/Fg_use, 1))

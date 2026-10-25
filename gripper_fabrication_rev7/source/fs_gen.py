@@ -73,6 +73,11 @@ SPEC += [  # rev 7.1, appended after the stand so existing part ids stay put (re
     ('Bushing 4x6x6 O1', D.sleeve(D.O1), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
     ('Bushing 4x6x6 O2', D.sleeve(D.O2), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
     ('Dowel 3x16 block', D.loc_pin(), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True)]   # review item 12
+CLAMP = [  # rev 7.1: desk clamps for the bench stand (stand parts), appended at the end so existing part ids stay put
+    ('Stand desk clamp', D.desk_clamp(), 'ground', True, '[0.24,0.26,0.29]', D.MAT, False),
+    ('Stand clamp pad', D.clamp_pad(), 'ground', True, '[0.24,0.26,0.29]', D.MAT, False),
+    ('Knob screw M8x40', D.knob_screw(), 'ground', True, '[0.12,0.12,0.13]', 'STEEL', True)]
+SPEC += CLAMP
 WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
               THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)
@@ -89,7 +94,7 @@ parts_src = []
 for k, (nm, ops, kind, mir, col, mat, pur) in enumerate(SPEC):
     parts_src.append('    { "name" : "%s", "kind" : "%s", "mirror" : %s, "color" : %s, "mat" : "%s", "purchased" : %s,%s\n      "ops" : %s%s }'
                      % (nm, kind, 'true' if mir else 'false', col, mat, 'true' if pur else 'false',
-                        ' "stand" : true,' if nm in [s[0] for s in STAND] else '', enc_ops(ops),
+                        ' "stand" : true,' if nm in [s[0] for s in STAND + CLAMP] else '', enc_ops(ops),
                         (',\n      "opsW" : ' + enc_ops(WIDE[nm])) if nm in WIDE else ''))
 
 FS = r'''FeatureScript 3083;

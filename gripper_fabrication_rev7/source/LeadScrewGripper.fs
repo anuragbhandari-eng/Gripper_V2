@@ -635,6 +635,22 @@ function partSpecs() returns array
         [0,"cyl",[32.2712,21.0876,21.1],[32.2712,21.0876,29.1],2]] },
     { "name" : "Dowel 3x16 block", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
       "ops" : [
-        [1,"cyl",[18.9975,11,2.3],[18.9975,11,18.3],1.5]] }
+        [1,"cyl",[18.9975,11,2.3],[18.9975,11,18.3],1.5]] },
+    { "name" : "Stand desk clamp", "kind" : "ground", "mirror" : true, "color" : [0.24,0.26,0.29], "mat" : "ABS", "purchased" : false, "stand" : true,
+      "ops" : [
+        [1,"box",[129,63,70],[137,93,104.5]],
+        [1,"box",[129,63,90.5],[212,93,104.5]],
+        [1,"box",[200,63,50],[212,93,104.5]],
+        [1,"cyl",[136.99,78,78],[140.5,78,78],4.8],
+        [0,"cyl",[199,78,70],[213,78,70],4.25],
+        [0,"box",[203,70.4,63.4],[209.8,94,76.6]]] },
+    { "name" : "Stand clamp pad", "kind" : "ground", "mirror" : true, "color" : [0.24,0.26,0.29], "mat" : "ABS", "purchased" : false, "stand" : true,
+      "ops" : [
+        [1,"cyl",[185,78,70],[191,78,70],12],
+        [0,"cyl",[188,78,70],[192,78,70],4.3]] },
+    { "name" : "Knob screw M8x40", "kind" : "ground", "mirror" : true, "color" : [0.12,0.12,0.13], "mat" : "STEEL", "purchased" : true, "stand" : true,
+      "ops" : [
+        [1,"cyl",[188.2,78,70],[212.01,78,70],4],
+        [1,"cyl",[212,78,70],[224,78,70],15]] }
     ];
 }

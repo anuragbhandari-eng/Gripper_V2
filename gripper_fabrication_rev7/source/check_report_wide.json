@@ -270,6 +270,36 @@
    "nsolids": 1,
    "vol": 113.1
   },
+  "StandClamp_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 52289.7
+  },
+  "StandClamp_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 52289.7
+  },
+  "StandClampPad_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2540.1
+  },
+  "StandClampPad_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 2540.1
+  },
+  "StandKnob_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 9678.6
+  },
+  "StandKnob_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 9678.6
+  },
   "Standoff_R_U": {
    "valid": true,
    "nsolids": 1,

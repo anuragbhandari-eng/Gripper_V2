@@ -8,6 +8,7 @@ def orient(shape, how):
     if how == 'flip_x': s = s.rotate((0, 0, 0), (1, 0, 0), 180)
     if how == 'front_down': s = s.rotate((0, 0, 0), (0, 1, 0), 90)
     if how == 'side_py_down': s = s.rotate((0, 0, 0), (1, 0, 0), -90)
+    if how == 'side_my_down': s = s.rotate((0, 0, 0), (1, 0, 0), 90)
     if how == 'rear_down': s = s.rotate((0, 0, 0), (0, 1, 0), -90)
     bb = s.BoundingBox()
     return s.translate((-(bb.xmin+bb.xmax)/2, -(bb.ymin+bb.ymax)/2, -bb.zmin))
@@ -33,6 +34,9 @@ PRINT = [  # file, ops, orientation, qty, note
     ('19_EncoderPuck', D.enc_puck(), 'rear_down', 1, 'magnet pocket up; glue to the screw end'),
     ('20_Stand_HeadBracket', D.stand_bracket(), 'rear_down', 1, 'bench stand; back face on bed, nut pockets and column hole open upward'),
     ('21_Stand_Base', D.stand_base(), 'front_down', 1, 'bench stand; table face on bed, column socket up'),
+    ('22_Stand_DeskClamp_A', D.desk_clamp(), 'side_my_down', 1, 'desk clamp; lying on its side, nut slot up, 100% infill at the corners'),
+    ('23_Stand_DeskClamp_B_mirrored', mirror_ops(D.desk_clamp()), 'side_py_down', 1, 'mirror of 22'),
+    ('24_Stand_ClampPad', D.clamp_pad(), 'rear_down', 2, 'desk side down; stick felt on it'),
 ]
 info = []
 for fn, ops, how, qty, note in PRINT:

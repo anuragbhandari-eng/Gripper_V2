@@ -289,6 +289,8 @@ def plate_outline():
 MW_BOLT_Y = 26.0; MW_BOLT_X = (X_WALL0 + X_WALL1)/2
 BLK_BOLT = (X_BLK0 + 5.0, 16.0)   # rev 7: on ears at the rear of the block (rev 6 had them at the front, where the encoder board now sits)
 BLK_EAR_R = 4.0                    # ear 1 mm in front of the open-stop face, >= 2.3 mm from the O2 crank bosses
+LOC_PIN = (X_BLK0 + 2.45, 11.0, 8.0)   # rev 7.1 (review item 12): 2x Ø3 x 16 dowels register the base and cover halves of
+                                       # the bearing block (split 608 seat); pressed into the base half, slip in the cover
 BLK_HW = 13.5   # 2.47 mm wall round the 608
 BLK_FRONT_R = 6.0   # rev 6: R6 front corners keep >= 1.3 mm from the front cranks at full close (block is 4.5 mm longer)
 def block_loop():
@@ -317,6 +319,10 @@ def _common_ground(lower):
     for sgn in (1, -1):   # rev 7: block-bolt ears
         ear = hull_circles([((BLK_BOLT[0], sgn*BLK_BOLT[1]), BLK_EAR_R), ((BLK_BOLT[0], sgn*(BLK_HW - BLK_EAR_R)), BLK_EAR_R)])
         ops.append(('add', ('ext', ear, -0.01, Z_S) if lower else ('ext', ear, Z_S, Z_C0 + 0.01)))
+    for sgn in (1, -1):   # rev 7.1: locating pins across the block split (press in the base, slip in the cover)
+        px, py, ph = LOC_PIN
+        ops.append(('cut', ('cyl', (px, sgn*py, Z_S - ph - 0.3), (px, sgn*py, Z_S + 0.01), 1.45)) if lower else
+                   ('cut', ('cyl', (px, sgn*py, Z_S - 0.01), (px, sgn*py, Z_S + ph + 0.3), 1.55)))
     # posts (on base, rising to cover)
     if lower:
         for sgn in (1, -1):
@@ -419,6 +425,9 @@ def as5600():   # AS5600 module, simplified: 23 x 23 board, SOIC-8 chip facing t
             ('add', ('box', (X_CHIP, -2.5, Z_S - 3.0), (X_PCB0 + 0.01, 2.5, Z_S + 3.0)))]
 def dowel(c, sgn):
     return [('add', ('cyl', (c[0], sgn*c[1], DOW_Z[0]), (c[0], sgn*c[1], DOW_Z[1]), 2.0))]   # ISO 8734 4 x 36
+def loc_pin():   # Ø3 x 16 dowel (ISO 8734) across the bearing-block split, +y side
+    px, py, ph = LOC_PIN
+    return [('add', ('cyl', (px, py, Z_S - ph), (px, py, Z_S + ph), 1.5))]
 def sleeve(c):   # bronze sleeve 4 x 6 x 6 on the dowel top, bonded into the cover (local: +y side)
     return [('add', ('cyl', (c[0], c[1], Z_C0), (c[0], c[1], Z_C0 + SLV_L), SLV_RO)),
             ('cut', ('cyl', (c[0], c[1], Z_C0 - 1), (c[0], c[1], Z_C0 + SLV_L + 1), SLV_RI))]
@@ -573,7 +582,7 @@ def pose(th, wide=None):
                     ('Protoboard', protoboard()), ('Pico', pico()), ('TMC2209', tmc2209()), ('Buck', buck()),
                     ('StandBracket', stand_bracket()), ('StandBase', stand_base()), ('Column', column()), ('Battery', battery())):
         parts[nm] = (ops, np.eye(4))
-    add('Sleeve_O1', sleeve(O1), np.eye(4)); add('Sleeve_O2', sleeve(O2), np.eye(4))
+    add('Sleeve_O1', sleeve(O1), np.eye(4)); add('Sleeve_O2', sleeve(O2), np.eye(4)); add('LocPin', loc_pin(), np.eye(4))
     add('Standoff_R', standoff(CTRL_C[0] - CTRL_HOLE[0]), np.eye(4)); add('Standoff_F', standoff(CTRL_C[0] + CTRL_HOLE[0]), np.eye(4))
     for nm, seat, ax, ln, frame in FASTENERS:
         add(nm, button_screw(seat, ax, ln), Tm(np.eye(3), (C[0], 0, 0)) if frame == 'car' else np.eye(4))

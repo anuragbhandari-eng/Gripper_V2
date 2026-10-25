@@ -20,6 +20,7 @@ bom = [
  ('P12', 'Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)', 1, 'Behind the 608, against its inner ring: takes the screw reaction when gripping'),
  ('P4', 'Dowel pin ISO 8734 / DIN 6325, D4 m6 x 36, hardened', 4, 'Fixed pivots O1, O2 (press into base)'),
  ('P27', 'Sintered bronze sleeve bushing 4 x 6 x 6 mm + slow-cure epoxy + paste wax', 4, 'Bonded into the cover round the dowel tops (rev 7.1)'),
+ ('P28', 'Dowel pin ISO 8734, D3 m6 x 16', 2, 'Register the base and cover halves of the bearing block (press into the base half)'),
  ('P5', 'Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (e.g. Bambu Lab AA123)', 8, 'Moving pivots F1, F2, D, C x2 sides'),
  ('P6', 'M3 heat-set insert, M3 x 5.7, for D4.0 hole', 22, 'Buy 25 (rev 7: +4 in the finger tongues)'),
  ('P7', 'M3 x 8 button head screw ISO 7380', 12, '4 motor (3.5 mm into the motor), 2 cover-to-post, 2 nut flange (self-tap into D2.5 pilots), 4 side walls to adapter'),
@@ -133,7 +134,7 @@ A('- Print orientation (no supports): links and fingers 0 mm² overhang; base, c
 A('| Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |\n|---|---|---|---|---|')
 for p in PARTS: A(f'| {p["file"]} | {p["qty"]} | {p["volume_cm3"]} | {" × ".join(map(str, p["bbox_mm"]))} | {p["orientation"]}: {p["note"]} |')
 A(f'\n**Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in {D.MAT} on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
-A('\nPrint settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).\n')
+A('\nPrint settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base and cover; check the base, cover and stand base on a flat surface (glass) before assembly and reprint any that rock, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).\n')
 A('## 7. Onshape\n')
 O7 = json.load(open('results_onshape_rev7.json'))
 A(f'**Status (rev 7, {O7["date"]}):** the v2 design is in the Onshape document **GripperV2** ({O7["document"]["url"]}), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.\n')
@@ -185,7 +186,7 @@ A('- Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any
 A('## 8. Assembly sequence\n')
 for i, s_ in enumerate([
  'Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2), Finger tongues (2 each). Base: 2 motor-wall joint, 2 bearing-block ears, 2 posts. Adapter: 4 side holes. Cover top: 4 for the controller standoffs.',
- 'Press the 4 dowels into the base (O1, O2 both sides; 6.5 mm deep, square to the plate). Wax the top 8 mm of each dowel (release) and slide a bronze sleeve onto each.',
+ 'Press the 2 Ø3 locating pins into the bearing-block half of the base (8 mm deep). Press the 4 dowels into the base (O1, O2 both sides; 6.5 mm deep, square to the plate). Wax the top 8 mm of each dowel (release) and slide a bronze sleeve onto each.',
  'Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to %.1f mm -0.5/+0 from the motor face, so its end sits %.0f mm inside the 608 bore (never longer: the encoder puck fills the rest). Chamfer, clean and grease it.' % (D.SCREW_LEN, D.ENC_CUT),
  'Slide the nut into the carriage from the front: body into the bore, flange into the front recess, two flange holes at 3 and 9 o\'clock. Fit 2× M3×8 button heads into the Ø2.5 pilots, snug only.',
  'Spin the carriage onto the motor screw from its rear. Slide the lock collar on (set screw loose), then the 608ZZ onto the screw tip.',

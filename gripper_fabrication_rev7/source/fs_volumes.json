@@ -1,6 +1,6 @@
 {
- "Base": 106965.0,
- "Cover": 90619.3,
+ "Base": 106855.4,
+ "Cover": 90494.0,
  "Adapter ISO9409-50": 37945.9,
  "Carriage": 20162.4,
  "BellCrank Lower": 5517.5,
@@ -45,6 +45,7 @@
  "Buck 5V MP1584": 1559.5,
  "Bushing 4x6x6 O1": 94.2,
  "Bushing 4x6x6 O2": 94.2,
+ "Dowel 3x16 block": 113.1,
  "Stand head bracket": 137357.4,
  "Stand base": 256297.5,
  "Extrusion 2020 x 400": 159914.2,

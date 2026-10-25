@@ -153,12 +153,12 @@
   "Base": {
    "valid": true,
    "nsolids": 1,
-   "vol": 106965.0
+   "vol": 106855.4
   },
   "Cover": {
    "valid": true,
    "nsolids": 1,
-   "vol": 90619.3
+   "vol": 90494.0
   },
   "Adapter": {
    "valid": true,
@@ -259,6 +259,16 @@
    "valid": true,
    "nsolids": 1,
    "vol": 94.2
+  },
+  "LocPin_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 113.1
+  },
+  "LocPin_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 113.1
   },
   "Standoff_R_U": {
    "valid": true,

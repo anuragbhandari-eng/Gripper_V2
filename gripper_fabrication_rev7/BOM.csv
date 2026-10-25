@@ -1,6 +1,6 @@
 ID,Item,Qty,Note
-PRINT,01_Base (ABS),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 106.97 cm3"
-PRINT,02_Cover (ABS),1,flat top face on bed; orientation flip_x; 90.62 cm3
+PRINT,01_Base (ABS),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 106.86 cm3"
+PRINT,02_Cover (ABS),1,flat top face on bed; orientation flip_x; 90.49 cm3
 PRINT,03_Adapter_ISO9409-50-4-M6 (ABS),1,"gripper-side face on bed, spigot up; orientation front_down; 37.95 cm3"
 PRINT,04_Carriage (ABS),1,"rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots; orientation rear_down; 20.16 cm3"
 PRINT,05_BellCrank_Lower_A (ABS),1,spacer boss up; orientation flat; 5.52 cm3
@@ -26,6 +26,7 @@ P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust in
 P12,"Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)",1,"Behind the 608, against its inner ring: takes the screw reaction when gripping"
 P4,"Dowel pin ISO 8734 / DIN 6325, D4 m6 x 36, hardened",4,"Fixed pivots O1, O2 (press into base)"
 P27,Sintered bronze sleeve bushing 4 x 6 x 6 mm + slow-cure epoxy + paste wax,4,Bonded into the cover round the dowel tops (rev 7.1)
+P28,"Dowel pin ISO 8734, D3 m6 x 16",2,Register the base and cover halves of the bearing block (press into the base half)
 P5,"Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (e.g. Bambu Lab AA123)",8,"Moving pivots F1, F2, D, C x2 sides"
 P6,"M3 heat-set insert, M3 x 5.7, for D4.0 hole",22,Buy 25 (rev 7: +4 in the finger tongues)
 P7,M3 x 8 button head screw ISO 7380,12,"4 motor (3.5 mm into the motor), 2 cover-to-post, 2 nut flange (self-tap into D2.5 pilots), 4 side walls to adapter"

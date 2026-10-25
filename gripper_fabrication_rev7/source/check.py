@@ -26,6 +26,7 @@ def common(a, b):
     c = BRepAlgoAPI_Common(a, b); c.Build(); return vol(c.Shape())
 
 ALLOW = {('Base', 'Dowel'): 5.0,    # press fit interference allowed (mm^3)
+         ('Base', 'LocPin'): 5.0,   # rev 7.1: block locating pins, press fit in the base half
          ('Motor', 'BHS_Motor'): 60.0,   # M3 thread engaged in the motor's tapped holes (modelled at major dia.)
          ('Carriage', 'BHN_Nut'): 60.0}  # M3 self-tapped into the D2.5 pilots
 def allowed(a, b, v):

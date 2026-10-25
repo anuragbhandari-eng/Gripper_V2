@@ -232,7 +232,7 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 6. Driver current is computed in `structural.py` (lowest 0.05 A step that meets the 25 N grip target).
 7. Found and fixed: `prims.mirror_ops` mirrored `extx` profiles in z instead of y (first used by the pad dovetail).
 
-**Resume point (2026-10-24, usage ran out):** an independent senior-engineer design review was started as a background agent. If its report isn't in the chat, re-run it from `docs/REVIEW_BRIEF.md`, spot-check its main claims, and give Anurag the list. Later fix (commit 71eec9e): the Pico, buck and TMC2209 now include their header strips, so they no longer float above the protoboard. Nothing is pushed; ask before pushing `v2/handoff-decisions`.
+**Resume point (2026-10-24):** the independent senior-engineer design review is done: `docs/DESIGN_REVIEW_2026-10-24.md` (39 items; the critical one is the tip-block tongue joint). Next: Anurag picks which items to fix. Later fix (commit 71eec9e): the Pico, buck and TMC2209 now include their header strips, so they no longer float above the protoboard. Nothing is pushed; ask before pushing `v2/handoff-decisions`.
 
 **Still open (for Anurag):**
 - Print `13_FitTest_coupons.stl` in ABS at the fablab and report the fits; retune `R_RUN`, `R_SNUG`, the 608 seat etc. from the results.

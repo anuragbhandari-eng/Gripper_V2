@@ -15,7 +15,7 @@ Design work for version 2 of a lead-screw-driven parallel gripper: a parametric 
 | `gripper_fabrication_rev6/DESIGN_REPORT.md` | Rev 6 design and validation report |
 | `gripper_fabrication_rev6/HANDOFF.md` | Rev 6 history and the regenerate-after-a-change pipeline |
 | `gripper_fabrication_rev6/onshape/LeadScrewGripper.fs` | Generated FeatureScript for Onshape |
-| `gripper_fabrication_rev7/` | v2 work (created in step 1 of the handoff) |
+| `gripper_fabrication_rev7/` | v2 design (rev 7): source, results, report, BOM, Onshape captures. Start with its `DESIGN_REPORT.md` |
 
 STL, STEP and build-guide images aren't stored. Regenerate them with `export.py` (run it before `fit_coupons.py`) and `guide_render.py`.
 

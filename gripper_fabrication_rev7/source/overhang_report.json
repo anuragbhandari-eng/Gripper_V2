@@ -1,0 +1,337 @@
+{
+ "01_Base.stl": {
+  "overhang45_mm2": 90.4,
+  "flat_down_groups_top3": [
+   [
+    16.1,
+    8.7,
+    [
+     1.0,
+     66.3
+    ]
+   ],
+   [
+    5.5,
+    4.6,
+    [
+     4.5,
+     31.5
+    ]
+   ],
+   [
+    14.7,
+    3.9,
+    [
+     0.5,
+     56.6
+    ]
+   ]
+  ]
+ },
+ "02_Cover.stl": {
+  "overhang45_mm2": 267.3,
+  "flat_down_groups_top3": [
+   [
+    3.2,
+    126.6,
+    [
+     74.2,
+     123.1
+    ]
+   ],
+   [
+    6.5,
+    50.2,
+    [
+     48.0,
+     68.0
+    ]
+   ],
+   [
+    16.1,
+    8.7,
+    [
+     1.0,
+     66.3
+    ]
+   ]
+  ]
+ },
+ "03_Adapter_ISO9409-50-4-M6.stl": {
+  "overhang45_mm2": 289.8,
+  "flat_down_groups_top3": [
+   [
+    8.0,
+    209.4,
+    [
+     45.9,
+     45.9
+    ]
+   ],
+   [
+    9.0,
+    13.0,
+    [
+     13.0,
+     48.6
+    ]
+   ]
+  ]
+ },
+ "04_Carriage.stl": {
+  "overhang45_mm2": 114.1,
+  "flat_down_groups_top3": [
+   [
+    16.0,
+    12.2,
+    [
+     18.2,
+     50.4
+    ]
+   ]
+  ]
+ },
+ "05_BellCrank_Lower_A.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "06_BellCrank_Lower_B_mirrored.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "07_BellCrank_Upper.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "08_FrontCrank_Lower.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "09_FrontCrank_Upper.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "10_ConRod.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "11_Finger_A.stl": {
+  "overhang45_mm2": 25.1,
+  "flat_down_groups_top3": [
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
+ },
+ "12_Finger_B_mirrored.stl": {
+  "overhang45_mm2": 25.1,
+  "flat_down_groups_top3": [
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
+ },
+ "13_FitTest_coupons.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "13b_FitTest_rev7.stl": {
+  "overhang45_mm2": 123.2,
+  "flat_down_groups_top3": [
+   [
+    8.0,
+    55.9,
+    [
+     10.2,
+     11.8
+    ]
+   ],
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ],
+   [
+    6.5,
+    25.1,
+    [
+     11.0,
+     5.2
+    ]
+   ]
+  ]
+ },
+ "13c_FitTest_pad_TPU95A.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "14_TipBlock_Narrow_A.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ]
+  ]
+ },
+ "15_TipBlock_Narrow_B_mirrored.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ]
+  ]
+ },
+ "16_TipBlock_Wide_A.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ]
+  ]
+ },
+ "17_TipBlock_Wide_B_mirrored.stl": {
+  "overhang45_mm2": 42.2,
+  "flat_down_groups_top3": [
+   [
+    1.8,
+    42.2,
+    [
+     13.2,
+     7.4
+    ]
+   ]
+  ]
+ },
+ "18_Pad_TPU95A.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "19_EncoderPuck.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ },
+ "20_Stand_HeadBracket.stl": {
+  "overhang45_mm2": 274.5,
+  "flat_down_groups_top3": [
+   [
+    21.0,
+    223.6,
+    [
+     47.1,
+     45.6
+    ]
+   ],
+   [
+    24.7,
+    4.8,
+    [
+     5.8,
+     0.8
+    ]
+   ],
+   [
+    10.7,
+    4.8,
+    [
+     5.8,
+     0.8
+    ]
+   ]
+  ]
+ },
+ "21_Stand_Base.stl": {
+  "overhang45_mm2": 100.5,
+  "flat_down_groups_top3": [
+   [
+    4.5,
+    42.7,
+    [
+     9.2,
+     9.2
+    ]
+   ],
+   [
+    20.7,
+    9.3,
+    [
+     0.7,
+     34.0
+    ]
+   ]
+  ]
+ },
+ "22_Stand_DeskClamp_A.stl": {
+  "overhang45_mm2": 60.1,
+  "flat_down_groups_top3": [
+   [
+    19.2,
+    5.5,
+    [
+     12.0,
+     1.1
+    ]
+   ],
+   [
+    10.2,
+    4.2,
+    [
+     3.5,
+     1.2
+    ]
+   ]
+  ]
+ },
+ "23_Stand_DeskClamp_B_mirrored.stl": {
+  "overhang45_mm2": 60.1,
+  "flat_down_groups_top3": [
+   [
+    19.2,
+    5.5,
+    [
+     12.0,
+     1.1
+    ]
+   ],
+   [
+    10.2,
+    4.2,
+    [
+     3.5,
+     1.2
+    ]
+   ]
+  ]
+ },
+ "24_Stand_ClampPad.stl": {
+  "overhang45_mm2": 0.0,
+  "flat_down_groups_top3": []
+ }
+}

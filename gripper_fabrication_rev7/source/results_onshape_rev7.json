@@ -1,0 +1,82 @@
+{
+ "date": "2026-10-24 (rev 7.1 after the design review)",
+ "document": {
+  "name": "GripperV2",
+  "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
+  "workspace": "68767ad57d3e567f86546d97",
+  "feature_studio": "fde66efd92d58004e5d8d280",
+  "part_studio": "f5d5018b17c7abc84df66214",
+  "assembly_1": "b8167d0fe4641b107965a991"
+ },
+ "feature_studio": {
+  "source": "onshape/LeadScrewGripper.fs",
+  "chars": 44356,
+  "sha256_first16": "2247dc24e097f38b",
+  "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
+ },
+ "part_studio": {
+  "parts": 84,
+  "feature_status": "INFO (the pad-to-pad gap readout)",
+  "dialog": {
+   "gap": "30 mm",
+   "tipSet": "NARROW",
+   "purchased": true,
+   "stand": true
+  },
+  "volumes_vs_local_max_diff_mm3": 1.22,
+  "volumes_worst": "Base",
+  "wide_set_check": {
+   "tip_block_mm3": 10133.8,
+   "pad_mm3": 1710.4,
+   "local": [
+    10133.8,
+    1710.4
+   ],
+   "parts": 78,
+   "note": "tipSet switched to WIDE, checked, switched back to NARROW"
+  }
+ },
+ "assembly_1": {
+  "instances": 84,
+  "features": 21,
+  "features_ok": 21,
+  "groups_added": [
+   "Finger U + tip",
+   "Finger L + tip"
+  ],
+  "frame_fixed_members": 52,
+  "slider": {
+   "open_-20.83mm": {
+    "carriage_mm": 20.83,
+    "finger_U_y_mm": 18.0
+   },
+   "closed_+11.2mm": {
+    "carriage_mm": -11.2,
+    "finger_U_y_mm": -15.0
+   },
+   "left_at_mm": 0
+  },
+  "tip_parts_follow_fingers": true,
+  "static_new_parts_follow_base": true,
+  "note": "Found at +11.2 mm (not 0) before this update and reset to 0. Putting the rev 7.1 specs before the stand specs shifted the stand part ids and broke 4 instances; fixed by appending them after the stand, then re-inserting the 6 new instances.",
+  "rev71_added": [
+   "Bushing 4x6x6 O1/O2 U/L",
+   "Dowel 3x16 block U/L"
+  ],
+  "desk_clamps_added": [
+   "Stand desk clamp U/L",
+   "Stand clamp pad U/L",
+   "Knob screw M8x40 U/L"
+  ]
+ },
+ "robot_export_assembly": "unchanged; it is the ROS 2 export assembly and does not include the v2 tip parts yet",
+ "images": [
+  "images/onshape_v2_assembly_iso.png",
+  "images/onshape_v2_assembly_top.png",
+  "images/onshape_v2_partstudio_iso.png",
+  "images/onshape_v2_assembly_front.png"
+ ],
+ "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK.",
+ "onshape_interference_gap30": "evCollision over all 84 bodies (0 MCP requests): only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
+ "featurescript_mcp_requests": 0
+}

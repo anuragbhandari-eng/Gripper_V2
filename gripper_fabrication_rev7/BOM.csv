@@ -30,7 +30,7 @@ P1,"NEMA 17 stepper with integrated Tr8x8 lead screw (4 start, 8 mm lead) and br
 P2,"Tr8x8 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16; check on the listing) - usually supplied with P1",1,
 P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust into the block front lip
 P12,"Shaft lock collar, 8 mm bore, OD <= 14 mm, width <= 7 mm, with set screw (e.g. OpenBuilds T8 lock collar)",1,"Behind the 608, against its inner ring: takes the screw reaction when gripping"
-P4,"Dowel pin D4 x 40, hardened bearing steel, +/-0.02 mm (modelled as ISO 8734 4 x 36; Amazon US has no hardened 4 x 36)",4,"Fixed pivots O1, O2: press 6.5 mm into the base as modelled; the top then stands 4.5 mm above the cover, outside the controller board (checked against the model, no contact). Grind flush if you prefer"
+P4,"Dowel pin D4 x 40, hardened bearing steel, +/-0.02 mm (Amazon US has no hardened 4 x 36)",4,"Fixed pivots O1, O2: press 6.5 mm into the base as modelled; the top then stands 4 mm above the cover, outside the controller board (checked against the model, no contact). Grind flush if you prefer"
 P27,Sintered bronze sleeve bushing 4 x 6 x 6 mm + slow-cure epoxy + paste wax,4,Bonded into the cover round the dowel tops (rev 7.1)
 P28,Locating pin D3 x 16: an M3 x 16 button screw from the kit with the head cut off (cost cut; replaces an ISO 8734 3 x 16 dowel),2,"Register the base and cover halves of the bearing block: screw into the base half, cover half slides on"
 P5,"Shoulder screw, 4 mm shoulder x 12 mm, M3 thread <= 6 mm, head <= D7.5 x 3.5 (bought: MECCANIXITY 304 stainless, M3 x 6 thread, head D7 x 3)",8,"Moving pivots F1, F2, D, C x2 sides"

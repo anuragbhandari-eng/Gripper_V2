@@ -168,7 +168,7 @@
   "Motor": {
    "valid": true,
    "nsolids": 1,
-   "vol": 70613.7
+   "vol": 68340.3
   },
   "LeadScrew": {
    "valid": true,
@@ -215,10 +215,20 @@
    "nsolids": 1,
    "vol": 1777.9
   },
-  "Buck": {
+  "Regulator": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1559.5
+   "vol": 633.7
+  },
+  "Cap100": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 603.2
+  },
+  "PDTrigger": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 594.3
   },
   "StandBracket": {
    "valid": true,
@@ -235,10 +245,10 @@
    "nsolids": 1,
    "vol": 159914.2
   },
-  "Battery": {
+  "PowerBank": {
    "valid": true,
    "nsolids": 1,
-   "vol": 34596.0
+   "vol": 148800.0
   },
   "Sleeve_O1_U": {
    "valid": true,
@@ -300,25 +310,45 @@
    "nsolids": 1,
    "vol": 9678.6
   },
-  "Standoff_R_U": {
+  "Spacer_R_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 146.8
   },
-  "Standoff_R_L": {
+  "Spacer_R_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 146.8
   },
-  "Standoff_F_U": {
+  "Spacer_F_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 146.8
   },
-  "Standoff_F_L": {
+  "Spacer_F_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 146.8
+  },
+  "BHC_Ctrl_R_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHC_Ctrl_R_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHC_Ctrl_F_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
+  },
+  "BHC_Ctrl_F_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 151.0
   },
   "BHS_Motor_Base_U": {
    "valid": true,
@@ -403,22 +433,22 @@
   "Dowel_O1_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 502.7
   },
   "Dowel_O1_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 502.7
   },
   "Dowel_O2_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 502.7
   },
   "Dowel_O2_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 502.7
   }
  },
  "hits": {}

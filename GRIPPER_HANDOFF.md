@@ -218,10 +218,10 @@ Every part must be one valid solid, with zero collisions over all poses and prin
 
 Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full numbers: `gripper_fabrication_rev7/DESIGN_REPORT.md` (section 1a has the v2 summary and the Pico wiring table). Onshape record: `rev7/source/results_onshape_rev7.json`.
 
-- **Checks:** 72 valid parts, 0 collisions over 41 poses for both tip sets (`check.py 41`; run `GRIPPER_TIPSET=wide python3 check.py 41` for the wide set, which writes `*_wide.json`). Only intended contacts under 0.8 mm.
+- **Checks:** 90 valid parts (model shows what is bought, 2026-10-25), 0 collisions over 41 poses for both tip sets (`check.py 41`; run `GRIPPER_TIPSET=wide python3 check.py 41` for the wide set, which writes `*_wide.json`). Only intended contacts under 0.8 mm.
 - **Structure (ABS 30 MPa, 200 N screw-force limit, far-tip grip at the 66 mm stop):** min SF 1.7 (finger bore and boss at F2, tip screws). At the 60 mm firmware cap these rows are 1.81× higher (≥ 3.0). Tongue alone carries the seam moment at SF 2.7. Fasteners min SF 2.3.
-- **Drive:** Tr8x8, driver 0.70 A RMS (stall 78–110 N), grip ≥ 26.8 N per jaw, 400 steps/mm, full stroke 0.4 s, not self-locking.
-- **Onshape `GripperV2`:** Feature Studio updated (rev 7.1 with desk clamps: SHA-256 `2247dc24e097f38b`, 84 parts), 72 parts within 1.3 mm³ of local, dialog has Tip set + Include bench stand. Assembly 1: 72 instances, 21/21 features OK, new groups "Finger U + tip" / "Finger L + tip", slider verified at both limits, left at 0. FeatureScript MCP requests used: 0.
+- **Drive:** Tr8x8, driver 0.70 A RMS, grip ≥ 26 N per jaw, 400 steps/mm, 300 rpm cap on 9 V (full stroke 0.8 s), not self-locking.
+- **Onshape `GripperV2`:** Feature Studio updated 2026-10-25 to the as-bought model (SHA-256 `e7a058480f88bf76`, 90 parts: YEJMKJ motor, 4×40 dowels, printed controller spacers + M3×16, 7805, 100 µF, USB-C trigger, power bank on the desk), all 90 within 0.7 mm³ of local, dialog has Tip set + Include bench stand. Assembly 1: 90 instances (frame group 58), 21/21 features OK, new groups "Finger U + tip" / "Finger L + tip", slider verified at both limits, left at 0. FeatureScript MCP requests used: 0.
 
 **Calls made without asking (Anurag said not to stop for questions):**
 1. Tip joint: finger keeps a 20 mm tongue; tip block slides up onto it, 2× M3×16 from the top into inserts in the tongue. Pad: one TPU pad for both sets, 45° dovetail key sliding in from the rear.
@@ -245,7 +245,7 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 
 ## 7. Planned purchased parts (approximate, Amazon US)
 
-Superseded on 2026-10-24 by the actual cart: `docs/AMAZON_CART_2026-10-24.md` (31 items, $311.61 before tax, not ordered). Two substitutions: 4 × 40 hardened dowels (no 4 × 36 on Amazon US; they stand 4.5 mm proud of the cover, clear of everything) and 304 stainless shoulder screws (SF 12 in shear). The estimate below is kept for reference.
+Superseded on 2026-10-24 by the actual cart: `docs/AMAZON_CART_2026-10-24.md` (31 items, $311.61 before tax, not ordered). Two substitutions: 4 × 40 hardened dowels (no 4 × 36 on Amazon US; they stand 4 mm proud of the cover, clear of everything) and 304 stainless shoulder screws (SF 12 in shear). The estimate below is kept for reference.
 
 | Item | ~Cost |
 |---|---|

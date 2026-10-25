@@ -29,12 +29,12 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     ('FrontCrank Upper', D.fc_plate(False), 'fc', True, '[0.79,0.80,0.82]', D.MAT, False),
     ('ConRod', D.conrod(), 'rod', True, '[0.71,0.73,0.75]', D.MAT, False),
     ('Finger', D.finger(), 'finger', True, '[0.91,0.45,0.16]', D.MAT, False),
-    ('NEMA17 linear stepper 40mm', D.motor(), 'ground', False, '[0.13,0.14,0.15]', 'STEEL', True),
+    ('NEMA17 stepper YEJMKJ 42x38.7', D.motor(), 'ground', False, '[0.13,0.14,0.15]', 'STEEL', True),
     ('Tr8x%d lead screw (cut %.1fmm)' % (D.LEAD, D.SCREW_LEN), D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
     ('Tr8 brass flange nut', D.nut(), 'car', False, '[0.79,0.64,0.29]', 'BRASS', True),
     ('608ZZ bearing', D.bearing608(), 'ground', False, '[0.66,0.68,0.70]', 'STEEL', True),
-    ('Dowel 4x36 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
-    ('Dowel 4x36 O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x40 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x40 O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F1', D.shoulder_screw(), 'ssF1', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F2', D.shoulder_screw(), 'ssF2', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 D', D.shoulder_screw(), 'ssD', True, '[0.10,0.10,0.10]', 'STEEL', True),
@@ -58,26 +58,31 @@ SPEC += [  # rev 7 (C): encoder at the screw's front end
     ('AS5600 encoder board', D.as5600(), 'ground', False, '[0.10,0.28,0.62]', 'FR4', True)]
 SPEC += [  # rev 7 (D): controller on the cover top
     ('Protoboard 50x70', D.protoboard(), 'ground', False, '[0.16,0.42,0.22]', 'FR4', True),
-    ('Standoff M3x10 rear', D.standoff(D.CTRL_C[0] - D.CTRL_HOLE[0]), 'ground', True, '[0.80,0.70,0.35]', 'BRASS', True),
-    ('Standoff M3x10 front', D.standoff(D.CTRL_C[0] + D.CTRL_HOLE[0]), 'ground', True, '[0.80,0.70,0.35]', 'BRASS', True),
+    ('Controller spacer rear', D.spacer(D.CTRL_C[0] - D.CTRL_HOLE[0]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Controller spacer front', D.spacer(D.CTRL_C[0] + D.CTRL_HOLE[0]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
     ('Raspberry Pi Pico', D.pico(), 'ground', False, '[0.10,0.45,0.20]', 'FR4', True),
     ('TMC2209 driver', D.tmc2209(), 'ground', False, '[0.50,0.12,0.55]', 'FR4', True),
-    ('Buck 5V MP1584', D.buck(), 'ground', False, '[0.12,0.22,0.55]', 'FR4', True)]
+    ('Regulator 7805 TO-220', D.regulator(), 'ground', False, '[0.12,0.12,0.13]', 'FR4', True)]
 STAND = [  # rev 7 (F): bench stand, built when the dialog's "Include bench stand" is on
     ('Stand head bracket', D.stand_bracket(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
     ('Stand base', D.stand_base(), 'ground', False, '[0.24,0.26,0.29]', D.MAT, False),
     ('Extrusion 2020 x 400', D.column(), 'ground', False, '[0.76,0.77,0.79]', 'ALU', True),
-    ('LiPo 3S 650mAh', D.battery(), 'ground', False, '[0.16,0.16,0.18]', 'LIPO', True)]
+    ('USB-C PD power bank 10000mAh', D.power_bank(), 'ground', False, '[0.16,0.16,0.18]', 'PBANK', True)]
 SPEC += STAND
 SPEC += [  # rev 7.1, appended after the stand so existing part ids stay put (review item 3): bronze sleeves bonded into the cover hold the dowel tops
     ('Bushing 4x6x6 O1', D.sleeve(D.O1), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
     ('Bushing 4x6x6 O2', D.sleeve(D.O2), 'ground', True, '[0.72,0.55,0.30]', 'BRASS', True),
-    ('Dowel 3x16 block', D.loc_pin(), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True)]   # review item 12
+    ('Locating pin M3x16 headless', D.loc_pin(), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True)]   # review item 12
 CLAMP = [  # rev 7.1: desk clamps for the bench stand (stand parts), appended at the end so existing part ids stay put
     ('Stand desk clamp', D.desk_clamp(), 'ground', True, '[0.24,0.26,0.29]', D.MAT, False),
     ('Stand clamp pad', D.clamp_pad(), 'ground', True, '[0.24,0.26,0.29]', D.MAT, False),
     ('Knob screw M8x40', D.knob_screw(), 'ground', True, '[0.12,0.12,0.13]', 'STEEL', True)]
 SPEC += CLAMP
+SPEC += [  # what is really bought (2026-10-25), appended at the end so existing part ids stay put
+    ({'BHC_Ctrl_R': 'Button head M3x16 controller rear', 'BHC_Ctrl_F': 'Button head M3x16 controller front'}[nm],
+     D.button_screw(seat, ax, ln), 'ground', True, '[0.10,0.10,0.10]', 'STEEL', True) for nm, seat, ax, ln in D.CTRL_SCREWS] + [
+    ('Capacitor 100uF 35V', D.cap100(), 'ground', False, '[0.10,0.20,0.50]', 'FR4', True),
+    ('USB-C PD trigger 9V', D.pd_trigger(), 'ground', False, '[0.10,0.40,0.20]', 'FR4', True)]
 WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
               THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)
@@ -198,8 +203,8 @@ function dressPart(context is Context, q is Query, name is string, p is map)
         dens = 1.85;
     if (p.mat == "ALU")
         dens = 2.7;
-    if (p.mat == "LIPO")
-        dens = 1.8;
+    if (p.mat == "PBANK")
+        dens = 1.35;
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.MATERIAL, "value" : material(p.mat, dens * gram / centimeter ^ 3) });
 }
 

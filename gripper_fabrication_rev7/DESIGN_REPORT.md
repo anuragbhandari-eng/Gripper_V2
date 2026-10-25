@@ -12,7 +12,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Grip force per jaw | ≥ 26.0 N anywhere in range at 0.7 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×8 is back-drivable (lead angle 20.0°): the driver hold current keeps the grip; with power off the jaws can be pushed open |
 | Structure | Min safety factor 0.6 vs yield at a 200 N screw-force limit case (the motor clamps at 75–107 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 80.2 N per jaw) they are 3.4× higher: min SF 2.0 in use |
-| Motion check | 0 collisions over 41 poses (84 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
+| Motion check | 0 collisions over 41 poses (90 parts with the stand and electronics, 24 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
 | Printed volume | gripper with the narrow set 480 cm³ (~274 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 394 cm³ |
@@ -23,7 +23,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 - **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear and snaps past a step, so it cannot slide back out). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
 - **Trade-offs of the longer tips:** the gripper is 12 mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
-- **D, controller:** Pico + TMC2209 + battery divider on a 50 × 70 mm protoboard, on 4 printed spacers over heat-set inserts in the cover top. Runs on its own from the power bank (demo mode: the Pico BOOTSEL button opens and closes the jaws); USB serial to ROS 2 when a laptop is plugged in.
+- **D, controller:** Pico + TMC2209 (in sockets), 7805, motor-power divider, 100 µF and the USB-C trigger board on a 50 × 70 mm protoboard, on 4 printed spacers over heat-set inserts in the cover top. Runs on its own from the power bank (demo mode: the Pico BOOTSEL button opens and closes the jaws); USB serial to ROS 2 when a laptop is plugged in.
 - **A, drive:** Tr8×8 (lead 8 mm): 4.0 turns over the stroke, 400 steps/mm, 300 rpm max on the 9 V supply -> 40 mm/s -> full stroke 0.8 s. Driver 0.7 A RMS. Not self-locking.
 - **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base, clamped to the desk edge by 2 printed C-clamps with M8 star knobs (sized for a 40 mm edge, 24–49 mm range); unclamped, a few newtons at gripper height would tip it over. The power bank sits on the desk next to the base. Slide the bracket to set the height.
 - **Power:** USB-C PD power bank → 9 V trigger board → TMC2209 VM, the motor-power divider and a 7805 that feeds the Pico VSYS through a 1N5817, so one cable runs everything and the laptop is optional (USB can be plugged in at the same time). 9 V is offered by every PD bank and by USB-C laptop and phone chargers of 18 W and up, so any of them works. The bank protects itself and cuts out when empty; firmware disables the driver when the divider shows the 9 V is gone (9 V reads 1.91 V). Many banks switch off below about 50–100 mA: the driver stays enabled at hold current while powered (the back-drivable screw needs it to hold a grip anyway), which keeps the bank awake.
@@ -151,13 +151,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.88 N·m (×2 dynamic).
+Gripper mass 738 g (printed parts taken as solid, conservative), CG at x = -25 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.9 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.13 | 15.4 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 122.2 | 24.29 | 15.3 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 122.2 | 10.72 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 122.2 | 4.66 | 6.4 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 26.6 | 1.62 | 18.5 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 53.3 | 1.54 | 11.3 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 53.3 | 3.24 | 61.7 | CuZn yield ~200 MPa |
@@ -216,11 +216,11 @@ Print settings: ABS in an enclosed printer (a draft shield at minimum), part-coo
 
 ## 7. Onshape
 
-**Status (rev 7, 2026-10-24 (rev 7.1 after the design review)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
+**Status (rev 7, 2026-10-25 (rev 7.1, model updated to the parts being bought)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
 
-- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (44356 characters, SHA-256 2247dc24e097f38b…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
-- The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 84 parts; every volume is within 1.22 mm³ of the local model, and the wide set matches too.
-- Assembly 1: 84 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, tips follow the fingers; past the limit it clamps. Left at 0 (gap 30). Record: source/results_onshape_rev7.json.
+- Feature Studio 1 holds the rev 7 `LeadScrewGripper.fs` (45479 characters, SHA-256 e7a058480f88bf76…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
+- The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 90 parts; every volume is within 0.7 mm³ of the local model, and the wide set matches too.
+- Assembly 1: 90 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, tips follow the fingers; past the limit it clamps. Left at 0 (gap 30). Record: source/results_onshape_rev7.json.
 - Pictures: images/onshape_v2_assembly_iso.png, images/onshape_v2_assembly_top.png, images/onshape_v2_partstudio_iso.png. The "Robot export" assembly is unchanged (ROS 2 phase).
 
 **Rev 6 record (original document):**
@@ -290,14 +290,15 @@ Tighten every M3 to 0.15 N·m or less (snug with the short arm of the key). More
 ## 9. Assumptions, limits, verify before buying
 
 - Rigid links, quasi-static, equal load sharing between the two sides, Coulomb friction in the screw only (pivot friction lowers grip a few %; the current setting has margin).
-- Verify on receipt: motor body ≤ 40 mm (the adapter sits 1 mm behind it), pilot Ø22×2, M3 holes on 31 mm square; nut flange Ø22×3.5 and body Ø10.2 (edit NUT_* in design.py if different); shoulder-screw head ≤ Ø7.5×3.5 and thread ≤ 6 mm.
+- Verify on receipt: motor body ≤ 40 mm (the YEJMKJ is 38.7 mm, so the adapter sits 2.3 mm behind it), pilot Ø22×2, M3 holes on 31 mm square; nut flange Ø22×3.5 and body Ø10.2 (edit NUT_* in design.py if different); shoulder-screw head ≤ Ø7.5×3.5 and thread ≤ 6 mm.
 - Robot flange: I assumed a Ø31.5 H7 centring recess (spigot 31.44 × 3 mm) and the Ø6 pin on the PCD at +Z, between bolts. Check your robot drawing.
 - μ = 0.35 is kept as the design value. The TPU 95A pads typically give more (about 0.6–0.7), which roughly doubles the slip margin.
 - ABS creeps slowly under sustained clamp. For long holds, re-tighten with a short current pulse, or print the fingers and lower crank plates in PA-CF.
-- Motor connector: the adapter sits 1 mm behind the motor, so the cable must leave from a side face. Mount the motor with the connector facing up, through the cover's U-slot.
+- Motor connector: the adapter sits 2.3 mm behind the motor, so the cable must leave from a side face. Mount the motor with the connector facing up, through the cover's U-slot.
 - M6×12 puts 6 mm of thread into the robot flange. Check your flange's thread depth, and use a washer or modest torque on the ABS.
 - Thrust: the collar and the motor's internal bearing share the screw load in a way that depends on how the collar is set. Check the motor datasheet's axial load rating anyway, and don't preload the collar.
 - The jaws also move fore-aft: 16.5 mm in total over the stroke. They are furthest forward near a 15 mm gap and furthest back fully open (15.4 mm behind the closed position). That is inherent to this linkage; teach grasp poses at the gap you'll use.
-- Not modelled: wiring and connectors, zip ties, a limit switch (sensorless homing assumed), the stand T-nuts and M5/M6 hardware, the M3 screws through the controller board.
+- The model shows what is bought (2026-10-25): YEJMKJ motor (38.7 mm body), 4 × 40 dowels, headless M3 screws as block locating pins, printed controller spacers with their M3×16 screws, 7805, 100 µF capacitor, USB-C trigger board, and the power bank on the desk.
+- Not modelled: wiring and the USB-C cable, the 1N5817, resistors and small capacitors, heat-set inserts, zip ties, the stand T-nuts and M5/M6 hardware.
 - Wide tips: the F2 pivot boss, 3–14 mm behind the seam, sits about 1.9 mm proud of the wide pad face. Round objects never reach it; a flat object longer than the pads that reaches back past the seam would touch it. A 7 mm offset instead of 10 would clear it (gap 14–80 mm).
 - AS5600 module size: designed for 23 × 23 mm boards (most listings are 22–23 mm). The slot is 23.4 mm; the chip must be centred on the board, and parts on the chip side must sit within the 19.6 mm relief.

@@ -1,5 +1,5 @@
 {
- "date": "2026-10-24 (rev 7.1 after the design review)",
+ "date": "2026-10-25 (rev 7.1, model updated to the parts being bought)",
  "document": {
   "name": "GripperV2",
   "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
@@ -10,12 +10,12 @@
  },
  "feature_studio": {
   "source": "onshape/LeadScrewGripper.fs",
-  "chars": 44356,
-  "sha256_first16": "2247dc24e097f38b",
+  "chars": 45479,
+  "sha256_first16": "e7a058480f88bf76",
   "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
  },
  "part_studio": {
-  "parts": 84,
+  "parts": 90,
   "feature_status": "INFO (the pad-to-pad gap readout)",
   "dialog": {
    "gap": "30 mm",
@@ -23,8 +23,7 @@
    "purchased": true,
    "stand": true
   },
-  "volumes_vs_local_max_diff_mm3": 1.22,
-  "volumes_worst": "Base",
+  "volumes_vs_local_max_diff_mm3": 0.7,
   "wide_set_check": {
    "tip_block_mm3": 10133.8,
    "pad_mm3": 1710.4,
@@ -37,14 +36,14 @@
   }
  },
  "assembly_1": {
-  "instances": 84,
+  "instances": 90,
   "features": 21,
   "features_ok": 21,
   "groups_added": [
    "Finger U + tip",
    "Finger L + tip"
   ],
-  "frame_fixed_members": 52,
+  "frame_fixed_members": 58,
   "slider": {
    "open_-20.83mm": {
     "carriage_mm": 20.83,
@@ -78,5 +77,23 @@
  ],
  "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK.",
  "onshape_interference_gap30": "evCollision over all 84 bodies (0 MCP requests): only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
- "featurescript_mcp_requests": 0
+ "featurescript_mcp_requests": 0,
+ "as_bought_2026_10_25": {
+  "changed_parts": [
+   "NEMA17 stepper YEJMKJ 42x38.7 (body 38.7 mm, layout unchanged)",
+   "Dowel 4x40 O1/O2 (top 4 mm above the cover)",
+   "Locating pin M3x16 headless",
+   "Controller spacer (printed) x4",
+   "Regulator 7805 TO-220 (was the buck module)",
+   "USB-C PD power bank 10000mAh on the desk (was the LiPo on the column)"
+  ],
+  "new_instances": [
+   "Button head M3x16 controller rear U/L",
+   "Button head M3x16 controller front U/L",
+   "Capacitor 100uF 35V",
+   "USB-C PD trigger 9V"
+  ],
+  "checks": "part ids of the existing 84 parts unchanged; 6 new instances inserted with the slider at 0 and added to \"Frame (fixed)\"; all 90 Onshape volumes within 0.7 mm3 of the local model; slider at both limits: carriage +20.83 / -11.20 mm, finger U 18.00 / -15.00 mm, new parts stay with the frame; slider left at 0; 21/21 assembly features OK",
+  "local_checks": "90 parts, 0 collisions over 41 poses for both tip sets"
+ }
 }

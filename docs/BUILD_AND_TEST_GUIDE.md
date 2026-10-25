@@ -222,7 +222,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 ### D3. Pins, dowels and bushings
 
 1. **Locating pins:** cut the heads off two M3×16 screws. Screw them into the bearing-block half of the base, 8 mm deep.
-2. **Dowels:** press the 4 dowels (4 × 40) into the base at O1 and O2 on both sides, 6.5 mm deep and square to the plate. A bench vise with soft jaws works well. The tops will stand 4.5 mm above the cover later; that's expected.
+2. **Dowels:** press the 4 dowels (4 × 40) into the base at O1 and O2 on both sides, 6.5 mm deep and square to the plate. A bench vise with soft jaws works well. The tops will stand 4 mm above the cover later; that's expected.
 3. Smear wax or grease on the top 8 mm of each dowel. This stops the epoxy sticking to the dowel in D10. Then slide a bronze bushing onto each.
 
 - [ ] Pins and dowels in, bushings on

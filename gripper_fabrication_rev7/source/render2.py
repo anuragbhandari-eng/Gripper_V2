@@ -1,7 +1,7 @@
 import numpy as np, matplotlib, sys, os; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import design as D, render as R
-STAND = ('Stand', 'Column', 'Battery')
+STAND = ('Stand', 'Column', 'PowerBank')
 def scene(ax, th, hide=(), elev=28, azim=-55, title='', rot=None):
     allT, allC = [], []
     for n, (ops, M) in D.pose(th).items():
@@ -26,7 +26,7 @@ fig = plt.figure(figsize=(16, 11))
 scene(fig.add_subplot(2, 2, 1, projection='3d'), th(30), hide=STAND, title='Assembled, jaw gap 30 mm')
 scene(fig.add_subplot(2, 2, 2, projection='3d'), th(66), hide=('Cover',) + STAND, elev=55, azim=-70, title='Cover removed, fully open (66 mm)')
 scene(fig.add_subplot(2, 2, 3, projection='3d'), th(0), hide=('Cover',) + STAND, elev=55, azim=-70, title='Cover removed, closed (0 mm)')
-scene(fig.add_subplot(2, 2, 4, projection='3d'), th(30), hide=('Cover', 'Base', 'Adapter', 'Motor', 'Dowel', 'BHS_', 'AS5600', 'Protoboard', 'Pico', 'TMC2209', 'Buck', 'Standoff') + STAND, elev=35, azim=-125, title='Mechanism only (links, carriage, screw, nut, collar)')
+scene(fig.add_subplot(2, 2, 4, projection='3d'), th(30), hide=('Cover', 'Base', 'Adapter', 'Motor', 'Dowel', 'BHS_', 'AS5600', 'Protoboard', 'Pico', 'TMC2209', 'Regulator', 'Cap100', 'PDTrigger', 'BHC_', 'Spacer') + STAND, elev=35, azim=-125, title='Mechanism only (links, carriage, screw, nut, collar)')
 OUT = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'images', 'render_final.png')
 plt.tight_layout(); plt.savefig(OUT, dpi=75); print('wrote', OUT)
 # rev 7: the gripper on its bench stand, jaws down (gripper +x shown as down)

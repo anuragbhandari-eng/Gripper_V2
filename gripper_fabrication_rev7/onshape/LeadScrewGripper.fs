@@ -125,8 +125,8 @@ function dressPart(context is Context, q is Query, name is string, p is map)
         dens = 1.85;
     if (p.mat == "ALU")
         dens = 2.7;
-    if (p.mat == "LIPO")
-        dens = 1.8;
+    if (p.mat == "PBANK")
+        dens = 1.35;
     setProperty(context, { "entities" : q, "propertyType" : PropertyType.MATERIAL, "value" : material(p.mat, dens * gram / centimeter ^ 3) });
 }
 
@@ -406,9 +406,9 @@ function partSpecs() returns array
         [0,"cyl",[32.2712,-29.8824,5.5],[32.2712,-29.8824,15.1],2.1],
         [0,"cyl",[45.5,-19.9311,5.5],[45.5,-19.9311,13],2],
         [0,"cyl",[52.5,-21.1292,5.5],[52.5,-21.1292,13],2]] },
-    { "name" : "NEMA17 linear stepper 40mm", "kind" : "ground", "mirror" : false, "color" : [0.13,0.14,0.15], "mat" : "STEEL", "purchased" : true,
+    { "name" : "NEMA17 stepper YEJMKJ 42x38.7", "kind" : "ground", "mirror" : false, "color" : [0.13,0.14,0.15], "mat" : "STEEL", "purchased" : true,
       "ops" : [
-        [1,"extx",[-16.65,-10.85],[[0,16.65,-10.85],[0,21.15,-6.35],[0,21.15,26.95],[0,16.65,31.45],[0,-16.65,31.45],[0,-21.15,26.95],[0,-21.15,-6.35],[0,-16.65,-10.85]],-90.4867,-50.4867],
+        [1,"extx",[-16.65,-10.85],[[0,16.65,-10.85],[0,21.15,-6.35],[0,21.15,26.95],[0,16.65,31.45],[0,-16.65,31.45],[0,-21.15,26.95],[0,-21.15,-6.35],[0,-16.65,-10.85]],-89.1867,-50.4867],
         [1,"cyl",[-50.4967,0,10.3],[-48.4867,0,10.3],11],
         [0,"cyl",[-55.4867,15.5,25.8],[-49.4867,15.5,25.8],1.25],
         [0,"cyl",[-55.4867,-15.5,25.8],[-49.4867,-15.5,25.8],1.25],
@@ -430,12 +430,12 @@ function partSpecs() returns array
       "ops" : [
         [1,"cyl",[24.0475,0,10.3],[31.0475,0,10.3],11],
         [0,"cyl",[23.0475,0,10.3],[32.0475,0,10.3],4]] },
-    { "name" : "Dowel 4x36 O1", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
+    { "name" : "Dowel 4x40 O1", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
       "ops" : [
-        [1,"cyl",[0,50.9701,-6.5],[0,50.9701,29.5],2]] },
-    { "name" : "Dowel 4x36 O2", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
+        [1,"cyl",[0,50.9701,-6.5],[0,50.9701,33.5],2]] },
+    { "name" : "Dowel 4x40 O2", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
       "ops" : [
-        [1,"cyl",[32.2712,21.0876,-6.5],[32.2712,21.0876,29.5],2]] },
+        [1,"cyl",[32.2712,21.0876,-6.5],[32.2712,21.0876,33.5],2]] },
     { "name" : "Shoulder screw 4x12 M3 F1", "kind" : "ssF1", "mirror" : true, "color" : [0.10,0.10,0.10], "mat" : "STEEL", "purchased" : true,
       "ops" : [
         [1,"cyl",[0,0,1.8],[0,0,6.31],1.5],
@@ -560,16 +560,14 @@ function partSpecs() returns array
         [0,"cyl",[-23,32,38.5],[-23,32,42.5],1.6],
         [0,"cyl",[21,-32,38.5],[21,-32,42.5],1.6],
         [0,"cyl",[21,32,38.5],[21,32,42.5],1.6]] },
-    { "name" : "Standoff M3x10 rear", "kind" : "ground", "mirror" : true, "color" : [0.80,0.70,0.35], "mat" : "BRASS", "purchased" : true,
+    { "name" : "Controller spacer rear", "kind" : "ground", "mirror" : true, "color" : [0.29,0.32,0.35], "mat" : "ABS", "purchased" : false,
       "ops" : [
         [1,"cyl",[-23,32,29.5],[-23,32,39.5],2.75],
-        [1,"cyl",[-23,32,23.5],[-23,32,29.51],1.5],
-        [0,"cyl",[-23,32,33.5],[-23,32,40.5],1.25]] },
-    { "name" : "Standoff M3x10 front", "kind" : "ground", "mirror" : true, "color" : [0.80,0.70,0.35], "mat" : "BRASS", "purchased" : true,
+        [0,"cyl",[-23,32,28.5],[-23,32,40.5],1.7]] },
+    { "name" : "Controller spacer front", "kind" : "ground", "mirror" : true, "color" : [0.29,0.32,0.35], "mat" : "ABS", "purchased" : false,
       "ops" : [
         [1,"cyl",[21,32,29.5],[21,32,39.5],2.75],
-        [1,"cyl",[21,32,23.5],[21,32,29.51],1.5],
-        [0,"cyl",[21,32,33.5],[21,32,40.5],1.25]] },
+        [0,"cyl",[21,32,28.5],[21,32,40.5],1.7]] },
     { "name" : "Raspberry Pi Pico", "kind" : "ground", "mirror" : false, "color" : [0.10,0.45,0.20], "mat" : "FR4", "purchased" : true,
       "ops" : [
         [1,"box",[-24,-25.5,43.6],[-3,25.5,44.6]],
@@ -582,11 +580,12 @@ function partSpecs() returns array
         [1,"box",[6.1,8.2,51.2],[15.1,17.2,56.2]],
         [1,"box",[3,3,41.1],[5.54,23.32,49.61]],
         [1,"box",[15.7,3,41.1],[18.24,23.32,49.61]]] },
-    { "name" : "Buck 5V MP1584", "kind" : "ground", "mirror" : false, "color" : [0.12,0.22,0.55], "mat" : "FR4", "purchased" : true,
+    { "name" : "Regulator 7805 TO-220", "kind" : "ground", "mirror" : false, "color" : [0.12,0.12,0.13], "mat" : "FR4", "purchased" : true,
       "ops" : [
-        [1,"box",[1.5,-28,43.6],[23.5,-11,47.6]],
-        [1,"box",[1.73,-22,41.1],[4.27,-17,43.61]],
-        [1,"box",[20.73,-22,41.1],[23.27,-17,43.61]]] },
+        [1,"box",[16.6,-22,44.1],[21.1,-11.8,53.3]],
+        [1,"box",[21.09,-22,44.1],[22.4,-11.8,59.7]],
+        [1,"box",[18.4,-20.5,41.1],[19.2,-13.3,44.11]],
+        [0,"cyl",[20.6,-16.9,56.5],[23.1,-16.9,56.5],1.8]] },
     { "name" : "Stand head bracket", "kind" : "ground", "mirror" : false, "color" : [0.24,0.26,0.29], "mat" : "ABS", "purchased" : false, "stand" : true,
       "ops" : [
         [1,"extx",[-22,-60],[[0,22,-60],[1,24.8284,-58.8284,26,-56],[0,26,39.8],[1,24.8284,42.6284,22,43.8],[0,-22,43.8],[1,-24.8284,42.6284,-26,39.8],[0,-26,-56],[1,-24.8284,-58.8284,-22,-60]],-135.4867,-105.4867],
@@ -622,9 +621,9 @@ function partSpecs() returns array
     { "name" : "Extrusion 2020 x 400", "kind" : "ground", "mirror" : false, "color" : [0.76,0.77,0.79], "mat" : "ALU", "purchased" : true, "stand" : true,
       "ops" : [
         [1,"extx",[-9.5,-54],[[0,9.5,-54],[1,9.8536,-53.8536,10,-53.5],[0,10,-34.5],[1,9.8536,-34.1464,9.5,-34],[0,-9.5,-34],[1,-9.8536,-34.1464,-10,-34.5],[0,-10,-53.5],[1,-9.8536,-53.8536,-9.5,-54]],-263,137]] },
-    { "name" : "LiPo 3S 650mAh", "kind" : "ground", "mirror" : false, "color" : [0.16,0.16,0.18], "mat" : "LIPO", "purchased" : true, "stand" : true,
+    { "name" : "USB-C PD power bank 10000mAh", "kind" : "ground", "mirror" : false, "color" : [0.16,0.16,0.18], "mat" : "PBANK", "purchased" : true, "stand" : true,
       "ops" : [
-        [1,"box",[40,-15.5,-72],[102,15.5,-54]]] },
+        [1,"box",[121,105,-40],[145,167,60]]] },
     { "name" : "Bushing 4x6x6 O1", "kind" : "ground", "mirror" : true, "color" : [0.72,0.55,0.30], "mat" : "BRASS", "purchased" : true,
       "ops" : [
         [1,"cyl",[0,50.9701,22.1],[0,50.9701,28.1],3],
@@ -633,7 +632,7 @@ function partSpecs() returns array
       "ops" : [
         [1,"cyl",[32.2712,21.0876,22.1],[32.2712,21.0876,28.1],3],
         [0,"cyl",[32.2712,21.0876,21.1],[32.2712,21.0876,29.1],2]] },
-    { "name" : "Dowel 3x16 block", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
+    { "name" : "Locating pin M3x16 headless", "kind" : "ground", "mirror" : true, "color" : [0.86,0.86,0.86], "mat" : "STEEL", "purchased" : true,
       "ops" : [
         [1,"cyl",[18.9975,11,2.3],[18.9975,11,18.3],1.5]] },
     { "name" : "Stand desk clamp", "kind" : "ground", "mirror" : true, "color" : [0.24,0.26,0.29], "mat" : "ABS", "purchased" : false, "stand" : true,
@@ -651,6 +650,23 @@ function partSpecs() returns array
     { "name" : "Knob screw M8x40", "kind" : "ground", "mirror" : true, "color" : [0.12,0.12,0.13], "mat" : "STEEL", "purchased" : true, "stand" : true,
       "ops" : [
         [1,"cyl",[188.2,78,70],[212.01,78,70],4],
-        [1,"cyl",[212,78,70],[224,78,70],15]] }
+        [1,"cyl",[212,78,70],[224,78,70],15]] },
+    { "name" : "Button head M3x16 controller rear", "kind" : "ground", "mirror" : true, "color" : [0.10,0.10,0.10], "mat" : "STEEL", "purchased" : true,
+      "ops" : [
+        [1,"cyl",[-23,32,42.75],[-23,32,41.1],2.85],
+        [1,"cyl",[-23,32,41.11],[-23,32,25.1],1.5],
+        [0,"cyl",[-23,32,42.76],[-23,32,41.75],1.15]] },
+    { "name" : "Button head M3x16 controller front", "kind" : "ground", "mirror" : true, "color" : [0.10,0.10,0.10], "mat" : "STEEL", "purchased" : true,
+      "ops" : [
+        [1,"cyl",[21,32,42.75],[21,32,41.1],2.85],
+        [1,"cyl",[21,32,41.11],[21,32,25.1],1.5],
+        [0,"cyl",[21,32,42.76],[21,32,41.75],1.15]] },
+    { "name" : "Capacitor 100uF 35V", "kind" : "ground", "mirror" : false, "color" : [0.10,0.20,0.50], "mat" : "FR4", "purchased" : true,
+      "ops" : [
+        [1,"cyl",[19.5,-3,41.1],[19.5,-3,53.1],4]] },
+    { "name" : "USB-C PD trigger 9V", "kind" : "ground", "mirror" : false, "color" : [0.10,0.40,0.20], "mat" : "FR4", "purchased" : true,
+      "ops" : [
+        [1,"box",[3,-35,42.1],[15,-9,43.3]],
+        [1,"box",[4.5,-36.5,43.29],[13.5,-29.1,46.6]]] }
     ];
 }

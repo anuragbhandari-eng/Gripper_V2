@@ -38,7 +38,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | GP8 / GP9 (UART1) | TMC2209 PDN_UART (1 k in series on TX) |
 | GP0 / GP1 (I2C0) | AS5600 SDA / SCL |
 | GP26 (ADC0) | Battery divider 100 k / 27 k (12.6 V reads 2.68 V) |
-| 3V3 / GND | AS5600 VCC / GND, TMC2209 VIO / GND |
+| 3V3 / GND | AS5600 VCC / GND (DIR to GND), TMC2209 VIO / GND; 10 k from TMC2209 EN to VIO |
 | VSYS | 5 V buck output through the 1N5817 |
 
 ## 2. Mechanism and dimensions
@@ -90,6 +90,27 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 - **Set driver current to 0.7 A RMS** (for a 1.5 A / 0.4 N·m motor): screw force 77.6–109.8 N → grip ≥ 26.8 N per jaw, and stays below the 200 N structural limit even with a well-greased screw.
 - **Warning:** at full rated current the motor can push ~235 N, far above what the printed parts are sized for. The current limit is a safety item.
 - Speed: 600 rpm -> 80 mm/s -> full stroke 0.4 s. The Tr8×8 is not self-locking, so keep the hold current on while gripping (TMC2209 IHOLD); the AS5600 confirms the position after any slip.
+
+
+### 4a. Drive safety and grip control (rev 7.1)
+
+- **Driver current ceiling in hardware.** Set the TMC2209 VREF pot so its full-scale current is 0.7 A RMS and enable `GCONF.i_scale_analog`, so UART can only lower the current. The driver resets to its pot setting whenever its motor supply comes back (battery switch), while the Pico stays alive on USB: put a 10 k pull-up from EN to VIO (driver off while the Pico boots), and in firmware read GSTAT/IFCNT before every move and re-send the configuration after a reset.
+- **Hard stops.** The rotor (about 54 g·cm², assumed) looks like 3.33 kg at the carriage through the 8 mm lead. Running into a stop at 600 rpm adds about 146–462 N of screw force; at 10 mm/s only 18–58 N. So: never reach either end at speed (slow to 10 mm/s in the last 2 mm, using the encoder position).
+- **Homing.** Open at 0.3 A and 10 mm/s (screw force at most 47.1 N, which the motor bearing takes at the open stop). Detect the stop with the AS5600: commanded steps keep going but the measured angle stops. Use StallGuard (DIAG) only as a backup, because it needs speed. Then back off 1 mm. Check the motor axial load rating against this.
+- **Grip control.** At a fixed current the grip rises about 3× from gap 0 to 60 mm (the linkage gains advantage as it opens). Schedule the run current against the encoder gap so the grip stays near 30 N per jaw (worst-case screw friction; the second grip value is with a greased screw):
+
+| Gap mm (narrow / wide) | MA | Run current A | IRUN (0–31) | Grip per jaw N |
+|---|---|---|---|---|
+| 0 / 20 | 0.345 | 0.7 | 31 | 26.8–37.9 |
+| 10 / 30 | 0.365 | 0.7 | 31 | 28.4–40.1 |
+| 20 / 40 | 0.381 | 0.7 | 31 | 29.6–41.9 |
+| 30 / 50 | 0.401 | 0.67 | 30 | 30.0–42.5 |
+| 40 / 60 | 0.437 | 0.62 | 27 | 30.0–42.5 |
+| 50 / 70 | 0.516 | 0.52 | 23 | 30.0–42.5 |
+| 60 / 80 | 0.752 | 0.36 | 15 | 30.0–42.5 |
+
+- **Hold.** The Tr8×8 back-drives: while gripping set IHOLD = IRUN and a long TPOWERDOWN, and keep the screw greased.
+- **Encoder bench test before printing the bearing block.** The magnet sits inside the steel 608 inner ring, which can weaken or distort its field. Push the printed puck with the magnet into a 608, hold the AS5600 0.8 mm in front of it, turn the bearing by hand and read MAGNITUDE and AGC over I2C (AGC should sit mid-range) and the angle over a full turn (it should be linear). If the field is too weak, the magnet has to move 3–4 mm in front of the 608 in a non-ferrous holder, which needs a longer block (ask before redesigning). Tie the AS5600 DIR pin to GND.
 
 ## 5. Structural checks (200 N screw-force limit case; σ op = at the 109.8 N stall force at 0.7 A)
 
@@ -256,7 +277,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 11. Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.
 12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5) and 2× M5×12 through the socket walls into T-nuts. Screw or bolt the base to the bench through its 4 corner holes. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery to the column (side away from the gripper) and plug in the balance-lead alarm.
 13. Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.
-14. Driver: 0.70 A RMS, 1/16 µstep (400 steps/mm). Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.
+14. Driver: set the VREF pot to 0.70 A RMS full scale (section 4a), 1/16 µstep (400 steps/mm). Home at 0.3 A and 10 mm/s into the open stop (carriage meets the bearing block at 66 mm), detecting the stop with the encoder, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.
 
 Tighten every M3 to 0.15 N·m or less (snug with the short arm of the key). More crushes the ABS under the head.
 

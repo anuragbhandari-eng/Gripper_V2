@@ -37,7 +37,7 @@ bom = [
  ('P19', '3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g) + Velcro battery strap', 1, 'Strapped to the stand column, mid-height, on the side away from the gripper'),
  ('P20', 'LiPo balance charger (2-4S, XH balance lead)', 1, 'Charge only with this'),
  ('P21', 'XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A, LiPo low-voltage alarm (balance lead)', 1, 'Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead'),
- ('P22', 'Resistors 100 k + 27 k (battery divider into Pico ADC0), 100 uF 25 V capacitor at TMC2209 VM', 1, ''),
+ ('P22', 'Resistors 100 k + 27 k (battery divider into Pico ADC0) + 10 k (EN pull-up), 100 nF at ADC0, 100 uF 35 V capacitor at TMC2209 VM', 1, ''),
  ('P23', '2020 aluminium extrusion, 400 mm (V-slot or T-slot)', 1, 'Bench stand column'),
  ('P24', 'M5 drop-in T-nut + M5 x 12 screw (4), M5 x 16 screw (1), 4 bench screws or M5 bolts', 1, 'Head bracket to column (2), base socket to column (2), base to column end (1, tap the end M5); base to the bench (4)'),
  ('P25', 'M6 x 20 socket head cap screw ISO 4762 + M6 hex nut', 4, 'Adapter to the stand head bracket (nuts drop into the bracket from the back)'),
@@ -87,7 +87,7 @@ A(f'- **Material:** printed parts in {D.MAT} (taken as {D.MAT_SY:.0f} MPa); pads
 A('| Pico pin | Connects to |\n|---|---|')
 for pin, to in (('GP2', 'TMC2209 STEP'), ('GP3', 'TMC2209 DIR'), ('GP4', 'TMC2209 EN'), ('GP5', 'TMC2209 DIAG (stall detect for homing)'),
                 ('GP8 / GP9 (UART1)', 'TMC2209 PDN_UART (1 k in series on TX)'), ('GP0 / GP1 (I2C0)', 'AS5600 SDA / SCL'),
-                ('GP26 (ADC0)', 'Battery divider 100 k / 27 k (12.6 V reads 2.68 V)'), ('3V3 / GND', 'AS5600 VCC / GND, TMC2209 VIO / GND'),
+                ('GP26 (ADC0)', 'Battery divider 100 k / 27 k (12.6 V reads 2.68 V)'), ('3V3 / GND', 'AS5600 VCC / GND (DIR to GND), TMC2209 VIO / GND; 10 k from TMC2209 EN to VIO'),
                 ('VSYS', '5 V buck output through the 1N5817')):
     A(f'| {pin} | {to} |')
 A('')
@@ -114,6 +114,16 @@ A(f'- Screw force for ≥ 25 N everywhere: {MO["Fs_op_N"]:.1f} N → torque {MO[
 A(f'- **Set driver current to {drv["I_set_rms_A"]} A RMS** (for a {drv["I_rated_A"]} A / {drv["T_hold_Nm"]} N·m motor): screw force {drv["Fs_range_at_set_N"][0]}–{drv["Fs_range_at_set_N"][1]} N → grip ≥ {drv["grip_min_per_jaw_N"]} N per jaw, and stays below the 200 N structural limit even with a well-greased screw.')
 A(f'- **Warning:** at full rated current the motor can push ~{MO["Fs_at_full_hold_mu010"]:.0f} N, far above what the printed parts are sized for. The current limit is a safety item.')
 A(f'- Speed: {drv["speed_note"]}. The Tr8×8 is not self-locking, so keep the hold current on while gripping (TMC2209 IHOLD); the AS5600 confirms the position after any slip.\n')
+DY, SCH = S['dynamic'], S['current_schedule']
+A('\n### 4a. Drive safety and grip control (rev 7.1)\n')
+A(f'- **Driver current ceiling in hardware.** Set the TMC2209 VREF pot so its full-scale current is {drv["I_set_rms_A"]} A RMS and enable `GCONF.i_scale_analog`, so UART can only lower the current. The driver resets to its pot setting whenever its motor supply comes back (battery switch), while the Pico stays alive on USB: put a 10 k pull-up from EN to VIO (driver off while the Pico boots), and in firmware read GSTAT/IFCNT before every move and re-send the configuration after a reset.')
+A(f'- **Hard stops.** The rotor (about {DY["J_rotor_kgm2_assumed"]*1e7:.0f} g·cm², assumed) looks like {DY["reflected_mass_kg"]} kg at the carriage through the {D.LEAD:.0f} mm lead. Running into a stop at 600 rpm adds about {DY["F_stop_N_at_600rpm"][0]}–{DY["F_stop_N_at_600rpm"][1]} N of screw force; at 10 mm/s only {DY["F_stop_N_at_10mm_s"][0]}–{DY["F_stop_N_at_10mm_s"][1]} N. So: never reach either end at speed (slow to 10 mm/s in the last 2 mm, using the encoder position).')
+A(f'- **Homing.** Open at {DY["homing"]["current_A"]} A and {DY["homing"]["speed_mm_s"]:.0f} mm/s (screw force at most {DY["homing"]["Fs_max_N"]} N, which the motor bearing takes at the open stop). Detect the stop with the AS5600: commanded steps keep going but the measured angle stops. Use StallGuard (DIAG) only as a backup, because it needs speed. Then back off 1 mm. Check the motor axial load rating against this.')
+A('- **Grip control.** At a fixed current the grip rises about 3× from gap 0 to 60 mm (the linkage gains advantage as it opens). Schedule the run current against the encoder gap so the grip stays near 30 N per jaw (worst-case screw friction; the second grip value is with a greased screw):\n')
+A('| Gap mm (narrow / wide) | MA | Run current A | IRUN (0–31) | Grip per jaw N |\n|---|---|---|---|---|')
+for r_ in SCH: A(f'| {r_["gap_narrow_mm"]} / {r_["gap_wide_mm"]} | {r_["MA"]} | {r_["I_run_A"]} | {r_["IRUN"]} | {r_["grip_N"][0]}–{r_["grip_N"][1]} |')
+A('\n- **Hold.** The Tr8×8 back-drives: while gripping set IHOLD = IRUN and a long TPOWERDOWN, and keep the screw greased.')
+A('- **Encoder bench test before printing the bearing block.** The magnet sits inside the steel 608 inner ring, which can weaken or distort its field. Push the printed puck with the magnet into a 608, hold the AS5600 0.8 mm in front of it, turn the bearing by hand and read MAGNITUDE and AGC over I2C (AGC should sit mid-range) and the angle over a full turn (it should be linear). If the field is too weak, the magnet has to move 3–4 mm in front of the 608 in a non-ferrous holder, which needs a longer block (ask before redesigning). Tie the AS5600 DIR pin to GND.\n')
 A(f'## 5. Structural checks (200 N screw-force limit case; σ op = at the {drv["Fs_operating_max_N"]} N stall force at {drv["I_set_rms_A"]} A)\n')
 A('| Check | Load N | σ limit MPa | σ op MPa | SF yield |\n|---|---|---|---|---|')
 for r_ in S['rows']: A(f'| {r_["item"]} | {r_["load_limit_N"]} | {r_["stress_limit_MPa"]} | {r_["stress_op_MPa"]} | {r_["SF_yield_at_limit"]} |')
@@ -198,7 +208,7 @@ for i, s_ in enumerate([
  'Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.',
  'Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5) and 2× M5×12 through the socket walls into T-nuts. Screw or bolt the base to the bench through its 4 corner holes. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery to the column (side away from the gripper) and plug in the balance-lead alarm.',
  'Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.',
- 'Driver: %.2f A RMS, 1/16 µstep (%.0f steps/mm). Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.' % (S['driver']['I_set_rms_A'], D.STEPS_PER_MM)]):
+ 'Driver: set the VREF pot to %.2f A RMS full scale (section 4a), 1/16 µstep (%.0f steps/mm). Home at 0.3 A and 10 mm/s into the open stop (carriage meets the bearing block at 66 mm), detecting the stop with the encoder, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.' % (S['driver']['I_set_rms_A'], D.STEPS_PER_MM)]):
     A(f'{i+1}. {s_}')
 A(f'\nTighten every M3 to {T_M3} N·m or less (snug with the short arm of the key). More crushes the {D.MAT} under the head.')
 A('\n## 9. Assumptions, limits, verify before buying\n')

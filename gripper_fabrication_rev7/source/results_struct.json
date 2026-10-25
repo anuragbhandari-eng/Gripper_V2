@@ -199,6 +199,102 @@
   "factor_in_use": 3.3,
   "note": "Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use."
  },
+ "dynamic": {
+  "J_rotor_kgm2_assumed": 5.4e-06,
+  "reflected_mass_kg": 3.33,
+  "F_stop_N_at_600rpm": [
+   146,
+   462
+  ],
+  "F_stop_N_at_10mm_s": [
+   18,
+   58
+  ],
+  "homing": {
+   "current_A": 0.3,
+   "speed_mm_s": 10.0,
+   "Fs_max_N": 47.1
+  }
+ },
+ "current_schedule": [
+  {
+   "gap_narrow_mm": 0,
+   "gap_wide_mm": 20,
+   "MA": 0.345,
+   "I_run_A": 0.7,
+   "IRUN": 31,
+   "grip_N": [
+    26.8,
+    37.9
+   ]
+  },
+  {
+   "gap_narrow_mm": 10,
+   "gap_wide_mm": 30,
+   "MA": 0.365,
+   "I_run_A": 0.7,
+   "IRUN": 31,
+   "grip_N": [
+    28.4,
+    40.1
+   ]
+  },
+  {
+   "gap_narrow_mm": 20,
+   "gap_wide_mm": 40,
+   "MA": 0.381,
+   "I_run_A": 0.7,
+   "IRUN": 31,
+   "grip_N": [
+    29.6,
+    41.9
+   ]
+  },
+  {
+   "gap_narrow_mm": 30,
+   "gap_wide_mm": 50,
+   "MA": 0.401,
+   "I_run_A": 0.67,
+   "IRUN": 30,
+   "grip_N": [
+    30.0,
+    42.5
+   ]
+  },
+  {
+   "gap_narrow_mm": 40,
+   "gap_wide_mm": 60,
+   "MA": 0.437,
+   "I_run_A": 0.62,
+   "IRUN": 27,
+   "grip_N": [
+    30.0,
+    42.5
+   ]
+  },
+  {
+   "gap_narrow_mm": 50,
+   "gap_wide_mm": 70,
+   "MA": 0.516,
+   "I_run_A": 0.52,
+   "IRUN": 23,
+   "grip_N": [
+    30.0,
+    42.5
+   ]
+  },
+  {
+   "gap_narrow_mm": 60,
+   "gap_wide_mm": 80,
+   "MA": 0.752,
+   "I_run_A": 0.36,
+   "IRUN": 15,
+   "grip_N": [
+    30.0,
+    42.5
+   ]
+  }
+ ],
  "min_SF": 0.6,
  "min_SF_in_use": 2.0
 }

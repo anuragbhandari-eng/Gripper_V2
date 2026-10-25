@@ -85,11 +85,31 @@ C0_608 = 1370.0                                   # N, 608 static load rating (r
 thrust = dict(load_N=Fs_lim, bearing608_axial_static_capacity_N=0.5*C0_608, ratio=round(0.5*C0_608/Fs_lim, 1),
               note='collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly')
 Fg_use = Fs_best*R['MA']['at_gap_60']                   # in use: stall force at the set current, at the 60 mm cap
+# rev 7.1 (review item 5): hitting a hard stop at speed. The rotor inertia is reflected to the carriage by the lead;
+# J is a typical 40 mm NEMA 17 value (check the motor you buy); stop stiffness 1-10 N/um.
+from kin import ds_dth
+J_rot = 54e-7                                             # kg m^2 (assumed)
+m_ref = J_rot*(2*np.pi/lead)**2
+v_full, v_home = R['screw']['lead_mm']*10.0, 10.0          # mm/s: 600 rpm, homing
+I_home = 0.3
+dynamic = dict(J_rotor_kgm2_assumed=J_rot, reflected_mass_kg=round(m_ref, 2),
+               F_stop_N_at_600rpm=[round(v_full/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
+               F_stop_N_at_10mm_s=[round(v_home/1e3*np.sqrt(m_ref*k*1e6)) for k in (1, 10)],
+               homing=dict(current_A=I_home, speed_mm_s=v_home, Fs_max_N=round(2*np.pi*eta_hi*T_hold*I_home/I_rated/lead, 1)))
+# rev 7.1 (review item 9): run current against gap for a steady grip with worst-case friction (firmware table)
+Fg_goal, k_I = 30.0, 2*np.pi*eta_lo*T_hold/I_rated/lead   # N per jaw; N of screw force per A (worst friction)
+schedule = []
+for g in range(0, 61, 10):
+    thg = np.arcsin(g/(2*D.L) + np.sin(D.TH_C)); ma = float(ds_dth(D.P, thg)/(2*D.L*np.cos(thg)))
+    I = float(np.clip(Fg_goal/(k_I*ma), I_home, I_set))
+    schedule.append(dict(gap_narrow_mm=g, gap_wide_mm=int(g + 2*D.WIDE_OFS), MA=round(ma, 3), I_run_A=round(I, 2),
+                         IRUN=int(round(32*I/I_set)) - 1, grip_N=[round(k_I*I*ma, 1), round(k_I*I*ma*eta_hi/eta_lo, 1)]))
 tip = dict(Fg_max_N=round(Fg_max, 1), Fg_at_60mm_cap_N=round(Fg60, 1), factor_at_cap=round(Fg_max/Fg60, 2),
            Fg_in_use_N=round(Fg_use, 1), factor_in_use=round(Fg_max/Fg_use, 2),
            note='Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip '
                 'is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use.')
-out = dict(rows=rows, driver=drv, thrust=thrust, tip=tip, min_SF=min(r['SF_yield_at_limit'] for r in rows),
+out = dict(rows=rows, driver=drv, thrust=thrust, tip=tip, dynamic=dynamic, current_schedule=schedule,
+           min_SF=min(r['SF_yield_at_limit'] for r in rows),
            min_SF_in_use=round(min(r['SF_yield_at_limit'] for r in rows)*Fg_max/Fg_use, 1))
 json.dump(out, open('results_struct.json', 'w'), indent=1)
 for r in rows: print(f"{r['item']:52s} {r['load_limit_N']:7.1f} N  σ_lim {r['stress_limit_MPa']:7.2f}  σ_op {r['stress_op_MPa']:6.2f}  SF {r['SF_yield_at_limit']}")

@@ -45,7 +45,7 @@ P18,MP1584 mini buck module (set to 5.0 V) + 1N5817 Schottky diode,1,"Battery ->
 P19,"3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g) + Velcro battery strap",1,"Strapped to the stand column, mid-height, on the side away from the gripper"
 P20,"LiPo balance charger (2-4S, XH balance lead)",1,Charge only with this
 P21,"XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A, LiPo low-voltage alarm (balance lead)",1,Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead
-P22,"Resistors 100 k + 27 k (battery divider into Pico ADC0), 100 uF 25 V capacitor at TMC2209 VM",1,
+P22,"Resistors 100 k + 27 k (battery divider into Pico ADC0) + 10 k (EN pull-up), 100 nF at ADC0, 100 uF 35 V capacitor at TMC2209 VM",1,
 P23,"2020 aluminium extrusion, 400 mm (V-slot or T-slot)",1,Bench stand column
 P24,"M5 drop-in T-nut + M5 x 12 screw (4), M5 x 16 screw (1), 4 bench screws or M5 bolts",1,"Head bracket to column (2), base socket to column (2), base to column end (1, tap the end M5); base to the bench (4)"
 P25,M6 x 20 socket head cap screw ISO 4762 + M6 hex nut,4,Adapter to the stand head bracket (nuts drop into the bracket from the back)

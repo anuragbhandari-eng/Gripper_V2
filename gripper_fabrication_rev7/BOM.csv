@@ -46,9 +46,9 @@ P15,AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric mag
 P16,Double-sided protoboard 50 x 70 mm,1,Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern
 P17,"Printed spacer 25_ControllerSpacer (D5.5 x 10, replaces a brass standoff) + M3 x 16 button screw from the kit",4,Screw through the board and spacer into the cover-top insert
 P18,"Not bought (cost cut): MP1584 5 V buck + 1N5817 Schottky diode, only needed to run the Pico from the battery without USB",0,The Pico runs from the USB link to ROS 2 it needs anyway; the modelled buck spot on the board stays free
-P19,"3S LiPo 11.1 V 650-750 mAh, XT30 (bought: TATTU R-Line 750 mAh, single pack)",1,"Zip-tied or taped to the stand column, mid-height, on the side away from the gripper"
-P20,"LiPo balance charger (2-4S, XH balance lead)",1,Charge only with this
-P21,"XT30 pigtail (mates with the battery) + mini-blade fuse holder with 3 A fuse; switch, alarm and extension cut to save cost",1,Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead
+P19,"USB-C PD power bank, about 10,000 mAh, 20 W or more, whose label lists a 12 V output (e.g. 12V 1.5A or 1.67A); use one you already own",1,Battery and charger in one: recharge it from any USB charger. Sits on the desk or zip-tied to the column (the modelled pack on the column is a placeholder)
+P20,"USB-C PD trigger (decoy) board, set to 12 V",1,Plugs into the power bank with a USB-C cable; its + and - outputs go to TMC2209 VM and the battery divider
+P21,"Not needed with the power bank: LiPo, balance charger, XT30 pigtail, fuse holder (the bank has its own protection)",0,
 P22,"Resistors 100 k + 27 k (battery divider into Pico ADC0; 22 k also works, change the ratio in firmware) + 10 k (EN pull-up), 100 uF 35 V capacitor at TMC2209 VM; 100 nF at ADC0 optional (ask the fablab first)",1,
 P23,"2020 aluminium extrusion, 400 mm (V-slot or T-slot)",1,Bench stand column
 P24,"M5 T-nut for 2020 (sliding or drop-in) + M5 x 12 screw, 4 + 1 for the column end; 4 bench screws not needed with the desk clamps",1,"Head bracket to column (2), base socket to column (2), base to column end (1: tap the end M5, 4 mm of thread is enough, or skip it). Sliding T-nuts go in from the column ends before the bracket and base"

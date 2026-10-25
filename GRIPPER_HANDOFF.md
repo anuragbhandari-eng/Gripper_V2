@@ -35,7 +35,7 @@ Simple and cohesive. Every feature must serve a function. No decorative features
   - The generated `.fs` now sets ABS and 1.04 g/cm³ on the printed parts; `GripperV2` needs that update in step 8.
 - ABS shrinks and warps more than PETG. Reprint the fit coupons in ABS on the fablab printer and retune the fits from them. Print in an enclosure, part-cooling fan low or off, brim on the base and cover.
 - **Pads are printed TPU 95A** (Anurag's printer handles TPU).
-- **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price. **Do not browse or automate Amazon in a browser:** on 2026-10-24 Amazon blocked the session with "Continued access by an unauthorized AI agent violates Amazon's Conditions of Use". Find listings another way and hand Anurag the links; he adds them to the cart himself.
+- **Buy parts that arrive quickly from Amazon US.** Prefer fast-delivery listings, and give the exact search terms or a link plus the price. ** Be careful when browsing or automating Amazon in a browser, only use for viewing the listings** on 2026-10-24 Amazon blocked the session with "Continued access by an unauthorized AI agent violates Amazon's Conditions of Use".
 
 ---
 
@@ -148,7 +148,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 ### D. Controller mount and cabling
 - Raspberry Pi Pico + TMC2209 on the **cover top**: bosses or heat-set inserts, an optional minimal lid, and a cable exit with strain relief. Route the motor cable.
 - **ROS 2 link:** USB serial from the Pico.
-- **Power:** 3S LiPo, about 650 mAh, XT30 plug, through a switch and a ~3 A fuse to the TMC2209 motor supply.
+- **Power (changed 2026-10-25 to cut cost):** a USB-C PD power bank (10,000 mAh, 20 W, 12 V output) through a 12 V PD trigger board to the TMC2209 motor supply. It replaces the 3S LiPo, balance charger, XT30 and fuse (about $51 → $7 if Anurag uses his own bank). The paragraph below describes the old LiPo setup.
   - LiPo packs have no protection board. The Pico reads the pack voltage through a divider and disables the driver below about 10.5 V (3.5 V per cell). Charge only with a balance charger.
   - The Pico runs from USB, and from a small 5 V buck on the pack fed into VSYS through a Schottky diode, so both can be connected at once. Confirm against the "Powering Pico" section of the Pico datasheet.
   - Battery placement (stand base or cover) is decided in this step.
@@ -169,7 +169,7 @@ A ROS 2 version for v2 is a later phase. Where it lives is Anurag's decision, ma
 ## 5. Decisions (answered 2026-10-24)
 
 1. **Onshape `GripperV2`:** a copy of the original, created through Chrome. Done; ids in section 3.
-2. **Power:** a small, light battery: 3S LiPo (~650 mAh, XT30), plus a balance charger, since Anurag doesn't have one. The 12 V adapter idea is dropped. Details in 4D.
+2. **Power:** a small, light battery. Was a 3S LiPo + balance charger; on 2026-10-25 Anurag kept battery power but asked for cheaper, so it is now a USB-C PD power bank + 12 V trigger board. The 12 V adapter idea is dropped. Details in 4D.
 3. **Load cell:** dropped.
 4. **Pad material:** printed TPU 95A, held mechanically. Final shape in step B.
 5. **Robot arm:** none for now. Plan for a bench stand (4F).
@@ -237,8 +237,8 @@ Steps 1–8 are done and committed on `v2/handoff-decisions` (not pushed). Full 
 **Still open (for Anurag):**
 - Print the fit coupons first (13b and 13c for the rev 7 fits, then 13) in ABS at the fablab and report the fits; retune `R_RUN`, `R_SNUG`, the 608 seat etc. from the results.
 - When the AS5600, magnet and a 608 arrive: run `rev7/firmware/as5600_bench_test.py` (5-minute test) before printing the bearing block.
-- Buy parts: cost-cut lean list, 20 items $188.90 (was 31 / $311.61), one-click cart link and fablab-first list in `docs/AMAZON_CART_2026-10-24.md`; Anurag adds to cart himself. Cuts: no buck/diode (Pico on USB), no switch/alarm/extension/strap/felt/headers, printed spacers (25_ControllerSpacer), cut M3 screws as block locating pins. Open question: 12 V wall adapter instead of LiPo + charger (~$40 more saved). Check on receipt: AS5600 board ≤ 23 × 23 mm with the chip centred; Tr8x8 nut flange and holes; motor screw ≥ 78.5 mm usable.
-- Firmware (Pico): STEP/DIR/EN, UART config, homing by **closing** at 0.3 A with the stop detected by the AS5600, AS5600 turn counting, current-against-gap table, battery cut-off at 10.5 V. Pin map and section 4a in the report.
+- Buy parts: cost-cut lean list, 20 items $144.93 after the power-bank change (was 31 / $311.61), one-click cart link and fablab-first list in `docs/AMAZON_CART_2026-10-24.md`; Anurag adds to cart himself. Cuts: no buck/diode (Pico on USB), no switch/alarm/extension/strap/felt/headers, printed spacers (25_ControllerSpacer), cut M3 screws as block locating pins. Open question: 12 V wall adapter instead of LiPo + charger (~$40 more saved). Check on receipt: AS5600 board ≤ 23 × 23 mm with the chip centred; Tr8x8 nut flange and holes; motor screw ≥ 78.5 mm usable.
+- Firmware (Pico): STEP/DIR/EN, UART config, homing by **closing** at 0.3 A with the stop detected by the AS5600, AS5600 turn counting, current-against-gap table, driver off when the motor-power divider drops (power bank empty or unplugged). Pin map and section 4a in the report.
 
 **Decisions (2026-10-24, from Anurag):** the motor is Claude's pick: YEJMKJ N17-Y42-39-SG240: 42 × 42 × 38.7 mm NEMA 17 with an integrated 240 mm Tr8x8 screw and brass flange nut, 0.44 N·m, 1.7 A, rotor about 65 g·cm² (Amazon US B0FHHWXJLV, $13.31, added to the cart 2026-10-24, not ordered; the first pick, DiGiYes B0CG5WQK3T, was unavailable). With it: driver 0.70 A, grip ≥ 26 N per jaw; because budget motors don't publish an axial bearing rating, homing closes instead of opening into the stop. Stand parts stay ABS (PLA is an acceptable fallback if they warp). The stand clamps to Anurag's desk (black edge 40 mm tall, 40 mm deep).
 - ROS 2 phase: update the "Robot export" assembly with the tip parts.

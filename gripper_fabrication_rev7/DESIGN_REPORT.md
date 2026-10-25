@@ -26,7 +26,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 - **D, controller:** Pico + TMC2209 + battery divider on a 50 × 70 mm protoboard, on 4 printed spacers over heat-set inserts in the cover top. USB serial to ROS 2, which also powers the Pico.
 - **A, drive:** Tr8×8 (lead 8 mm): 4.0 turns over the stroke, 400 steps/mm, 600 rpm -> 80 mm/s -> full stroke 0.4 s. Driver 0.7 A RMS. Not self-locking.
 - **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base, clamped to the desk edge by 2 printed C-clamps with M8 star knobs (sized for a 40 mm edge, 24–49 mm range); unclamped, a few newtons at gripper height would tip it over. The battery is strapped to the column, away from the jaws. Slide the bracket to set the height.
-- **Power:** 3S LiPo (650–750 mAh, XT30) → 3 A fuse → TMC2209 VM, with the battery divider on the same line. The Pico runs from USB. Unplugging the XT30 is the off switch: always unplug after use, because the divider and driver drain the pack. Firmware stops the motor below 10.5 V. To run without USB later, add a 5 V buck into VSYS through a 1N5817 (P18).
+- **Power:** USB-C PD power bank → 12 V trigger board → TMC2209 VM, with the battery divider on the same line. The Pico runs from USB. The bank protects itself and cuts out when empty; firmware treats the divider as "motor power present" (12 V reads 2.55 V) and disables the driver when it drops. Many banks switch off below about 50–100 mA, so keep the driver enabled at hold current while in use (the back-drivable screw needs it to hold a grip anyway) and check your bank stays on.
 - **Material:** printed parts in ABS (taken as 30 MPa); pads in TPU 95A.
 
 | Pico pin | Connects to |
@@ -37,7 +37,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | GP5 | TMC2209 DIAG (stall detect for homing) |
 | GP8 / GP9 (UART1) | TMC2209 PDN_UART (1 k in series on TX) |
 | GP0 / GP1 (I2C0) | AS5600 SDA / SCL |
-| GP26 (ADC0) | Battery divider 100 k / 27 k (12.6 V reads 2.68 V) |
+| GP26 (ADC0) | Motor-power divider 100 k / 27 k (12 V reads 2.55 V) |
 | 3V3 / GND | AS5600 VCC / GND (DIR to GND), TMC2209 VIO / GND; 10 k from TMC2209 EN to VIO |
 | VSYS | not used: the Pico runs from USB (a 5 V buck through a 1N5817 can feed it later) |
 

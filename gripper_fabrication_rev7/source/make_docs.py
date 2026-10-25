@@ -34,9 +34,9 @@ bom = [
  ('P16', 'Double-sided protoboard 50 x 70 mm', 1, 'Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern'),
  ('P17', 'Printed spacer 25_ControllerSpacer (D5.5 x 10, replaces a brass standoff) + M3 x 16 button screw from the kit', 4, 'Screw through the board and spacer into the cover-top insert'),
  ('P18', 'Not bought (cost cut): MP1584 5 V buck + 1N5817 Schottky diode, only needed to run the Pico from the battery without USB', 0, 'The Pico runs from the USB link to ROS 2 it needs anyway; the modelled buck spot on the board stays free'),
- ('P19', '3S LiPo 11.1 V 650-750 mAh, XT30 (bought: TATTU R-Line 750 mAh, single pack)', 1, 'Zip-tied or taped to the stand column, mid-height, on the side away from the gripper'),
- ('P20', 'LiPo balance charger (2-4S, XH balance lead)', 1, 'Charge only with this'),
- ('P21', 'XT30 pigtail (mates with the battery) + mini-blade fuse holder with 3 A fuse; switch, alarm and extension cut to save cost', 1, 'Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead'),
+ ('P19', 'USB-C PD power bank, about 10,000 mAh, 20 W or more, whose label lists a 12 V output (e.g. 12V 1.5A or 1.67A); use one you already own', 1, 'Battery and charger in one: recharge it from any USB charger. Sits on the desk or zip-tied to the column (the modelled pack on the column is a placeholder)'),
+ ('P20', 'USB-C PD trigger (decoy) board, set to 12 V', 1, 'Plugs into the power bank with a USB-C cable; its + and - outputs go to TMC2209 VM and the battery divider'),
+ ('P21', 'Not needed with the power bank: LiPo, balance charger, XT30 pigtail, fuse holder (the bank has its own protection)', 0, ''),
  ('P22', 'Resistors 100 k + 27 k (battery divider into Pico ADC0; 22 k also works, change the ratio in firmware) + 10 k (EN pull-up), 100 uF 35 V capacitor at TMC2209 VM; 100 nF at ADC0 optional (ask the fablab first)', 1, ''),
  ('P23', '2020 aluminium extrusion, 400 mm (V-slot or T-slot)', 1, 'Bench stand column'),
  ('P24', 'M5 T-nut for 2020 (sliding or drop-in) + M5 x 12 screw, 4 + 1 for the column end; 4 bench screws not needed with the desk clamps', 1, 'Head bracket to column (2), base socket to column (2), base to column end (1: tap the end M5, 4 mm of thread is enough, or skip it). Sliding T-nuts go in from the column ends before the bracket and base'),
@@ -84,12 +84,12 @@ A(f'- **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed pu
 A('- **D, controller:** Pico + TMC2209 + battery divider on a 50 × 70 mm protoboard, on 4 printed spacers over heat-set inserts in the cover top. USB serial to ROS 2, which also powers the Pico.')
 A(f'- **A, drive:** Tr8×8 (lead {D.LEAD:.0f} mm): {W["screw_turns"]:.1f} turns over the stroke, {D.STEPS_PER_MM:.0f} steps/mm, {drv["speed_note"]}. Driver {drv["I_set_rms_A"]} A RMS. Not self-locking.')
 A('- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base, clamped to the desk edge by 2 printed C-clamps with M8 star knobs (sized for a 40 mm edge, 24–49 mm range); unclamped, a few newtons at gripper height would tip it over. The battery is strapped to the column, away from the jaws. Slide the bracket to set the height.')
-A(f'- **Power:** 3S LiPo (650–750 mAh, XT30) → 3 A fuse → TMC2209 VM, with the battery divider on the same line. The Pico runs from USB. Unplugging the XT30 is the off switch: always unplug after use, because the divider and driver drain the pack. Firmware stops the motor below 10.5 V. To run without USB later, add a 5 V buck into VSYS through a 1N5817 (P18).')
+A('- **Power:** USB-C PD power bank → 12 V trigger board → TMC2209 VM, with the battery divider on the same line. The Pico runs from USB. The bank protects itself and cuts out when empty; firmware treats the divider as "motor power present" (12 V reads 2.55 V) and disables the driver when it drops. Many banks switch off below about 50–100 mA, so keep the driver enabled at hold current while in use (the back-drivable screw needs it to hold a grip anyway) and check your bank stays on.')
 A(f'- **Material:** printed parts in {D.MAT} (taken as {D.MAT_SY:.0f} MPa); pads in TPU 95A.\n')
 A('| Pico pin | Connects to |\n|---|---|')
 for pin, to in (('GP2', 'TMC2209 STEP'), ('GP3', 'TMC2209 DIR'), ('GP4', 'TMC2209 EN'), ('GP5', 'TMC2209 DIAG (stall detect for homing)'),
                 ('GP8 / GP9 (UART1)', 'TMC2209 PDN_UART (1 k in series on TX)'), ('GP0 / GP1 (I2C0)', 'AS5600 SDA / SCL'),
-                ('GP26 (ADC0)', 'Battery divider 100 k / 27 k (12.6 V reads 2.68 V)'), ('3V3 / GND', 'AS5600 VCC / GND (DIR to GND), TMC2209 VIO / GND; 10 k from TMC2209 EN to VIO'),
+                ('GP26 (ADC0)', 'Motor-power divider 100 k / 27 k (12 V reads 2.55 V)'), ('3V3 / GND', 'AS5600 VCC / GND (DIR to GND), TMC2209 VIO / GND; 10 k from TMC2209 EN to VIO'),
                 ('VSYS', 'not used: the Pico runs from USB (a 5 V buck through a 1N5817 can feed it later)')):
     A(f'| {pin} | {to} |')
 A('')

@@ -1,6 +1,6 @@
 # Amazon US shopping list, 2026-10-24 (lean)
 
-This list is cut down to what the gripper strictly needs: **20 items, $188.90 before tax**. The first cart was 31 items, $311.61, so this saves $122.71.
+This list is cut down to what the gripper strictly needs: **17 items, $144.93 before tax**, plus a USB-C power bank if you don't already have a suitable one. The first cart was 31 items, $311.61.
 
 **Nothing has been ordered.** Prices and stock come from listings checked earlier on 2026-10-24. After that, Amazon blocked AI-agent browsing, so the cut-down cart could not be rechecked on the site. Confirm the pack and price on each listing before you check out.
 
@@ -10,9 +10,9 @@ The simplest route is to empty the old cart and then rebuild it in one click:
 
 1. Sign in to Amazon.
 2. Open the cart, delete everything, and open the link below.
-3. Amazon shows the 20 items with one "Add to cart" button. Nothing is ordered.
+3. Amazon shows the 17 items with one "Add to cart" button. Nothing is ordered.
 
-- [Add the 20 lean-cart items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FHHWXJLV&Quantity.1=1&ASIN.2=B07CVBSC9Y&Quantity.2=1&ASIN.3=B08SK2LNNV&Quantity.3=1&ASIN.4=B0F54H1RMS&Quantity.4=1&ASIN.5=B0HG8TLLFL&Quantity.5=1&ASIN.6=B0FDQB7CX1&Quantity.6=1&ASIN.7=B0DQL4ZSCP&Quantity.7=1&ASIN.8=B0GW2FT4CT&Quantity.8=1&ASIN.9=B0GF1NNQPS&Quantity.9=1&ASIN.10=B08SMDY3SQ&Quantity.10=1&ASIN.11=B0GQRMVT4P&Quantity.11=1&ASIN.12=B09KGWC1PT&Quantity.12=1&ASIN.13=B07Y3FZ9ZN&Quantity.13=1&ASIN.14=B097BWZTVW&Quantity.14=1&ASIN.15=B0FS23G6KD&Quantity.15=1&ASIN.16=B09LYHHS9J&Quantity.16=1&ASIN.17=B0FWKN4JDJ&Quantity.17=1&ASIN.18=B0CF6MSX1Q&Quantity.18=1&ASIN.19=B0C4JTL1MP&Quantity.19=1&ASIN.20=B0CB6B68C2&Quantity.20=1)
+- [Add the 17 lean-cart items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FHHWXJLV&Quantity.1=1&ASIN.2=B07CVBSC9Y&Quantity.2=1&ASIN.3=B08SK2LNNV&Quantity.3=1&ASIN.4=B0F54H1RMS&Quantity.4=1&ASIN.5=B0HG8TLLFL&Quantity.5=1&ASIN.6=B0FDQB7CX1&Quantity.6=1&ASIN.7=B0DQL4ZSCP&Quantity.7=1&ASIN.8=B0GW2FT4CT&Quantity.8=1&ASIN.9=B0GF1NNQPS&Quantity.9=1&ASIN.10=B08SMDY3SQ&Quantity.10=1&ASIN.11=B0GQRMVT4P&Quantity.11=1&ASIN.12=B09KGWC1PT&Quantity.12=1&ASIN.13=B07Y3FZ9ZN&Quantity.13=1&ASIN.14=B0GTTW9643&Quantity.14=1&ASIN.15=B0CF6MSX1Q&Quantity.15=1&ASIN.16=B0C4JTL1MP&Quantity.16=1&ASIN.17=B0CB6B68C2&Quantity.17=1)
 - [Add the 5 fablab-first items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FL6R1C35&Quantity.1=1&ASIN.2=B0FT362FV2&Quantity.2=1&ASIN.3=B0H4K2PDF6&Quantity.3=1&ASIN.4=B0BXWJFS2S&Quantity.4=1&ASIN.5=B000XBH9HI&Quantity.5=1). Use this only for whatever the fablab can't give you.
 
 ## Lean cart
@@ -32,26 +32,37 @@ The simplest route is to empty the old cart and then rebuild it in one click:
 | P14 | RP2040 Pico-compatible board, USB-C, headers soldered (check the pinout matches the Raspberry Pi Pico) | 1 | [B0GQRMVT4P](https://www.amazon.com/dp/B0GQRMVT4P) | $7.99 |
 | P15 | HiLetgo AS5600 module with magnet | 2 | [B09KGWC1PT](https://www.amazon.com/dp/B09KGWC1PT) | $7.99 |
 | P16 | Double-sided protoboard 50 × 70 mm | 4 | [B07Y3FZ9ZN](https://www.amazon.com/dp/B07Y3FZ9ZN) | $6.49 |
-| P19 | TATTU R-Line 3S 750 mAh 95C LiPo, XT30 | 1 | [B097BWZTVW](https://www.amazon.com/dp/B097BWZTVW) | $17.99 |
-| P20 | 2–4S balance charger, 18 W, XH plugs, mains powered | 1 | [B0FS23G6KD](https://www.amazon.com/dp/B0FS23G6KD) | $18.99 |
-| P21 | XT30 pigtail pairs, 16 AWG | 5 pairs | [B09LYHHS9J](https://www.amazon.com/dp/B09LYHHS9J) | $8.99 |
-| P21 | Inline mini-blade fuse holder with 3 A fuses | 2 | [B0FWKN4JDJ](https://www.amazon.com/dp/B0FWKN4JDJ) | $4.99 |
+| P20 | USB-C PD trigger board, selectable 5/9/12/15/20 V (set to 12 V) | 5 | [B0GTTW9643](https://www.amazon.com/dp/B0GTTW9643) | $6.99 (price from a tracker, check the listing) |
 | P23 | 2020 V-slot extrusion, 400 mm | 2 | [B0CF6MSX1Q](https://www.amazon.com/dp/B0CF6MSX1Q) | $11.99 |
 | P24 | M5 T-nut + M5 × 8 / × 12 screw kit for 2020 | 240 | [B0C4JTL1MP](https://www.amazon.com/dp/B0C4JTL1MP) | $9.99 |
 | P29 | M8 × 40 star knob, plastic head, steel stud (no nuts) | 6 | [B0CB6B68C2](https://www.amazon.com/dp/B0CB6B68C2) | $4.59 |
+
+## Battery: USB-C power bank (changed 2026-10-25)
+
+The gripper stays battery powered, but a USB-C power bank now replaces the LiPo. The bank is the battery and its own charger: recharge it from any USB charger. A $7 trigger board asks it for 12 V, which goes to the motor driver.
+
+| | LiPo setup (old) | Power bank (new) |
+|---|---|---|
+| Parts | 750 mAh 3S LiPo $17.99, balance charger $18.99, XT30 pigtails $8.99, fuse holder $4.99 | 12 V trigger board $6.99 (+ a power bank) |
+| Cost if you already own a suitable bank | $50.96 | $6.99 |
+| Cost if you buy a bank too | $50.96 | about $22–27 (a 20 W bank is typically $15–20) |
+
+**Which power bank works:** USB-C Power Delivery, 20 W or more, and the label or listing must list a **12 V** output, such as `12V⎓1.5A` or `12V⎓1.67A`. Most 20 W phone power banks have this. A 10,000 mAh bank runs the gripper for hours. If you need to buy one, check for the 12 V line before ordering.
+
+**One thing to test:** many banks switch off when the current drops below about 50–100 mA. The firmware keeps the driver on at hold current while the gripper is in use (the back-drivable screw needs that to hold a grip anyway). If your bank still switches off, press its button or try another bank.
 
 ## Taken out of the cart
 
 | Item | Saved | Instead |
 |---|---|---|
+| LiPo, balance charger, XT30 pigtails, fuse holder | $50.96 | USB-C power bank + 12 V trigger board ($6.99) |
 | 5 V buck module + 1N5817 diode | $18.54 | The Pico runs from the USB cable it needs for ROS 2 anyway. Add the buck later only to run without a computer. |
-| Second LiPo (2-pack → one 750 mAh pack) | $9.00 | — |
-| XT30 30 cm extension | $8.99 | Solder 30 cm of wire to the pigtail. |
+| XT30 30 cm extension | $8.99 | Not needed: a USB-C cable reaches the power bank. |
 | 3 × 16 mm dowel pins | $7.29 | Cut the heads off 2 M3 × 16 screws from the kit and screw them into the base half as the locating pins. |
 | Brass M3 standoffs | $7.99 | Print 4 spacers (new `25_ControllerSpacer.stl`) and use M3 × 16 screws through the board. |
-| Battery straps | $7.99 | Zip ties or tape. |
-| Toggle switch | $6.99 | Unplug the XT30 to switch off. Do it after every use, since the divider and driver slowly drain the pack. |
-| LiPo low-voltage alarm | $5.99 | Firmware stops the motor at 10.5 V. Unplugging after use protects the pack. |
+| Battery straps | $7.99 | The power bank sits on the desk, or zip-tie it to the column. |
+| Toggle switch | $6.99 | Unplug the USB-C cable from the power bank to switch off. |
+| LiPo low-voltage alarm | $5.99 | Not needed: the power bank protects itself. |
 | Female header strips | $5.99 | Solder the Pico and TMC2209 straight onto the protoboard. |
 | Felt pads | $4.85 | The TPU clamp pads already protect the desk. |
 | Grease | $10.99 | Moved to the fablab-first list. Any light grease works. |
@@ -94,5 +105,4 @@ Also get from the fablab or a hardware store:
 
 1. **Dowels 4 × 40.** Amazon US has no hardened 4 × 36. Press them 6.5 mm into the base as modelled; they stand 4.5 mm above the cover and are clear of the controller board (checked in the model).
 2. **Shoulder screws.** These are 304 stainless. The shear safety factor at the 200 N limit is 12, which is plenty.
-3. **Battery charging.** The 18 W charger gives about 1.4 A, roughly 1.9C for 750 mAh. Check the charge rating on the pack label.
-4. **Pico clone.** It runs the same MicroPython firmware. Before soldering, check the pin labels match the Raspberry Pi Pico layout.
+3. **Pico clone.** It runs the same MicroPython firmware. Before soldering, check the pin labels match the Raspberry Pi Pico layout.

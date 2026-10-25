@@ -282,12 +282,12 @@
  {
   "file": "21_Stand_Base.stl",
   "qty": 1,
-  "volume_cm3": 185.58,
+  "volume_cm3": 256.3,
   "material": "ABS",
-  "mass_g_solid": 193.0,
+  "mass_g_solid": 266.5,
   "bbox_mm": [
-   150.0,
-   150.0,
+   170.0,
+   180.0,
    28.0
   ],
   "orientation": "front_down",

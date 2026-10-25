@@ -18,7 +18,7 @@ PRINT,17_TipBlock_Wide_B_mirrored (ABS),1,mirror of 16; orientation flat; 10.13 
 PRINT,18_Pad_TPU95A (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.71 cm3"
 PRINT,19_EncoderPuck (ABS),1,magnet pocket up; glue to the screw end; orientation rear_down; 0.07 cm3
 PRINT,20_Stand_HeadBracket (ABS),1,"bench stand; back face on bed, nut pockets and column hole open upward; orientation rear_down; 137.36 cm3"
-PRINT,21_Stand_Base (ABS),1,"bench stand; table face on bed, column socket up; orientation front_down; 185.58 cm3"
+PRINT,21_Stand_Base (ABS),1,"bench stand; table face on bed, column socket up; orientation front_down; 256.3 cm3"
 PRINT,13_FitTest_coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
 P1,"NEMA 17 external linear stepper, 1.8 deg, body <= 40 mm, ~1.5 A, ~0.4 N.m holding, integrated Tr8x8 lead screw (lead 8 mm, 4 start) >= 85 mm",1,"Cut screw to 78.5 mm -0.5/+0 from motor face (never long: the encoder puck fills the last 3 mm of the 608 bore), chamfer end"
 P2,"Tr8x8 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16; check on the listing) - usually supplied with P1",1,
@@ -39,11 +39,11 @@ P15,AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric mag
 P16,Double-sided protoboard 50 x 70 mm,1,Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern
 P17,M3 x 10 male-female standoff + M3 x 6 screw,4,Controller board to the cover-top inserts
 P18,MP1584 mini buck module (set to 5.0 V) + 1N5817 Schottky diode,1,"Battery -> Pico VSYS through the diode, so USB and battery can both be connected"
-P19,"3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g)",1,"In the stand base tray, Velcro strap through the two slots"
+P19,"3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g) + Velcro battery strap",1,"Strapped to the stand column, mid-height, on the side away from the gripper"
 P20,"LiPo balance charger (2-4S, XH balance lead)",1,Charge only with this
-P21,"XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A",1,Battery -> switch -> fuse -> TMC2209 VM and buck input
+P21,"XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A, LiPo low-voltage alarm (balance lead)",1,Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead
 P22,"Resistors 100 k + 27 k (battery divider into Pico ADC0), 100 uF 25 V capacitor at TMC2209 VM",1,
 P23,"2020 aluminium extrusion, 400 mm (V-slot or T-slot)",1,Bench stand column
-P24,"M5 drop-in T-nut + M5 x 10 screw (2), M5 x 16 screw (1)",1,"Head bracket to column (2), base to column end (1, tap the end M5)"
+P24,"M5 drop-in T-nut + M5 x 12 screw (4), M5 x 16 screw (1), 4 bench screws or M5 bolts",1,"Head bracket to column (2), base socket to column (2), base to column end (1, tap the end M5); base to the bench (4)"
 P25,M6 x 20 socket head cap screw ISO 4762 + M6 hex nut,4,Adapter to the stand head bracket (nuts drop into the bracket from the back)
 P26,TPU 95A filament,1,"Contact pads (18_Pad_TPU95A, 4 pcs)"

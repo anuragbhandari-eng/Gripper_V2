@@ -490,7 +490,8 @@ COL_A, COL_Z, COL_LEN = 20.0, -44.0, 400.0     # extrusion size, axis z (y = 0),
 X_TABLE, BASE_T = 145.0, 8.0                    # narrow tips ~32 mm above the base at gap 0; slide the bracket to change
 X_COL1 = X_TABLE - BASE_T                       # column foot stands on the base plate
 BRK_T = 30.0                                    # head bracket depth behind the adapter face
-BAT = (31.0, 65.0, -52.0, 14.0, 18.0)           # battery tray y0, y1, z0, z1, pack height (3S 650 mAh, about 62 x 30 x 18)
+BAT = (40.0, 102.0, 31.0, 18.0)                 # rev 7.1: pack Velcro-strapped to the column's far face, x0..x1, width, thickness
+BASE_Y, BASE_Z = (-90.0, 90.0), (-80.0, 90.0)   # rev 7.1 (review item 8): 180 x 170 base with 4 holes to fix it to the bench
 def _col_loop(c):
     return rrect_loop(-COL_A/2 - c, COL_Z - COL_A/2 - c, COL_A/2 + c, COL_Z + COL_A/2 + c, 0.5)
 def stand_bracket():
@@ -508,24 +509,28 @@ def stand_bracket():
         ops.append(('cut', ('cyl', (x, 0, COL_Z - 17.0), (x, 0, COL_Z - COL_A/2 + 0.01), 2.75)))
     return ops
 def stand_base():
-    """Base plate (table face down) with the column socket, an M5 x 16 up into the column end, and a battery tray with
-    two strap slots."""
+    """Base plate (table face down) with the column socket, an M5 x 16 up into the column end, 2 M5 x 10 through the
+    socket walls into T-nuts (no wobble), and 4 counterbored holes to bolt or screw the base to the bench (rev 7.1:
+    unclamped, the stand tips over at a few newtons)."""
     x0, x1 = X_TABLE - BASE_T, X_TABLE
-    ops = [('add', ('extx', rrect_loop(-75.0, -70.0, 75.0, 80.0, 8.0), x0, x1)),
+    ops = [('add', ('extx', rrect_loop(BASE_Y[0], BASE_Z[0], BASE_Y[1], BASE_Z[1], 10.0), x0, x1)),
            ('add', ('extx', rrect_loop(-17.0, COL_Z - 17.0, 17.0, COL_Z + 17.0, 4.0), x0 - 20.0, x0 + 0.01)),
            ('cut', ('extx', _col_loop(0.2), x0 - 21.0, x0)),
            ('cut', ('cyl', (x0 - 0.01, 0, COL_Z), (x1 + 1, 0, COL_Z), 2.75)),
            ('cut', ('cyl', (x1 - 4.5, 0, COL_Z), (x1 + 1, 0, COL_Z), 4.6))]
-    y0, y1, z0, z1, _ = BAT
-    ops.append(('cut', ('extx', rrect_loop(y0, z0, y1, z1, 2.0), x0 - 1, x0 + 3.0)))
-    for z in (z0 - 4.0, z1 + 4.0):
-        ops.append(('cut', ('extx', rrect_loop(y0 + 3.0, z - 1.6, y1 - 3.0, z + 1.6, 1.5), x0 - 1, x1 + 1)))   # strap slots
+    for sy in (1, -1):
+        ops.append(('cut', ('cyl', (x0 - 10.0, sy*18.0, COL_Z), (x0 - 10.0, sy*(COL_A/2 - 0.5), COL_Z), 2.75)))
+    for y in BASE_Y:
+        for z in BASE_Z:
+            yc, zc = y - np.sign(y)*12.0, z - np.sign(z)*12.0
+            ops += [('cut', ('cyl', (x0 - 1, yc, zc), (x1 + 1, yc, zc), 2.75)),
+                    ('cut', ('cyl', (x0 - 1, yc, zc), (x0 + 4.0, yc, zc), 5.0))]
     return ops
 def column():   # 2020 extrusion (slots not modelled)
     return [('add', ('extx', _col_loop(0.0), X_COL1 - COL_LEN, X_COL1))]
-def battery():   # 3S LiPo envelope in its tray
-    y0, y1, z0, z1, t = BAT; x0 = X_TABLE - BASE_T + 3.0
-    return [('add', ('box', (x0 - t, y0 + 1.5, z0 + 2.0), (x0, y1 - 1.5, z1 - 2.0)))]
+def battery():   # 3S LiPo envelope, strapped to the column's far face (z side away from the gripper), clear of the jaws
+    x0, x1, w, t = BAT; z1 = COL_Z - COL_A/2
+    return [('add', ('box', (x0, -w/2, z1 - t), (x1, w/2, z1)))]
 
 # rev 7: tip-block screws, finger frame (kept apart from FASTENERS so the Onshape part ids of the others stay put)
 TIP_FASTENERS = [(nm, (x, tip_screw_y(x), TIP_Z[0] + 1.8), (0, 0, 1), 10.0) for nm, x in zip(('BHT_Tip_A', 'BHT_Tip_B'), TIP_SCREW_X)]   # from below

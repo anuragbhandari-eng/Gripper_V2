@@ -33,12 +33,12 @@ bom = [
  ('P16', 'Double-sided protoboard 50 x 70 mm', 1, 'Drill the 4 corner holes to 3.2 mm on a 44 x 64 mm pattern'),
  ('P17', 'M3 x 10 male-female standoff + M3 x 6 screw', 4, 'Controller board to the cover-top inserts'),
  ('P18', 'MP1584 mini buck module (set to 5.0 V) + 1N5817 Schottky diode', 1, 'Battery -> Pico VSYS through the diode, so USB and battery can both be connected'),
- ('P19', '3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g)', 1, 'In the stand base tray, Velcro strap through the two slots'),
+ ('P19', '3S LiPo 11.1 V about 650 mAh, XT30 (about 62 x 30 x 18 mm, 60 g) + Velcro battery strap', 1, 'Strapped to the stand column, mid-height, on the side away from the gripper'),
  ('P20', 'LiPo balance charger (2-4S, XH balance lead)', 1, 'Charge only with this'),
- ('P21', 'XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A', 1, 'Battery -> switch -> fuse -> TMC2209 VM and buck input'),
+ ('P21', 'XT30 pigtail + XT30 extension 30 cm, mini-blade fuse holder + 3 A fuse, toggle switch >= 3 A, LiPo low-voltage alarm (balance lead)', 1, 'Battery -> fuse -> switch -> TMC2209 VM and buck input; divider after the switch; alarm on the balance lead'),
  ('P22', 'Resistors 100 k + 27 k (battery divider into Pico ADC0), 100 uF 25 V capacitor at TMC2209 VM', 1, ''),
  ('P23', '2020 aluminium extrusion, 400 mm (V-slot or T-slot)', 1, 'Bench stand column'),
- ('P24', 'M5 drop-in T-nut + M5 x 10 screw (2), M5 x 16 screw (1)', 1, 'Head bracket to column (2), base to column end (1, tap the end M5)'),
+ ('P24', 'M5 drop-in T-nut + M5 x 12 screw (4), M5 x 16 screw (1), 4 bench screws or M5 bolts', 1, 'Head bracket to column (2), base socket to column (2), base to column end (1, tap the end M5); base to the bench (4)'),
  ('P25', 'M6 x 20 socket head cap screw ISO 4762 + M6 hex nut', 4, 'Adapter to the stand head bracket (nuts drop into the bracket from the back)'),
  ('P26', 'TPU 95A filament', 1, 'Contact pads (18_Pad_TPU95A, 4 pcs)'),
 ]
@@ -80,8 +80,8 @@ A(f'- **Trade-offs of the longer tips:** the gripper is {D.TIP_EXT:.0f} mm longe
 A(f'- **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut {D.ENC_CUT:.0f} mm shorter). The board stands in a slot across the bearing block, {D.ENC_GAP} mm air gap; the block bolts moved to ears at the rear of the block.')
 A('- **D, controller:** Pico + TMC2209 + 5 V buck + battery divider on a 50 × 70 mm protoboard, on 4 standoffs in heat-set inserts in the cover top. USB serial to ROS 2.')
 A(f'- **A, drive:** Tr8×8 (lead {D.LEAD:.0f} mm): {W["screw_turns"]:.1f} turns over the stroke, {D.STEPS_PER_MM:.0f} steps/mm, {drv["speed_note"]}. Driver {drv["I_set_rms_A"]} A RMS. Not self-locking.')
-A('- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed base with a battery tray. Slide the bracket to set the height.')
-A(f'- **Power:** 3S LiPo (about 650 mAh, XT30) → switch → 3 A fuse → TMC2209 VM and the buck → Schottky → Pico VSYS. Firmware stops below 10.5 V.')
+A('- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base with 4 holes to fix it to the bench (fix it: unclamped, a few newtons at gripper height tip it over). The battery is strapped to the column, away from the jaws. Slide the bracket to set the height.')
+A(f'- **Power:** 3S LiPo (about 650 mAh, XT30) → 3 A fuse → switch → TMC2209 VM and the buck → Schottky → Pico VSYS. The battery divider sits after the switch (no drain when off). Firmware stops the motor below 10.5 V; a balance-lead alarm warns before the cells go too low, and the switch must be turned off after use (the Pico and buck still draw current).')
 A(f'- **Material:** printed parts in {D.MAT} (taken as {D.MAT_SY:.0f} MPa); pads in TPU 95A.\n')
 A('| Pico pin | Connects to |\n|---|---|')
 for pin, to in (('GP2', 'TMC2209 STEP'), ('GP3', 'TMC2209 DIR'), ('GP4', 'TMC2209 EN'), ('GP5', 'TMC2209 DIAG (stall detect for homing)'),
@@ -195,7 +195,7 @@ for i, s_ in enumerate([
  'Tip blocks: slide a TPU pad into the tip block groove from the rear and press until the barb at its rear end snaps past the step at the groove entrance (a drop of soapy water helps; pliers to remove), push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.',
  'Cover: put slow-cure epoxy in the 4 oversize cover holes, lower the cover over the sleeves and dowels, fit all its screws, and let the epoxy cure with the gripper assembled (the sleeves bond to the cover where the dowels really are). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.',
  'Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.',
- 'Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.',
+ 'Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5) and 2× M5×12 through the socket walls into T-nuts. Screw or bolt the base to the bench through its 4 corner holes. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery to the column (side away from the gripper) and plug in the balance-lead alarm.',
  'Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.',
  'Driver: %.2f A RMS, 1/16 µstep (%.0f steps/mm). Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.' % (S['driver']['I_set_rms_A'], D.STEPS_PER_MM)]):
     A(f'{i+1}. {s_}')

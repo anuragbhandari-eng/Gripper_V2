@@ -15,7 +15,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Motion check | 0 collisions over 41 poses (76 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 346 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 323 cm³ |
+| Printed volume | gripper with the narrow set 346 cm³ (~198 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 394 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes
@@ -25,8 +25,8 @@ Generated from the verified model (design.py → results.json, results_struct.js
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
 - **D, controller:** Pico + TMC2209 + 5 V buck + battery divider on a 50 × 70 mm protoboard, on 4 standoffs in heat-set inserts in the cover top. USB serial to ROS 2.
 - **A, drive:** Tr8×8 (lead 8 mm): 4.0 turns over the stroke, 400 steps/mm, 600 rpm -> 80 mm/s -> full stroke 0.4 s. Driver 0.7 A RMS. Not self-locking.
-- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed base with a battery tray. Slide the bracket to set the height.
-- **Power:** 3S LiPo (about 650 mAh, XT30) → switch → 3 A fuse → TMC2209 VM and the buck → Schottky → Pico VSYS. Firmware stops below 10.5 V.
+- **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base with 4 holes to fix it to the bench (fix it: unclamped, a few newtons at gripper height tip it over). The battery is strapped to the column, away from the jaws. Slide the bracket to set the height.
+- **Power:** 3S LiPo (about 650 mAh, XT30) → 3 A fuse → switch → TMC2209 VM and the buck → Schottky → Pico VSYS. The battery divider sits after the switch (no drain when off). Firmware stops the motor below 10.5 V; a balance-lead alarm warns before the cells go too low, and the switch must be turned off after use (the Pico and buck still draw current).
 - **Material:** printed parts in ABS (taken as 30 MPa); pads in TPU 95A.
 
 | Pico pin | Connects to |
@@ -178,7 +178,7 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | 18_Pad_TPU95A.stl | 4 | 1.71 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
 | 19_EncoderPuck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
 | 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
-| 21_Stand_Base.stl | 1 | 185.58 | 150.0 × 150.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
+| 21_Stand_Base.stl | 1 | 256.3 | 170.0 × 180.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
 
 **Print 13_FitTest_coupons.stl first** (16 cm³, one plate), in ABS on the same printer as the real parts. ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
@@ -252,7 +252,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 9. Tip blocks: slide a TPU pad into the tip block groove from the rear and press until the barb at its rear end snaps past the step at the groove entrance (a drop of soapy water helps; pliers to remove), push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
 10. Cover: put slow-cure epoxy in the 4 oversize cover holes, lower the cover over the sleeves and dowels, fit all its screws, and let the epoxy cure with the gripper assembled (the sleeves bond to the cover where the dowels really are). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
 11. Controller: screw the 4 standoffs into the cover-top inserts and fit the protoboard (Pico, TMC2209, buck, divider; see the wiring table) with 4× M3×6. Zip-tie each cable (USB, battery, motor, encoder) to the board grid as strain relief.
-12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5). Slide the head bracket onto the column and lock it with 2× M5×10 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery into the base tray.
+12. Bench stand: column into the base socket, M5×16 from below into the column end (tap it M5) and 2× M5×12 through the socket walls into T-nuts. Screw or bolt the base to the bench through its 4 corner holes. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Strap the battery to the column (side away from the gripper) and plug in the balance-lead alarm.
 13. Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.
 14. Driver: 0.70 A RMS, 1/16 µstep (400 steps/mm). Home by driving open slowly into the stop (carriage meets the bearing block at 66 mm) with stall detection, then back off 1 mm; the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). Stop the motor below 10.5 V on the battery monitor. Calibrate grip once with a kitchen scale between the jaws.
 

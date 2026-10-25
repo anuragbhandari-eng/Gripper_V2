@@ -9,7 +9,7 @@ PR = dict(sy=D.MAT_SY, allow=D.MAT_SY/2, allow_z=D.MAT_SZ/2)   # MPa, printed: i
 d = 4.0
 rows = []
 # motor / driver
-T_hold, I_rated = 0.40, 1.5
+T_hold, I_rated = 0.44, 1.7                     # chosen motor: YEJMKJ N17-Y42-39-SG240 (Amazon B0FHHWXJLV)
 eta_hi, eta_lo = R['screw']['eta_mu010'], R['screw']['eta_mu025']
 lead = R['screw']['lead_mm']*1e-3
 # rev 7 (Tr8x8): the lowest current (0.05 A steps) that still gives the operating screw force with worst-case friction
@@ -88,7 +88,7 @@ Fg_use = Fs_best*R['MA']['at_gap_60']                   # in use: stall force at
 # rev 7.1 (review item 5): hitting a hard stop at speed. The rotor inertia is reflected to the carriage by the lead;
 # J is a typical 40 mm NEMA 17 value (check the motor you buy); stop stiffness 1-10 N/um.
 from kin import ds_dth
-J_rot = 54e-7                                             # kg m^2 (assumed)
+J_rot = 65e-7                                             # kg m^2 (listing: about 65 g cm2)
 m_ref = J_rot*(2*np.pi/lead)**2
 v_full, v_home = R['screw']['lead_mm']*10.0, 10.0          # mm/s: 600 rpm, homing
 I_home = 0.3

@@ -68,9 +68,9 @@
    0.12301627760374487,
    0.17411691064943963
   ],
-  "T_hold_assumed": 0.4,
-  "torque_fraction_of_hold": 0.43529227662359904,
-  "Fs_at_full_hold_mu010": 235.35009922354308,
+  "T_hold_assumed": 0.44,
+  "torque_fraction_of_hold": 0.39572025147599915,
+  "Fs_at_full_hold_mu010": 258.88510914589733,
   "Fg_at_gap60_with_Fs_op": 54.4587166901086,
   "Fs_lim_N": 200.0
  },

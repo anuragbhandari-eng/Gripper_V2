@@ -9,9 +9,9 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Mechanism | Reference architecture kept: parallelogram finger (pure translation) + 90° bell crank + conrod to lead-screw carriage, 1 DOF, mirrored |
 | Jaw range | narrow tips 0 → 66 mm, wide tips 20 → 86 mm (pad to pad; firmware caps the opening at 60 / 80 mm) |
 | Carriage stroke | 32.0 mm = 4.0 screw turns (Tr8×8, 400 steps/mm at 1/16 µstep) |
-| Grip force per jaw | ≥ 26.8 N anywhere in range at 0.7 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
+| Grip force per jaw | ≥ 26.0 N anywhere in range at 0.7 A RMS, worst-case screw friction (needs 21.0 N for 500 g) |
 | Holding | Tr8×8 is back-drivable (lead angle 20.0°): the driver hold current keeps the grip; with power off the jaws can be pushed open |
-| Structure | Min safety factor 0.6 vs yield at a 200 N screw-force limit case (the motor clamps at 78–110 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 82.6 N per jaw) they are 3.3× higher: min SF 2.0 in use |
+| Structure | Min safety factor 0.6 vs yield at a 200 N screw-force limit case (the motor clamps at 75–107 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 80.2 N per jaw) they are 3.4× higher: min SF 2.0 in use |
 | Motion check | 0 collisions over 41 poses (84 parts with the stand and electronics, 20 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 3 screw sizes on the gripper (12× M3×8, 4× M3×10, 4× M3×20 button head); min SF 2.3 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
@@ -87,58 +87,58 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 ## 4. Motor and driver sizing
 
 - Screw force for ≥ 25 N everywhere: 72.4 N → torque 0.123–0.174 N·m (screw η 0.53–0.75).
-- **Set driver current to 0.7 A RMS** (for a 1.5 A / 0.4 N·m motor): screw force 77.6–109.8 N → grip ≥ 26.8 N per jaw, and stays below the 200 N structural limit even with a well-greased screw.
-- **Warning:** at full rated current the motor can push ~235 N, far above what the printed parts are sized for. The current limit is a safety item.
+- **Set driver current to 0.7 A RMS** (for a 1.7 A / 0.44 N·m motor): screw force 75.3–106.6 N → grip ≥ 26.0 N per jaw, and stays below the 200 N structural limit even with a well-greased screw.
+- **Warning:** at full rated current the motor can push ~259 N, far above what the printed parts are sized for. The current limit is a safety item.
 - Speed: 600 rpm -> 80 mm/s -> full stroke 0.4 s. The Tr8×8 is not self-locking, so keep the hold current on while gripping (TMC2209 IHOLD); the AS5600 confirms the position after any slip.
 
 
 ### 4a. Drive safety and grip control (rev 7.1)
 
 - **Driver current ceiling in hardware.** Set the TMC2209 VREF pot so its full-scale current is 0.7 A RMS and enable `GCONF.i_scale_analog`, so UART can only lower the current. The driver resets to its pot setting whenever its motor supply comes back (battery switch), while the Pico stays alive on USB: put a 10 k pull-up from EN to VIO (driver off while the Pico boots), and in firmware read GSTAT/IFCNT before every move and re-send the configuration after a reset.
-- **Hard stops.** The rotor (about 54 g·cm², assumed) looks like 3.33 kg at the carriage through the 8 mm lead. Running into a stop at 600 rpm adds about 146–462 N of screw force; at 10 mm/s only 18–58 N. So: never reach either end at speed (slow to 10 mm/s in the last 2 mm, using the encoder position).
-- **Homing: close, never open, into a stop.** Close at 0.3 A and 10 mm/s (screw force at most 47.1 N) until the jaws stop: with the narrow set the pads meet at gap 0, with the wide set the carriage reaches the motor wall at about a 17 mm pad gap. Closing puts the reaction on the protected path (lock collar, 608, printed lip); running into the open stop would push the screw into the motor bearing, whose axial rating budget motors do not publish. Detect the stop with the AS5600: commanded steps keep going but the measured angle stops (StallGuard only as a backup, it needs speed). Then open to the working position, and cap the opening at 60 mm (80 mm wide) so the open stop is never touched.
+- **Hard stops.** The rotor (about 65 g·cm², assumed) looks like 4.01 kg at the carriage through the 8 mm lead. Running into a stop at 600 rpm adds about 160–507 N of screw force; at 10 mm/s only 20–63 N. So: never reach either end at speed (slow to 10 mm/s in the last 2 mm, using the encoder position).
+- **Homing: close, never open, into a stop.** Close at 0.3 A and 10 mm/s (screw force at most 45.7 N) until the jaws stop: with the narrow set the pads meet at gap 0, with the wide set the carriage reaches the motor wall at about a 17 mm pad gap. Closing puts the reaction on the protected path (lock collar, 608, printed lip); running into the open stop would push the screw into the motor bearing, whose axial rating budget motors do not publish. Detect the stop with the AS5600: commanded steps keep going but the measured angle stops (StallGuard only as a backup, it needs speed). Then open to the working position, and cap the opening at 60 mm (80 mm wide) so the open stop is never touched.
 - **Grip control.** At a fixed current the grip rises about 3× from gap 0 to 60 mm (the linkage gains advantage as it opens). Schedule the run current against the encoder gap so the grip stays near 30 N per jaw (worst-case screw friction; the second grip value is with a greased screw):
 
 | Gap mm (narrow / wide) | MA | Run current A | IRUN (0–31) | Grip per jaw N |
 |---|---|---|---|---|
-| 0 / 20 | 0.345 | 0.7 | 31 | 26.8–37.9 |
-| 10 / 30 | 0.365 | 0.7 | 31 | 28.4–40.1 |
-| 20 / 40 | 0.381 | 0.7 | 31 | 29.6–41.9 |
-| 30 / 50 | 0.401 | 0.67 | 30 | 30.0–42.5 |
-| 40 / 60 | 0.437 | 0.62 | 27 | 30.0–42.5 |
-| 50 / 70 | 0.516 | 0.52 | 23 | 30.0–42.5 |
-| 60 / 80 | 0.752 | 0.36 | 15 | 30.0–42.5 |
+| 0 / 20 | 0.345 | 0.7 | 31 | 26.0–36.8 |
+| 10 / 30 | 0.365 | 0.7 | 31 | 27.5–39.0 |
+| 20 / 40 | 0.381 | 0.7 | 31 | 28.7–40.7 |
+| 30 / 50 | 0.401 | 0.69 | 31 | 30.0–42.5 |
+| 40 / 60 | 0.437 | 0.64 | 28 | 30.0–42.5 |
+| 50 / 70 | 0.516 | 0.54 | 24 | 30.0–42.5 |
+| 60 / 80 | 0.752 | 0.37 | 16 | 30.0–42.5 |
 
 - **Hold.** The Tr8×8 back-drives: while gripping set IHOLD = IRUN and a long TPOWERDOWN, and keep the screw greased.
 - **Encoder bench test before printing the bearing block.** The magnet sits inside the steel 608 inner ring, which can weaken or distort its field. Push the printed puck with the magnet into a 608, hold the AS5600 0.8 mm in front of it, turn the bearing by hand and read MAGNITUDE and AGC over I2C (AGC should sit mid-range) and the angle over a full turn (it should be linear). If the field is too weak, the magnet has to move 3–4 mm in front of the 608 in a non-ferrous holder, which needs a longer block (ask before redesigning). Tie the AS5600 DIR pin to GND.
 
-## 5. Structural checks (200 N screw-force limit case; σ op = at the 109.8 N stall force at 0.7 A)
+## 5. Structural checks (200 N screw-force limit case; σ op = at the 106.6 N stall force at 0.7 A)
 
 | Check | Load N | σ limit MPa | σ op MPa | SF yield |
 |---|---|---|---|---|
-| Shoulder screw Ø4 double shear (12.9 steel) | 543.0 | 21.61 | 11.87 | 46.3 |
-| Dowel Ø4 bending, simply supported base↔cover | 543.0 | 604.0 | 331.69 | 2.0 |
-| Finger bore at F2 on shoulder (7.6 mm) | 543.0 | 17.86 | 9.81 | 1.7 |
-| Finger bore at F1 (7.6 mm) | 315.2 | 10.37 | 5.69 | 2.9 |
-| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 543.0 | 7.58 | 4.16 | 4.0 |
-| Base dowel press hole (56% share, 6.5 mm) | 543.0 | 11.68 | 6.41 | 2.6 |
-| Cover hole on the bonded sleeve (44% share, Ø6 x 6) | 543.0 | 6.65 | 3.65 | 4.5 |
-| ConRod bores (7.6 mm) | 156.4 | 5.14 | 2.82 | 5.8 |
-| Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 2.13 | 7.8 |
-| Finger boss tear-out at F2 | 543.0 | 10.51 | 5.77 | 1.7 |
-| FrontCrank (two-force) net section | 543.0 | 8.15 | 4.47 | 3.7 |
-| ConRod (two-force) net section | 156.4 | 3.55 | 1.95 | 8.5 |
-| BellCrank bending near O1 (two plates) | 315.2 | 9.9 | 5.44 | 3.0 |
-| Finger body at the tip seam (23.8 mm deep x 7.6) | 273.0 | 16.04 | 8.81 | 1.9 |
-| Tongue root bending at the seam (16.3 deep x 13.6) | 273.0 | 19.16 | 10.52 | 1.6 |
-| Tongue flank bearing in the tip block pocket (15 mm long) | 1146.5 | 11.28 | 6.2 | 2.7 |
-| Tip block wall, interlayer shear at z = 6.5 (wide set, 2.53 mm wall) | 83.3 | 0.78 | 0.43 | 9.2 |
-| Tongue torsion, grip on the pad edge (9.75 mm off the pin plane) | 273.0 | 4.28 | 2.35 | 1.7 |
-| Finger bore at F2, far-tip grip on the pad edge | 543.0 | 52.42 | 28.79 | 0.6 |
-| Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 0.72 | 23.0 |
-| Block front lip shear-out (1.45 mm lip) | 200.0 | 2.0 | 1.1 | 9.0 |
-| Desk clamp spine bending (30 x 14, hand-tight 400 N) | 400.0 | 11.22 | 6.16 | 2.7 |
-| Desk clamp lower arm at the spine (30 x 12) | 400.0 | 11.39 | 6.25 | 2.6 |
+| Shoulder screw Ø4 double shear (12.9 steel) | 543.0 | 21.61 | 11.52 | 46.3 |
+| Dowel Ø4 bending, simply supported base↔cover | 543.0 | 604.0 | 321.93 | 2.0 |
+| Finger bore at F2 on shoulder (7.6 mm) | 543.0 | 17.86 | 9.52 | 1.7 |
+| Finger bore at F1 (7.6 mm) | 315.2 | 10.37 | 5.53 | 2.9 |
+| FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 543.0 | 7.58 | 4.04 | 4.0 |
+| Base dowel press hole (56% share, 6.5 mm) | 543.0 | 11.68 | 6.22 | 2.6 |
+| Cover hole on the bonded sleeve (44% share, Ø6 x 6) | 543.0 | 6.65 | 3.54 | 4.5 |
+| ConRod bores (7.6 mm) | 156.4 | 5.14 | 2.74 | 5.8 |
+| Carriage ears at C (6.3 + 3.8 mm) | 156.4 | 3.87 | 2.06 | 7.8 |
+| Finger boss tear-out at F2 | 543.0 | 10.51 | 5.6 | 1.7 |
+| FrontCrank (two-force) net section | 543.0 | 8.15 | 4.34 | 3.7 |
+| ConRod (two-force) net section | 156.4 | 3.55 | 1.89 | 8.5 |
+| BellCrank bending near O1 (two plates) | 315.2 | 9.9 | 5.28 | 3.0 |
+| Finger body at the tip seam (23.8 mm deep x 7.6) | 273.0 | 16.04 | 8.55 | 1.9 |
+| Tongue root bending at the seam (16.3 deep x 13.6) | 273.0 | 19.16 | 10.21 | 1.6 |
+| Tongue flank bearing in the tip block pocket (15 mm long) | 1146.5 | 11.28 | 6.01 | 2.7 |
+| Tip block wall, interlayer shear at z = 6.5 (wide set, 2.53 mm wall) | 83.3 | 0.78 | 0.42 | 9.2 |
+| Tongue torsion, grip on the pad edge (9.75 mm off the pin plane) | 273.0 | 4.28 | 2.28 | 1.7 |
+| Finger bore at F2, far-tip grip on the pad edge | 543.0 | 52.42 | 27.94 | 0.6 |
+| Block front lip bearing on 608 outer ring | 200.0 | 1.31 | 0.7 | 23.0 |
+| Block front lip shear-out (1.45 mm lip) | 200.0 | 2.0 | 1.06 | 9.0 |
+| Desk clamp spine bending (30 x 14, hand-tight 400 N) | 400.0 | 11.22 | 5.98 | 2.7 |
+| Desk clamp lower arm at the spine (30 x 12) | 400.0 | 11.39 | 6.07 | 2.6 |
 
 **Grip thrust (rev 6):** closing the jaws pushes the carriage toward the motor, so the screw is pulled the other way. A lock collar behind the 608 carries that pull into the bearing inner ring; the outer ring bears on the block front lip, which is the base and cover halves clamped together. The motor's own bearing no longer takes the full reaction. Limit case 200 N vs ≈ 685 N 608 static axial capacity. Collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly.
 
@@ -158,9 +158,9 @@ Gripper mass 731 g (printed parts taken as solid, conservative), CG at x = -26 m
 | Side screw M3x8, shank shear (mount, x2 dynamic) | 121.4 | 24.13 | 15.4 | 8.8 steel; ignores clamp friction |
 | Side wall hole bearing, 3.8 mm wall (mount) | 121.4 | 10.65 | 2.8 | base/cover side wall |
 | Adapter insert bearing in ABS (mount) | 121.4 | 4.63 | 6.5 | insert OD 4.6 x 5.7 mm |
-| Motor screw head on ABS (open-stop stall, tension) | 27.4 | 1.67 | 18.0 | 4 screws share the stall force |
-| Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 54.9 | 1.59 | 11.0 | shear at the D2.5 pilot wall |
-| Nut screw head on brass flange | 54.9 | 3.34 | 59.9 | CuZn yield ~200 MPa |
+| Motor screw head on ABS (open-stop stall, tension) | 26.6 | 1.62 | 18.5 | 4 screws share the stall force |
+| Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 53.3 | 1.54 | 11.3 | shear at the D2.5 pilot wall |
+| Nut screw head on brass flange | 53.3 | 3.24 | 61.7 | CuZn yield ~200 MPa |
 | Cover screw bearing in cover (200 N limit case) | 162.9 | 12.93 | 2.3 | all four dowel reactions on 6 screws |
 
 | Screw | Clamp mm | Thread engaged mm | Tip to hole bottom mm | Into |

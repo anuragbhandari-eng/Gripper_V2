@@ -25,7 +25,7 @@ lam = np.arctan(lead/(np.pi*d_mean))
 def eta(mu): ph = np.arctan(mu/np.cos(half_ang)); return np.tan(lam)/np.tan(lam+ph)
 def selflock(mu): return np.arctan(mu/np.cos(half_ang)) > lam
 mu_s_lo, mu_s_hi = 0.10, 0.25                      # lubricated..dry brass on steel
-T_hold, I_rated = 0.40, 1.5                        # typical NEMA17 40 mm integrated-screw motor (verify datasheet)
+T_hold, I_rated = 0.44, 1.7                        # chosen motor: YEJMKJ N17-Y42-39-SG240 (42x42x38.7, Tr8x8, Amazon B0FHHWXJLV)
 
 th = np.linspace(TH_C, TH_O, 401)
 gap = 2*face_y(P, th); s = s_of(P, th); G = ds_dth(P, th)

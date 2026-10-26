@@ -38,6 +38,8 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 > - The jaws now open to 60.5 mm, just past the firmware's 60 mm limit; the last few millimetres were never used.
 > - The lead screw is cut shorter (73.0 mm).
 > - A printed cover protects the controller.
+> - **Compact controller:** the protoboard is cut to 48 × 60 mm, sits on 4 mm spacers, and its cover is 38% smaller.
+> - **Flush dowels:** the dowels are cut to 38.5 mm and pressed through the base, flush top and bottom.
 > - 28 heat-set inserts in all.
 
 ## Part A. When the parts arrive
@@ -129,9 +131,19 @@ The print list with orientations is in the [design report, section 6](../gripper
 
 ### C2. Solder the controller board
 
-First drill the 4 corner holes of the 50 × 70 mm protoboard to 3.2 mm, on a 44 × 64 mm pattern.
+First cut the 50 × 70 mm protoboard down to **48 × 60 mm**: score along a row of holes and snap it, or saw it. Then drill 4 mounting holes to 3.2 mm, 3 mm in from the long edges (54 mm apart):
+- one pair 3 mm from the driver end;
+- the other pair 36.5 mm from the driver end, so they land between the Pico's two socket rows.
 
-**Layout:** Pico sockets along one long edge, with the USB end at a board edge. Driver sockets beside the Pico. The 7805 and the power input at the far end. Keep the 9 V wires short and thick.
+Screw the board down before plugging the Pico in.
+
+**Layout** (it matches the model, so the cover fits):
+- Pico sockets along one long edge, with the USB end at a short edge.
+- Driver sockets beside the Pico, toward the other short edge.
+- The trigger board taped flat at the USB end, next to the Pico, with its socket just over the edge.
+- The 7805 lying flat beside it, legs bent down 90°, tab toward the same edge but 6–7 mm in from it, clear of the corner screw.
+- The 100 µF capacitor standing between the 7805 and the driver.
+- Keep the 9 V wires short and thick.
 
 | From | To | Notes |
 |---|---|---|
@@ -228,7 +240,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 ### D3. Pins, dowels and bushings
 
 1. **Locating pins:** cut the heads off two M3×16 screws. Screw them into the bearing-block half of the base, 8 mm deep.
-2. **Dowels:** press the 4 dowels (4 × 40) into the base at O1 and O2 on both sides, 6.5 mm deep and square to the plate. A bench vise with soft jaws works well. The tops will stand 4 mm above the cover later; that's expected.
+2. **Dowels:** cut each 4 × 40 dowel to **38.5 mm**. They are hardened, so use an abrasive cut-off disc (a Dremel or similar), not a hacksaw. Deburr the cut end with a file. Press them up through the base from underneath at O1 and O2 on both sides, square to the plate, until flush with the underside. A bench vise with soft jaws works well. Their tops end flush with the cover top.
 3. Smear wax or grease on the top 8 mm of each dowel. This stops the epoxy sticking to the dowel in D10. Then slide a bronze bushing onto each.
 
 - [ ] Pins and dowels in, bushings on
@@ -288,7 +300,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 
 ## Part E. Controller onto the gripper
 
-1. Put the 4 printed spacers on the cover-top inserts. Set the board on them, and fit 4× M3×16 through the board and spacers into the inserts.
+1. Unplug the Pico and the driver from their sockets. Put the 4 printed spacers (4 mm) on the cover-top inserts, set the board on them, and fit 4× M3×10 through the board and spacers into the inserts. Then plug the Pico and the driver back in.
 2. **Power off:** connect the motor cable to the driver and the AS5600 lead to the board.
 3. Zip-tie each cable (USB, power, motor, encoder) to the board as strain relief.
 4. **Electronics cover:** lower it over the board, with the cables in the notches at its rim:

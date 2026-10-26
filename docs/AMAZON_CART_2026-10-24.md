@@ -108,6 +108,6 @@ Also get from the fablab or a hardware store:
 
 ## Notes
 
-1. **Dowels 4 × 40.** Amazon US has no hardened 4 × 36. Press them 6.5 mm into the base as modelled; they stand 4 mm above the cover and are clear of the controller board (checked in the model).
+1. **Dowels 4 × 40.** Amazon US has no hardened 4 × 36. Cut them to 38.5 mm with a cut-off disc and press them through the base. They then sit flush top and bottom (see the build guide, D3).
 2. **Shoulder screws.** These are 304 stainless. The shear safety factor at the 200 N limit is 12, which is plenty.
 3. **Pico clone.** It runs the same MicroPython firmware. Before soldering its sockets, check the pin labels match the Raspberry Pi Pico layout.

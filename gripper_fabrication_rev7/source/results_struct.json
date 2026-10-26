@@ -11,9 +11,9 @@
   {
    "item": "Dowel \u00d84 bending, simply supported base\u2194cover",
    "load_limit_N": 295.3,
-   "stress_limit_MPa": 328.49,
-   "stress_op_MPa": 175.08,
-   "SF_yield_at_limit": 3.7,
+   "stress_limit_MPa": 346.08,
+   "stress_op_MPa": 184.46,
+   "SF_yield_at_limit": 3.5,
    "note": "hardened ISO 8734, yield >1200 MPa; top held by the bonded sleeve"
   },
   {
@@ -41,19 +41,19 @@
    "note": ""
   },
   {
-   "item": "Base dowel press hole (56% share, 6.5 mm)",
+   "item": "Base dowel press hole (54% share, 9.0 mm)",
    "load_limit_N": 295.3,
-   "stress_limit_MPa": 6.35,
-   "stress_op_MPa": 3.38,
-   "SF_yield_at_limit": 4.7,
+   "stress_limit_MPa": 4.39,
+   "stress_op_MPa": 2.34,
+   "SF_yield_at_limit": 6.8,
    "note": "beam reaction"
   },
   {
-   "item": "Cover hole on the bonded sleeve (44% share, \u00d86 x 6)",
+   "item": "Cover hole on the bonded sleeve (46% share, \u00d86 x 6)",
    "load_limit_N": 295.3,
-   "stress_limit_MPa": 3.62,
-   "stress_op_MPa": 1.93,
-   "SF_yield_at_limit": 8.3,
+   "stress_limit_MPa": 3.81,
+   "stress_op_MPa": 2.03,
+   "SF_yield_at_limit": 7.9,
    "note": "beam reaction; sleeve bonded in place, zero clearance"
   },
   {

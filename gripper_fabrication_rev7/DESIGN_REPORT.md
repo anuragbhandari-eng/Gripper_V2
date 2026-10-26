@@ -14,17 +14,18 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Structure | Min safety factor 1.0 vs yield at a 200 N screw-force limit case (the motor clamps at 75–107 N at 0.7 A). Grip-driven rows assume a far-tip grip at the 66 mm stop; in use (stall at 0.7 A, 60 mm cap, 80.2 N per jaw) they are 1.94× higher: min SF 1.9 in use |
 | Motion check | 0 collisions over 41 poses (95 parts with the stand and electronics, 24 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
-| Fasteners | 4 button-head sizes on the gripper (14× M3×8, 4× M3×10, 4× M3×16, 4× M3×20, ISO 7380); min SF 2.8 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 504 cm³ (~288 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 395 cm³ |
+| Fasteners | 4 button-head sizes on the gripper (14× M3×8, 8× M3×10, 4× M3×20, ISO 7380); min SF 2.8 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
+| Printed volume | gripper with the narrow set 497 cm³ (~284 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 395 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes
 
+- **Rev 7.2b (2026-10-26), compact controller and flush dowels:** the protoboard is cut to 48 × 60 mm and sits on 4 mm spacers, the 7805 lies flat, the 100 µF stands beside the driver, and the two Pico-end mounting screws sit between the Pico's socket rows. The electronics cover shrinks from 57.5 × 78 × 33.6 to 54 × 66 × 26.2 mm (envelope 151 → 93 cm³, −38%); the driver's heatsink is now the tallest part. The 4 × 40 dowels are cut to 38.5 mm and pressed up through the base, flush with its underside and the cover top, with 9 mm of press fit (was 6.5).
 - **Rev 7.2 finishing pass (2026-10-26):** the open hard stop moved from 66 to 60.5 mm, just past the 60 mm firmware cap: the last 6 mm were never used, and there the linkage advantage, and so every pin load in the 200 N limit case, climbs steeply. The finger bores at F1 and F2 (twist from a pad-edge grip) now pass that limit case (SF 1.0, was 0.6, bore-only model), the gripper is 5.5 mm of stroke shorter at the front and the lead screw is cut to 73.0 mm. Fillets in the desk clamps' inside corners (R3 / R6) and a stepped fillet round the stand column socket, a 0.4 mm elephant's-foot relief on the carriage tongue's bed side, and a printed electronics cover (26_ElectronicsCover) over the controller with cable notches, a BOOTSEL window and driver vents, held by 2 M3×8 into 2 more cover-top inserts. The Pico and driver now sit at their real socketed height (11 mm above the board). In Onshape the button-head screws are Onshape standard ISO 7380 parts and the Pico is Raspberry Pi's official model.
 - **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear and snaps past a step, so it cannot slide back out). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
 - **Trade-offs of the longer tips:** the gripper is 12 mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
-- **D, controller:** Pico + TMC2209 (in sockets), 7805, motor-power divider, 100 µF and the USB-C trigger board on a 50 × 70 mm protoboard, on 4 printed spacers over heat-set inserts in the cover top. Runs on its own from the power bank (demo mode: the Pico BOOTSEL button opens and closes the jaws); USB serial to ROS 2 when a laptop is plugged in.
+- **D, controller:** Pico + TMC2209 (in sockets), 7805, motor-power divider, 100 µF and the USB-C trigger board on a 48 × 60 mm protoboard (7805 and 100 µF lying flat), on 4 printed 4 mm spacers over heat-set inserts in the cover top. Runs on its own from the power bank (demo mode: the Pico BOOTSEL button opens and closes the jaws); USB serial to ROS 2 when a laptop is plugged in.
 - **A, drive:** Tr8×8 (lead 8 mm): 3.3 turns over the stroke, 400 steps/mm, 300 rpm max on the 9 V supply -> 40 mm/s -> full stroke 0.7 s. Driver 0.7 A RMS. Not self-locking.
 - **F, bench stand:** the gripper hangs jaws-down from a 2020 × 400 mm column: printed head bracket on the ISO 9409 adapter, printed 180 × 170 mm base, clamped to the desk edge by 2 printed C-clamps with M8 star knobs (sized for a 40 mm edge, 24–49 mm range); unclamped, a few newtons at gripper height would tip it over. The power bank sits on the desk next to the base. Slide the bracket to set the height.
 - **Power:** USB-C PD power bank → 9 V trigger board → TMC2209 VM, the motor-power divider and a 7805 that feeds the Pico VSYS through a 1N5817, so one cable runs everything and the laptop is optional (USB can be plugged in at the same time). 9 V is offered by every PD bank and by USB-C laptop and phone chargers of 18 W and up, so any of them works. The bank protects itself and cuts out when empty; firmware disables the driver when the divider shows the 9 V is gone (9 V reads 1.91 V). Many banks switch off below about 50–100 mA: the driver stays enabled at hold current while powered (the back-drivable screw needs it to hold a grip anyway), which keeps the bank awake.
@@ -118,12 +119,12 @@ Jaw gap ↔ carriage position (for firmware; home = open stop, 400 steps/mm at 1
 | Check | Load N | σ limit MPa | σ op MPa | SF yield |
 |---|---|---|---|---|
 | Shoulder screw Ø4 double shear (304 stainless) | 392.3 | 15.61 | 8.32 | 16.7 |
-| Dowel Ø4 bending, simply supported base↔cover | 295.3 | 328.49 | 175.08 | 3.7 |
+| Dowel Ø4 bending, simply supported base↔cover | 295.3 | 346.08 | 184.46 | 3.5 |
 | Finger bore at F2 on shoulder (7.6 mm) | 295.3 | 9.71 | 5.18 | 3.1 |
 | Finger bore at F1 (7.6 mm) | 310.1 | 10.2 | 5.44 | 2.9 |
 | FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer) | 295.3 | 4.12 | 2.2 | 7.3 |
-| Base dowel press hole (56% share, 6.5 mm) | 295.3 | 6.35 | 3.38 | 4.7 |
-| Cover hole on the bonded sleeve (44% share, Ø6 x 6) | 295.3 | 3.62 | 1.93 | 8.3 |
+| Base dowel press hole (54% share, 9.0 mm) | 295.3 | 4.39 | 2.34 | 6.8 |
+| Cover hole on the bonded sleeve (46% share, Ø6 x 6) | 295.3 | 3.81 | 2.03 | 7.9 |
 | ConRod bores (7.6 mm) | 126.4 | 4.16 | 2.22 | 7.2 |
 | Carriage ears at C (6.3 + 3.8 mm) | 126.4 | 3.13 | 1.67 | 9.6 |
 | Finger boss tear-out at F2 | 295.3 | 5.71 | 3.05 | 3.1 |
@@ -153,13 +154,13 @@ ABS printed in-plane yield taken as 30 MPa (low end of generic FDM ABS; the spoo
 
 ### 5.1 Fasteners (every screw is modelled)
 
-Gripper mass 767 g (printed parts taken as solid, conservative), CG at x = -24 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.95 N·m (×2 dynamic).
+Gripper mass 755 g (printed parts taken as solid, conservative), CG at x = -25 mm; payload at x = 89.0 mm; mount at x = -98.5 mm. Pitch moment at the mount 2.93 N·m (×2 dynamic).
 
 | Check | Load N | Stress MPa | SF yield | Note |
 |---|---|---|---|---|
-| Side screw M3x8, shank shear (mount, x2 dynamic) | 124.3 | 24.71 | 15.0 | 8.8 steel; ignores clamp friction |
-| Side wall hole bearing, 3.8 mm wall (mount) | 124.3 | 10.9 | 2.8 | base/cover side wall |
-| Adapter insert bearing in ABS (mount) | 124.3 | 4.74 | 6.3 | insert OD 4.6 x 5.7 mm |
+| Side screw M3x8, shank shear (mount, x2 dynamic) | 123.4 | 24.53 | 15.1 | 8.8 steel; ignores clamp friction |
+| Side wall hole bearing, 3.8 mm wall (mount) | 123.4 | 10.82 | 2.8 | base/cover side wall |
+| Adapter insert bearing in ABS (mount) | 123.4 | 4.71 | 6.4 | insert OD 4.6 x 5.7 mm |
 | Motor screw head on ABS (open-stop stall, tension) | 26.6 | 1.62 | 18.5 | 4 screws share the stall force |
 | Nut screw pull-out, self-tapped 4.4 mm (open-stop stall) | 53.3 | 1.54 | 11.3 | shear at the D2.5 pilot wall |
 | Nut screw head on brass flange | 53.3 | 3.24 | 61.7 | CuZn yield ~200 MPa |
@@ -184,7 +185,7 @@ Gripper mass 767 g (printed parts taken as solid, conservative), CG at x = -24 m
 
 | Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |
 |---|---|---|---|---|
-| 01_Base.stl | 1 | 107.28 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
+| 01_Base.stl | 1 | 107.17 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
 | 02_Cover.stl | 1 | 90.33 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
 | 03_Adapter_ISO9409-50-4-M6.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
 | 04_Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
@@ -209,8 +210,8 @@ Gripper mass 767 g (printed parts taken as solid, conservative), CG at x = -24 m
 | 22_Stand_DeskClamp_A.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_my_down: desk clamp; lying on its side, nut slot up, 100% infill at the corners |
 | 23_Stand_DeskClamp_B_mirrored.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_py_down: mirror of 22 |
 | 24_Stand_ClampPad.stl | 2 | 2.54 | 24.0 × 24.0 × 6.0 | rear_down: desk side down; felt on it is optional |
-| 25_ControllerSpacer.stl | 4 | 0.15 | 5.5 × 5.5 × 10.0 | flat: end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert) |
-| 26_ElectronicsCover.stl | 1 | 23.54 | 57.5 × 95.0 × 33.6 | flip_x: top face on bed, no supports; 2 M3 x 8 into the cover-top inserts |
+| 25_ControllerSpacer.stl | 4 | 0.06 | 5.5 × 5.5 × 4.0 | flat: end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert) |
+| 26_ElectronicsCover.stl | 1 | 16.62 | 54.0 × 83.0 × 26.2 | flip_x: top face on bed, no supports; 2 M3 x 8 into the cover-top inserts |
 
 **Print the fit coupons first**, in ABS on the same printer as the real parts: 13b_FitTest_rev7.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and 13c_FitTest_pad_TPU95A.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then 13_FitTest_coupons.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
@@ -219,9 +220,9 @@ Print settings: ABS in an enclosed printer (a draft shield at minimum), part-coo
 
 ## 7. Onshape
 
-**Status (rev 7, 2026-10-26 (rev 7.2 finishing pass)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
+**Status (rev 7, 2026-10-26 (rev 7.2b: compact controller, flush dowels)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
 
-- Feature Studio 1 holds the rev 7.2 `LeadScrewGripper.fs` (48032 characters, SHA-256 d13a1fd9a57ec931…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
+- Feature Studio 1 holds the rev 7.2 `LeadScrewGripper.fs` (48058 characters, SHA-256 7806dea110f8299a…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
 - The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 97 parts; every volume is within 0.7 mm³ of the local model, and the wide set matches too.
 - Assembly 1: 97 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +15.34 / −11.20 mm, fingers 15.25 / −15.00 mm, tips and their screws follow the fingers; past the limit it clamps. Left at 0 (gap 30). The 26 button heads are Onshape standard content (ISO 7380 M3, configured from Onshape's own size table), placed exactly where the modelled screws sit and grouped with the part they hold; the Pico is Raspberry Pi's official model (Pico-R3.step, in the sub-assembly "Pico (official model)"). The simplified screws and Pico stay in Part Studio 1 for the local checks. Record: source/results_onshape_rev7.json.
 - Pictures: images/onshape_v2_assembly_iso.png, images/onshape_v2_assembly_top.png, images/onshape_v2_assembly_front.png, images/onshape_v2_partstudio_iso.png. The "Robot export" assembly is unchanged (ROS 2 phase).
@@ -274,7 +275,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 ## 8. Assembly sequence
 
 1. Heat-set inserts, pressed from the top face until flush (the shoulder screws seat on the insert top): BellCrank Lower (F1, D), FrontCrank Lower (F2), Carriage lower ears (2), Finger tongues (2 each). Base: 2 motor-wall joint, 2 bearing-block ears, 2 posts. Adapter: 4 side holes. Cover top: 4 for the controller spacers, 2 for the electronics cover. 28 inserts in all.
-2. Screw the 2 locating pins (M3×16 with the heads cut off) into the bearing-block half of the base (8 mm deep). Press the 4 dowels into the base (O1, O2 both sides; 6.5 mm deep, square to the plate). Wax or grease the top 8 mm of each dowel (release) and slide a bronze sleeve onto each.
+2. Screw the 2 locating pins (M3×16 with the heads cut off) into the bearing-block half of the base (8 mm deep). Cut the 4 dowels to 38.5 mm and press them up through the base from underneath (O1, O2 both sides; flush with the underside, square to the plate). Wax or grease the top 8 mm of each dowel (release) and slide a bronze sleeve onto each.
 3. Pull-test the lock collar first: tighten its set screw on the end of the lead screw, check it holds a firm pull by hand without slipping, then take it off. Cut the lead screw to 73.0 mm -0.5/+0 from the motor face, so its end sits 3 mm inside the 608 bore (never longer: the encoder puck fills the rest). Chamfer, clean and grease it.
 4. Slide the nut into the carriage from the front: body into the bore, flange into the front recess, two flange holes at 3 and 9 o'clock. Fit 2× M3×8 button heads into the Ø2.5 pilots, snug only.
 5. Spin the carriage onto the motor screw from its rear. Slide the lock collar on (set screw loose), then the 608ZZ onto the screw tip.
@@ -283,7 +284,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
 8. Per side: BellCrank Lower on O1 and FrontCrank Lower on O2 (bosses up). Finger onto F1/F2, conrod onto D and between the carriage ears at C. BellCrank Upper and FrontCrank Upper on top. Shoulder screws at F1, F2, D, C into the lower-plate/ear inserts.
 9. Tip blocks: slide a TPU pad into the tip block groove from the rear and press until the barb at its rear end snaps past the step at the groove entrance (a drop of soapy water helps; pliers to remove), push the tip block up onto the finger tongue from below and fit 2× M3×10 from below through its floor. To change sets, take the 2 screws out and slide the block off downward.
 10. Cover: put slow-cure epoxy in the 4 oversize cover holes, lower the cover over the sleeves and dowels, fit all its screws, and let the epoxy cure with the gripper assembled (the sleeves bond to the cover where the dowels really are). 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
-11. Controller: solder the female headers (Pico 2 × 20, TMC2209 2 × 8), the 7805, diode and divider to the protoboard (see the wiring table) and plug in the Pico and TMC2209, set it on the 4 printed spacers and screw it down with 4× M3×16 into the cover-top inserts. Zip-tie each cable (USB, power, motor, encoder) to the board grid as strain relief. Put the electronics cover over it (cables through the rim notches) and fit 2× M3×8 through its flanges into the cover-top inserts.
+11. Controller: solder the female headers (Pico 2 × 20, TMC2209 2 × 8), the 7805, diode and divider to the protoboard (see the wiring table) and plug in the Pico and TMC2209, set it on the 4 printed spacers and screw it down with 4× M3×10 into the cover-top inserts. Zip-tie each cable (USB, power, motor, encoder) to the board grid as strain relief. Put the electronics cover over it (cables through the rim notches) and fit 2× M3×8 through its flanges into the cover-top inserts.
 12. Bench stand: column into the base socket, M5×12 from below into the column end (tap it M5; skip this screw if there is no M5 tap) and 2× M5×12 through the socket walls into T-nuts. Desk clamps: drop an M8 nut into the slot of each clamp and thread the star knob in from below; put the front edge of the base flush with the front edge of the desk, hook a clamp over each front corner (its boss drops into the corner counterbore) and tighten the knobs by hand under the black edge. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back. Put the power bank on the desk beside the base.
 13. Bolt the adapter first: to a robot flange with 4× M6×12, or to the stand head bracket with 4× M6×20 into the nuts. Slide the gripper onto it (the U-slot is open at the rear) and fit 4× M3×8 through the side walls into the adapter inserts.
 14. Driver: set the VREF pot to 0.70 A RMS full scale (section 4a), 1/16 µstep (400 steps/mm). Home at 0.3 A and 10 mm/s by closing until the jaws stop (narrow set: pads meet; wide set: carriage on the motor wall), detecting the stop with the encoder (bench test: firmware/as5600_bench_test.py); the AS5600 then tracks screw turns (4 over the full stroke). In use, cap the commanded opening at 60 mm (80 mm pad gap with the wide tips) so the carriage never hits the stop at speed. Keep the hold current on while gripping (the Tr8×8 is back-drivable). The driver turns off when the 9 V supply drops. Power-up tests, homing, grip and a stand-alone demo: firmware/bench.py, step by step in docs/BUILD_AND_TEST_GUIDE.md.

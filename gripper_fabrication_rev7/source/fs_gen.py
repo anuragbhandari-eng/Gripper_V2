@@ -33,8 +33,8 @@ SPEC = [  # name, ops, pose kind, mirror?, color, material, purchased?
     ('Tr8x%d lead screw (cut %.1fmm)' % (D.LEAD, D.SCREW_LEN), D.leadscrew(), 'ground', False, '[0.77,0.78,0.78]', 'STEEL', True),
     ('Tr8 brass flange nut', D.nut(), 'car', False, '[0.79,0.64,0.29]', 'BRASS', True),
     ('608ZZ bearing', D.bearing608(), 'ground', False, '[0.66,0.68,0.70]', 'STEEL', True),
-    ('Dowel 4x40 O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
-    ('Dowel 4x40 O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x38.5 (40 cut) O1', D.dowel(D.O1, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
+    ('Dowel 4x38.5 (40 cut) O2', D.dowel(D.O2, 1), 'ground', True, '[0.86,0.86,0.86]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F1', D.shoulder_screw(), 'ssF1', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 F2', D.shoulder_screw(), 'ssF2', True, '[0.10,0.10,0.10]', 'STEEL', True),
     ('Shoulder screw 4x12 M3 D', D.shoulder_screw(), 'ssD', True, '[0.10,0.10,0.10]', 'STEEL', True),
@@ -58,8 +58,8 @@ SPEC += [  # rev 7 (C): encoder at the screw's front end
     ('AS5600 encoder board', D.as5600(), 'ground', False, '[0.10,0.28,0.62]', 'FR4', True)]
 SPEC += [  # rev 7 (D): controller on the cover top
     ('Protoboard 50x70', D.protoboard(), 'ground', False, '[0.16,0.42,0.22]', 'FR4', True),
-    ('Controller spacer rear', D.spacer(D.CTRL_C[0] - D.CTRL_HOLE[0]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
-    ('Controller spacer front', D.spacer(D.CTRL_C[0] + D.CTRL_HOLE[0]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Controller spacer rear', D.spacer(D.CTRL_HOLE_X[0]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Controller spacer front', D.spacer(D.CTRL_HOLE_X[1]), 'ground', True, '[0.29,0.32,0.35]', D.MAT, False),
     ('Raspberry Pi Pico', D.pico(), 'ground', False, '[0.10,0.45,0.20]', 'FR4', True),
     ('TMC2209 driver', D.tmc2209(), 'ground', False, '[0.50,0.12,0.55]', 'FR4', True),
     ('Regulator 7805 TO-220', D.regulator(), 'ground', False, '[0.12,0.12,0.13]', 'FR4', True)]

@@ -1,29 +1,29 @@
 {
- "mass_g": 767.0,
- "x_cg_mm": -24.5,
+ "mass_g": 755.0,
+ "x_cg_mm": -24.8,
  "x_payload_mm": 89.0,
  "x_mount_mm": -98.5,
- "M_pitch_Nm": 2.95,
+ "M_pitch_Nm": 2.93,
  "rows": [
   {
    "item": "Side screw M3x8, shank shear (mount, x2 dynamic)",
-   "load_N": 124.3,
-   "stress_MPa": 24.71,
-   "SF_yield": 15.0,
+   "load_N": 123.4,
+   "stress_MPa": 24.53,
+   "SF_yield": 15.1,
    "note": "8.8 steel; ignores clamp friction"
   },
   {
    "item": "Side wall hole bearing, 3.8 mm wall (mount)",
-   "load_N": 124.3,
-   "stress_MPa": 10.9,
+   "load_N": 123.4,
+   "stress_MPa": 10.82,
    "SF_yield": 2.8,
    "note": "base/cover side wall"
   },
   {
    "item": "Adapter insert bearing in ABS (mount)",
-   "load_N": 124.3,
-   "stress_MPa": 4.74,
-   "SF_yield": 6.3,
+   "load_N": 123.4,
+   "stress_MPa": 4.71,
+   "SF_yield": 6.4,
    "note": "insert OD 4.6 x 5.7 mm"
   },
   {

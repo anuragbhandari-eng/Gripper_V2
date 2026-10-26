@@ -2,9 +2,9 @@
  {
   "file": "01_Base.stl",
   "qty": 1,
-  "volume_cm3": 107.28,
+  "volume_cm3": 107.17,
   "material": "ABS",
-  "mass_g_solid": 111.6,
+  "mass_g_solid": 111.5,
   "bbox_mm": [
    145.3,
    130.9,
@@ -366,27 +366,27 @@
  {
   "file": "25_ControllerSpacer.stl",
   "qty": 4,
-  "volume_cm3": 0.15,
+  "volume_cm3": 0.06,
   "material": "ABS",
-  "mass_g_solid": 0.2,
+  "mass_g_solid": 0.1,
   "bbox_mm": [
    5.5,
    5.5,
-   10.0
+   4.0
   ],
   "orientation": "flat",
-  "note": "end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert)"
+  "note": "end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert)"
  },
  {
   "file": "26_ElectronicsCover.stl",
   "qty": 1,
-  "volume_cm3": 23.54,
+  "volume_cm3": 16.62,
   "material": "ABS",
-  "mass_g_solid": 24.5,
+  "mass_g_solid": 17.3,
   "bbox_mm": [
-   57.5,
-   95.0,
-   33.6
+   54.0,
+   83.0,
+   26.2
   ],
   "orientation": "flip_x",
   "note": "top face on bed, no supports; 2 M3 x 8 into the cover-top inserts"

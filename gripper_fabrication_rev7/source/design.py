@@ -34,7 +34,8 @@ R_DOW_CLOSE = 2.0   # (rev 6: cover dowel hole, print Ø4.0 and ream; replaced i
 # rev 7.1 (design review item 3): the dowel top is held by a 4 x 6 x 6 bronze sleeve bonded with epoxy into an
 # oversize cover hole while the cover sits on the dowels, so it is supported at both ends with zero clearance no
 # matter how the printed parts shrink; wax on the dowel tops lets the cover come off again.
-DOW_Z = (-6.5, 33.5)                 # hardened 4 x 40 (Amazon US has no 4 x 36): 4 mm proud of the cover top, clear of the board
+DOW_Z = (-9.0, 29.5)                 # rev 7.2b: hardened 4 x 40 cut to 38.5, pressed through the base: flush with the base
+                                     # underside and the cover top, 9 mm of press fit (was 6.5)
 SLV_RI, SLV_RO, SLV_L, R_SLV_HOLE = 2.0, 3.0, 6.0, 3.2   # sleeve ID/OD radii, length; cover hole (0.2 mm epoxy gap)
 R_M3 = 1.7      # Ø3.4 clearance
 R_BOSS = 5.5    # link end boss
@@ -434,7 +435,7 @@ def as5600():   # AS5600 module, simplified: 23 x 23 board, SOIC-8 chip facing t
     return [('add', ('box', (X_PCB0, -h, Z_S - h), (X_PCB0 + ENC_PCB_T, h, Z_S + h))),
             ('add', ('box', (X_CHIP, -2.5, Z_S - 3.0), (X_PCB0 + 0.01, 2.5, Z_S + 3.0)))]
 def dowel(c, sgn):
-    return [('add', ('cyl', (c[0], sgn*c[1], DOW_Z[0]), (c[0], sgn*c[1], DOW_Z[1]), 2.0))]   # hardened 4 x 40
+    return [('add', ('cyl', (c[0], sgn*c[1], DOW_Z[0]), (c[0], sgn*c[1], DOW_Z[1]), 2.0))]   # hardened 4 x 40 cut to 38.5
 def loc_pin():   # Ø3 x 16 locating pin across the bearing-block split, +y side: an M3 x 16 screw with its head cut off
     px, py, ph = LOC_PIN
     return [('add', ('cyl', (px, py, Z_S - ph), (px, py, Z_S + ph), 1.5))]
@@ -472,9 +473,12 @@ FASTENERS = [  # name, seat, axis, length, frame
 # PD trigger board on one 50 x 70 mm protoboard (drill its corners to 3.2 mm on a 44 x 64 mm pattern). It sits on 4
 # printed 10 mm spacers, held by 4 M3 x 16 through the board into heat-set inserts in the cover top; the encoder wires
 # come up through the slit just in front of it. Cables are zip-tied to the board's grid holes for strain relief.
-CTRL_C, CTRL_SIZE, CTRL_HOLE = (-1.0, 0.0), (50.0, 70.0), (22.0, 32.0)   # board centre (x, y), size, hole offsets
-CTRL_HOLES = [(CTRL_C[0] + sx*CTRL_HOLE[0], CTRL_C[1] + sy*CTRL_HOLE[1]) for sx in (-1, 1) for sy in (-1, 1)]
-Z_PCB = Z_C1 + 10.0                                  # board underside (10 mm standoffs)
+# rev 7.2b (compact): the 50 x 70 protoboard is cut to 48 x 60, the 7805 and the 100 uF lie flat, and the board sits on
+# 4 mm spacers (room for the solder joints underneath). The driver's heatsink is now the tallest part.
+CTRL_C, CTRL_SIZE, CTRL_HOLE = (0.0, 0.0), (48.0, 60.0), (21.0, 27.0)   # board centre (x, y), size, hole offsets
+CTRL_HOLE_X = (CTRL_C[0] - 12.5, CTRL_C[0] + CTRL_HOLE[0])   # the rear pair sits between the Pico's socket rows (screw it before plugging the Pico in)
+CTRL_HOLES = [(hx, CTRL_C[1] + sy*CTRL_HOLE[1]) for hx in CTRL_HOLE_X for sy in (-1, 1)]
+Z_PCB = Z_C1 + 4.0                                   # board underside (4 mm printed spacers)
 def protoboard():
     (cx, cy), (w, l) = CTRL_C, CTRL_SIZE
     return [('add', ('box', (cx - w/2, cy - l/2, Z_PCB), (cx + w/2, cy + l/2, Z_PCB + 1.6)))] + \
@@ -488,8 +492,8 @@ def ctrl_spacer():   # the same spacer at the origin, for printing
 # rev 7.2 (finishing pass): printed electronics cover over the controller, held by 2 M3 x 8 into 2 inserts in the cover
 # top. Notches at the rim let the motor, encoder and two USB-C cables in, a window over the Pico's USB end leaves the
 # BOOTSEL button reachable, and slots over the driver let its heat out. Prints top face down, no supports.
-LID = (-30.0, 27.5, 39.0, 2.0, Z_PCB + 1.6 + 20.0)    # x0, x1, half-width, wall, inner top (1.4 mm over the 7805)
-LID_HOLES = [(-10.0, 43.5)]                           # +y side (mirrored): flange screw into a cover-top insert
+LID = (-27.0, 27.0, 33.0, 2.0, Z_PCB + 1.6 + 18.6)    # x0, x1, half-width, wall, inner top (1 mm over the driver heatsink)
+LID_HOLES = [(-10.0, 37.5)]                           # +y side (mirrored): flange screw into a cover-top insert
 def elec_cover():
     x0, x1, hw, w, zi = LID; hx, hy = LID_HOLES[0]
     ops = [('add', ('ext', rrect_loop(x0, -hw, x1, hw, 4.0), Z_C1, zi + w)),
@@ -500,16 +504,16 @@ def elec_cover():
            ('cut', ('cyl', (hx, -hy, Z_C1 - 1), (hx, -hy, Z_C1 + 5), R_M3)),
            ('cut', ('box', (x0 - 1, -8.0, Z_C1 - 1), (x0 + w + 1, 8.0, Z_C1 + 5.0))),                     # motor cable
            ('cut', ('box', (x1 - w - 1, -6.0, Z_C1 - 1), (x1 + 1, 6.0, Z_C1 + 5.0))),                     # encoder wires
-           ('cut', ('box', (3.0, -hw - 1, Z_C1 - 1), (15.0, -hw + w + 1, 49.0))),                         # USB-C to the trigger
-           ('cut', ('box', (-19.5, -hw - 1, Z_C1 - 1), (-7.5, -hw + w + 1, 59.0))),                       # USB-C to the Pico
-           ('cut', ('box', (-24.5, -28.0, zi - 1), (-3.5, -10.0, zi + w + 1)))]                           # BOOTSEL window
-    for xs in (5.0, 9.5, 14.0):                                                                         # driver vents
+           ('cut', ('box', (1.0, -hw - 1, Z_C1 - 1), (13.0, -hw + w + 1, Z_PCB + 1.6 + 8.0))),           # USB-C to the trigger
+           ('cut', ('box', (-19.0, -hw - 1, Z_C1 - 1), (-6.0, -hw + w + 1, Z_PCB + 1.6 + SOCK_H + 7.0))), # USB-C to the Pico
+           ('cut', ('box', (-23.5, -24.0, zi - 1), (-2.5, -6.0, zi + w + 1)))]                           # BOOTSEL window
+    for xs in (6.0, 10.5, 15.0):                                                                        # driver vents
         ops.append(('cut', ('box', (xs, 5.0, zi - 1), (xs + 2.0, 21.0, zi + w + 1))))
     return ops
 LID_SCREWS = [('BHL_Lid', (LID_HOLES[0][0], LID_HOLES[0][1], Z_C1 + 4.0), (0, 0, -1), 8.0)]
-# M3 x 16 button heads through the board and spacer into the cover inserts (+y side, mirrored): 4.4 mm into the insert
-CTRL_SCREWS = [(nm, (x, CTRL_C[1] + CTRL_HOLE[1], Z_PCB + 1.6), (0, 0, -1), 16.0)
-               for nm, x in (('BHC_Ctrl_R', CTRL_C[0] - CTRL_HOLE[0]), ('BHC_Ctrl_F', CTRL_C[0] + CTRL_HOLE[0]))]
+# M3 x 10 button heads through the board and spacer into the cover inserts (+y side, mirrored): 4.4 mm into the insert
+CTRL_SCREWS = [(nm, (x, CTRL_C[1] + CTRL_HOLE[1], Z_PCB + 1.6), (0, 0, -1), 10.0)
+               for nm, x in (('BHC_Ctrl_R', CTRL_HOLE_X[0]), ('BHC_Ctrl_F', CTRL_HOLE_X[1]))]
 def _strip(xc, y0, y1, z0, h):   # header strip (plastic body), one row along y
     return ('add', ('box', (xc - 1.27, y0, z0), (xc + 1.27, y1, z0 + h + 0.01)))   # sits on the board, overlaps the module
 SOCK_H = 8.5 + 2.5   # female header socket on the protoboard + the module's own male-header spacer (rev 7.2: socketed)
@@ -529,19 +533,19 @@ def tmc2209():   # StepStick-size TMC2209 module (BTT V1.3) plugged into 2x 8-pi
 def tmc_headers():
     zb = Z_PCB + 1.6; (x0, y0) = TMC_XY; xc = x0 + 7.62
     return [_strip(xc - 6.35, y0, y0 + 20.32, zb, SOCK_H - 0.01), _strip(xc + 6.35, y0, y0 + 20.32, zb, SOCK_H - 0.01)]   # rows 12.7 apart
-def regulator():   # L7805 in TO-220, standing on its legs, tab toward the board edge: 9 V -> 5 V -> 1N5817 -> Pico VSYS
-    zb = Z_PCB + 1.6; x0, y0 = 16.6, -22.0                # body 10.2 wide (y) x 4.5 thick (x), tab 1.3 behind it
-    return [('add', ('box', (x0, y0, zb + 3.0), (x0 + 4.5, y0 + 10.2, zb + 12.2))),
-            ('add', ('box', (x0 + 4.49, y0, zb + 3.0), (x0 + 5.8, y0 + 10.2, zb + 18.6))),
-            ('add', ('box', (x0 + 1.8, y0 + 1.5, zb), (x0 + 2.6, y0 + 8.7, zb + 3.01))),          # the 3 legs
-            ('cut', ('cyl', (x0 + 4.0, y0 + 5.1, zb + 15.4), (x0 + 6.5, y0 + 5.1, zb + 15.4), 1.8))]
-def cap100():   # 100 uF 35 V electrolytic across VM and GND, next to the driver
+def regulator():   # L7805 in TO-220 lying flat (legs bent down at 90 deg), tab toward the -y edge: 9 V -> 5 V -> VSYS
+    zb = Z_PCB + 1.6; x0, y0 = 13.8, CTRL_C[1] - CTRL_SIZE[1]/2 + 6.6   # 10.2 wide (x); tab 6.4 + body 9.2 long (y); clear of the corner screw
+    return [('add', ('box', (x0, y0 + 6.4, zb + 1.0), (x0 + 10.2, y0 + 15.6, zb + 5.5))),           # body
+            ('add', ('box', (x0, y0, zb + 1.0), (x0 + 10.2, y0 + 6.41, zb + 2.3))),                  # tab
+            ('add', ('box', (x0 + 2.0, y0 + 15.59, zb), (x0 + 8.2, y0 + 17.5, zb + 2.0))),          # legs, bent down
+            ('cut', ('cyl', (x0 + 5.1, y0 + 3.2, zb), (x0 + 5.1, y0 + 3.2, zb + 3.0), 1.8))]
+def cap100():   # 100 uF 35 V electrolytic across VM and GND, standing next to the driver (12 mm, below its heatsink)
     zb = Z_PCB + 1.6
-    return [('add', ('cyl', (19.5, -3.0, zb), (19.5, -3.0, zb + 12.0), 4.0))]
+    return [('add', ('cyl', (19.0, -1.4, zb), (19.0, -1.4, zb + 12.0), 4.0))]
 def pd_trigger():   # USB-C PD trigger board set to 9 V, taped flat to the board, its socket just past the -y edge
     zb = Z_PCB + 1.6; ye = CTRL_C[1] - CTRL_SIZE[1]/2
-    return [('add', ('box', (3.0, ye, zb + 1.0), (15.0, ye + 26.0, zb + 2.2))),
-            ('add', ('box', (4.5, ye - 1.5, zb + 2.19), (13.5, ye + 5.9, zb + 5.5)))]
+    return [('add', ('box', (1.0, ye, zb + 1.0), (13.0, ye + 26.0, zb + 2.2))),
+            ('add', ('box', (2.5, ye - 1.5, zb + 2.19), (11.5, ye + 5.9, zb + 5.5)))]
 
 # ================= rev 7: bench stand (v2 change F) =================
 # The gripper hangs jaws-down from a 2020 aluminium extrusion. A printed head bracket takes the ISO 9409 adapter (its
@@ -681,7 +685,7 @@ def pose(th, wide=None):
         parts[nm] = (ops, np.eye(4))
     add('Sleeve_O1', sleeve(O1), np.eye(4)); add('Sleeve_O2', sleeve(O2), np.eye(4)); add('LocPin', loc_pin(), np.eye(4))
     add('StandClamp', desk_clamp(), np.eye(4)); add('StandClampPad', clamp_pad(), np.eye(4)); add('StandKnob', knob_screw(), np.eye(4))
-    add('Spacer_R', spacer(CTRL_C[0] - CTRL_HOLE[0]), np.eye(4)); add('Spacer_F', spacer(CTRL_C[0] + CTRL_HOLE[0]), np.eye(4))
+    add('Spacer_R', spacer(CTRL_HOLE_X[0]), np.eye(4)); add('Spacer_F', spacer(CTRL_HOLE_X[1]), np.eye(4))
     for nm, seat, ax, ln in CTRL_SCREWS + LID_SCREWS:
         add(nm, button_screw(seat, ax, ln), np.eye(4))
     parts['ElecCover'] = (elec_cover(), np.eye(4))

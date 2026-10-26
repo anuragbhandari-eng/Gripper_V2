@@ -1,5 +1,5 @@
 {
- "date": "2026-10-26 (rev 7.2 finishing pass)",
+ "date": "2026-10-26 (rev 7.2b: compact controller, flush dowels)",
  "document": {
   "name": "GripperV2",
   "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
@@ -10,8 +10,8 @@
  },
  "feature_studio": {
   "source": "onshape/LeadScrewGripper.fs",
-  "chars": 48032,
-  "sha256_first16": "d13a1fd9a57ec931",
+  "chars": 48058,
+  "sha256_first16": "7806dea110f8299a",
   "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
  },
  "part_studio": {
@@ -111,5 +111,6 @@
    "Header sockets driver 2x8 (2 strips)"
   ],
   "checks": "97 Part Studio bodies within 0.7 mm3 of local; 21/21 assembly features OK; slider verified at both limits with screws following their parts; local: 95 parts, 0 collisions over 41 poses for both tip sets"
- }
+ },
+ "rev_7_2b": "controller compacted (48 x 60 board, 4 mm spacers, cover 54 x 66 x 26.2), dowels 38.5 mm flush through the base; 8 standard screws re-inserted at the new positions (4 controller M3x10, 2 cover M3x8; 2 rear controller screws moved again between the Pico socket rows), Pico sub-assembly re-inserted 6 mm lower; 97 bodies within 0.7 mm3 of local, 97 instances, none broken, 21/21 features OK"
 }

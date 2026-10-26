@@ -83,6 +83,11 @@ SPEC += [  # what is really bought (2026-10-25), appended at the end so existing
      D.button_screw(seat, ax, ln), 'ground', True, '[0.10,0.10,0.10]', 'STEEL', True) for nm, seat, ax, ln in D.CTRL_SCREWS] + [
     ('Capacitor 100uF 35V', D.cap100(), 'ground', False, '[0.10,0.20,0.50]', 'FR4', True),
     ('USB-C PD trigger 9V', D.pd_trigger(), 'ground', False, '[0.10,0.40,0.20]', 'FR4', True)]
+SPEC += [  # rev 7.2 finishing pass: electronics cover and its 2 screws, appended so existing part ids stay put
+    ('Electronics cover', D.elec_cover(), 'ground', False, '[0.29,0.32,0.35]', D.MAT, False),
+    ('Button head M3x8 electronics cover', D.button_screw(*D.LID_SCREWS[0][1:]), 'ground', True, '[0.10,0.10,0.10]', 'STEEL', True),
+    ('Header sockets Pico 2x20', D.pico_headers(), 'ground', False, '[0.12,0.12,0.13]', 'FR4', True),
+    ('Header sockets driver 2x8', D.tmc_headers(), 'ground', False, '[0.12,0.12,0.13]', 'FR4', True)]
 WIDE = {'Tip block': D.tip_block(True), 'Pad TPU': D.pad(True)}   # ops used when the dialog's tip set is Wide
 consts = dict(L=D.L, R=D.r, LR=D.l, YC=D.YC, O1X=D.O1[0], O1Y=D.O1[1], O2X=D.O2[0], O2Y=D.O2[1],
               THC=np.degrees(D.TH_C), GAPMAX=D.GAP_MAX, RHO=D.MAT_RHO, WOFS=D.WIDE_OFS)
@@ -113,9 +118,9 @@ const GAP_BOUNDS = { (millimeter) : [0, 30, %(GAPMAX)s] } as LengthBoundSpec;
 
 export enum TipSet
 {
-    annotation { "Name" : "Narrow (gap 0-66 mm)" }
+    annotation { "Name" : "Narrow (gap 0-60.5 mm)" }
     NARROW,
-    annotation { "Name" : "Wide (gap 20-86 mm)" }
+    annotation { "Name" : "Wide (gap 20-80.5 mm)" }
     WIDE
 }
 

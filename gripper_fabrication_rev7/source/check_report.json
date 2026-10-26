@@ -143,7 +143,7 @@
   "Carriage": {
    "valid": true,
    "nsolids": 1,
-   "vol": 20162.4
+   "vol": 20158.8
   },
   "T8_Nut": {
    "valid": true,
@@ -153,12 +153,12 @@
   "Base": {
    "valid": true,
    "nsolids": 1,
-   "vol": 106855.4
+   "vol": 107283.4
   },
   "Cover": {
    "valid": true,
    "nsolids": 1,
-   "vol": 90494.0
+   "vol": 90330.6
   },
   "Adapter": {
    "valid": true,
@@ -173,7 +173,7 @@
   "LeadScrew": {
    "valid": true,
    "nsolids": 1,
-   "vol": 3847.0
+   "vol": 3571.2
   },
   "Bearing608": {
    "valid": true,
@@ -208,12 +208,12 @@
   "Pico": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1841.4
+   "vol": 1281.2
   },
   "TMC2209": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1777.9
+   "vol": 900.5
   },
   "Regulator": {
    "valid": true,
@@ -238,7 +238,7 @@
   "StandBase": {
    "valid": true,
    "nsolids": 1,
-   "vol": 256297.5
+   "vol": 257414.8
   },
   "Column": {
    "valid": true,
@@ -283,12 +283,12 @@
   "StandClamp_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 52289.7
+   "vol": 52579.4
   },
   "StandClamp_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 52289.7
+   "vol": 52579.4
   },
   "StandClampPad_U": {
    "valid": true,
@@ -349,6 +349,31 @@
    "valid": true,
    "nsolids": 1,
    "vol": 151.0
+  },
+  "BHL_Lid_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHL_Lid_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "ElecCover": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 23544.0
+  },
+  "PicoHeaders": {
+   "valid": true,
+   "nsolids": 2,
+   "vol": 2838.7
+  },
+  "TMCHeaders": {
+   "valid": true,
+   "nsolids": 2,
+   "vol": 1135.5
   },
   "BHS_Motor_Base_U": {
    "valid": true,

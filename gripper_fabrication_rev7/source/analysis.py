@@ -10,7 +10,7 @@ P = make(28.0)
 D2R = np.radians
 # ---- operating window ----
 TH_C = P['th_c']                                   # jaws touch (reference: -15.5 deg)
-GAP_OPEN = 66.0                                    # open hard stop: 66 mm (60 mm spec + 6 mm margin)
+GAP_OPEN = D.GAP_MAX                               # open hard stop: 60.5 mm, just past the 60 mm firmware cap (rev 7.2)
 TH_O = brentq(lambda t: 2*face_y(P, t) - GAP_OPEN, 0, D2R(80))
 # ---- requirements ----
 m, g = 0.5, 9.81; W = m*g

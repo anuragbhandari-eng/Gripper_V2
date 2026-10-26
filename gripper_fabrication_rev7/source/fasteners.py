@@ -14,7 +14,7 @@ def mat(n):
     if n.startswith(('T8_Nut',)): return 'BRASS'
     if n.startswith(('Dowel', 'SS_', 'BH', 'LeadScrew', 'Bearing608')): return 'STEEL'
     if n.startswith('Pad'): return D.PAD_MAT
-    if n.startswith(('Protoboard', 'Pico', 'TMC2209', 'Regulator', 'Cap100', 'PDTrigger', 'AS5600')): return 'FR4'
+    if n.startswith(('Protoboard', 'Pico', 'TMC', 'Regulator', 'Cap100', 'PDTrigger', 'AS5600')): return 'FR4'
     if n.startswith('Magnet'): return 'STEEL'
     return D.MAT
 th = np.arcsin(30/(2*D.L) + np.sin(D.TH_C))

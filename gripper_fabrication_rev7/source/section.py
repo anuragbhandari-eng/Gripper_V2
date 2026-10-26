@@ -16,7 +16,7 @@ def edges_at(shape, z):
         pts = [c.Value(a.Parameter(i)).Coord() for i in range(1, a.NbPoints()+1)] if a.IsDone() else []
         out.append(np.array(pts)); ex.Next()
     return out
-gaps = [0, 30, 66]; zs = [(3.3, 'B layer z=3.3'), (10.0, 'M layer z=10'), (16.0, 'U layer z=16'), (20.0, 'heads/jaw z=20')]
+gaps = [0, 30, D.GAP_MAX]; zs = [(3.3, 'B layer z=3.3'), (10.0, 'M layer z=10'), (16.0, 'U layer z=16'), (20.0, 'heads/jaw z=20')]
 fig, axs = plt.subplots(len(zs), 3, figsize=(15, 4.3*len(zs)))
 for j, g in enumerate(gaps):
     th = np.arcsin(g/(2*D.L) + np.sin(D.TH_C)); parts = D.pose(th)

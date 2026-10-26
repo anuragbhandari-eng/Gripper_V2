@@ -76,7 +76,9 @@ b, cc = max(h_tg, t_tg), min(h_tg, t_tg); alpha = 0.208   # torsion factor of a 
 add('Tongue torsion, grip on the pad edge (%.2f mm off the pin plane)' % dz, Fg_max, T_x/(alpha*b*cc**2), PR['allow_z']*0.6, 'interlayer shear allowable')
 d = 4.0
 sig_F2 = lim['F2']/(d*t_mid) + 6*(T_x/2)/(d*t_mid**2)
+sig_F1 = lim['F1']/(d*t_mid) + 6*(T_x/2)/(d*t_mid**2)   # the twist couple is shared by both finger bores
 add('Finger bore at F2, far-tip grip on the pad edge', lim['F2'], sig_F2, PR['allow'], 'in-plane bearing + twist couple, bore only (conservative: the crank plates above and below take the twist once the 0.2/0.3 mm gaps close)')
+add('Finger bore at F1, far-tip grip on the pad edge', lim['F1'], sig_F1, PR['allow'], 'same twist couple as F2')
 Fg60 = 200*R['MA']['at_gap_60']
 # thrust path (rev 6): grip thrust goes screw -> collar -> 608 inner ring -> balls -> outer ring -> block front lip
 Fs_lim = 200.0
@@ -110,7 +112,7 @@ for g in range(0, 61, 10):
                          IRUN=int(round(32*I/I_set)) - 1, grip_N=[round(k_I*I*ma, 1), round(k_I*I*ma*eta_hi/eta_lo, 1)]))
 tip = dict(Fg_max_N=round(Fg_max, 1), Fg_at_60mm_cap_N=round(Fg60, 1), factor_at_cap=round(Fg_max/Fg60, 2),
            Fg_in_use_N=round(Fg_use, 1), factor_in_use=round(Fg_max/Fg_use, 2),
-           note='Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip '
+           note='Tip rows use the grip at the %g mm open stop (max MA).' % D.GAP_MAX + ' Gripping is capped at 60 mm by firmware, where the grip '
                 'is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use.')
 # rev 7.1: desk clamp (bench stand), hand-tight knob, taken as 400 N; the C-frame bends at the spine and the arms
 F_cl = 400.0

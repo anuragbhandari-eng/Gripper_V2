@@ -37,6 +37,7 @@ PRINT = [  # file, ops, orientation, qty, note
     ('22_Stand_DeskClamp_A', D.desk_clamp(), 'side_my_down', 1, 'desk clamp; lying on its side, nut slot up, 100% infill at the corners'),
     ('23_Stand_DeskClamp_B_mirrored', mirror_ops(D.desk_clamp()), 'side_py_down', 1, 'mirror of 22'),
     ('24_Stand_ClampPad', D.clamp_pad(), 'rear_down', 2, 'desk side down; felt on it is optional'),
+    ('26_ElectronicsCover', D.elec_cover(), 'flip_x', 1, 'top face on bed, no supports; 2 M3 x 8 into the cover-top inserts'),
     ('25_ControllerSpacer', D.ctrl_spacer(), 'flat', 4, 'end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert)'),
 ]
 info = []
@@ -49,7 +50,7 @@ pp = f'{OUT}/print_parts.json'   # keep entries written by other scripts (13_Fit
 keep = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] not in {i['file'] for i in info}]
 json.dump(sorted(info + keep, key=lambda e: e['file']), open(pp, 'w'), indent=1)
 # assembly STEP at gap 30 (each part a named component) + closed/open
-for gap in (0, 30, 66):
+for gap in (0, 30, D.GAP_MAX):
     th = np.arcsin(gap/(2*D.L) + np.sin(D.TH_C))
     asm = cq.Assembly(name=f'LeadScrewGripper_gap{gap}')
     for n, (ops, M) in D.pose(th).items():

@@ -2,155 +2,163 @@
  "rows": [
   {
    "item": "Shoulder screw \u00d84 double shear (304 stainless)",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 21.61,
-   "stress_op_MPa": 11.52,
-   "SF_yield_at_limit": 12.0,
+   "load_limit_N": 392.3,
+   "stress_limit_MPa": 15.61,
+   "stress_op_MPa": 8.32,
+   "SF_yield_at_limit": 16.7,
    "note": "\u03c4 vs ~260 MPa shear yield (A2-70 class); bought: MECCANIXITY 304"
   },
   {
    "item": "Dowel \u00d84 bending, simply supported base\u2194cover",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 604.0,
-   "stress_op_MPa": 321.93,
-   "SF_yield_at_limit": 2.0,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 346.08,
+   "stress_op_MPa": 184.46,
+   "SF_yield_at_limit": 3.5,
    "note": "hardened ISO 8734, yield >1200 MPa; top held by the bonded sleeve"
   },
   {
    "item": "Finger bore at F2 on shoulder (7.6 mm)",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 17.86,
-   "stress_op_MPa": 9.52,
-   "SF_yield_at_limit": 1.7,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 9.71,
+   "stress_op_MPa": 5.18,
+   "SF_yield_at_limit": 3.1,
    "note": "ABS bearing"
   },
   {
    "item": "Finger bore at F1 (7.6 mm)",
-   "load_limit_N": 315.2,
-   "stress_limit_MPa": 10.37,
-   "stress_op_MPa": 5.53,
+   "load_limit_N": 310.1,
+   "stress_limit_MPa": 10.2,
+   "stress_op_MPa": 5.44,
    "SF_yield_at_limit": 2.9,
    "note": ""
   },
   {
    "item": "FrontCrank bores at O2 (6.0+3.8 plates + 8.1 spacer)",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 7.58,
-   "stress_op_MPa": 4.04,
-   "SF_yield_at_limit": 4.0,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 4.12,
+   "stress_op_MPa": 2.2,
+   "SF_yield_at_limit": 7.3,
    "note": ""
   },
   {
-   "item": "Base dowel press hole (56% share, 6.5 mm)",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 11.68,
-   "stress_op_MPa": 6.22,
-   "SF_yield_at_limit": 2.6,
+   "item": "Base dowel press hole (54% share, 9.0 mm)",
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 4.39,
+   "stress_op_MPa": 2.34,
+   "SF_yield_at_limit": 6.8,
    "note": "beam reaction"
   },
   {
-   "item": "Cover hole on the bonded sleeve (44% share, \u00d86 x 6)",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 6.65,
-   "stress_op_MPa": 3.54,
-   "SF_yield_at_limit": 4.5,
+   "item": "Cover hole on the bonded sleeve (46% share, \u00d86 x 6)",
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 3.81,
+   "stress_op_MPa": 2.03,
+   "SF_yield_at_limit": 7.9,
    "note": "beam reaction; sleeve bonded in place, zero clearance"
   },
   {
    "item": "ConRod bores (7.6 mm)",
-   "load_limit_N": 156.4,
-   "stress_limit_MPa": 5.14,
-   "stress_op_MPa": 2.74,
-   "SF_yield_at_limit": 5.8,
+   "load_limit_N": 126.4,
+   "stress_limit_MPa": 4.16,
+   "stress_op_MPa": 2.22,
+   "SF_yield_at_limit": 7.2,
    "note": ""
   },
   {
    "item": "Carriage ears at C (6.3 + 3.8 mm)",
-   "load_limit_N": 156.4,
-   "stress_limit_MPa": 3.87,
-   "stress_op_MPa": 2.06,
-   "SF_yield_at_limit": 7.8,
+   "load_limit_N": 126.4,
+   "stress_limit_MPa": 3.13,
+   "stress_op_MPa": 1.67,
+   "SF_yield_at_limit": 9.6,
    "note": ""
   },
   {
    "item": "Finger boss tear-out at F2",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 10.51,
-   "stress_op_MPa": 5.6,
-   "SF_yield_at_limit": 1.7,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 5.71,
+   "stress_op_MPa": 3.05,
+   "SF_yield_at_limit": 3.1,
    "note": "shear allowable 0.6\u03c3"
   },
   {
    "item": "FrontCrank (two-force) net section",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 8.15,
-   "stress_op_MPa": 4.34,
-   "SF_yield_at_limit": 3.7,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 4.43,
+   "stress_op_MPa": 2.36,
+   "SF_yield_at_limit": 6.8,
    "note": "axial only"
   },
   {
    "item": "ConRod (two-force) net section",
-   "load_limit_N": 156.4,
-   "stress_limit_MPa": 3.55,
-   "stress_op_MPa": 1.89,
-   "SF_yield_at_limit": 8.5,
+   "load_limit_N": 126.4,
+   "stress_limit_MPa": 2.87,
+   "stress_op_MPa": 1.53,
+   "SF_yield_at_limit": 10.5,
    "note": "axial only"
   },
   {
    "item": "BellCrank bending near O1 (two plates)",
-   "load_limit_N": 315.2,
-   "stress_limit_MPa": 9.9,
-   "stress_op_MPa": 5.28,
-   "SF_yield_at_limit": 3.0,
+   "load_limit_N": 310.1,
+   "stress_limit_MPa": 9.75,
+   "stress_op_MPa": 5.19,
+   "SF_yield_at_limit": 3.1,
    "note": "conservative: full F1 \u27c2 arm"
   },
   {
    "item": "Finger body at the tip seam (23.8 mm deep x 7.6)",
-   "load_limit_N": 273.0,
-   "stress_limit_MPa": 16.04,
-   "stress_op_MPa": 8.55,
-   "SF_yield_at_limit": 1.9,
+   "load_limit_N": 155.3,
+   "stress_limit_MPa": 9.12,
+   "stress_op_MPa": 4.86,
+   "SF_yield_at_limit": 3.3,
    "note": "far-tip grip, cantilever 42 mm"
   },
   {
    "item": "Tongue root bending at the seam (16.3 deep x 13.6)",
-   "load_limit_N": 273.0,
-   "stress_limit_MPa": 19.16,
-   "stress_op_MPa": 10.21,
-   "SF_yield_at_limit": 1.6,
+   "load_limit_N": 155.3,
+   "stress_limit_MPa": 10.9,
+   "stress_op_MPa": 5.81,
+   "SF_yield_at_limit": 2.8,
    "note": "far-tip grip; in-plane (along rasters)"
   },
   {
    "item": "Tongue flank bearing in the tip block pocket (15 mm long)",
-   "load_limit_N": 1146.5,
-   "stress_limit_MPa": 11.28,
-   "stress_op_MPa": 6.01,
-   "SF_yield_at_limit": 2.7,
+   "load_limit_N": 652.2,
+   "stress_limit_MPa": 6.42,
+   "stress_op_MPa": 3.42,
+   "SF_yield_at_limit": 4.7,
    "note": "triangular bearing, peak value"
   },
   {
    "item": "Tip block wall, interlayer shear at z = 6.5 (wide set, 2.53 mm wall)",
-   "load_limit_N": 83.3,
-   "stress_limit_MPa": 0.78,
-   "stress_op_MPa": 0.42,
-   "SF_yield_at_limit": 9.2,
+   "load_limit_N": 47.4,
+   "stress_limit_MPa": 0.45,
+   "stress_op_MPa": 0.24,
+   "SF_yield_at_limit": 16.1,
    "note": "pad load below the tongue"
   },
   {
    "item": "Tongue torsion, grip on the pad edge (9.75 mm off the pin plane)",
-   "load_limit_N": 273.0,
-   "stress_limit_MPa": 4.28,
-   "stress_op_MPa": 2.28,
-   "SF_yield_at_limit": 1.7,
+   "load_limit_N": 155.3,
+   "stress_limit_MPa": 2.44,
+   "stress_op_MPa": 1.3,
+   "SF_yield_at_limit": 3.0,
    "note": "interlayer shear allowable"
   },
   {
    "item": "Finger bore at F2, far-tip grip on the pad edge",
-   "load_limit_N": 543.0,
-   "stress_limit_MPa": 52.42,
-   "stress_op_MPa": 27.94,
-   "SF_yield_at_limit": 0.6,
+   "load_limit_N": 295.3,
+   "stress_limit_MPa": 29.37,
+   "stress_op_MPa": 15.66,
+   "SF_yield_at_limit": 1.0,
    "note": "in-plane bearing + twist couple, bore only (conservative: the crank plates above and below take the twist once the 0.2/0.3 mm gaps close)"
+  },
+  {
+   "item": "Finger bore at F1, far-tip grip on the pad edge",
+   "load_limit_N": 310.1,
+   "stress_limit_MPa": 29.86,
+   "stress_op_MPa": 15.92,
+   "SF_yield_at_limit": 1.0,
+   "note": "same twist couple as F2"
   },
   {
    "item": "Block front lip bearing on 608 outer ring",
@@ -199,7 +207,7 @@
   "grip_min_per_jaw_N": 26.0,
   "grip_at60_worstfriction_N": 56.7,
   "within_200N_limit": true,
-  "speed_note": "300 rpm max on the 9 V supply -> 40 mm/s -> full stroke 0.8 s"
+  "speed_note": "300 rpm max on the 9 V supply -> 40 mm/s -> full stroke 0.7 s"
  },
  "thrust": {
   "load_N": 200.0,
@@ -208,12 +216,12 @@
   "note": "collar set-screw holding on the threaded screw is not rated: verify with a hand pull test before assembly"
  },
  "tip": {
-  "Fg_max_N": 273.0,
+  "Fg_max_N": 155.3,
   "Fg_at_60mm_cap_N": 150.5,
-  "factor_at_cap": 1.81,
+  "factor_at_cap": 1.03,
   "Fg_in_use_N": 80.2,
-  "factor_in_use": 3.4,
-  "note": "Tip rows use the grip at the 66 mm stop (max MA). Gripping is capped at 60 mm by firmware, where the grip is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use."
+  "factor_in_use": 1.94,
+  "note": "Tip rows use the grip at the 60.5 mm open stop (max MA). Gripping is capped at 60 mm by firmware, where the grip is at most Fg_at_60mm_cap_N, so the tip-row safety factors are factor_at_cap times higher in use."
  },
  "dynamic": {
   "J_rotor_kgm2_assumed": 6.5e-06,
@@ -313,6 +321,6 @@
    ]
   }
  ],
- "min_SF": 0.6,
- "min_SF_in_use": 2.0
+ "min_SF": 1.0,
+ "min_SF_in_use": 1.9
 }

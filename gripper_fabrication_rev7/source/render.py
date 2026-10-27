@@ -1,7 +1,7 @@
 import numpy as np, matplotlib; matplotlib.use('Agg'); import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import design as D, check as C
-COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a', 'TipBlock': '#e8742a', 'Pad': '#202124', 'BHT_': '#1b1b1b', 'EncPuck': '#4b515a', 'Magnet': '#9ea0a8', 'AS5600': '#1c4a9e', 'Protoboard': '#2a6b38', 'Pico': '#1f7a3a', 'TMC2209': '#7a2f86', 'Buck': '#23408a', 'Standoff': '#c8b060', 'Sleeve': '#b8894d', 'LocPin': '#dcdcdc', 'StandKnob': '#1f1f21', 'Stand': '#3d424a', 'Column': '#b9bcc0', 'Battery': '#2a2a2e',
+COL = {'Base': '#3d424a', 'Cover': '#4b515a', 'Adapter': '#2f343a', 'Carriage': '#8d939b', 'Finger': '#e8742a', 'TipBlock': '#e8742a', 'Pad': '#202124', 'BHT_': '#1b1b1b', 'EncPuck': '#4b515a', 'Magnet': '#9ea0a8', 'AS5600': '#1c4a9e', 'Protoboard': '#2a6b38', 'Pico': '#1f7a3a', 'TMC2209': '#7a2f86', 'Regulator': '#1b1b1b', 'Cap100': '#1d3f8f', 'PDTrigger': '#1f6b3a', 'BHC_': '#1b1b1b', 'Spacer': '#4b515a', 'ElecCover': '#5a616b', 'PicoHeaders': '#1f1f21', 'TMCHeaders': '#1f1f21', 'BHL_': '#1b1b1b', 'Sleeve': '#b8894d', 'LocPin': '#dcdcdc', 'StandKnob': '#1f1f21', 'Stand': '#3d424a', 'Column': '#b9bcc0', 'PowerBank': '#2a2a2e',
        'BellCrank': '#c9cdd2', 'FrontCrank': '#c9cdd2', 'ConRod': '#b4b9bf', 'SS_': '#1b1b1b', 'Motor': '#222326',
        'LeadScrew': '#c4c6c8', 'T8_Nut': '#c9a24a', 'Bearing608': '#a9adb2', 'Dowel': '#dcdcdc'}
 def color(n):
@@ -33,11 +33,11 @@ def draw(ax, th, hide=(), elev=30, azim=-60, title=''):
 if __name__ == '__main__':
     import sys
     fig = plt.figure(figsize=(16, 10))
-    gaps = [0.0, 30.0, 66.0]
+    gaps = [0.0, 30.0, D.GAP_MAX]
     ths = [np.arcsin(g/(2*D.L) + np.sin(D.TH_C)) for g in gaps]
     for i, (g, th) in enumerate(zip(gaps, ths)):
-        ax = fig.add_subplot(2, 3, i+1, projection='3d'); draw(ax, th, hide=('Cover',), elev=90, azim=-90, title=f'top, cover hidden, gap {g:.0f} mm')
+        ax = fig.add_subplot(2, 3, i+1, projection='3d'); draw(ax, th, hide=('Cover', 'ElecCover', 'BHL_'), elev=90, azim=-90, title=f'top, cover hidden, gap {g:.0f} mm')
     ax = fig.add_subplot(2, 3, 4, projection='3d'); draw(ax, ths[1], elev=28, azim=-55, title='iso, assembled, gap 30')
-    ax = fig.add_subplot(2, 3, 5, projection='3d'); draw(ax, ths[2], hide=('Cover', 'Base', 'Adapter', 'Motor'), elev=35, azim=-120, title='links + carriage, gap 66')
+    ax = fig.add_subplot(2, 3, 5, projection='3d'); draw(ax, ths[2], hide=('Cover', 'ElecCover', 'BHL_', 'Base', 'Adapter', 'Motor'), elev=35, azim=-120, title='links + carriage, gap %g' % D.GAP_MAX)
     ax = fig.add_subplot(2, 3, 6, projection='3d'); draw(ax, ths[0], elev=-25, azim=-50, title='underside, gap 0')
     plt.tight_layout(); plt.savefig(sys.argv[1] if len(sys.argv) > 1 else 'render.png', dpi=80)

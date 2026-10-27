@@ -143,7 +143,7 @@
   "Carriage": {
    "valid": true,
    "nsolids": 1,
-   "vol": 20162.4
+   "vol": 20158.8
   },
   "T8_Nut": {
    "valid": true,
@@ -153,12 +153,12 @@
   "Base": {
    "valid": true,
    "nsolids": 1,
-   "vol": 106855.4
+   "vol": 107173.5
   },
   "Cover": {
    "valid": true,
    "nsolids": 1,
-   "vol": 90494.0
+   "vol": 90330.6
   },
   "Adapter": {
    "valid": true,
@@ -168,12 +168,12 @@
   "Motor": {
    "valid": true,
    "nsolids": 1,
-   "vol": 70613.7
+   "vol": 68340.3
   },
   "LeadScrew": {
    "valid": true,
    "nsolids": 1,
-   "vol": 3847.0
+   "vol": 3571.2
   },
   "Bearing608": {
    "valid": true,
@@ -203,22 +203,32 @@
   "Protoboard": {
    "valid": true,
    "nsolids": 1,
-   "vol": 5548.5
+   "vol": 4556.5
   },
   "Pico": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1841.4
+   "vol": 1281.2
   },
   "TMC2209": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1777.9
+   "vol": 900.5
   },
-  "Buck": {
+  "Regulator": {
    "valid": true,
    "nsolids": 1,
-   "vol": 1559.5
+   "vol": 517.5
+  },
+  "Cap100": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 603.2
+  },
+  "PDTrigger": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 594.3
   },
   "StandBracket": {
    "valid": true,
@@ -228,17 +238,17 @@
   "StandBase": {
    "valid": true,
    "nsolids": 1,
-   "vol": 256297.5
+   "vol": 257414.8
   },
   "Column": {
    "valid": true,
    "nsolids": 1,
    "vol": 159914.2
   },
-  "Battery": {
+  "PowerBank": {
    "valid": true,
    "nsolids": 1,
-   "vol": 34596.0
+   "vol": 148800.0
   },
   "Sleeve_O1_U": {
    "valid": true,
@@ -273,12 +283,12 @@
   "StandClamp_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 52289.7
+   "vol": 52579.4
   },
   "StandClamp_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 52289.7
+   "vol": 52579.4
   },
   "StandClampPad_U": {
    "valid": true,
@@ -300,25 +310,70 @@
    "nsolids": 1,
    "vol": 9678.6
   },
-  "Standoff_R_U": {
+  "Spacer_R_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 58.7
   },
-  "Standoff_R_L": {
+  "Spacer_R_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 58.7
   },
-  "Standoff_F_U": {
+  "Spacer_F_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 58.7
   },
-  "Standoff_F_L": {
+  "Spacer_F_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 250.5
+   "vol": 58.7
+  },
+  "BHC_Ctrl_R_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 108.6
+  },
+  "BHC_Ctrl_R_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 108.6
+  },
+  "BHC_Ctrl_F_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 108.6
+  },
+  "BHC_Ctrl_F_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 108.6
+  },
+  "BHL_Lid_U": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "BHL_Lid_L": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 94.5
+  },
+  "ElecCover": {
+   "valid": true,
+   "nsolids": 1,
+   "vol": 16615.4
+  },
+  "PicoHeaders": {
+   "valid": true,
+   "nsolids": 2,
+   "vol": 2838.7
+  },
+  "TMCHeaders": {
+   "valid": true,
+   "nsolids": 2,
+   "vol": 1135.5
   },
   "BHS_Motor_Base_U": {
    "valid": true,
@@ -403,22 +458,22 @@
   "Dowel_O1_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 483.8
   },
   "Dowel_O1_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 483.8
   },
   "Dowel_O2_U": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 483.8
   },
   "Dowel_O2_L": {
    "valid": true,
    "nsolids": 1,
-   "vol": 452.4
+   "vol": 483.8
   }
  },
  "hits": {}

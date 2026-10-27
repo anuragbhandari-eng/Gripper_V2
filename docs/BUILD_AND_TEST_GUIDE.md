@@ -34,13 +34,21 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 
 ---
 
+> **Rev 7.2 (2026-10-26):**
+> - The jaws now open to 60.5 mm, just past the firmware's 60 mm limit; the last few millimetres were never used.
+> - The lead screw is cut shorter (73.0 mm).
+> - A printed cover protects the controller.
+> - **Compact controller:** the protoboard is cut to 48 × 60 mm, sits on 4 mm spacers, and its cover is 38% smaller.
+> - **Flush dowels:** the dowels are cut to 38.5 mm and pressed through the base, flush top and bottom.
+> - 28 heat-set inserts in all.
+
 ## Part A. When the parts arrive
 
 ### A1. Check the parts
 
 | Part | Check | If it's wrong |
 |---|---|---|
-| Motor | Body 42 × 42 mm and at most 40 mm long. Pilot Ø22 × 2. M3 holes on a 31 mm square. Screw usable length at least 78.5 mm | Tell Claude the measurements |
+| Motor | Body 42 × 42 mm and at most 40 mm long. Pilot Ø22 × 2. M3 holes on a 31 mm square. Screw usable length at least 73 mm | Tell Claude the measurements |
 | Brass nut (on the motor screw) | Flange Ø22 × 3.5, body Ø10.2, 4 holes | If it's missing, buy a Tr8x8 flange nut. If the size differs, Claude updates the carriage |
 | AS5600 board | At most 23 × 23 mm, with the chip centred. Parts on the chip side within a 19.6 mm square | Tell Claude the board size |
 | Shoulder screws | Shoulder Ø4 × 12, thread M3 at most 6 mm long, head at most Ø7.5 × 3.5 | — |
@@ -100,7 +108,7 @@ The print list with orientations is in the [design report, section 6](../gripper
 **Order:**
 1. Base and cover. These are the largest and most likely to warp.
 2. The small parts: carriage, adapter, cranks, conrods and fingers.
-3. Both tip sets, the encoder puck and the 4 controller spacers.
+3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (26_ElectronicsCover, top face on the bed).
 4. The 4 pads, in TPU.
 5. The stand parts. ABS is preferred; PLA is fine if the big base warps.
 
@@ -123,9 +131,19 @@ The print list with orientations is in the [design report, section 6](../gripper
 
 ### C2. Solder the controller board
 
-First drill the 4 corner holes of the 50 × 70 mm protoboard to 3.2 mm, on a 44 × 64 mm pattern.
+First cut the 50 × 70 mm protoboard down to **48 × 60 mm**: score along a row of holes and snap it, or saw it. Then drill 4 mounting holes to 3.2 mm, 3 mm in from the long edges (54 mm apart):
+- one pair 3 mm from the driver end;
+- the other pair 36.5 mm from the driver end, so they land between the Pico's two socket rows.
 
-**Layout:** Pico sockets along one long edge, with the USB end at a board edge. Driver sockets beside the Pico. The 7805 and the power input at the far end. Keep the 9 V wires short and thick.
+Screw the board down before plugging the Pico in.
+
+**Layout** (it matches the model, so the cover fits):
+- Pico sockets along one long edge, with the USB end at a short edge.
+- Driver sockets beside the Pico, toward the other short edge.
+- The trigger board taped flat at the USB end, next to the Pico, with its socket just over the edge.
+- The 7805 lying flat beside it, legs bent down 90°, tab toward the same edge but 6–7 mm in from it, clear of the corner screw.
+- The 100 µF capacitor standing between the 7805 and the driver.
+- Keep the 9 V wires short and thick.
 
 | From | To | Notes |
 |---|---|---|
@@ -203,7 +221,7 @@ The numbers match the [design report's assembly sequence (section 8)](../gripper
 - [ ] Turn a 4.0 mm drill by hand through every pivot bore in the cranks, conrods, fingers and carriage. **Don't** drill the Ø3.9 dowel press holes in the base. The cover's dowel holes are oversize on purpose.
 - [ ] Remove the brims and any strings. Check that the carriage tongue slides along the base channel.
 
-### D2. Heat-set inserts (26)
+### D2. Heat-set inserts (28)
 
 Set the iron to about 230 °C. Rest the insert on its hole and let it sink in under its own weight plus light pressure until it's **flush with the top face**. Keep it straight.
 
@@ -215,14 +233,14 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 | Fingers ×2 | 2 each, in the tongue underside |
 | Base | 6: 2 at the motor-wall joint, 2 at the bearing-block ears, 2 posts |
 | Adapter | 4 side holes |
-| Cover top | 4 for the controller board |
+| Cover top | 6: 4 for the controller board, 2 for the electronics cover |
 
-- [ ] 26 inserts in, all flush and straight
+- [ ] 28 inserts in, all flush and straight
 
 ### D3. Pins, dowels and bushings
 
 1. **Locating pins:** cut the heads off two M3×16 screws. Screw them into the bearing-block half of the base, 8 mm deep.
-2. **Dowels:** press the 4 dowels (4 × 40) into the base at O1 and O2 on both sides, 6.5 mm deep and square to the plate. A bench vise with soft jaws works well. The tops will stand 4.5 mm above the cover later; that's expected.
+2. **Dowels:** cut each 4 × 40 dowel to **38.5 mm**. They are hardened, so use an abrasive cut-off disc (a Dremel or similar), not a hacksaw. Deburr the cut end with a file. Press them up through the base from underneath at O1 and O2 on both sides, square to the plate, until flush with the underside. A bench vise with soft jaws works well. Their tops end flush with the cover top.
 3. Smear wax or grease on the top 8 mm of each dowel. This stops the epoxy sticking to the dowel in D10. Then slide a bronze bushing onto each.
 
 - [ ] Pins and dowels in, bushings on
@@ -230,7 +248,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 ### D4. Prepare the lead screw
 
 1. **Collar pull test:** tighten the lock collar's set screw on the end of the screw. Pull hard by hand: it must not slip. Then take it off.
-2. **Cut the screw to 78.5 mm from the motor's mounting face** (76.5 mm past the round pilot), tolerance −0.5 / +0. Never long: the encoder puck fills the last 3 mm.
+2. **Cut the screw to 73.0 mm from the motor's mounting face** (71.0 mm past the round pilot), tolerance −0.5 / +0. Never long: the encoder puck fills the last 3 mm.
 3. File a small chamfer on the cut end, clean off the chips, and grease the thread.
 
 - [ ] Screw cut to length (measure twice) and greased
@@ -282,9 +300,15 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 
 ## Part E. Controller onto the gripper
 
-1. Put the 4 printed spacers on the cover-top inserts. Set the board on them, and fit 4× M3×16 through the board and spacers into the inserts.
+1. Unplug the Pico and the driver from their sockets. Put the 4 printed spacers (4 mm) on the cover-top inserts, set the board on them, and fit 4× M3×10 through the board and spacers into the inserts. Then plug the Pico and the driver back in.
 2. **Power off:** connect the motor cable to the driver and the AS5600 lead to the board.
 3. Zip-tie each cable (USB, power, motor, encoder) to the board as strain relief.
+4. **Electronics cover:** lower it over the board, with the cables in the notches at its rim:
+   - USB-C to the trigger board and USB-C to the Pico through the two notches on the long side next to the USB sockets;
+   - motor cable at the motor end;
+   - encoder wires at the jaw end.
+
+   Fit 2× M3×8 through its flanges into the cover-top inserts. The window in its top leaves the Pico's BOOTSEL button reachable for the demo.
 
 ---
 

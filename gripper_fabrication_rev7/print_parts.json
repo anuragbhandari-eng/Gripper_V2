@@ -2,9 +2,9 @@
  {
   "file": "01_Base.stl",
   "qty": 1,
-  "volume_cm3": 106.86,
+  "volume_cm3": 107.17,
   "material": "ABS",
-  "mass_g_solid": 111.1,
+  "mass_g_solid": 111.5,
   "bbox_mm": [
    145.3,
    130.9,
@@ -16,9 +16,9 @@
  {
   "file": "02_Cover.stl",
   "qty": 1,
-  "volume_cm3": 90.49,
+  "volume_cm3": 90.33,
   "material": "ABS",
-  "mass_g_solid": 94.1,
+  "mass_g_solid": 93.9,
   "bbox_mm": [
    145.3,
    130.9,
@@ -310,9 +310,9 @@
  {
   "file": "21_Stand_Base.stl",
   "qty": 1,
-  "volume_cm3": 256.3,
+  "volume_cm3": 257.41,
   "material": "ABS",
-  "mass_g_solid": 266.5,
+  "mass_g_solid": 267.7,
   "bbox_mm": [
    170.0,
    180.0,
@@ -324,9 +324,9 @@
  {
   "file": "22_Stand_DeskClamp_A.stl",
   "qty": 1,
-  "volume_cm3": 52.29,
+  "volume_cm3": 52.58,
   "material": "ABS",
-  "mass_g_solid": 54.4,
+  "mass_g_solid": 54.7,
   "bbox_mm": [
    83.0,
    54.5,
@@ -338,9 +338,9 @@
  {
   "file": "23_Stand_DeskClamp_B_mirrored.stl",
   "qty": 1,
-  "volume_cm3": 52.29,
+  "volume_cm3": 52.58,
   "material": "ABS",
-  "mass_g_solid": 54.4,
+  "mass_g_solid": 54.7,
   "bbox_mm": [
    83.0,
    54.5,
@@ -366,15 +366,29 @@
  {
   "file": "25_ControllerSpacer.stl",
   "qty": 4,
-  "volume_cm3": 0.15,
+  "volume_cm3": 0.06,
   "material": "ABS",
-  "mass_g_solid": 0.2,
+  "mass_g_solid": 0.1,
   "bbox_mm": [
    5.5,
    5.5,
-   10.0
+   4.0
   ],
   "orientation": "flat",
-  "note": "end on bed, 100% infill; replaces the brass standoffs (M3 x 16 through board and spacer into the cover insert)"
+  "note": "end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert)"
+ },
+ {
+  "file": "26_ElectronicsCover.stl",
+  "qty": 1,
+  "volume_cm3": 16.62,
+  "material": "ABS",
+  "mass_g_solid": 17.3,
+  "bbox_mm": [
+   54.0,
+   83.0,
+   26.2
+  ],
+  "orientation": "flip_x",
+  "note": "top face on bed, no supports; 2 M3 x 8 into the cover-top inserts"
  }
 ]

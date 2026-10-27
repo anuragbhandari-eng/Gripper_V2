@@ -32,13 +32,13 @@ ACCEL = 300                              # mm/s^2
 CHUNK = 100                              # steps per motion segment (0.25 mm)
 MIN_GAP_N = 2.0                          # moves stop 2 mm short of closed (narrow-tip gap); grip() goes further
 
-# Carriage position = steps from the open stop, bigger = more closed (DESIGN_REPORT.md section 3, narrow-tip gap).
-GAP_TABLE = [(0, 12814), (6, 11968), (12, 11095), (18, 10199), (24, 9280), (30, 8333), (36, 7348),
-             (42, 6309), (48, 5184), (54, 3911), (60, 2348), (66, 0)]
+# Carriage position = steps from the open stop (60.5 mm since rev 7.2), bigger = more closed (DESIGN_REPORT.md section 3).
+GAP_TABLE = [(0, 10619), (6, 9773), (12, 8900), (18, 8004), (24, 7085), (30, 6138),
+             (36, 5153), (42, 4114), (48, 2989), (54, 1716), (60, 153), (60.5, 0)]
 POS_TABLE = sorted((s, g) for g, s in GAP_TABLE)
 # Homing stops where the jaws stop: narrow tips when the pads meet, wide tips when the carriage reaches the motor
 # wall 1 mm further on (about a 17 mm pad gap).
-HOME_POS = {'narrow': 12814, 'wide': 12814 + STEPS_PER_MM}
+HOME_POS = {'narrow': 10619, 'wide': 10619 + STEPS_PER_MM}
 WIDE_OFS = 20                            # wide-tip pad gap = narrow-tip gap + 20 mm
 # Run current against narrow-tip gap for about 30 N per jaw (section 4a).
 CURRENT_TABLE = [(0, 0.70), (20, 0.70), (30, 0.69), (40, 0.64), (50, 0.54), (60, 0.37)]

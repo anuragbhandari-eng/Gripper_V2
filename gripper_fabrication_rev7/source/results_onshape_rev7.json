@@ -1,5 +1,5 @@
 {
- "date": "2026-10-24 (rev 7.1 after the design review)",
+ "date": "2026-10-26 (rev 7.2b: compact controller, flush dowels)",
  "document": {
   "name": "GripperV2",
   "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39",
@@ -10,12 +10,12 @@
  },
  "feature_studio": {
   "source": "onshape/LeadScrewGripper.fs",
-  "chars": 44356,
-  "sha256_first16": "2247dc24e097f38b",
+  "chars": 48058,
+  "sha256_first16": "7806dea110f8299a",
   "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
  },
  "part_studio": {
-  "parts": 84,
+  "parts": 97,
   "feature_status": "INFO (the pad-to-pad gap readout)",
   "dialog": {
    "gap": "30 mm",
@@ -23,8 +23,7 @@
    "purchased": true,
    "stand": true
   },
-  "volumes_vs_local_max_diff_mm3": 1.22,
-  "volumes_worst": "Base",
+  "volumes_vs_local_max_diff_mm3": 0.7,
   "wide_set_check": {
    "tip_block_mm3": 10133.8,
    "pad_mm3": 1710.4,
@@ -34,27 +33,33 @@
    ],
    "parts": 78,
    "note": "tipSet switched to WIDE, checked, switched back to NARROW"
-  }
+  },
+  "note_parts": "97 bodies: the 2 header-socket parts each build as 2 strips"
  },
  "assembly_1": {
-  "instances": 84,
+  "instances": 97,
   "features": 21,
   "features_ok": 21,
   "groups_added": [
    "Finger U + tip",
    "Finger L + tip"
   ],
-  "frame_fixed_members": 52,
+  "frame_fixed_members": 65,
   "slider": {
-   "open_-20.83mm": {
-    "carriage_mm": 20.83,
-    "finger_U_y_mm": 18.0
+   "limits_mm": [
+    -15.344,
+    11.202
+   ],
+   "open": {
+    "carriage_mm": 15.34,
+    "finger_U_y_mm": 15.25
    },
-   "closed_+11.2mm": {
+   "closed": {
     "carriage_mm": -11.2,
     "finger_U_y_mm": -15.0
    },
-   "left_at_mm": 0
+   "left_at_mm": 0,
+   "note": "limit parameters need value + units as well as the expression when edited through the API, or the slider locks"
   },
   "tip_parts_follow_fingers": true,
   "static_new_parts_follow_base": true,
@@ -78,5 +83,34 @@
  ],
  "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK.",
  "onshape_interference_gap30": "evCollision over all 84 bodies (0 MCP requests): only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
- "featurescript_mcp_requests": 0
+ "featurescript_mcp_requests": 0,
+ "as_bought_2026_10_25": {
+  "changed_parts": [
+   "NEMA17 stepper YEJMKJ 42x38.7 (body 38.7 mm, layout unchanged)",
+   "Dowel 4x40 O1/O2 (top 4 mm above the cover)",
+   "Locating pin M3x16 headless",
+   "Controller spacer (printed) x4",
+   "Regulator 7805 TO-220 (was the buck module)",
+   "USB-C PD power bank 10000mAh on the desk (was the LiPo on the column)"
+  ],
+  "new_instances": [
+   "Button head M3x16 controller rear U/L",
+   "Button head M3x16 controller front U/L",
+   "Capacitor 100uF 35V",
+   "USB-C PD trigger 9V"
+  ],
+  "checks": "part ids of the existing 84 parts unchanged; 6 new instances inserted with the slider at 0 and added to \"Frame (fixed)\"; all 90 Onshape volumes within 0.7 mm3 of the local model; slider at both limits: carriage +20.83 / -11.20 mm, finger U 18.00 / -15.00 mm, new parts stay with the frame; slider left at 0; 21/21 assembly features OK",
+  "local_checks": "90 parts, 0 collisions over 41 poses for both tip sets"
+ },
+ "rev_7_2_2026_10_26": {
+  "standard_screws": "26 ISO 7380 M3 button heads (14 x8, 4 x10, 4 x16, 4 x20) from Onshape standard content document 58e48e1652e2e595367b89c4 (version 2384e9ec886ccbf4e6811aa1), configured from its FSRules size table; each placed at the modelled seat (0.000 mm centre difference) and added to the group of the part it holds; the 24 simplified screw instances were deleted from Assembly 1",
+  "pico": "official Raspberry Pi model Pico-R3.step (datasheets.raspberrypi.com/pico/Pico-R3-step.zip, 266 kB) imported to Part Studio \"Pico (official model) parts\", wrapped in sub-assembly \"Pico (official model)\", placed on the modelled board position; the simplified Pico instance was deleted",
+  "new_instances": [
+   "Electronics cover",
+   "Header sockets Pico 2x20 (2 strips)",
+   "Header sockets driver 2x8 (2 strips)"
+  ],
+  "checks": "97 Part Studio bodies within 0.7 mm3 of local; 21/21 assembly features OK; slider verified at both limits with screws following their parts; local: 95 parts, 0 collisions over 41 poses for both tip sets"
+ },
+ "rev_7_2b": "controller compacted (48 x 60 board, 4 mm spacers, cover 54 x 66 x 26.2), dowels 38.5 mm flush through the base; 8 standard screws re-inserted at the new positions (4 controller M3x10, 2 cover M3x8; 2 rear controller screws moved again between the Pico socket rows), Pico sub-assembly re-inserted 6 mm lower; 97 bodies within 0.7 mm3 of local, 97 instances, none broken, 21/21 features OK"
 }

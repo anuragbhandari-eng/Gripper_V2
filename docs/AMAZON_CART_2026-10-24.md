@@ -4,16 +4,6 @@ This list is cut down to what the gripper strictly needs: **18 items, $150.92 be
 
 **Nothing has been ordered.** Prices and stock come from listings checked earlier on 2026-10-24. After that, Amazon blocked AI-agent browsing, so the cut-down cart could not be rechecked on the site. Confirm the pack and price on each listing before you check out.
 
-## Getting the lean cart
-
-The simplest route is to empty the old cart and then rebuild it in one click:
-
-1. Sign in to Amazon.
-2. Open the cart, delete everything, and open the link below.
-3. Amazon shows the 18 items with one "Add to cart" button. Nothing is ordered.
-
-- [Add the 18 lean-cart items](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FHHWXJLV&Quantity.1=1&ASIN.2=B07CVBSC9Y&Quantity.2=1&ASIN.3=B08SK2LNNV&Quantity.3=1&ASIN.4=B0F54H1RMS&Quantity.4=1&ASIN.5=B0HG8TLLFL&Quantity.5=1&ASIN.6=B0FDQB7CX1&Quantity.6=1&ASIN.7=B0DQL4ZSCP&Quantity.7=1&ASIN.8=B0GW2FT4CT&Quantity.8=1&ASIN.9=B0GF1NNQPS&Quantity.9=1&ASIN.10=B08SMDY3SQ&Quantity.10=1&ASIN.11=B0GQRMVT4P&Quantity.11=1&ASIN.12=B00VVI1L1W&Quantity.12=1&ASIN.13=B09KGWC1PT&Quantity.13=1&ASIN.14=B07Y3FZ9ZN&Quantity.14=1&ASIN.15=B0GTTW9643&Quantity.15=1&ASIN.16=B0CF6MSX1Q&Quantity.16=1&ASIN.17=B0C4JTL1MP&Quantity.17=1&ASIN.18=B0CB6B68C2&Quantity.18=1)
-- [Add the 5 fablab-first items with links](https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=B0FL6R1C35&Quantity.1=1&ASIN.2=B0FT362FV2&Quantity.2=1&ASIN.3=B0H4K2PDF6&Quantity.3=1&ASIN.4=B0BXWJFS2S&Quantity.4=1&ASIN.5=B000XBH9HI&Quantity.5=1). Use this only for whatever the fablab can't give you.
 
 ## Lean cart
 

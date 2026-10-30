@@ -60,7 +60,7 @@ Why: an outside review flagged that the grip reaction pulled the screw out of th
 - Block 18.0 → 22.5 mm long (X 16.55…39.05). 608 seat X 24.05…31.05. Collar in an Ø16 pocket X 17.05…24.05. 1 mm deep front recess r6.3 clears the inner ring and the screw end. R6 front corners and block bolts at (X_BRG1 + 3.5, ±8.5) keep the cover 1.38 mm from the front cranks at full close. Insert-hole wall ≥ 1.33 mm.
 - Screw cut 81.5 mm ± 0.5 (was 78.0); its end sits flush with the 608 face.
 - Layer stack: lower plates 0.3–6.3, finger / conrod 6.5–14.1 (7.6 mm = 38 layers of 0.2), upper plates 14.4–18.2, screw axis 10.3. Gaps 0.2 below and 0.3 above each moving layer.
-- 13_FitTest_coupons.stl (source/fit_coupons.py): Ø3.9–4.2 bores, the three z-stacks, the 608 cradle, channel + tongue. Print it first.
+- Fit test coupons x1.stl (source/fit_coupons.py): Ø3.9–4.2 bores, the three z-stacks, the 608 cradle, channel + tongue. Print it first.
 - Checks: 49 valid parts; 0 collisions over 41 poses; only intended contacts under 0.8 mm (clearance_rev.json); structural min SF 3.6 (dowel, unchanged); fasteners min SF 4.3; overhang unchanged; 333.3 cm³ in 16 printed pieces.
 - fs_gen.py: the LockCollar spec is appended at the END of SPEC, so existing part ids stay stable. The lead screw part is now named "(cut 81.5mm)".
 - Onshape (done 2026-10-13, 0 FeatureScript MCP requests; record in source/results_onshape_rev6.json):

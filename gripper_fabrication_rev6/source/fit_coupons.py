@@ -46,14 +46,14 @@ plate = cq.Compound.makeCompound(solids)
 for i in range(len(solids)):
     for j in range(i + 1, len(solids)):
         assert solids[i].intersect(solids[j]).Volume() < 1e-6
-cq.exporters.export(plate, '../stl/13_FitTest_coupons.stl', tolerance=0.02, angularTolerance=0.1)
+cq.exporters.export(plate, '../stl/Fit test coupons x1.stl', tolerance=0.02, angularTolerance=0.1)
 bb = plate.BoundingBox()
 # add/refresh the coupons entry in ../print_parts.json (export.py keeps it when it rewrites the file)
 pp = '../print_parts.json'
-PP = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] != '13_FitTest_coupons.stl']
-PP.append(dict(file='13_FitTest_coupons.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), mass_g_solid_PETG=round(plate.Volume()/1000*1.27, 1),
+PP = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] != 'Fit test coupons x1.stl']
+PP.append(dict(file='Fit test coupons x1.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), mass_g_solid_PETG=round(plate.Volume()/1000*1.27, 1),
                bbox_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)], orientation='flat',
                note='print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper'))
-json.dump(sorted(PP, key=lambda e: e['file']), open(pp, 'w'), indent=1)
+json.dump(PP, open(pp, 'w'), indent=1)   # keep the export order
 print(json.dumps(dict(pieces=info, plate_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)],
                       total_cm3=round(sum(v['volume_cm3'] for v in info.values()), 1)), indent=1))

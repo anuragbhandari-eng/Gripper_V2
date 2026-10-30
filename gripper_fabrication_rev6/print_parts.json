@@ -1,6 +1,6 @@
 [
  {
-  "file": "01_Base.stl",
+  "file": "Base x1.stl",
   "qty": 1,
   "volume_cm3": 106.84,
   "mass_g_solid_PETG": 135.7,
@@ -13,7 +13,7 @@
   "note": "bottom face on bed; 4 walls, 30% gyroid"
  },
  {
-  "file": "02_Cover.stl",
+  "file": "Cover x1.stl",
   "qty": 1,
   "volume_cm3": 91.62,
   "mass_g_solid_PETG": 116.4,
@@ -26,7 +26,7 @@
   "note": "flat top face on bed"
  },
  {
-  "file": "03_Adapter_ISO9409-50-4-M6.stl",
+  "file": "Adapter ISO9409-50 x1.stl",
   "qty": 1,
   "volume_cm3": 37.95,
   "mass_g_solid_PETG": 48.2,
@@ -39,7 +39,7 @@
   "note": "gripper-side face on bed, spigot up"
  },
  {
-  "file": "04_Carriage.stl",
+  "file": "Carriage x1.stl",
   "qty": 1,
   "volume_cm3": 20.16,
   "mass_g_solid_PETG": 25.6,
@@ -52,7 +52,7 @@
   "note": "rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots"
  },
  {
-  "file": "05_BellCrank_Lower_A.stl",
+  "file": "BellCrank Lower U x1.stl",
   "qty": 1,
   "volume_cm3": 5.52,
   "mass_g_solid_PETG": 7.0,
@@ -65,7 +65,7 @@
   "note": "spacer boss up"
  },
  {
-  "file": "06_BellCrank_Lower_B_mirrored.stl",
+  "file": "BellCrank Lower L x1.stl",
   "qty": 1,
   "volume_cm3": 5.52,
   "mass_g_solid_PETG": 7.0,
@@ -75,10 +75,10 @@
    14.1
   ],
   "orientation": "flat",
-  "note": "mirror of 05 (other side)"
+  "note": "mirror of BellCrank Lower U (other side)"
  },
  {
-  "file": "07_BellCrank_Upper.stl",
+  "file": "BellCrank Upper U+L x2.stl",
   "qty": 2,
   "volume_cm3": 3.07,
   "mass_g_solid_PETG": 3.9,
@@ -91,7 +91,7 @@
   "note": "same part both sides (flip one)"
  },
  {
-  "file": "08_FrontCrank_Lower.stl",
+  "file": "FrontCrank Lower U+L x2.stl",
   "qty": 2,
   "volume_cm3": 2.78,
   "mass_g_solid_PETG": 3.5,
@@ -104,7 +104,7 @@
   "note": "spacer boss up"
  },
  {
-  "file": "09_FrontCrank_Upper.stl",
+  "file": "FrontCrank Upper U+L x2.stl",
   "qty": 2,
   "volume_cm3": 1.43,
   "mass_g_solid_PETG": 1.8,
@@ -117,7 +117,7 @@
   "note": ""
  },
  {
-  "file": "10_ConRod.stl",
+  "file": "ConRod U+L x2.stl",
   "qty": 2,
   "volume_cm3": 2.41,
   "mass_g_solid_PETG": 3.1,
@@ -130,7 +130,7 @@
   "note": ""
  },
  {
-  "file": "11_Finger_A.stl",
+  "file": "Finger U x1.stl",
   "qty": 1,
   "volume_cm3": 23.17,
   "mass_g_solid_PETG": 29.4,
@@ -143,7 +143,7 @@
   "note": "jaw block up"
  },
  {
-  "file": "12_Finger_B_mirrored.stl",
+  "file": "Finger L x1.stl",
   "qty": 1,
   "volume_cm3": 23.17,
   "mass_g_solid_PETG": 29.4,
@@ -153,10 +153,10 @@
    19.5
   ],
   "orientation": "flat",
-  "note": "mirror of 11"
+  "note": "mirror of Finger U"
  },
  {
-  "file": "13_FitTest_coupons.stl",
+  "file": "Fit test coupons x1.stl",
   "qty": 1,
   "volume_cm3": 16.03,
   "mass_g_solid_PETG": 20.4,

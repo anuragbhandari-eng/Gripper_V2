@@ -1,5 +1,5 @@
 {
- "01_Base.stl": {
+ "Base x1.stl": {
   "overhang45_mm2": 90.4,
   "flat_down_groups_top3": [
    [
@@ -28,7 +28,7 @@
    ]
   ]
  },
- "02_Cover.stl": {
+ "Cover x1.stl": {
   "overhang45_mm2": 217.0,
   "flat_down_groups_top3": [
    [
@@ -57,7 +57,7 @@
    ]
   ]
  },
- "03_Adapter_ISO9409-50-4-M6.stl": {
+ "Adapter ISO9409-50 x1.stl": {
   "overhang45_mm2": 289.8,
   "flat_down_groups_top3": [
    [
@@ -78,7 +78,7 @@
    ]
   ]
  },
- "04_Carriage.stl": {
+ "Carriage x1.stl": {
   "overhang45_mm2": 114.1,
   "flat_down_groups_top3": [
    [
@@ -91,39 +91,39 @@
    ]
   ]
  },
- "05_BellCrank_Lower_A.stl": {
+ "BellCrank Lower U x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "06_BellCrank_Lower_B_mirrored.stl": {
+ "BellCrank Lower L x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "07_BellCrank_Upper.stl": {
+ "BellCrank Upper U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "08_FrontCrank_Lower.stl": {
+ "FrontCrank Lower U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "09_FrontCrank_Upper.stl": {
+ "FrontCrank Upper U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "10_ConRod.stl": {
+ "ConRod U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "11_Finger_A.stl": {
+ "Finger U x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "12_Finger_B_mirrored.stl": {
+ "Finger L x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "13_FitTest_coupons.stl": {
+ "Fit test coupons x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  }

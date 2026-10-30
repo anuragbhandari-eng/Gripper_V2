@@ -131,20 +131,20 @@ Gripper mass 763 g (printed parts taken as solid, conservative), CG at x = -27 m
 
 | Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |
 |---|---|---|---|---|
-| 01_Base.stl | 1 | 106.84 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
-| 02_Cover.stl | 1 | 91.62 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
-| 03_Adapter_ISO9409-50-4-M6.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
-| 04_Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
-| 05_BellCrank_Lower_A.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
-| 06_BellCrank_Lower_B_mirrored.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: mirror of 05 (other side) |
-| 07_BellCrank_Upper.stl | 2 | 3.07 | 39.0 × 31.9 × 3.8 | flat: same part both sides (flip one) |
-| 08_FrontCrank_Lower.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
-| 09_FrontCrank_Upper.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
-| 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
-| 11_Finger_A.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: jaw block up |
-| 12_Finger_B_mirrored.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: mirror of 11 |
+| Base x1.stl | 1 | 106.84 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
+| Cover x1.stl | 1 | 91.62 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
+| Adapter ISO9409-50 x1.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
+| Carriage x1.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
+| BellCrank Lower U x1.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
+| BellCrank Lower L x1.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: mirror of BellCrank Lower U (other side) |
+| BellCrank Upper U+L x2.stl | 2 | 3.07 | 39.0 × 31.9 × 3.8 | flat: same part both sides (flip one) |
+| FrontCrank Lower U+L x2.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
+| FrontCrank Upper U+L x2.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
+| ConRod U+L x2.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
+| Finger U x1.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: jaw block up |
+| Finger L x1.stl | 1 | 23.17 | 79.5 × 49.0 × 19.5 | flat: mirror of Finger U |
 
-**Print 13_FitTest_coupons.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
+**Print Fit test coupons x1.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
 
 Print settings: PETG, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.
@@ -190,7 +190,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
   - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to 81.5 mm (was 78.0) and ends flush with the 608 face.
   - Section through the thrust path: images/rev6_thrust_section.png.
   - Layer stack: finger / conrod now 6.5–14.1 (7.6 mm = 38 layers) and upper crank plates 14.4–18.2 (3.8 mm), with the screw axis at 10.3. Gaps went from 0.1 to 0.2 below and 0.3 above each moving layer.
-  - Fit coupons (13_FitTest_coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.
+  - Fit coupons (Fit test coupons x1.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.
   - Re-checked: 49 valid parts, 0 collisions over 41 poses, intended contacts only; structural min SF 3.6 (unchanged, dowel); new block front lip SF 34.5 bearing / 74.6 shear-out; fasteners min SF 4.3; no new overhangs.
 - Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any CAD package as a 49-part assembly.
 

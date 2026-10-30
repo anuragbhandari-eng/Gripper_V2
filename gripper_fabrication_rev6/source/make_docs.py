@@ -1,8 +1,8 @@
 import json, numpy as np, csv, design as D
 from kin import geom
 R = json.load(open('results.json')); S = json.load(open('results_struct.json')); FX = json.load(open('results_fasteners.json')); OS = json.load(open('results_onshape_rev5.json')); PP = json.load(open('../print_parts.json'))
-PARTS = [p for p in PP if not p['file'].startswith('13_')]   # the 12 gripper print files
-CP = next(p for p in PP if p['file'].startswith('13_'))       # fit-test coupons (print first, not part of the gripper)
+PARTS = [p for p in PP if not p['file'].startswith('Fit test coupons')]   # the 12 gripper print files
+CP = next(p for p in PP if p['file'].startswith('Fit test coupons'))       # fit-test coupons (print first, not part of the gripper)
 OUT = '..'
 P = D.P
 # ---- gap table ----
@@ -28,7 +28,7 @@ bom = [
 with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['ID', 'Item', 'Qty', 'Note'])
     for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + ' (PETG)', p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
-    w.writerow(['PRINT', '13_FitTest_coupons (PETG)', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
+    w.writerow(['PRINT', 'Fit test coupons x1 (PETG)', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
     for b in bom: w.writerow(b)
 _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D.L*(np.sin(_th) - np.sin(D.TH_C))
 FA = dict(travel=float(_x.max() - _x.min()), gap_fwd=float(_g[np.argmax(_x)]), open_behind_closed=float(_x[0] - _x[-1]))
@@ -94,7 +94,7 @@ A('- Every part is a single valid solid. FeatureScript round-trip rebuild gives 
 A('- Print orientation (no supports): links and fingers 0 mm² overhang; base, cover and adapter only hole tops and counterbore steps; carriage printed rear face down, so the nut recess opens upward and nothing needs a bridge or support.\n')
 A('| Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |\n|---|---|---|---|---|')
 for p in PARTS: A(f'| {p["file"]} | {p["qty"]} | {p["volume_cm3"]} | {" × ".join(map(str, p["bbox_mm"]))} | {p["orientation"]}: {p["note"]} |')
-A('\n**Print 13_FitTest_coupons.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
+A('\n**Print Fit test coupons x1.stl first** (16 cm³, one plate). It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
 A('\nPrint settings: PETG, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) and ream the four cover dowel holes to Ø4.0. Do not drill the Ø3.9 dowel press holes in the base.\n')
 A('## 7. Onshape\n')
 A('**Status:** the Onshape document is at **rev 6** (updated 2026-10-13). Feature Studio 1 holds the rev 6 `LeadScrewGripper.fs` (exact SHA-256 match with the local file) and the lock collar is in the frame group of Assembly 1.\n')
@@ -134,7 +134,7 @@ A('- Rev 6 (local, after an outside design review):')
 A('  - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to %.1f mm (was 78.0) and ends flush with the 608 face.' % D.SCREW_LEN)
 A('  - Section through the thrust path: images/rev6_thrust_section.png.')
 A('  - Layer stack: finger / conrod now 6.5–14.1 (7.6 mm = 38 layers) and upper crank plates 14.4–18.2 (3.8 mm), with the screw axis at 10.3. Gaps went from 0.1 to 0.2 below and 0.3 above each moving layer.')
-A('  - Fit coupons (13_FitTest_coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.')
+A('  - Fit coupons (Fit test coupons x1.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.')
 A('  - Re-checked: 49 valid parts, 0 collisions over 41 poses, intended contacts only; structural min SF 3.6 (unchanged, dowel); new block front lip SF 34.5 bearing / 74.6 shear-out; fasteners min SF 4.3; no new overhangs.')
 A('- Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any CAD package as a 49-part assembly.\n')
 A('## 8. Assembly sequence\n')

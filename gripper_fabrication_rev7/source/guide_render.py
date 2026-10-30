@@ -73,8 +73,8 @@ def plates():
     for fn, ops, how, qty, note in EO.PRINT:
         s_ = EO.orient(cq_part(ops), how); vs, fs = s_.tessellate(0.3, 0.5)
         V = np.array([[v.x, v.y, v.z] for v in vs]); F = np.array(fs)
-        items.append((fn, qty, pv.PolyData(V, np.hstack([np.full((len(F), 1), 3), F]).ravel()).clean(), cols[fn.split(' ')[1]]))
-    items.append(('13 Fit test coupons', 1, pv.read(os.path.join(HERE, '..', 'stl', '13 Fit test coupons.stl')).clean(), R.color('Carriage')))
+        items.append((fn, qty, pv.PolyData(V, np.hstack([np.full((len(F), 1), 3), F]).ravel()).clean(), cols[fn.split(' ')[0]]))
+    items.append(('Fit test coupons x1', 1, pv.read(os.path.join(HERE, '..', 'stl', 'Fit test coupons x1.stl')).clean(), R.color('Carriage')))
     x = 0.0; y = 0.0; rowh = 0.0; col = 0; anchors = []
     for fn, qty, m, colr in items:
         bb = m.bounds; w, d = bb[1]-bb[0], bb[3]-bb[2]
@@ -83,7 +83,7 @@ def plates():
         p.add_mesh(m, color=colr, smooth_shading=False, ambient=0.25, diffuse=0.75)
         fe = m.extract_feature_edges(feature_angle=35, boundary_edges=False, non_manifold_edges=False, manifold_edges=False)
         if fe.n_points: p.add_mesh(fe, color='#202020', line_width=1.0)
-        anchors.append(((x + w/2, y - d - 4, 0), f"{fn.split(' ')[0]}  x{qty}" + ('  (print first)' if fn.startswith('13 ') else '')))
+        anchors.append(((x + w/2, y - d - 4, 0), fn + ('  (print first)' if fn.startswith('Fit test') else '')))
         x += max(w, 60) + 25; rowh = max(rowh, d); col += 1
     p.enable_parallel_projection(); p.camera_position = 'xy'; p.reset_camera(); p.camera.zoom(1.5); p.render()
     img = Image.fromarray(p.screenshot(return_img=True)); ren = p.renderer

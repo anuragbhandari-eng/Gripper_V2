@@ -4,7 +4,7 @@
 # field. This 5-minute test tells you whether the encoder still reads well in that position.
 #
 # Setup:
-#   1. Glue the magnet into the printed puck (19 Encoder magnet puck) and push the puck into a 608 bearing.
+#   1. Glue the magnet into the printed puck (Encoder magnet puck x1) and push the puck into a 608 bearing.
 #   2. Wire the AS5600 board to the Pico: VCC -> 3V3, GND -> GND, SDA -> GP0, SCL -> GP1, DIR -> GND.
 #   3. Hold the board flat in front of the bearing, chip centred on the magnet, about 0.8 mm away
 #      (a 0.8 mm shim or two business cards between them works).

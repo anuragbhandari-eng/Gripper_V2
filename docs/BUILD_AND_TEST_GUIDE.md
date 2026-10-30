@@ -62,16 +62,16 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 
 These small test prints check every fit that depends on your printer. Print them in ABS on the printer you'll use for the real parts. They take a few hours, and they save a full reprint if a fit is off.
 
-1. **13b Fit test gripper.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
+1. **Fit test gripper x1.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
    - [ ] The tongue stub slides into the tip-block pocket stub with no play and no forcing.
    - [ ] The 2 M3×10 screws go in and hold.
    - [ ] An AS5600 board slides into the slot.
    - [ ] An M6 nut drops into its pocket.
    - [ ] The 2020 extrusion fits its socket.
    - [ ] The magnet fits its puck, and the puck fits inside a 608.
-2. **13c Fit test pad.stl (TPU).**
+2. **Fit test pad x1.stl (TPU).**
    - [ ] It snaps into the pocket-stub groove and doesn't pull out by hand.
-3. **13 Fit test coupons.stl (ABS).**
+3. **Fit test coupons x1.stl (ABS).**
    - [ ] Pin bores: a dowel presses into the Ø3.9 hole, is snug in Ø4.1, and turns freely in Ø4.2.
    - [ ] The stacked test plates move freely in their 0.2 / 0.3 mm gaps.
    - [ ] A 608 sits in the cradle with no rattle and no forcing, against the front lip.
@@ -84,7 +84,7 @@ Tell Claude the results. If a fit is off, one number in `design.py` changes and 
 The magnet sits inside the steel 608, which can weaken its field. This 5-minute test confirms the encoder still reads well there.
 
 1. Install MicroPython on the Pico (C1 below).
-2. Glue the magnet into the puck from 13b, and push the puck into a 608.
+2. Glue the magnet into the puck from Fit test gripper x1, and push the puck into a 608.
 3. Wire the AS5600 to the Pico: VCC → 3V3 (pin 36), GND → GND (pin 38), SDA → GP0 (pin 1), SCL → GP1 (pin 2), DIR → GND.
 4. Open [as5600_bench_test.py](../gripper_fabrication_rev7/firmware/as5600_bench_test.py) in Thonny, run it, and turn the 608's inner ring slowly by hand.
 
@@ -108,7 +108,7 @@ The print list with orientations is in the [design report, section 6](../gripper
 **Order:**
 1. Base and cover. These are the largest and most likely to warp.
 2. The small parts: carriage, adapter, cranks, conrods and fingers.
-3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (26 Electronics cover, top face on the bed).
+3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (Electronics cover x1, top face on the bed).
 4. The 4 pads, in TPU.
 5. The stand parts. ABS is preferred; PLA is fine if the big base warps.
 

@@ -1,5 +1,5 @@
 {
- "01 Base.stl": {
+ "Base x1.stl": {
   "overhang45_mm2": 90.4,
   "flat_down_groups_top3": [
    [
@@ -28,7 +28,7 @@
    ]
   ]
  },
- "02 Cover.stl": {
+ "Cover x1.stl": {
   "overhang45_mm2": 267.3,
   "flat_down_groups_top3": [
    [
@@ -57,7 +57,7 @@
    ]
   ]
  },
- "03 Adapter ISO9409-50.stl": {
+ "Adapter ISO9409-50 x1.stl": {
   "overhang45_mm2": 289.8,
   "flat_down_groups_top3": [
    [
@@ -78,7 +78,7 @@
    ]
   ]
  },
- "04 Carriage.stl": {
+ "Carriage x1.stl": {
   "overhang45_mm2": 114.1,
   "flat_down_groups_top3": [
    [
@@ -91,31 +91,31 @@
    ]
   ]
  },
- "05 BellCrank Lower U.stl": {
+ "BellCrank Lower U x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "06 BellCrank Lower L.stl": {
+ "BellCrank Lower L x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "07 BellCrank Upper U+L.stl": {
+ "BellCrank Upper U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "08 FrontCrank Lower U+L.stl": {
+ "FrontCrank Lower U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "09 FrontCrank Upper U+L.stl": {
+ "FrontCrank Upper U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "10 ConRod U+L.stl": {
+ "ConRod U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "11 Finger U.stl": {
+ "Finger U x1.stl": {
   "overhang45_mm2": 25.1,
   "flat_down_groups_top3": [
    [
@@ -128,7 +128,7 @@
    ]
   ]
  },
- "12 Finger L.stl": {
+ "Finger L x1.stl": {
   "overhang45_mm2": 25.1,
   "flat_down_groups_top3": [
    [
@@ -141,11 +141,11 @@
    ]
   ]
  },
- "13 Fit test coupons.stl": {
+ "Fit test coupons x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "13b Fit test gripper.stl": {
+ "Fit test gripper x1.stl": {
   "overhang45_mm2": 123.2,
   "flat_down_groups_top3": [
    [
@@ -174,11 +174,11 @@
    ]
   ]
  },
- "13c Fit test pad.stl": {
+ "Fit test pad x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "14 Tip block U narrow.stl": {
+ "Tip block U narrow x1.stl": {
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
@@ -191,7 +191,7 @@
    ]
   ]
  },
- "15 Tip block L narrow.stl": {
+ "Tip block L narrow x1.stl": {
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
@@ -204,7 +204,7 @@
    ]
   ]
  },
- "16 Tip block U wide.stl": {
+ "Tip block U wide x1.stl": {
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
@@ -217,7 +217,7 @@
    ]
   ]
  },
- "17 Tip block L wide.stl": {
+ "Tip block L wide x1.stl": {
   "overhang45_mm2": 42.2,
   "flat_down_groups_top3": [
    [
@@ -230,15 +230,15 @@
    ]
   ]
  },
- "18 Pad TPU U+L.stl": {
+ "Pad TPU U+L x4.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "19 Encoder magnet puck.stl": {
+ "Encoder magnet puck x1.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  },
- "20 Stand head bracket.stl": {
+ "Stand head bracket x1.stl": {
   "overhang45_mm2": 274.5,
   "flat_down_groups_top3": [
    [
@@ -267,7 +267,7 @@
    ]
   ]
  },
- "21 Stand base.stl": {
+ "Stand base x1.stl": {
   "overhang45_mm2": 100.5,
   "flat_down_groups_top3": [
    [
@@ -288,7 +288,7 @@
    ]
   ]
  },
- "22 Stand desk clamp U.stl": {
+ "Stand desk clamp U x1.stl": {
   "overhang45_mm2": 60.1,
   "flat_down_groups_top3": [
    [
@@ -309,7 +309,7 @@
    ]
   ]
  },
- "23 Stand desk clamp L.stl": {
+ "Stand desk clamp L x1.stl": {
   "overhang45_mm2": 60.1,
   "flat_down_groups_top3": [
    [
@@ -330,7 +330,7 @@
    ]
   ]
  },
- "24 Stand clamp pad U+L.stl": {
+ "Stand clamp pad U+L x2.stl": {
   "overhang45_mm2": 0.0,
   "flat_down_groups_top3": []
  }

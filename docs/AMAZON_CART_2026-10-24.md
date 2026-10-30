@@ -64,7 +64,7 @@ This setup is built for carrying to a lab or to friends with the least fuss. **T
 | 5 V buck module + 1N5817 diode | $18.54 | A 7805 regulator and a diode from the fablab do the same job with no adjustment. |
 | XT30 30 cm extension | $8.99 | Not needed: a USB-C cable reaches the power bank. |
 | 3 × 16 mm dowel pins | $7.29 | Cut the heads off 2 M3 × 16 screws from the kit and screw them into the base half as the locating pins. |
-| Brass M3 standoffs | $7.99 | Print 4 spacers (new `25 Controller spacer rear+front U+L.stl`) and use M3 × 16 screws through the board. |
+| Brass M3 standoffs | $7.99 | Print 4 spacers (new `Controller spacer rear+front U+L x4.stl`) and use M3 × 16 screws through the board. |
 | Battery straps | $7.99 | The power bank sits on the desk, or zip-tie it to the column. |
 | Toggle switch | $6.99 | Unplug the USB-C cable from the power bank to switch off. |
 | LiPo low-voltage alarm | $5.99 | Not needed: the power bank protects itself. |

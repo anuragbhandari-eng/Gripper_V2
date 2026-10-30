@@ -1,6 +1,6 @@
 [
  {
-  "file": "01_Base.stl",
+  "file": "01 Base.stl",
   "qty": 1,
   "volume_cm3": 107.17,
   "material": "ABS",
@@ -14,7 +14,7 @@
   "note": "bottom face on bed; 4 walls, 30% gyroid"
  },
  {
-  "file": "02_Cover.stl",
+  "file": "02 Cover.stl",
   "qty": 1,
   "volume_cm3": 90.33,
   "material": "ABS",
@@ -28,7 +28,7 @@
   "note": "flat top face on bed"
  },
  {
-  "file": "03_Adapter_ISO9409-50-4-M6.stl",
+  "file": "03 Adapter ISO9409-50.stl",
   "qty": 1,
   "volume_cm3": 37.95,
   "material": "ABS",
@@ -42,7 +42,7 @@
   "note": "gripper-side face on bed, spigot up"
  },
  {
-  "file": "04_Carriage.stl",
+  "file": "04 Carriage.stl",
   "qty": 1,
   "volume_cm3": 20.16,
   "material": "ABS",
@@ -56,7 +56,7 @@
   "note": "rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots"
  },
  {
-  "file": "05_BellCrank_Lower_A.stl",
+  "file": "05 BellCrank Lower U.stl",
   "qty": 1,
   "volume_cm3": 5.52,
   "material": "ABS",
@@ -70,7 +70,7 @@
   "note": "spacer boss up"
  },
  {
-  "file": "06_BellCrank_Lower_B_mirrored.stl",
+  "file": "06 BellCrank Lower L.stl",
   "qty": 1,
   "volume_cm3": 5.52,
   "material": "ABS",
@@ -84,7 +84,7 @@
   "note": "mirror of 05 (other side)"
  },
  {
-  "file": "07_BellCrank_Upper.stl",
+  "file": "07 BellCrank Upper U+L.stl",
   "qty": 2,
   "volume_cm3": 3.07,
   "material": "ABS",
@@ -98,7 +98,7 @@
   "note": "same part both sides (flip one)"
  },
  {
-  "file": "08_FrontCrank_Lower.stl",
+  "file": "08 FrontCrank Lower U+L.stl",
   "qty": 2,
   "volume_cm3": 2.78,
   "material": "ABS",
@@ -112,7 +112,7 @@
   "note": "spacer boss up"
  },
  {
-  "file": "09_FrontCrank_Upper.stl",
+  "file": "09 FrontCrank Upper U+L.stl",
   "qty": 2,
   "volume_cm3": 1.43,
   "material": "ABS",
@@ -126,7 +126,7 @@
   "note": ""
  },
  {
-  "file": "10_ConRod.stl",
+  "file": "10 ConRod U+L.stl",
   "qty": 2,
   "volume_cm3": 2.41,
   "material": "ABS",
@@ -140,7 +140,7 @@
   "note": ""
  },
  {
-  "file": "11_Finger_A.stl",
+  "file": "11 Finger U.stl",
   "qty": 1,
   "volume_cm3": 10.19,
   "material": "ABS",
@@ -154,7 +154,7 @@
   "note": "tongue forward; M layer only since rev 7"
  },
  {
-  "file": "12_Finger_B_mirrored.stl",
+  "file": "12 Finger L.stl",
   "qty": 1,
   "volume_cm3": 10.19,
   "material": "ABS",
@@ -168,7 +168,7 @@
   "note": "mirror of 11"
  },
  {
-  "file": "13_FitTest_coupons.stl",
+  "file": "13 Fit test coupons.stl",
   "qty": 1,
   "volume_cm3": 15.95,
   "material": "ABS",
@@ -182,7 +182,7 @@
   "note": "print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper"
  },
  {
-  "file": "13b_FitTest_rev7.stl",
+  "file": "13b Fit test gripper.stl",
   "qty": 1,
   "volume_cm3": 23.47,
   "material": "ABS",
@@ -196,7 +196,7 @@
   "note": "print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper"
  },
  {
-  "file": "13c_FitTest_pad_TPU95A.stl",
+  "file": "13c Fit test pad.stl",
   "qty": 1,
   "volume_cm3": 0.71,
   "material": "TPU",
@@ -210,7 +210,7 @@
   "note": "print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand)"
  },
  {
-  "file": "14_TipBlock_Narrow_A.stl",
+  "file": "14 Tip block U narrow.stl",
   "qty": 1,
   "volume_cm3": 16.1,
   "material": "ABS",
@@ -224,7 +224,7 @@
   "note": "narrow set; floor down, tongue pocket opens upward"
  },
  {
-  "file": "15_TipBlock_Narrow_B_mirrored.stl",
+  "file": "15 Tip block L narrow.stl",
   "qty": 1,
   "volume_cm3": 16.1,
   "material": "ABS",
@@ -238,7 +238,7 @@
   "note": "mirror of 14"
  },
  {
-  "file": "16_TipBlock_Wide_A.stl",
+  "file": "16 Tip block U wide.stl",
   "qty": 1,
   "volume_cm3": 10.13,
   "material": "ABS",
@@ -252,7 +252,7 @@
   "note": "wide set; floor down, tongue pocket opens upward"
  },
  {
-  "file": "17_TipBlock_Wide_B_mirrored.stl",
+  "file": "17 Tip block L wide.stl",
   "qty": 1,
   "volume_cm3": 10.13,
   "material": "ABS",
@@ -266,7 +266,7 @@
   "note": "mirror of 16"
  },
  {
-  "file": "18_Pad_TPU95A.stl",
+  "file": "18 Pad TPU U+L.stl",
   "qty": 4,
   "volume_cm3": 1.71,
   "material": "TPU",
@@ -280,7 +280,7 @@
   "note": "TPU 95A, contact face on bed; 2 per tip set (same pad fits both)"
  },
  {
-  "file": "19_EncoderPuck.stl",
+  "file": "19 Encoder magnet puck.stl",
   "qty": 1,
   "volume_cm3": 0.07,
   "material": "ABS",
@@ -294,7 +294,7 @@
   "note": "magnet pocket up; glue to the screw end"
  },
  {
-  "file": "20_Stand_HeadBracket.stl",
+  "file": "20 Stand head bracket.stl",
   "qty": 1,
   "volume_cm3": 137.36,
   "material": "ABS",
@@ -308,7 +308,7 @@
   "note": "bench stand; back face on bed, nut pockets and column hole open upward"
  },
  {
-  "file": "21_Stand_Base.stl",
+  "file": "21 Stand base.stl",
   "qty": 1,
   "volume_cm3": 257.41,
   "material": "ABS",
@@ -322,7 +322,7 @@
   "note": "bench stand; table face on bed, column socket up"
  },
  {
-  "file": "22_Stand_DeskClamp_A.stl",
+  "file": "22 Stand desk clamp U.stl",
   "qty": 1,
   "volume_cm3": 52.58,
   "material": "ABS",
@@ -336,7 +336,7 @@
   "note": "desk clamp; lying on its side, nut slot up, 100% infill at the corners"
  },
  {
-  "file": "23_Stand_DeskClamp_B_mirrored.stl",
+  "file": "23 Stand desk clamp L.stl",
   "qty": 1,
   "volume_cm3": 52.58,
   "material": "ABS",
@@ -350,7 +350,7 @@
   "note": "mirror of 22"
  },
  {
-  "file": "24_Stand_ClampPad.stl",
+  "file": "24 Stand clamp pad U+L.stl",
   "qty": 2,
   "volume_cm3": 2.54,
   "material": "TPU",
@@ -364,7 +364,7 @@
   "note": "desk side down; felt on it is optional"
  },
  {
-  "file": "25_ControllerSpacer.stl",
+  "file": "25 Controller spacer rear+front U+L.stl",
   "qty": 4,
   "volume_cm3": 0.06,
   "material": "ABS",
@@ -378,7 +378,7 @@
   "note": "end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert)"
  },
  {
-  "file": "26_ElectronicsCover.stl",
+  "file": "26 Electronics cover.stl",
   "qty": 1,
   "volume_cm3": 16.62,
   "material": "ABS",

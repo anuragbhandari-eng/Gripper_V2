@@ -1,32 +1,32 @@
 ID,Item,Qty,Note
-PRINT,01_Base (ABS),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 107.17 cm3"
-PRINT,02_Cover (ABS),1,flat top face on bed; orientation flip_x; 90.33 cm3
-PRINT,03_Adapter_ISO9409-50-4-M6 (ABS),1,"gripper-side face on bed, spigot up; orientation front_down; 37.95 cm3"
-PRINT,04_Carriage (ABS),1,"rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots; orientation rear_down; 20.16 cm3"
-PRINT,05_BellCrank_Lower_A (ABS),1,spacer boss up; orientation flat; 5.52 cm3
-PRINT,06_BellCrank_Lower_B_mirrored (ABS),1,mirror of 05 (other side); orientation flat; 5.52 cm3
-PRINT,07_BellCrank_Upper (ABS),2,same part both sides (flip one); orientation flat; 3.07 cm3
-PRINT,08_FrontCrank_Lower (ABS),2,spacer boss up; orientation flat; 2.78 cm3
-PRINT,09_FrontCrank_Upper (ABS),2,; orientation flat; 1.43 cm3
-PRINT,10_ConRod (ABS),2,; orientation flat; 2.41 cm3
-PRINT,11_Finger_A (ABS),1,tongue forward; M layer only since rev 7; orientation flat; 10.19 cm3
-PRINT,12_Finger_B_mirrored (ABS),1,mirror of 11; orientation flat; 10.19 cm3
-PRINT,13b_FitTest_rev7 (ABS),1,"print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper; orientation flat; 23.47 cm3"
-PRINT,13c_FitTest_pad_TPU95A (TPU),1,"print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand); orientation face_down; 0.71 cm3"
-PRINT,14_TipBlock_Narrow_A (ABS),1,"narrow set; floor down, tongue pocket opens upward; orientation flat; 16.1 cm3"
-PRINT,15_TipBlock_Narrow_B_mirrored (ABS),1,mirror of 14; orientation flat; 16.1 cm3
-PRINT,16_TipBlock_Wide_A (ABS),1,"wide set; floor down, tongue pocket opens upward; orientation flat; 10.13 cm3"
-PRINT,17_TipBlock_Wide_B_mirrored (ABS),1,mirror of 16; orientation flat; 10.13 cm3
-PRINT,18_Pad_TPU95A (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.71 cm3"
-PRINT,19_EncoderPuck (ABS),1,magnet pocket up; glue to the screw end; orientation rear_down; 0.07 cm3
-PRINT,20_Stand_HeadBracket (ABS),1,"bench stand; back face on bed, nut pockets and column hole open upward; orientation rear_down; 137.36 cm3"
-PRINT,21_Stand_Base (ABS),1,"bench stand; table face on bed, column socket up; orientation front_down; 257.41 cm3"
-PRINT,22_Stand_DeskClamp_A (ABS),1,"desk clamp; lying on its side, nut slot up, 100% infill at the corners; orientation side_my_down; 52.58 cm3"
-PRINT,23_Stand_DeskClamp_B_mirrored (ABS),1,mirror of 22; orientation side_py_down; 52.58 cm3
-PRINT,24_Stand_ClampPad (TPU),2,desk side down; felt on it is optional; orientation rear_down; 2.54 cm3
-PRINT,25_ControllerSpacer (ABS),4,"end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert); orientation flat; 0.06 cm3"
-PRINT,26_ElectronicsCover (ABS),1,"top face on bed, no supports; 2 M3 x 8 into the cover-top inserts; orientation flip_x; 16.62 cm3"
-PRINT,13_FitTest_coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
+PRINT,01 Base (ABS),1,"bottom face on bed; 4 walls, 30% gyroid; orientation flat; 107.17 cm3"
+PRINT,02 Cover (ABS),1,flat top face on bed; orientation flip_x; 90.33 cm3
+PRINT,03 Adapter ISO9409-50 (ABS),1,"gripper-side face on bed, spigot up; orientation front_down; 37.95 cm3"
+PRINT,04 Carriage (ABS),1,"rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots; orientation rear_down; 20.16 cm3"
+PRINT,05 BellCrank Lower U (ABS),1,spacer boss up; orientation flat; 5.52 cm3
+PRINT,06 BellCrank Lower L (ABS),1,mirror of 05 (other side); orientation flat; 5.52 cm3
+PRINT,07 BellCrank Upper U+L (ABS),2,same part both sides (flip one); orientation flat; 3.07 cm3
+PRINT,08 FrontCrank Lower U+L (ABS),2,spacer boss up; orientation flat; 2.78 cm3
+PRINT,09 FrontCrank Upper U+L (ABS),2,; orientation flat; 1.43 cm3
+PRINT,10 ConRod U+L (ABS),2,; orientation flat; 2.41 cm3
+PRINT,11 Finger U (ABS),1,tongue forward; M layer only since rev 7; orientation flat; 10.19 cm3
+PRINT,12 Finger L (ABS),1,mirror of 11; orientation flat; 10.19 cm3
+PRINT,13b Fit test gripper (ABS),1,"print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper; orientation flat; 23.47 cm3"
+PRINT,13c Fit test pad (TPU),1,"print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand); orientation face_down; 0.71 cm3"
+PRINT,14 Tip block U narrow (ABS),1,"narrow set; floor down, tongue pocket opens upward; orientation flat; 16.1 cm3"
+PRINT,15 Tip block L narrow (ABS),1,mirror of 14; orientation flat; 16.1 cm3
+PRINT,16 Tip block U wide (ABS),1,"wide set; floor down, tongue pocket opens upward; orientation flat; 10.13 cm3"
+PRINT,17 Tip block L wide (ABS),1,mirror of 16; orientation flat; 10.13 cm3
+PRINT,18 Pad TPU U+L (TPU),4,"TPU 95A, contact face on bed; 2 per tip set (same pad fits both); orientation side_py_down; 1.71 cm3"
+PRINT,19 Encoder magnet puck (ABS),1,magnet pocket up; glue to the screw end; orientation rear_down; 0.07 cm3
+PRINT,20 Stand head bracket (ABS),1,"bench stand; back face on bed, nut pockets and column hole open upward; orientation rear_down; 137.36 cm3"
+PRINT,21 Stand base (ABS),1,"bench stand; table face on bed, column socket up; orientation front_down; 257.41 cm3"
+PRINT,22 Stand desk clamp U (ABS),1,"desk clamp; lying on its side, nut slot up, 100% infill at the corners; orientation side_my_down; 52.58 cm3"
+PRINT,23 Stand desk clamp L (ABS),1,mirror of 22; orientation side_py_down; 52.58 cm3
+PRINT,24 Stand clamp pad U+L (TPU),2,desk side down; felt on it is optional; orientation rear_down; 2.54 cm3
+PRINT,25 Controller spacer rear+front U+L (ABS),4,"end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert); orientation flat; 0.06 cm3"
+PRINT,26 Electronics cover (ABS),1,"top face on bed, no supports; 2 M3 x 8 into the cover-top inserts; orientation flip_x; 16.62 cm3"
+PRINT,13 Fit test coupons (ABS),1,"Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; 16 cm3"
 P1,"NEMA 17 stepper with integrated Tr8x8 lead screw (4 start, 8 mm lead) and brass flange nut: YEJMKJ N17-Y42-39-SG240, body 42 x 42 x 38.7 mm, 240 mm screw, 0.44 N.m, 1.7 A, 2.2 ohm, 3.1 mH, rotor about 65 g.cm2 (Amazon US ASIN B0FHHWXJLV, in the cart)",1,"Cut the screw so it sticks out 71.0 mm past the D22 pilot face (73.0 mm from the mounting face), -0.5/+0: never long, the encoder puck fills the last 3 mm of the 608 bore; chamfer the end. The body is 1.3 mm shorter than modelled (40 mm), so the gap to the adapter is 2.3 mm: no change needed. If the flange nut is missing, buy a Tr8x8 brass flange nut (22 mm flange, 4 holes)"
 P2,"Tr8x8 brass flange nut (flange D22 x 3.5, body D10.2, 4x D3.5 on D16; check on the listing) - usually supplied with P1",1,
 P3,608ZZ ball bearing 8 x 22 x 7,1,Screw tip support; carries the grip thrust into the block front lip
@@ -45,7 +45,7 @@ P11,"TMC2209 stepper driver module, StepStick size (e.g. BIGTREETECH TMC2209), U
 P14,Raspberry Pi Pico (or Pico H with headers),1,USB serial to ROS 2; on the protoboard
 P15,AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric magnet,1,"Solder 4 wires (VCC, GND, SDA, SCL) to the pad row, no header; pad row up"
 P16,"Double-sided protoboard 50 x 70 mm, cut to 48 x 60 mm",1,"Score and snap (or saw) it to 48 x 60, then drill 4 corner holes to 3.2 mm on a 42 x 54 mm pattern"
-P17,"Printed spacer 25_ControllerSpacer (D5.5 x 4, room for the solder joints under the board) + M3 x 10 button screw from the kit",4,Screw through the board and spacer into the cover-top insert
+P17,"Printed spacer 25 Controller spacer rear+front U+L (D5.5 x 4, room for the solder joints under the board) + M3 x 10 button screw from the kit",4,Screw through the board and spacer into the cover-top insert
 P18,L7805 5 V regulator + 1N5817 Schottky diode (any 1 A diode works) + 2 x 100 nF (ask the fablab first),1,"9 V line -> 7805 -> diode -> Pico VSYS: one cable from the power bank runs everything, the laptop is optional and can be plugged in at the same time"
 P19,"USB-C PD power bank, about 10,000 mAh, 20 W, any brand that says PD (all of them offer 9 V); use one you already own",1,Battery and charger in one: recharge it from any USB charger. Sits on the desk next to the stand (the modelled pack on the column is a placeholder)
 P20,"USB-C PD trigger (decoy) board, set to 9 V; check its output with a multimeter before connecting the driver",1,"USB-C cable from the power bank, or from any USB-C laptop or phone charger of 18 W or more; + and - go to TMC2209 VM, the divider and the 7805"
@@ -56,4 +56,4 @@ P24,"M5 T-nut for 2020 (sliding or drop-in) + M5 x 12 screw, 4 + 1 for the colum
 P29,M8 x 40 star knob screw (male thread) + M8 hex nut (nut from the fablab or a hardware store),2,Desk clamps (nut drops into the slot in each clamp)
 P30,"Self-adhesive felt pads, about 25 mm (optional, not bought)",4,"On the clamp pads and under the base front corners, to protect the desk"
 P25,M6 x 20 socket head cap screw ISO 4762 + M6 hex nut,4,Adapter to the stand head bracket (nuts drop into the bracket from the back)
-P26,TPU 95A filament,1,"Contact pads (18_Pad_TPU95A, 4 pcs)"
+P26,TPU 95A filament,1,"Contact pads (18 Pad TPU U+L, 4 pcs)"

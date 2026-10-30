@@ -21,7 +21,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 ## 1a. Rev 7 (v2) changes
 
 - **Rev 7.2b (2026-10-26), compact controller and flush dowels:** the protoboard is cut to 48 × 60 mm and sits on 4 mm spacers, the 7805 lies flat, the 100 µF stands beside the driver, and the two Pico-end mounting screws sit between the Pico's socket rows. The electronics cover shrinks from 57.5 × 78 × 33.6 to 54 × 66 × 26.2 mm (envelope 151 → 93 cm³, −38%); the driver's heatsink is now the tallest part. The 4 × 40 dowels are cut to 38.5 mm and pressed up through the base, flush with its underside and the cover top, with 9 mm of press fit (was 6.5).
-- **Rev 7.2 finishing pass (2026-10-26):** the open hard stop moved from 66 to 60.5 mm, just past the 60 mm firmware cap: the last 6 mm were never used, and there the linkage advantage, and so every pin load in the 200 N limit case, climbs steeply. The finger bores at F1 and F2 (twist from a pad-edge grip) now pass that limit case (SF 1.0, was 0.6, bore-only model), the gripper is 5.5 mm of stroke shorter at the front and the lead screw is cut to 73.0 mm. Fillets in the desk clamps' inside corners (R3 / R6) and a stepped fillet round the stand column socket, a 0.4 mm elephant's-foot relief on the carriage tongue's bed side, and a printed electronics cover (26_ElectronicsCover) over the controller with cable notches, a BOOTSEL window and driver vents, held by 2 M3×8 into 2 more cover-top inserts. The Pico and driver now sit at their real socketed height (11 mm above the board). In Onshape the button-head screws are Onshape standard ISO 7380 parts and the Pico is Raspberry Pi's official model.
+- **Rev 7.2 finishing pass (2026-10-26):** the open hard stop moved from 66 to 60.5 mm, just past the 60 mm firmware cap: the last 6 mm were never used, and there the linkage advantage, and so every pin load in the 200 N limit case, climbs steeply. The finger bores at F1 and F2 (twist from a pad-edge grip) now pass that limit case (SF 1.0, was 0.6, bore-only model), the gripper is 5.5 mm of stroke shorter at the front and the lead screw is cut to 73.0 mm. Fillets in the desk clamps' inside corners (R3 / R6) and a stepped fillet round the stand column socket, a 0.4 mm elephant's-foot relief on the carriage tongue's bed side, and a printed electronics cover (26 Electronics cover) over the controller with cable notches, a BOOTSEL window and driver vents, held by 2 M3×8 into 2 more cover-top inserts. The Pico and driver now sit at their real socketed height (11 mm above the board). In Onshape the button-head screws are Onshape standard ISO 7380 parts and the Pico is Raspberry Pi's official model.
 - **B, tip sets:** each finger splits at x = 41 mm. A tip block slides up onto a 15 mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face 10 mm further out per side (20–86 mm), blunt end. Both run 12 mm further forward (pad x 44–83). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear and snaps past a step, so it cannot slide back out). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.
 - **Trade-offs of the longer tips:** the gripper is 12 mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.
 - **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut 3 mm shorter). The board stands in a slot across the bearing block, 0.8 mm air gap; the block bolts moved to ears at the rear of the block.
@@ -185,35 +185,35 @@ Gripper mass 755 g (printed parts taken as solid, conservative), CG at x = -25 m
 
 | Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |
 |---|---|---|---|---|
-| 01_Base.stl | 1 | 107.17 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
-| 02_Cover.stl | 1 | 90.33 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
-| 03_Adapter_ISO9409-50-4-M6.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
-| 04_Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
-| 05_BellCrank_Lower_A.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
-| 06_BellCrank_Lower_B_mirrored.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: mirror of 05 (other side) |
-| 07_BellCrank_Upper.stl | 2 | 3.07 | 39.0 × 31.9 × 3.8 | flat: same part both sides (flip one) |
-| 08_FrontCrank_Lower.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
-| 09_FrontCrank_Upper.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
-| 10_ConRod.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
-| 11_Finger_A.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: tongue forward; M layer only since rev 7 |
-| 12_Finger_B_mirrored.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: mirror of 11 |
-| 13b_FitTest_rev7.stl | 1 | 23.47 | 131.9 × 33.3 × 19.5 | flat: print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper |
-| 13c_FitTest_pad_TPU95A.stl | 1 | 0.71 | 15.5 × 19.5 × 3.4 | face_down: print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand) |
-| 14_TipBlock_Narrow_A.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
-| 15_TipBlock_Narrow_B_mirrored.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
-| 16_TipBlock_Wide_A.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: wide set; floor down, tongue pocket opens upward |
-| 17_TipBlock_Wide_B_mirrored.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: mirror of 16 |
-| 18_Pad_TPU95A.stl | 4 | 1.71 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
-| 19_EncoderPuck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
-| 20_Stand_HeadBracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
-| 21_Stand_Base.stl | 1 | 257.41 | 170.0 × 180.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
-| 22_Stand_DeskClamp_A.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_my_down: desk clamp; lying on its side, nut slot up, 100% infill at the corners |
-| 23_Stand_DeskClamp_B_mirrored.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_py_down: mirror of 22 |
-| 24_Stand_ClampPad.stl | 2 | 2.54 | 24.0 × 24.0 × 6.0 | rear_down: desk side down; felt on it is optional |
-| 25_ControllerSpacer.stl | 4 | 0.06 | 5.5 × 5.5 × 4.0 | flat: end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert) |
-| 26_ElectronicsCover.stl | 1 | 16.62 | 54.0 × 83.0 × 26.2 | flip_x: top face on bed, no supports; 2 M3 x 8 into the cover-top inserts |
+| 01 Base.stl | 1 | 107.17 | 145.3 × 130.9 × 31.1 | flat: bottom face on bed; 4 walls, 30% gyroid |
+| 02 Cover.stl | 1 | 90.33 | 145.3 × 130.9 × 19.2 | flip_x: flat top face on bed |
+| 03 Adapter ISO9409-50.stl | 1 | 37.95 | 59.0 × 48.6 × 17.0 | front_down: gripper-side face on bed, spigot up |
+| 04 Carriage.stl | 1 | 20.16 | 27.8 × 60.8 × 26.0 | rear_down: rear face on bed, nut recess up; no supports; 100% infill around inserts and nut-screw pilots |
+| 05 BellCrank Lower U.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: spacer boss up |
+| 06 BellCrank Lower L.stl | 1 | 5.52 | 39.0 × 31.9 × 14.1 | flat: mirror of 05 (other side) |
+| 07 BellCrank Upper U+L.stl | 2 | 3.07 | 39.0 × 31.9 × 3.8 | flat: same part both sides (flip one) |
+| 08 FrontCrank Lower U+L.stl | 2 | 2.78 | 39.0 × 11.0 × 14.1 | flat: spacer boss up |
+| 09 FrontCrank Upper U+L.stl | 2 | 1.43 | 39.0 × 11.0 × 3.8 | flat:  |
+| 10 ConRod U+L.stl | 2 | 2.41 | 33.7 × 11.0 × 7.6 | flat:  |
+| 11 Finger U.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: tongue forward; M layer only since rev 7 |
+| 12 Finger L.stl | 1 | 10.19 | 61.5 × 40.9 × 13.6 | flat: mirror of 11 |
+| 13b Fit test gripper.stl | 1 | 23.47 | 131.9 × 33.3 × 19.5 | flat: print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper |
+| 13c Fit test pad.stl | 1 | 0.71 | 15.5 × 19.5 × 3.4 | face_down: print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand) |
+| 14 Tip block U narrow.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: narrow set; floor down, tongue pocket opens upward |
+| 15 Tip block L narrow.stl | 1 | 16.1 | 45.0 × 33.3 × 19.5 | flat: mirror of 14 |
+| 16 Tip block U wide.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: wide set; floor down, tongue pocket opens upward |
+| 17 Tip block L wide.stl | 1 | 10.13 | 45.0 × 23.3 × 19.5 | flat: mirror of 16 |
+| 18 Pad TPU U+L.stl | 4 | 1.71 | 38.0 × 19.5 × 3.4 | side_py_down: TPU 95A, contact face on bed; 2 per tip set (same pad fits both) |
+| 19 Encoder magnet puck.stl | 1 | 0.07 | 7.9 × 7.9 × 2.9 | rear_down: magnet pocket up; glue to the screw end |
+| 20 Stand head bracket.stl | 1 | 137.36 | 103.8 × 52.0 × 30.0 | rear_down: bench stand; back face on bed, nut pockets and column hole open upward |
+| 21 Stand base.stl | 1 | 257.41 | 170.0 × 180.0 × 28.0 | front_down: bench stand; table face on bed, column socket up |
+| 22 Stand desk clamp U.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_my_down: desk clamp; lying on its side, nut slot up, 100% infill at the corners |
+| 23 Stand desk clamp L.stl | 1 | 52.58 | 83.0 × 54.5 × 30.0 | side_py_down: mirror of 22 |
+| 24 Stand clamp pad U+L.stl | 2 | 2.54 | 24.0 × 24.0 × 6.0 | rear_down: desk side down; felt on it is optional |
+| 25 Controller spacer rear+front U+L.stl | 4 | 0.06 | 5.5 × 5.5 × 4.0 | flat: end on bed, 100% infill; 4 mm tall, replaces the brass standoffs (M3 x 10 through board and spacer into the cover insert) |
+| 26 Electronics cover.stl | 1 | 16.62 | 54.0 × 83.0 × 26.2 | flip_x: top face on bed, no supports; 2 M3 x 8 into the cover-top inserts |
 
-**Print the fit coupons first**, in ABS on the same printer as the real parts: 13b_FitTest_rev7.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and 13c_FitTest_pad_TPU95A.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then 13_FitTest_coupons.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
+**Print the fit coupons first**, in ABS on the same printer as the real parts: 13b Fit test gripper.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and 13c Fit test pad.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then 13 Fit test coupons.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.
 
 
 Print settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base, cover and the stand parts (the stand is ABS too; PLA is an acceptable fallback if the 180 × 170 base or the clamps warp); check the base, cover and stand base on a flat surface (glass) before assembly and reprint any that rock, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).
@@ -268,7 +268,7 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
   - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to 73.0 mm (was 78.0) and ends flush with the 608 face.
   - Section through the thrust path: images/rev6_thrust_section.png.
   - Layer stack: finger / conrod now 6.5–14.1 (7.6 mm = 38 layers) and upper crank plates 14.4–18.2 (3.8 mm), with the screw axis at 10.3. Gaps went from 0.1 to 0.2 below and 0.3 above each moving layer.
-  - Fit coupons (13_FitTest_coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.
+  - Fit coupons (13 Fit test coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.
   - Re-checked: 49 valid parts, 0 collisions over 41 poses, intended contacts only; structural min SF 3.6 (unchanged, dowel); new block front lip SF 34.5 bearing / 74.6 shear-out; fasteners min SF 4.3; no new overhangs.
 - Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any CAD package as a 49-part assembly.
 

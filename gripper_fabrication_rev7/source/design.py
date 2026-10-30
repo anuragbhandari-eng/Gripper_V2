@@ -483,7 +483,7 @@ def protoboard():
     (cx, cy), (w, l) = CTRL_C, CTRL_SIZE
     return [('add', ('box', (cx - w/2, cy - l/2, Z_PCB), (cx + w/2, cy + l/2, Z_PCB + 1.6)))] + \
            [('cut', ('cyl', (hx, hy, Z_PCB - 1), (hx, hy, Z_PCB + 3), 1.6)) for hx, hy in CTRL_HOLES]
-def spacer(x):   # printed spacer (25_ControllerSpacer) between the cover top and the board, +y side
+def spacer(x):   # printed spacer (25 Controller spacer rear+front U+L) between the cover top and the board, +y side
     y = CTRL_C[1] + CTRL_HOLE[1]
     return [('add', ('cyl', (x, y, Z_C1), (x, y, Z_PCB), 2.75)),
             ('cut', ('cyl', (x, y, Z_C1 - 1), (x, y, Z_PCB + 1), 1.7))]

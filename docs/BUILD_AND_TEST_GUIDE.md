@@ -62,16 +62,16 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 
 These small test prints check every fit that depends on your printer. Print them in ABS on the printer you'll use for the real parts. They take a few hours, and they save a full reprint if a fit is off.
 
-1. **13b_FitTest_rev7.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
+1. **13b Fit test gripper.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
    - [ ] The tongue stub slides into the tip-block pocket stub with no play and no forcing.
    - [ ] The 2 M3×10 screws go in and hold.
    - [ ] An AS5600 board slides into the slot.
    - [ ] An M6 nut drops into its pocket.
    - [ ] The 2020 extrusion fits its socket.
    - [ ] The magnet fits its puck, and the puck fits inside a 608.
-2. **13c_FitTest_pad_TPU95A.stl (TPU).**
+2. **13c Fit test pad.stl (TPU).**
    - [ ] It snaps into the pocket-stub groove and doesn't pull out by hand.
-3. **13_FitTest_coupons.stl (ABS).**
+3. **13 Fit test coupons.stl (ABS).**
    - [ ] Pin bores: a dowel presses into the Ø3.9 hole, is snug in Ø4.1, and turns freely in Ø4.2.
    - [ ] The stacked test plates move freely in their 0.2 / 0.3 mm gaps.
    - [ ] A 608 sits in the cradle with no rattle and no forcing, against the front lip.
@@ -108,7 +108,7 @@ The print list with orientations is in the [design report, section 6](../gripper
 **Order:**
 1. Base and cover. These are the largest and most likely to warp.
 2. The small parts: carriage, adapter, cranks, conrods and fingers.
-3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (26_ElectronicsCover, top face on the bed).
+3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (26 Electronics cover, top face on the bed).
 4. The 4 pads, in TPU.
 5. The stand parts. ABS is preferred; PLA is fine if the big base warps.
 
@@ -227,7 +227,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 
 | Part | Inserts |
 |---|---|
-| BellCrank Lower A and B | 2 each (F1, D) |
+| BellCrank Lower U and L | 2 each (F1, D) |
 | FrontCrank Lower ×2 | 1 each (F2) |
 | Carriage | 2 (lower ears) |
 | Fingers ×2 | 2 each, in the tongue underside |

@@ -1,0 +1,377 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/21eb00e5286d05130362fe39/v/5cdac080a8e3ed3cdc956c12/e/1637fb3a48d9ca739a013816 -->
+<robot name="lead_screw_gripper">
+  <!-- Link base_link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-0.0502696 6.01763e-05 0.0115142" rpy="0 0 0"/>
+      <mass value="0.893804"/>
+      <inertia ixx="0.000518783" ixy="-2.46723e-06" ixz="-5.96083e-05" iyy="0.00135135" iyz="-1.91356e-06" izz="0.00152391"/>
+    </inertial>
+    <!-- Part base_link_parts -->
+    <visual>
+      <origin xyz="-0.0502696 6.01763e-05 0.0115142" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/base_link_visual.stl"/>
+      </geometry>
+      <material name="base_link_parts_material">
+        <color rgba="0.216878 0.234037 0.246909 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Link bell_crank_U_link -->
+  <link name="bell_crank_U_link">
+    <inertial>
+      <origin xyz="0.0127652 -0.00436964 -0.000173751" rpy="0 0 0"/>
+      <mass value="0.0135165"/>
+      <inertia ixx="2.99928e-06" ixy="8.5137e-08" ixz="8.6611e-08" iyy="1.17674e-06" iyz="-1.8601e-08" izz="2.97914e-06"/>
+    </inertial>
+    <!-- Part bell_crank_U_link_parts -->
+    <visual>
+      <origin xyz="0.0127652 -0.00436964 -0.000173751" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/bell_crank_U_link_visual.stl"/>
+      </geometry>
+      <material name="bell_crank_U_link_parts_material">
+        <color rgba="0.554282 0.562059 0.575021 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Link finger_U_link -->
+  <link name="finger_U_link">
+    <inertial>
+      <origin xyz="0.0223399 0.0507657 -0.00010495" rpy="0 0 0"/>
+      <mass value="0.0294141"/>
+      <inertia ixx="1.26318e-05" ixy="-5.04243e-06" ixz="2.532e-09" iyy="4.78822e-06" iyz="-9.068e-09" izz="1.59699e-05"/>
+    </inertial>
+    <!-- Part finger_U_link_parts -->
+    <visual>
+      <origin xyz="0.0223399 0.0507657 -0.00010495" rpy="3.14159 0 0.677441"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/finger_U_link_visual.stl"/>
+      </geometry>
+      <material name="finger_U_link_parts_material">
+        <color rgba="0.854343 0.427803 0.158577 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_F2_U_2 (dummy link + fixed joint) -->
+  <link name="closing_F2_U_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_U_2_frame" type="fixed">
+    <origin xyz="0.00641464 0.0435115 0" rpy="3.14159 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="closing_F2_U_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from bell_crank_U_link to finger_U_link -->
+  <joint name="finger_U" type="revolute">
+    <origin xyz="0.0163121 -0.0227578 0" rpy="0 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="finger_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link conrod_U_link -->
+  <link name="conrod_U_link">
+    <inertial>
+      <origin xyz="-0.0113355 -0.000215631 -5e-05" rpy="0 0 0"/>
+      <mass value="0.0025036"/>
+      <inertia ixx="3.7431e-08" ixy="-3.285e-09" ixz="-0" iyy="2.10056e-07" iyz="0" izz="2.23386e-07"/>
+    </inertial>
+    <!-- Part conrod_U_link_parts -->
+    <visual>
+      <origin xyz="-0.0113355 -0.000215631 -5e-05" rpy="3.14159 0 0.677441"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/conrod_U_link_visual.stl"/>
+      </geometry>
+      <material name="conrod_U_link_parts_material">
+        <color rgba="0.709804 0.729412 0.74902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_C_U_2 (dummy link + fixed joint) -->
+  <link name="closing_C_U_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_U_2_frame" type="fixed">
+    <origin xyz="-0.022671 -0.000431263 0" rpy="3.14159 0 0.282782"/>
+    <parent link="conrod_U_link"/>
+    <child link="closing_C_U_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from bell_crank_U_link to conrod_U_link -->
+  <joint name="conrod_U" type="revolute">
+    <origin xyz="0.0169948 0.0121814 0" rpy="0 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="conrod_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.5" velocity="10" lower="-0.825" upper="0"/>
+  </joint>
+  <!-- Joint from base_link to bell_crank_U_link -->
+  <joint name="bell_crank_U" type="revolute">
+    <origin xyz="0 0.0509701 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="bell_crank_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="3" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link front_crank_U_link -->
+  <link name="front_crank_U_link">
+    <inertial>
+      <origin xyz="0.0103034 -0.0143747 -0.000262005" rpy="0 0 0"/>
+      <mass value="0.00667164"/>
+      <inertia ixx="8.87427e-07" ixy="3.9702e-07" ixz="6.918e-08" iyy="6.181e-07" iyz="-9.6516e-08" izz="9.32036e-07"/>
+    </inertial>
+    <!-- Part front_crank_U_link_parts -->
+    <visual>
+      <origin xyz="0.0103034 -0.0143747 -0.000262005" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/front_crank_U_link_visual.stl"/>
+      </geometry>
+      <material name="front_crank_U_link_parts_material">
+        <color rgba="0.551246 0.558971 0.571846 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_F2_U_1 (dummy link + fixed joint) -->
+  <link name="closing_F2_U_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_U_1_frame" type="fixed">
+    <origin xyz="0.0163121 -0.0227578 0" rpy="3.14159 -0 -0.677441"/>
+    <parent link="front_crank_U_link"/>
+    <child link="closing_F2_U_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from base_link to front_crank_U_link -->
+  <joint name="front_crank_U" type="revolute">
+    <origin xyz="0.0322712 0.0210876 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="front_crank_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link bell_crank_L_link -->
+  <link name="bell_crank_L_link">
+    <inertial>
+      <origin xyz="0.0127652 0.00436964 -0.000173751" rpy="0 0 0"/>
+      <mass value="0.0135165"/>
+      <inertia ixx="2.99928e-06" ixy="-8.5137e-08" ixz="8.6612e-08" iyy="1.17674e-06" iyz="1.8601e-08" izz="2.97915e-06"/>
+    </inertial>
+    <!-- Part bell_crank_L_link_parts -->
+    <visual>
+      <origin xyz="0.0127652 0.00436964 -0.000173751" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/bell_crank_L_link_visual.stl"/>
+      </geometry>
+      <material name="bell_crank_L_link_parts_material">
+        <color rgba="0.554283 0.562059 0.575021 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Link finger_L_link -->
+  <link name="finger_L_link">
+    <inertial>
+      <origin xyz="0.0223399 -0.0507657 -0.000104948" rpy="0 0 0"/>
+      <mass value="0.0294141"/>
+      <inertia ixx="1.26318e-05" ixy="5.04243e-06" ixz="2.533e-09" iyy="4.78822e-06" iyz="9.068e-09" izz="1.59699e-05"/>
+    </inertial>
+    <!-- Part finger_L_link_parts -->
+    <visual>
+      <origin xyz="0.0223399 -0.0507657 -0.000104948" rpy="3.14159 0 -0.677441"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/finger_L_link_visual.stl"/>
+      </geometry>
+      <material name="finger_L_link_parts_material">
+        <color rgba="0.854343 0.427803 0.158577 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_F2_L_2 (dummy link + fixed joint) -->
+  <link name="closing_F2_L_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_L_2_frame" type="fixed">
+    <origin xyz="0.00641464 -0.0435115 0" rpy="3.14159 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="closing_F2_L_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from bell_crank_L_link to finger_L_link -->
+  <joint name="finger_L" type="revolute">
+    <origin xyz="0.0163121 0.0227578 0" rpy="0 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="finger_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link conrod_L_link -->
+  <link name="conrod_L_link">
+    <inertial>
+      <origin xyz="-0.0113355 0.000215631 -5e-05" rpy="0 0 0"/>
+      <mass value="0.0025036"/>
+      <inertia ixx="3.7431e-08" ixy="3.285e-09" ixz="0" iyy="2.10056e-07" iyz="0" izz="2.23386e-07"/>
+    </inertial>
+    <!-- Part conrod_L_link_parts -->
+    <visual>
+      <origin xyz="-0.0113355 0.000215631 -5e-05" rpy="3.14159 0 -0.677441"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/conrod_L_link_visual.stl"/>
+      </geometry>
+      <material name="conrod_L_link_parts_material">
+        <color rgba="0.709804 0.729412 0.74902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_C_L_2 (dummy link + fixed joint) -->
+  <link name="closing_C_L_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_L_2_frame" type="fixed">
+    <origin xyz="-0.022671 0.000431263 0" rpy="3.14159 0 -0.282782"/>
+    <parent link="conrod_L_link"/>
+    <child link="closing_C_L_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from bell_crank_L_link to conrod_L_link -->
+  <joint name="conrod_L" type="revolute">
+    <origin xyz="0.0169948 -0.0121814 0" rpy="0 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="conrod_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.5" velocity="10" lower="0" upper="0.825"/>
+  </joint>
+  <!-- Joint from base_link to bell_crank_L_link -->
+  <joint name="bell_crank_L" type="revolute">
+    <origin xyz="0 -0.0509701 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="bell_crank_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link front_crank_L_link -->
+  <link name="front_crank_L_link">
+    <inertial>
+      <origin xyz="0.0103034 0.0143747 -0.000262005" rpy="0 0 0"/>
+      <mass value="0.00667164"/>
+      <inertia ixx="8.87427e-07" ixy="-3.9702e-07" ixz="6.918e-08" iyy="6.181e-07" iyz="9.6516e-08" izz="9.32036e-07"/>
+    </inertial>
+    <!-- Part front_crank_L_link_parts -->
+    <visual>
+      <origin xyz="0.0103034 0.0143747 -0.000262005" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/front_crank_L_link_visual.stl"/>
+      </geometry>
+      <material name="front_crank_L_link_parts_material">
+        <color rgba="0.551246 0.558971 0.571846 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_F2_L_1 (dummy link + fixed joint) -->
+  <link name="closing_F2_L_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_L_1_frame" type="fixed">
+    <origin xyz="0.0163121 0.0227578 0" rpy="3.14159 -0 0.677441"/>
+    <parent link="front_crank_L_link"/>
+    <child link="closing_F2_L_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from base_link to front_crank_L_link -->
+  <joint name="front_crank_L" type="revolute">
+    <origin xyz="0.0322712 -0.0210876 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="front_crank_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link carriage_link -->
+  <link name="carriage_link">
+    <inertial>
+      <origin xyz="0 0.000454995 -0.0158538" rpy="0 0 0"/>
+      <mass value="0.0372895"/>
+      <inertia ixx="3.44468e-06" ixy="-0" ixz="0" iyy="9.9148e-06" iyz="-3.5253e-08" izz="1.0001e-05"/>
+    </inertial>
+    <!-- Part carriage_link_parts -->
+    <visual>
+      <origin xyz="0 0.000454995 -0.0158538" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape/assets/merged/carriage_link_visual.stl"/>
+      </geometry>
+      <material name="carriage_link_parts_material">
+        <color rgba="0.568939 0.539651 0.447382 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Frame closing_C_U_1 (dummy link + fixed joint) -->
+  <link name="closing_C_U_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_U_1_frame" type="fixed">
+    <origin xyz="0.0249145 0 -0.015344" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="closing_C_U_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Frame closing_C_L_1 (dummy link + fixed joint) -->
+  <link name="closing_C_L_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_L_1_frame" type="fixed">
+    <origin xyz="-0.0249145 0 -0.015344" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="closing_C_L_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Joint from base_link to carriage_link -->
+  <joint name="carriage" type="prismatic">
+    <origin xyz="-0.0162842 0 0.01025" rpy="-1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="carriage_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="50" velocity="0.1" lower="0" upper="0.0266"/>
+  </joint>
+</robot>

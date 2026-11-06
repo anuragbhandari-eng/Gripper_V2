@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="lead_screw_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- The full gripper with every part in its own Onshape colour, one fixed link per part
+       (settings in onshape_render/config.json). For recordings only;
+       lead_screw_gripper_full.urdf.xacro is the robot used everywhere else. -->
+  <xacro:include filename="$(find lead_screw_gripper_description)/onshape_render/lead_screw_gripper_render.urdf"/>
+
+</robot>

@@ -1,0 +1,35 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz, matches the 1 ms physics step
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+# The nine linkage joints, in the order the kinematics node sends them
+gripper_controller:
+  ros__parameters:
+    type: position_controllers/JointGroupPositionController
+    joints:
+      - bell_crank_U
+      - front_crank_U
+      - finger_U
+      - conrod_U
+      - bell_crank_L
+      - front_crank_L
+      - finger_L
+      - conrod_L
+      - carriage
+
+# Vertical slide that lifts the whole gripper, for testing the grasp
+lift_controller:
+  ros__parameters:
+    type: position_controllers/JointGroupPositionController
+    joints:
+      - lift
+
+# gz_ros2_control turns position commands into joint velocities:
+# velocity = gain * position error * update rate, a first-order lag with
+# time constant 1 / (0.1 * 1000 Hz) = 10 ms
+gz_ros_control:
+  ros__parameters:
+    position_proportional_gain: 0.1

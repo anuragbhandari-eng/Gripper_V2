@@ -1,0 +1,12 @@
+# colcon build output
+build/
+install/
+log/
+# Python caches
+__pycache__/
+.pytest_cache/
+# onshape-to-robot also writes one STL + .part file per part; the main URDF only uses assets/merged/
+src/lead_screw_gripper_description/onshape/assets/*.stl
+src/lead_screw_gripper_description/onshape/assets/*.part
+# The render export uses the per-part STLs but not the .part metadata
+src/lead_screw_gripper_description/onshape_render/assets/*.part

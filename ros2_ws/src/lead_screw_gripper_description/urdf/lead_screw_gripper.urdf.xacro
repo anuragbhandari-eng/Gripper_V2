@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="lead_screw_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Numbers from the CAD (section 9 of ROS2_HANDOFF.md), in metres and radians -->
+  <xacro:property name="o1_y" value="0.050970"/>
+  <xacro:property name="mesh_dir" value="package://lead_screw_gripper_description/meshes/visual"/>
+
+  <!-- Bell-crank joint limits, measured from the 30 mm pose the meshes were exported in
+       (crank angle 15.55 deg): closed at -15.52 deg, fully open (66 mm hard stop) at 65.64 deg -->
+  <xacro:property name="crank_lower" value="-0.54234"/>
+  <xacro:property name="crank_upper" value="0.87423"/>
+
+  <material name="base_grey">
+    <color rgba="0.24 0.26 0.29 1"/>
+  </material>
+  <material name="crank_grey">
+    <color rgba="0.79 0.80 0.82 1"/>
+  </material>
+
+  <!-- Fixed body. Its frame is the CAD origin: x = 0 at O1, z = 0 on top of the base plate -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="${mesh_dir}/base.stl"/>
+      </geometry>
+      <material name="base_grey"/>
+    </visual>
+  </link>
+
+  <!-- Upper bell crank: two plates that turn together around O1 -->
+  <link name="bell_crank_U">
+    <visual>
+      <origin xyz="0 ${-o1_y} 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/bell_crank_lower_u.stl"/>
+      </geometry>
+      <material name="crank_grey"/>
+    </visual>
+    <visual>
+      <origin xyz="0 ${-o1_y} 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="${mesh_dir}/bell_crank_upper_u.stl"/>
+      </geometry>
+      <material name="crank_grey"/>
+    </visual>
+  </link>
+
+  <joint name="bell_crank_U_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="bell_crank_U"/>
+    <origin xyz="0 ${o1_y} 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <!-- effort and velocity are placeholders until phase 7 -->
+    <limit lower="${crank_lower}" upper="${crank_upper}" effort="1.0" velocity="1.0"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,70 @@
+# display.rviz with the TF display on (only the main links), the model opaque, a 3/4 view and a bigger
+# window, for screen recordings with the jaw-gap slider
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.01
+      Plane Cell Count: 30
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+      Alpha: 1
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Marker Scale: 0.06
+      # Only the links that move as one body (the render model has a frame for every part)
+      Frames:
+        All Enabled: false
+        base_link:
+          Value: true
+        bell_crank_U_link:
+          Value: true
+        bell_crank_L_link:
+          Value: true
+        front_crank_U_link:
+          Value: true
+        front_crank_L_link:
+          Value: true
+        conrod_U_link:
+          Value: true
+        conrod_L_link:
+          Value: true
+        finger_U_link:
+          Value: true
+        finger_L_link:
+          Value: true
+        carriage_link:
+          Value: true
+  Global Options:
+    Fixed Frame: base_link
+    Background Color: 48; 48; 48
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 0.3
+      Focal Point:
+        X: -0.01
+        Y: 0
+        Z: 0.01
+      Pitch: 0.8
+      Yaw: 3.85
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1000
+  Width: 1800
+  X: 60
+  Y: 60

@@ -15,7 +15,7 @@ Generated from the verified model (design.py → results.json, results_struct.js
 | Motion check | 0 collisions over 41 poses (95 parts with the stand and electronics, 24 modelled screws), for both tip sets; only intended joint/stack contacts below 0.8 mm |
 | Grip thrust | Screw reaction → lock collar → 608 inner ring → outer ring → block front lip. 608 static axial capacity ≈ 685 N vs 200 N limit (3.4×) |
 | Fasteners | 4 button-head sizes on the gripper (14× M3×8, 8× M3×10, 4× M3×20, ISO 7380); min SF 2.8 under mount, stall and limit loads; tighten ≤ 0.15 N·m |
-| Printed volume | gripper with the narrow set 497 cm³ (~284 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 395 cm³ |
+| Printed volume | gripper with the narrow set 362 cm³ (~207 g at typical infill) + motor ~280 g; wide set 20 cm³; bench stand 505 cm³ |
 | Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |
 
 ## 1a. Rev 7 (v2) changes

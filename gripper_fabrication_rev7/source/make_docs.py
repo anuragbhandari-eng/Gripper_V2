@@ -54,8 +54,10 @@ _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D
 FA = dict(travel=float(_x.max() - _x.min()), gap_fwd=float(_g[np.argmax(_x)]), open_behind_closed=float(_x[0] - _x[-1]))
 printed_cm3 = sum(p['volume_cm3']*p['qty'] for p in PARTS)
 _grp = lambda pre: sum(p['volume_cm3']*p['qty'] for p in PARTS if p['file'][:3] in pre)
-cm3_stand, cm3_wide = _grp(('20_', '21_')), _grp(('16_', '17_'))
-cm3_gripper = printed_cm3 - cm3_stand - cm3_wide            # gripper with the narrow set (pads in TPU)
+cm3_stand = _grp(('20_', '21_', '22_', '23_', '24_'))     # head bracket, base, desk clamps, clamp pads
+cm3_wide = _grp(('16_', '17_'))
+cm3_coupons = _grp(('13b', '13c'))                          # rev 7 fit-test coupons (print first, not part of the gripper)
+cm3_gripper = printed_cm3 - cm3_stand - cm3_wide - cm3_coupons   # gripper with the narrow set (pads in TPU)
 import json as _j
 _CK = _j.load(open('check_report.json'))
 W, M, T, MO, SC = R['window'], R['MA'], R['transmission'], R['motor'], R['requirement']

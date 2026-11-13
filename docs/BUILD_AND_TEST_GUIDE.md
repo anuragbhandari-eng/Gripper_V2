@@ -4,7 +4,7 @@ This guide takes you from a box of parts to a working, portable gripper. Each st
 
 **Illustrated version:** [BUILD_AND_TEST_GUIDE.html](BUILD_AND_TEST_GUIDE.html) has the same steps with a picture for each assembly step and tick boxes that are remembered. Open it in a browser.
 
-**If a check fails,** stop. Copy what the Thonny shell printed, or describe what you see, and ask Claude before going on.
+**If a check fails,** stop. Note what the Thonny shell printed, or what you see, and find the cause before going on.
 
 The reference documents behind this guide are:
 - [DESIGN_REPORT.md](../gripper_fabrication_rev7/DESIGN_REPORT.md): numbers, print list and the full assembly sequence.
@@ -52,9 +52,9 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 
 | Part | Check | If it's wrong |
 |---|---|---|
-| Motor | Body 42 × 42 mm and at most 40 mm long. Pilot Ø22 × 2. M3 holes on a 31 mm square. Screw usable length at least 73 mm | Tell Claude the measurements |
-| Brass nut (on the motor screw) | Flange Ø22 × 3.5, body Ø10.2, 4 holes | If it's missing, buy a Tr8x8 flange nut. If the size differs, Claude updates the carriage |
-| AS5600 board | At most 23 × 23 mm, with the chip centred. Parts on the chip side within a 19.6 mm square | Tell Claude the board size |
+| Motor | Body 42 × 42 mm and at most 40 mm long. Pilot Ø22 × 2. M3 holes on a 31 mm square. Screw usable length at least 73 mm | If it differs, update the motor mount in `design.py` |
+| Brass nut (on the motor screw) | Flange Ø22 × 3.5, body Ø10.2, 4 holes | If it's missing, buy a Tr8x8 flange nut. If the size differs, update the carriage in `design.py` |
+| AS5600 board | At most 23 × 23 mm, with the chip centred. Parts on the chip side within a 19.6 mm square | If it is larger, update the encoder slot in `design.py` |
 | Shoulder screws | Shoulder Ø4 × 12, thread M3 at most 6 mm long, head at most Ø7.5 × 3.5 | — |
 | Dowels | Ø4.0 × 40. A bronze bushing slides onto a dowel with no play | — |
 | Lock collar | Bore 8 mm, OD at most 14 mm, width at most 7 mm | — |
@@ -81,7 +81,7 @@ These small test prints check every fit that depends on your printer. Print them
    - [ ] A 608 sits in the cradle with no rattle and no forcing, against the front lip.
    - [ ] The 11.6 mm tongue slides along the 12.0 mm channel.
 
-Tell Claude the results. If a fit is off, one number in `design.py` changes and the parts are re-exported before you print them.
+If a fit is off, change that one clearance in `design.py` and re-export the parts before you print them.
 
 ### A3. Magnet test (before printing the base and cover)
 
@@ -97,7 +97,7 @@ The magnet sits inside the steel 608, which can weaken its field. This 5-minute 
 - [ ] AGC sits roughly between 30 and 100.
 - [ ] The angle runs smoothly through 0–360° once per turn.
 
-If it says "too weak" or AGC sits at 128, stop and tell Claude. The magnet would then move in front of the bearing, which needs a longer block.
+If it says "too weak" or AGC sits at 128, stop. The magnet would then have to move in front of the bearing, which needs a longer block.
 
 ---
 
@@ -199,7 +199,7 @@ bench.t1_power()
 ### C5. Driver in: set the current, then test 3
 
 1. **Unplug the power.** Plug the driver into its socket. **The motor stays disconnected.**
-2. Plug in the 9 V. Measure between the small potentiometer on the driver and GND, and turn the pot with a plastic or ceramic screwdriver until it reads **0.99 V**. That sets a 0.70 A ceiling on the BTT TMC2209 V1.3. On a different driver board, ask Claude for its value first.
+2. Plug in the 9 V. Measure between the small potentiometer on the driver and GND, and turn the pot with a plastic or ceramic screwdriver until it reads **0.99 V**. That sets a 0.70 A ceiling on the BTT TMC2209 V1.3. On a different driver board, work out its VREF for 0.70 A from its sense resistor first.
 3. In Thonny:
 
 ```
@@ -398,4 +398,4 @@ bench.goto(40)     # release
 | "Homing failed (…)" | The jaws never stopped within 40 mm, or a power or driver fault | Read the reason in the brackets; run `t5_tracking()` |
 | Jaws open by themselves when the power is off | Normal: the screw back-drives | Keep the power on to hold a grip |
 | Driver very hot | VREF set too high | Set VREF to 0.99 V; the driver normally runs warm, not too hot to touch |
-| Gripper slips on objects | Low current at large gaps, or a dry screw | Grease the screw; tell Claude the gap and object |
+| Gripper slips on objects | Low current at large gaps, or a dry screw | Grease the screw; note the gap and the object, and check `CURRENT_TABLE` |

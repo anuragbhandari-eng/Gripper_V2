@@ -13,7 +13,7 @@
 #
 # Good result: "magnet: OK" the whole time, AGC roughly in the middle (about 30-100 out of 128 on 3.3 V), and
 # the angle running smoothly from 0 to 360 degrees once per turn. If it says "too weak" or AGC sits at 128,
-# the bearing is soaking up the field: tell Claude, and the magnet gets moved in front of the bearing.
+# the bearing is soaking up the field: the magnet has to move in front of the bearing.
 
 from machine import I2C, Pin
 import time

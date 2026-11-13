@@ -26,13 +26,13 @@ Nothing here has run on the real gripper yet. A first prototype was printed and 
 On Ubuntu 24.04 with ROS 2 Jazzy installed (desktop, `ros-dev-tools`, and `rosdep init` done):
 
 ```bash
-cd ~/projects/Gripper-Claude_Onshape/ros2_ws
+cd Gripper_V2/ros2_ws   # from wherever you cloned the repo
 rosdep install --from-paths src --ignore-src -y
 colcon build
 source install/setup.bash
 ```
 
-`rosdep` reads the `package.xml` files and installs anything missing: xacro, ros_gz, ros2_control, the controllers and so on. It asks for your password through `sudo`, so run it in a regular terminal (Ctrl+Alt+T), not the Claude app's terminal panel. Source `install/setup.bash` again in every new terminal.
+`rosdep` reads the `package.xml` files and installs anything missing: xacro, ros_gz, ros2_control, the controllers and so on.
 
 ## Run
 
@@ -89,7 +89,7 @@ The gripper has one degree of freedom. `linkage.py` turns a jaw gap into all nin
 2. **Loop closure:** the parallelogram O1–F1–F2–O2 turns the front crank by θ too, and turns the finger back by −θ, so the jaw translates without rotating. The offset slider-crank gives the carriage pin: C_x = D_x − √(22.68² − (24.91 − D_y)²).
 3. **Joint conventions:** every revolute axis in the export points down (−z), so counterclockwise angles change sign. The lower side mirrors the upper side.
 
-`test/test_linkage.py` checks this against the CAD: the four poses in `ROS2_HANDOFF.md` section 9 (θ, C_x and F1 within 0.01 mm and 0.01°). It also runs forward kinematics on the exported URDF at six jaw gaps, checking that all four loops close within 0.01 mm and that the fingers never rotate.
+`test/test_linkage.py` checks this against the CAD: the four poses in `gripper_fabrication_rev7/DESIGN_REPORT.md` section 3 (jaw gap ↔ crank angle table; the 66 mm pose is the rev 6 open stop) (θ, C_x and F1 within 0.01 mm and 0.01°). It also runs forward kinematics on the exported URDF at six jaw gaps, checking that all four loops close within 0.01 mm and that the fingers never rotate.
 
 ### Simulation
 
@@ -123,7 +123,6 @@ From the Gazebo test, run twice with the same numbers both times:
 
 ## Troubleshooting
 
-- **`sudo` fails in the Claude app's terminal** with "no new privileges": use a regular terminal (Ctrl+Alt+T).
 - **ROS errors about Python 3.13 or missing modules:** conda's `base` environment is active. Run `conda deactivate`. Auto-activation is off on this laptop.
 - **Gazebo is slow:** use the NVIDIA prefix shown above. `nvidia-smi` should list `gz sim gui` while it runs.
 - **Windows stay open after Ctrl+C:** wait a few seconds, then close RViz with ✕ and choose "Close without Saving".
@@ -152,7 +151,7 @@ From the Gazebo test, run twice with the same numbers both times:
 ### Run it
 
 ```bash
-cd ~/projects/Gripper-Claude_Onshape_V2/ros2_ws
+cd Gripper_V2/ros2_ws
 conda deactivate                     # conda's Python breaks ROS
 colcon build --symlink-install
 source install/setup.bash

@@ -175,7 +175,7 @@ footer button.arm { background: var(--orange); color: #fff; border-color: var(--
     <p class="eyebrow">REV 7.2b · BUILD AND TEST GUIDE</p>
     <h1>From a box of parts to a working gripper</h1>
     <p>Nine parts, A to I. Every step ends with a check, so a problem shows up where it starts. Tick the boxes as you go: this page remembers them on this device.</p>
-    <p><b>If a check fails, stop.</b> Copy what the Thonny shell printed, or describe what you see, and ask Claude before going on.</p>
+    <p><b>If a check fails, stop.</b> Note what the Thonny shell printed, or what you see, and find the cause before going on.</p>
     <div class="legend">
       <span><i class="sw" style="background:#2f6fde"></i> blue in a picture = parts added in that step</span>
       <span><i class="sw" style="background:#c9cdd2"></i> pale = already fitted</span>
@@ -230,7 +230,7 @@ footer button.arm { background: var(--orange); color: #fff; border-color: var(--
 
   <article class="step"><div class="step-head"><span class="tag">A1</span><h3>Check the parts</h3><span class="stamp">DONE</span></div>
     <div class="body">
-      <p>Measure each part with calipers before anything else. If one is off, tell Claude the measurement.</p>
+      <p>Measure each part with calipers before anything else. If one is off, update that part in <code>design.py</code>.</p>
       <div class="tbl"><table>
         <tr><th>Part</th><th>It should measure</th></tr>
         <tr><td>Motor</td><td>Body 42 × 42 mm and at most 40 mm long. Pilot Ø22 × 2. M3 holes on a 31 mm square. Screw usable length at least 73 mm</td></tr>
@@ -267,7 +267,7 @@ footer button.arm { background: var(--orange); color: #fff; border-color: var(--
         <label class="ck"><input type="checkbox" id="a2-10"><span>A 608 sits in the cradle against the front lip, no rattle and no forcing</span></label>
         <label class="ck"><input type="checkbox" id="a2-11"><span>The 11.6 mm tongue slides along the 12.0 mm channel</span></label>
       </div>
-      <p class="note">Tell Claude the results. If a fit is off, one number in the design changes and the parts are re-exported before you print them.</p>
+      <p class="note">If a fit is off, change that one clearance in the design and re-export the parts before you print them.</p>
     </div>
   </article>
 
@@ -286,7 +286,7 @@ footer button.arm { background: var(--orange); color: #fff; border-color: var(--
         <label class="ck"><input type="checkbox" id="a3-2"><span>AGC sits roughly between 30 and 100</span></label>
         <label class="ck"><input type="checkbox" id="a3-3"><span>The angle runs smoothly through 0–360° once per turn</span></label>
       </div>
-      <p class="warn"><b>Stop</b> if it says "too weak" or AGC sits at 128, and tell Claude. The magnet would then have to move in front of the bearing, which needs a longer block.</p>
+      <p class="warn"><b>Stop</b> if it says "too weak" or AGC sits at 128. The magnet would then have to move in front of the bearing, which needs a longer block.</p>
     </div>
   </article>
 </section>
@@ -420,7 +420,7 @@ bench.t1_power()</div>
     <div class="body">
       <ol class="do">
         <li><span><b>Unplug the power.</b> Plug the driver into its socket. <b>The motor stays disconnected.</b></span></li>
-        <li><span>Plug in the 9 V. Measure between the small pot on the driver and GND, and turn the pot with a plastic or ceramic screwdriver until it reads <b>0.99 V</b>. That sets a 0.70 A ceiling on the BTT TMC2209 V1.3. On a different driver board, ask Claude for its value first.</span></li>
+        <li><span>Plug in the 9 V. Measure between the small pot on the driver and GND, and turn the pot with a plastic or ceramic screwdriver until it reads <b>0.99 V</b>. That sets a 0.70 A ceiling on the BTT TMC2209 V1.3. On a different driver board, work out its VREF for 0.70 A from its sense resistor first.</span></li>
         <li><span>In Thonny, run the test.</span></li>
       </ol>
       <div class="cmd">bench.t3_driver()</div>
@@ -753,7 +753,7 @@ bench.goto(40)     <span class="c"># release</span></div>
       <tr><td>"Homing failed (…)"</td><td>The jaws never stopped within 40 mm, or a power or driver fault</td><td>Read the reason in the brackets; run <code>t5_tracking()</code></td></tr>
       <tr><td>Jaws open by themselves when the power is off</td><td>Normal: the screw back-drives</td><td>Keep the power on to hold a grip</td></tr>
       <tr><td>Driver very hot</td><td>VREF set too high</td><td>Set VREF to 0.99 V. Warm is normal; too hot to touch is not</td></tr>
-      <tr><td>Gripper slips on objects</td><td>Low current at large gaps, or a dry screw</td><td>Grease the screw; tell Claude the gap and the object</td></tr>
+      <tr><td>Gripper slips on objects</td><td>Low current at large gaps, or a dry screw</td><td>Grease the screw; note the gap and the object, and check <code>CURRENT_TABLE</code></td></tr>
     </table></div>
   </article>
 </section>

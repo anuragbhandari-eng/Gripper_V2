@@ -599,7 +599,7 @@ def stand_base():
     return ops
 def column():   # 2020 extrusion (slots not modelled)
     return [('add', ('extx', _col_loop(0.0), X_COL1 - COL_LEN, X_COL1))]
-# ---------- rev 7.1: desk clamps (Anurag's desk: black front edge 40 mm tall, 40 mm deep) ----------
+# ---------- rev 7.1: desk clamps (sized for a desk edge 40 mm tall, 40 mm deep) ----------
 # Two printed C-clamps at the base's front corners (+z edge, flush with the desk's front face). The upper arm sits on
 # the base plate with a boss in the corner counterbore; the spine runs down in front of the desk edge; under the desk
 # an M8 star-knob screw in a captive nut pushes a printed pad up under the black edge, 20 mm behind the front face.

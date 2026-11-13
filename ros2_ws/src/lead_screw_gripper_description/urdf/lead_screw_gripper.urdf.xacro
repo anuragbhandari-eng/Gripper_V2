@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="lead_screw_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- Numbers from the CAD (section 9 of ROS2_HANDOFF.md), in metres and radians -->
+  <!-- Numbers from the CAD (gripper_fabrication_rev7/DESIGN_REPORT.md section 3), in metres and radians -->
   <xacro:property name="o1_y" value="0.050970"/>
   <xacro:property name="mesh_dir" value="package://lead_screw_gripper_description/meshes/visual"/>
 

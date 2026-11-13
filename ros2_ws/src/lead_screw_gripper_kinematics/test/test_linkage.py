@@ -1,4 +1,4 @@
-"""Checks the linkage math against the CAD numbers (ROS2_HANDOFF.md section 9)
+"""Checks the linkage math against the CAD numbers (gripper_fabrication_rev7/DESIGN_REPORT.md section 3)
 and against the robot exported from Onshape."""
 import math
 import os
@@ -16,7 +16,7 @@ DESCRIPTION = os.path.join(os.path.dirname(__file__), '..', '..', 'lead_screw_gr
 URDF = os.path.join(DESCRIPTION, 'onshape', 'lead_screw_gripper.urdf')
 CONTROLLERS = os.path.join(DESCRIPTION, 'config', 'gripper_controllers.yaml')
 
-# Jaw gap (mm), crank angle (deg), carriage pin Cx (mm), F1 (mm): handoff section 9
+# Jaw gap (mm), crank angle (deg), carriage pin Cx (mm), F1 (mm): DESIGN_REPORT.md section 3 (66 mm = rev 6 open stop)
 POSES = [
     (0, -15.52, -27.49, (26.98, 43.48)),
     (30, 15.55, -16.28, (26.98, 58.48)),

@@ -1,0 +1,25 @@
+# Controllers for the real (or fake) gripper through ros2_control.
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz. Each cycle talks to the Pico over USB serial, so keep it modest.
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    gripper_controller:
+      type: parallel_gripper_action_controller/GripperActionController
+
+# The standard ROS 2 parallel-gripper controller. It offers the action
+# /gripper_controller/gripper_cmd (control_msgs/action/ParallelGripperCommand):
+#   command.position[0] = target jaw gap (m), command.effort[0] = grip force limit (N per jaw, optional).
+gripper_controller:
+  ros__parameters:
+    joint: jaw_gap
+    state_interfaces: [position, velocity]
+    max_effort_interface: jaw_gap/effort
+    max_effort: 30.0                 # N per jaw when a goal gives no effort (about 21 N holds 500 g)
+    goal_tolerance: 0.001            # m: within 1 mm counts as reached
+    allow_stalling: true             # jaws stopped by an object = success, with result.stalled = true
+    stall_velocity_threshold: 0.001  # m/s
+    stall_timeout: 0.5               # s of no motion before it counts as stalled
+    action_monitor_rate: 20.0

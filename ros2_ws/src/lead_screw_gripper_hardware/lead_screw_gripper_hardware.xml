@@ -1,0 +1,7 @@
+<library path="lead_screw_gripper_hardware">
+  <class name="lead_screw_gripper_hardware/GripperSystem"
+         type="lead_screw_gripper_hardware::GripperSystem"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>Lead-screw gripper: one jaw_gap joint, talks to the Pico firmware (ros_main.py) over USB serial.</description>
+  </class>
+</library>

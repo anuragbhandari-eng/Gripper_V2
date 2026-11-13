@@ -39,11 +39,9 @@ Full numbers and assumptions: [`gripper_fabrication_rev7/DESIGN_REPORT.md`](grip
 
 STL, STEP and build-guide images aren't stored. Regenerate them with `export.py` (run it before `fit_coupons.py`) and `guide_render.py` in `gripper_fabrication_rev7/source/`. Earlier revisions are in the git history.
 
-## How this was built
+## Notes
 
 - **Origin of the mechanism:** the linkage layout and its proportions come from an existing lead-screw gripper design that I studied. Everything around the linkage was redesigned for 3D printing: double-shear pivots, the drive and thrust bearing, housing, swappable tips, electronics, ISO 9409 mount and bench stand.
-- **Tools:** I developed this project with heavy use of an AI coding assistant (Claude Code). The parametric CAD generator, the analysis scripts, the firmware and the ROS 2 packages were largely written with it.
-- **My part:** I set the requirements and design rules, made the design decisions, reviewed each revision in Onshape, chose and bought the parts, and printed and assembled the prototype.
 - **Honest numbers:** every figure in this repository is labelled as predicted, simulated or measured. Nothing is measured on hardware yet.
 
 ## Setup (Ubuntu)

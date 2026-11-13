@@ -12,7 +12,7 @@
   "source": "onshape/LeadScrewGripper.fs",
   "chars": 48058,
   "sha256_first16": "7806dea110f8299a",
-  "method": "browser-session REST POST /featurestudios, read back identical; 0 FeatureScript MCP requests"
+  "method": "REST POST /featurestudios, read back identical"
  },
  "part_studio": {
   "parts": 97,
@@ -82,7 +82,7 @@
   "images/onshape_v2_assembly_front.png"
  ],
  "controller_modules_fix": "Pico, buck and TMC2209 were modelled at their real heights but without their header strips, so they floated above the protoboard; header strips added to those 3 parts (same part ids). Onshape volumes match local: Pico 1841.4, TMC2209 1777.9, buck 1559.5 mm3; Assembly 1 still 21/21 features OK.",
- "onshape_interference_gap30": "evCollision over all 84 bodies (0 MCP requests): only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
+ "onshape_interference_gap30": "evCollision over all 84 bodies: only the intended press fits (dowels and locating pins in the base, nut screws in the carriage, motor screws in the motor).",
  "featurescript_mcp_requests": 0,
  "as_bought_2026_10_25": {
   "changed_parts": [

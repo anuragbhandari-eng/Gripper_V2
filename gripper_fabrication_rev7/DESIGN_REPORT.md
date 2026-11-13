@@ -222,7 +222,7 @@ Print settings: ABS in an enclosed printer (a draft shield at minimum), part-coo
 
 **Status (rev 7, 2026-10-26 (rev 7.2b: compact controller, flush dowels)):** the v2 design is in the Onshape document **GripperV2** (https://cad.onshape.com/documents/21eb00e5286d05130362fe39), a copy of the rev 6 document. The original "Lead Screw Gripper" document stays the rev 6 record.
 
-- Feature Studio 1 holds the rev 7.2 `LeadScrewGripper.fs` (48058 characters, SHA-256 7806dea110f8299a…, identical to the local file), written through the browser session (0 FeatureScript MCP requests).
+- Feature Studio 1 holds the rev 7.2 `LeadScrewGripper.fs` (48058 characters, SHA-256 7806dea110f8299a…, identical to the local file).
 - The feature dialog now has **Tip set** (Narrow / Wide) and **Include bench stand**; it reports the pad-to-pad gap for the chosen set. Part Studio 1 builds 97 parts; every volume is within 0.7 mm³ of the local model, and the wide set matches too.
 - Assembly 1: 97 instances, 21/21 features OK. New rigid groups "Finger U + tip" and "Finger L + tip" (finger, tip block, pad, 2 tip screws); the encoder, controller and stand parts are in "Frame (fixed)". Slider at both limits: carriage +15.34 / −11.20 mm, fingers 15.25 / −15.00 mm, tips and their screws follow the fingers; past the limit it clamps. Left at 0 (gap 30). The 26 button heads are Onshape standard content (ISO 7380 M3, configured from Onshape's own size table), placed exactly where the modelled screws sit and grouped with the part they hold; the Pico is Raspberry Pi's official model (Pico-R3.step, in the sub-assembly "Pico (official model)"). The simplified screws and Pico stay in Part Studio 1 for the local checks. Record: source/results_onshape_rev7.json.
 - Pictures: images/onshape_v2_assembly_iso.png, images/onshape_v2_assembly_top.png, images/onshape_v2_assembly_front.png, images/onshape_v2_partstudio_iso.png. The "Robot export" assembly is unchanged (ROS 2 phase).
@@ -263,7 +263,6 @@ Onshape document **Lead Screw Gripper**: https://cad.onshape.com/documents/95059
   - Slider at both limits: the nut screws ride with the carriage and the 14 frame screws stay put.
   - The motor-slot corners went from r1 to r0.5, because the Ø5.7 head touched the r1 fillets.
 - Rev 6 in Onshape (record: source/results_onshape_rev6.json): all 49 part volumes within 0.9 mm³ of the local model; 19/19 assembly features OK. Slider at both limits: carriage +20.83 / −11.20 mm, fingers 18.00 / −15.00 mm, same as rev 5; a request past the limit clamps. Onshape evCollision: the collar only touches the screw and the 608 inner ring and sits 1.0 mm from the base and cover; at the open stop the carriage touches only the base (channel and stop) and the nut is 3.1 mm from the collar.
-- FeatureScript MCP usage: 15 API requests in total (56 → 71 of 2,500). All browser work in Onshape (rev 3 to rev 6) used none.
 - Rev 6 (local, after an outside design review):
   - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to 73.0 mm (was 78.0) and ends flush with the 608 face.
   - Section through the thrust path: images/rev6_thrust_section.png.

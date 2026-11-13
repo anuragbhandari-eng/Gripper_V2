@@ -47,15 +47,15 @@ plate = cq.Compound.makeCompound(solids)
 for i in range(len(solids)):
     for j in range(i + 1, len(solids)):
         assert solids[i].intersect(solids[j]).Volume() < 1e-6
-cq.exporters.export(plate, '../stl/13_FitTest_coupons.stl', tolerance=0.02, angularTolerance=0.1)
+cq.exporters.export(plate, '../stl/Fit test coupons x1.stl', tolerance=0.02, angularTolerance=0.1)
 bb = plate.BoundingBox()
 # add/refresh the coupons entry in ../print_parts.json (export.py keeps it when it rewrites the file)
 pp = '../print_parts.json'
-PP = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] != '13_FitTest_coupons.stl']
-PP.append(dict(file='13_FitTest_coupons.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(plate.Volume()/1000*D.MAT_RHO, 1),
+PP = [e for e in (json.load(open(pp)) if os.path.exists(pp) else []) if e['file'] != 'Fit test coupons x1.stl']
+PP.append(dict(file='Fit test coupons x1.stl', qty=1, volume_cm3=round(plate.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(plate.Volume()/1000*D.MAT_RHO, 1),
                bbox_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)], orientation='flat',
                note='print FIRST: fit-test coupons (pin bores, crank/finger layer stack, 608 cradle with collar recess, channel and tongue); not part of the gripper'))
-json.dump(sorted(PP, key=lambda e: e['file']), open(pp, 'w'), indent=1)
+json.dump(PP, open(pp, 'w'), indent=1)   # keep the export order
 print(json.dumps(dict(pieces=info, plate_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)],
                       total_cm3=round(sum(v['volume_cm3'] for v in info.values()), 1)), indent=1))
 
@@ -81,17 +81,17 @@ for n, s7 in rev7.items():
     sol7.append(s7.translate((xcur - bb.xmin, -bb.ymin, -bb.zmin))); xcur += bb.xlen + 5.0
     info7[n] = dict(volume_cm3=round(s7.Volume()/1000, 2), bbox=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)])
 plate7 = cq.Compound.makeCompound(sol7)
-cq.exporters.export(plate7, '../stl/13b_FitTest_rev7.stl', tolerance=0.02, angularTolerance=0.1)
+cq.exporters.export(plate7, '../stl/Fit test gripper x1.stl', tolerance=0.02, angularTolerance=0.1)
 pad7 = _cut(cq_part(D.pad(False)), D.PAD_X[0] - 1, D.TONGUE_X1 + 4)
 pad7 = pad7.rotate((0, 0, 0), (1, 0, 0), 90); b7 = pad7.BoundingBox(); pad7 = pad7.translate((-b7.xmin, -b7.ymin, -b7.zmin))   # contact face on the bed
-cq.exporters.export(pad7, '../stl/13c_FitTest_pad_TPU95A.stl', tolerance=0.02, angularTolerance=0.1)
-PP = [e for e in json.load(open(pp)) if e['file'] not in ('13b_FitTest_rev7.stl', '13c_FitTest_pad_TPU95A.stl')]
+cq.exporters.export(pad7, '../stl/Fit test pad x1.stl', tolerance=0.02, angularTolerance=0.1)
+PP = [e for e in json.load(open(pp)) if e['file'] not in ('Fit test gripper x1.stl', 'Fit test pad x1.stl')]
 bb7, bp7 = plate7.BoundingBox(), pad7.BoundingBox()
-PP.append(dict(file='13b_FitTest_rev7.stl', qty=1, volume_cm3=round(plate7.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(plate7.Volume()/1000*D.MAT_RHO, 1),
+PP.append(dict(file='Fit test gripper x1.stl', qty=1, volume_cm3=round(plate7.Volume()/1000, 2), material=D.MAT, mass_g_solid=round(plate7.Volume()/1000*D.MAT_RHO, 1),
                bbox_mm=[round(bb7.xlen, 1), round(bb7.ylen, 1), round(bb7.zlen, 1)], orientation='flat',
                note='print FIRST (rev 7 fits): tongue stub + tip-block pocket stub (install the 2 inserts, then test the slide fit and the M3x10 screws), AS5600 slot (1.6 mm board), M6 nut pocket, 2020 column socket, magnet puck (try it in a 608); not part of the gripper'))
-PP.append(dict(file='13c_FitTest_pad_TPU95A.stl', qty=1, volume_cm3=round(pad7.Volume()/1000, 2), material=D.PAD_MAT, mass_g_solid=round(pad7.Volume()/1000*D.PAD_RHO, 1),
+PP.append(dict(file='Fit test pad x1.stl', qty=1, volume_cm3=round(pad7.Volume()/1000, 2), material=D.PAD_MAT, mass_g_solid=round(pad7.Volume()/1000*D.PAD_RHO, 1),
                bbox_mm=[round(bp7.xlen, 1), round(bp7.ylen, 1), round(bp7.zlen, 1)], orientation='face_down',
                note='print FIRST in TPU 95A: pad stub with the snap barb, for the pocket stub groove (it should snap in and not pull out by hand)'))
-json.dump(sorted(PP, key=lambda e: e['file']), open(pp, 'w'), indent=1)
+json.dump(PP, open(pp, 'w'), indent=1)   # keep the export order
 print(json.dumps(dict(rev7_pieces=info7, rev7_plate_mm=[round(bb7.xlen, 1), round(bb7.ylen, 1), round(bb7.zlen, 1)]), indent=1))

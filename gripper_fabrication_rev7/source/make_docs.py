@@ -1,8 +1,8 @@
 import json, numpy as np, csv, design as D
 from kin import geom
 R = json.load(open('results.json')); S = json.load(open('results_struct.json')); FX = json.load(open('results_fasteners.json')); OS = json.load(open('results_onshape_rev5.json')); PP = json.load(open('../print_parts.json'))
-PARTS = [p for p in PP if not p['file'].startswith('13_')]   # the 12 gripper print files
-CP = next(p for p in PP if p['file'].startswith('13_'))       # fit-test coupons (print first, not part of the gripper)
+PARTS = [p for p in PP if not p['file'].startswith('Fit test coupons')]   # the 12 gripper print files
+CP = next(p for p in PP if p['file'].startswith('Fit test coupons'))       # fit-test coupons (print first, not part of the gripper)
 OUT = '..'
 P = D.P
 T_M3 = 0.15                 # N·m, M3 tightening limit (rev 6: 0.2 on PETG)
@@ -32,7 +32,7 @@ bom = [
  ('P14', 'Raspberry Pi Pico (or Pico H with headers)', 1, 'USB serial to ROS 2; on the protoboard'),
  ('P15', 'AS5600 magnetic encoder module (about 23 x 23 mm) + 6 x 2.5 mm diametric magnet', 1, 'Solder 4 wires (VCC, GND, SDA, SCL) to the pad row, no header; pad row up'),
  ('P16', 'Double-sided protoboard 50 x 70 mm, cut to 48 x 60 mm', 1, 'Score and snap (or saw) it to 48 x 60, then drill 4 corner holes to 3.2 mm on a 42 x 54 mm pattern'),
- ('P17', 'Printed spacer 25_ControllerSpacer (D5.5 x 4, room for the solder joints under the board) + M3 x 10 button screw from the kit', 4, 'Screw through the board and spacer into the cover-top insert'),
+ ('P17', 'Printed spacer Controller spacer rear+front U+L x4 (D5.5 x 4, room for the solder joints under the board) + M3 x 10 button screw from the kit', 4, 'Screw through the board and spacer into the cover-top insert'),
  ('P18', 'L7805 5 V regulator + 1N5817 Schottky diode (any 1 A diode works) + 2 x 100 nF (ask the fablab first)', 1, '9 V line -> 7805 -> diode -> Pico VSYS: one cable from the power bank runs everything, the laptop is optional and can be plugged in at the same time'),
  ('P19', 'USB-C PD power bank, about 10,000 mAh, 20 W, any brand that says PD (all of them offer 9 V); use one you already own', 1, 'Battery and charger in one: recharge it from any USB charger. Sits on the desk next to the stand (the modelled pack on the column is a placeholder)'),
  ('P20', 'USB-C PD trigger (decoy) board, set to 9 V; check its output with a multimeter before connecting the driver', 1, 'USB-C cable from the power bank, or from any USB-C laptop or phone charger of 18 W or more; + and - go to TMC2209 VM, the divider and the 7805'),
@@ -43,20 +43,20 @@ bom = [
  ('P29', 'M8 x 40 star knob screw (male thread) + M8 hex nut (nut from the fablab or a hardware store)', 2, 'Desk clamps (nut drops into the slot in each clamp)'),
  ('P30', 'Self-adhesive felt pads, about 25 mm (optional, not bought)', 4, 'On the clamp pads and under the base front corners, to protect the desk'),
  ('P25', 'M6 x 20 socket head cap screw ISO 4762 + M6 hex nut', 4, 'Adapter to the stand head bracket (nuts drop into the bracket from the back)'),
- ('P26', 'TPU 95A filament', 1, 'Contact pads (18_Pad_TPU95A, 4 pcs)'),
+ ('P26', 'TPU 95A filament', 1, 'Contact pads (Pad TPU U+L x4, 4 pcs)'),
 ]
 with open(f'{OUT}/BOM.csv', 'w', newline='') as fh:
     w = csv.writer(fh, lineterminator='\n'); w.writerow(['ID', 'Item', 'Qty', 'Note'])
     for p in PARTS: w.writerow(['PRINT', p['file'].replace('.stl', '') + f" ({p.get('material', D.MAT)})", p['qty'], f"{p['note']}; orientation {p['orientation']}; {p['volume_cm3']} cm3"])
-    w.writerow(['PRINT', f'13_FitTest_coupons ({D.MAT})', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
+    w.writerow(['PRINT', f'Fit test coupons x1 ({D.MAT})', 1, 'Print FIRST: checks pin bores, z-stack gaps, 608 seat and carriage tongue fit on your printer; %.0f cm3' % CP['volume_cm3']])
     for b in bom: w.writerow(b)
 _th = np.linspace(D.TH_C, D.TH_O, 2001); _x = geom(P, _th)['F1'][:, 0]; _g = 2*D.L*(np.sin(_th) - np.sin(D.TH_C))
 FA = dict(travel=float(_x.max() - _x.min()), gap_fwd=float(_g[np.argmax(_x)]), open_behind_closed=float(_x[0] - _x[-1]))
 printed_cm3 = sum(p['volume_cm3']*p['qty'] for p in PARTS)
-_grp = lambda pre: sum(p['volume_cm3']*p['qty'] for p in PARTS if p['file'][:3] in pre)
-cm3_stand = _grp(('20_', '21_', '22_', '23_', '24_'))     # head bracket, base, desk clamps, clamp pads
-cm3_wide = _grp(('16_', '17_'))
-cm3_coupons = _grp(('13b', '13c'))                          # rev 7 fit-test coupons (print first, not part of the gripper)
+_grp = lambda names: sum(p['volume_cm3']*p['qty'] for p in PARTS if p['file'].startswith(names))   # by part name
+cm3_stand = _grp(('Stand head bracket', 'Stand base', 'Stand desk clamp', 'Stand clamp pad'))
+cm3_wide = _grp(('Tip block U wide', 'Tip block L wide'))
+cm3_coupons = _grp(('Fit test gripper', 'Fit test pad'))   # rev 7 fit-test coupons (print first, not part of the gripper)
 cm3_gripper = printed_cm3 - cm3_stand - cm3_wide - cm3_coupons   # gripper with the narrow set (pads in TPU)
 import json as _j
 _CK = _j.load(open('check_report.json'))
@@ -81,7 +81,7 @@ A(f'| Printed volume | gripper with the narrow set {cm3_gripper:.0f} cm³ (~{cm3
 A(f'| Mount | ISO 9409-1-50-4-M6 adapter (PCD 50, 4×M6, Ø31.5 spigot, Ø6 pin) |\n')
 A('## 1a. Rev 7 (v2) changes\n')
 A('- **Rev 7.2b (2026-10-26), compact controller and flush dowels:** the protoboard is cut to 48 × 60 mm and sits on 4 mm spacers, the 7805 lies flat, the 100 µF stands beside the driver, and the two Pico-end mounting screws sit between the Pico\'s socket rows. The electronics cover shrinks from 57.5 × 78 × 33.6 to 54 × 66 × 26.2 mm (envelope 151 → 93 cm³, −38%); the driver\'s heatsink is now the tallest part. The 4 × 40 dowels are cut to 38.5 mm and pressed up through the base, flush with its underside and the cover top, with 9 mm of press fit (was 6.5).')
-A(f'- **Rev 7.2 finishing pass (2026-10-26):** the open hard stop moved from 66 to {D.GAP_MAX:g} mm, just past the 60 mm firmware cap: the last 6 mm were never used, and there the linkage advantage, and so every pin load in the 200 N limit case, climbs steeply. The finger bores at F1 and F2 (twist from a pad-edge grip) now pass that limit case (SF 1.0, was 0.6, bore-only model), the gripper is {66 - D.GAP_MAX:.1f} mm of stroke shorter at the front and the lead screw is cut to {D.SCREW_LEN:.1f} mm. Fillets in the desk clamps\' inside corners (R3 / R6) and a stepped fillet round the stand column socket, a 0.4 mm elephant\'s-foot relief on the carriage tongue\'s bed side, and a printed electronics cover (26_ElectronicsCover) over the controller with cable notches, a BOOTSEL window and driver vents, held by 2 M3×8 into 2 more cover-top inserts. The Pico and driver now sit at their real socketed height (11 mm above the board). In Onshape the button-head screws are Onshape standard ISO 7380 parts and the Pico is Raspberry Pi\'s official model.')
+A(f'- **Rev 7.2 finishing pass (2026-10-26):** the open hard stop moved from 66 to {D.GAP_MAX:g} mm, just past the 60 mm firmware cap: the last 6 mm were never used, and there the linkage advantage, and so every pin load in the 200 N limit case, climbs steeply. The finger bores at F1 and F2 (twist from a pad-edge grip) now pass that limit case (SF 1.0, was 0.6, bore-only model), the gripper is {66 - D.GAP_MAX:.1f} mm of stroke shorter at the front and the lead screw is cut to {D.SCREW_LEN:.1f} mm. Fillets in the desk clamps\' inside corners (R3 / R6) and a stepped fillet round the stand column socket, a 0.4 mm elephant\'s-foot relief on the carriage tongue\'s bed side, and a printed electronics cover (Electronics cover x1) over the controller with cable notches, a BOOTSEL window and driver vents, held by 2 M3×8 into 2 more cover-top inserts. The Pico and driver now sit at their real socketed height (11 mm above the board). In Onshape the button-head screws are Onshape standard ISO 7380 parts and the Pico is Raspberry Pi\'s official model.')
 A(f'- **B, tip sets:** each finger splits at x = {D.SEAM_X:.0f} mm. A tip block slides up onto a {D.TONGUE_X1 - D.SEAM_X:.0f} mm tongue on the finger and takes 2× M3×10 from below. Block and pad are centred on the pin plane, so a normal grip does not twist the finger. Narrow set: pad face on the rev 6 face line (gap 0–66 mm). Wide set: pad face {D.WIDE_OFS:.0f} mm further out per side (20–86 mm), blunt end. Both run {D.TIP_EXT:.0f} mm further forward (pad x {D.SEAM_X + D.TIP_R:.0f}–{D.FACE_X1:.0f}). The same 2 mm TPU 95A pad fits both (dovetail key, slides in from the rear and snaps past a step, so it cannot slide back out). The heel is trimmed, so the O2-spacer clearance grew from 1.18 to 1.90 mm.')
 A(f'- **Trade-offs of the longer tips:** the gripper is {D.TIP_EXT:.0f} mm longer. Gripping at the far end of the pad raises the F2/O2 pin loads by about 17% over gripping at the far end of the rev 6 jaw, and by about 75% over the rev 6 check basis (a grip near the jaw root). The 200 N limit rows below use the worst point on the pad.')
 A(f'- **C, encoder:** AS5600 with a 6 × 2.5 mm diametric magnet in a printed puck at the screw end (screw cut {D.ENC_CUT:.0f} mm shorter). The board stands in a slot across the bearing block, {D.ENC_GAP} mm air gap; the block bolts moved to ears at the rear of the block.')
@@ -149,7 +149,7 @@ A('- Every part is a single valid solid. FeatureScript round-trip rebuild gives 
 A('- Print orientation (no supports): links and fingers 0 mm² overhang; base, cover and adapter only hole tops and counterbore steps; carriage printed rear face down, so the nut recess opens upward and nothing needs a bridge or support.\n')
 A('| Print file | Qty | Volume cm³ | Bounding box mm | Orientation / note |\n|---|---|---|---|---|')
 for p in PARTS: A(f'| {p["file"]} | {p["qty"]} | {p["volume_cm3"]} | {" × ".join(map(str, p["bbox_mm"]))} | {p["orientation"]}: {p["note"]} |')
-A(f'\n**Print the fit coupons first**, in {D.MAT} on the same printer as the real parts: 13b_FitTest_rev7.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and 13c_FitTest_pad_TPU95A.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then 13_FitTest_coupons.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
+A(f'\n**Print the fit coupons first**, in {D.MAT} on the same printer as the real parts: Fit test gripper x1.stl (rev 7 fits: tongue and tip-block pocket stubs cut from the real parts, so install the 2 inserts and then test the slide fit and the M3×10 screws; AS5600 slot; M6 nut pocket; 2020 column socket; magnet puck, to try in a 608) and Fit test pad x1.stl in TPU (it should snap into the pocket stub groove and not pull out by hand). Then Fit test coupons x1.stl (16 cm³, one plate). ABS shrinks more than PETG, so the rev 6 fits may need retuning. It checks every fit that depends on your printer: Ø3.9–4.2 pin bores in 6 mm plate, the three z-stacks with their 0.2/0.3 mm gaps, the 608 cradle (Ø22.06 seat, front lip, collar recess), and a 12.0 mm channel with an 11.6 mm tongue. If the 608 is loose, or a pin or the tongue binds, adjust the matching value in design.py before printing the real parts.\n')
 A('\nPrint settings: ABS in an enclosed printer (a draft shield at minimum), part-cooling fan low or off, brim on the base, cover and the stand parts (the stand is ABS too; PLA is an acceptable fallback if the 180 × 170 base or the clamps warp); check the base, cover and stand base on a flat surface (glass) before assembly and reprint any that rock, 0.2 mm layers, 4 perimeters, 30–40% gyroid, 100% around insert holes. After printing, run a 4.0 mm drill through the pivot bores by hand (Ø4.2 bores = running fit, Ø4.1 = snug) Do not drill the Ø3.9 dowel press holes in the base; the cover holes are oversize on purpose (the sleeves are bonded in).\n')
 A('## 7. Onshape\n')
 O7 = json.load(open('results_onshape_rev7.json'))
@@ -195,7 +195,7 @@ A('- Rev 6 (local, after an outside design review):')
 A('  - Grip thrust: added an 8 mm lock collar behind the 608. The bearing moved 4.5 mm toward the jaws, the block grew from 18.0 to 22.5 mm long (R6 front corners, bolts 8.5 mm off the axis), and the collar sits in an Ø16 pocket at the back of the block, 0.5 mm inside its rear face. The screw is cut to %.1f mm (was 78.0) and ends flush with the 608 face.' % D.SCREW_LEN)
 A('  - Section through the thrust path: images/rev6_thrust_section.png.')
 A('  - Layer stack: finger / conrod now 6.5–14.1 (7.6 mm = 38 layers) and upper crank plates 14.4–18.2 (3.8 mm), with the screw axis at 10.3. Gaps went from 0.1 to 0.2 below and 0.3 above each moving layer.')
-A('  - Fit coupons (13_FitTest_coupons.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.')
+A('  - Fit coupons (Fit test coupons x1.stl) so the bore, stack, bearing-seat and tongue fits are tested before the full print.')
 A('  - Re-checked: 49 valid parts, 0 collisions over 41 poses, intended contacts only; structural min SF 3.6 (unchanged, dowel); new block front lip SF 34.5 bearing / 74.6 shear-out; fasteners min SF 4.3; no new overhangs.')
 A('- Alternative: `step/LeadScrewGripper_assembly_gap30mm.step` imports into any CAD package as a 49-part assembly.\n')
 A('## 8. Assembly sequence\n')

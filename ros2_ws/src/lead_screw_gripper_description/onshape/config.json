@@ -1,0 +1,35 @@
+{
+    "url": "https://cad.onshape.com/documents/21eb00e5286d05130362fe39/v/5cdac080a8e3ed3cdc956c12/e/1637fb3a48d9ca739a013816",
+    "output_format": "urdf",
+    "output_filename": "lead_screw_gripper",
+    "robot_name": "lead_screw_gripper",
+    "package_name": "lead_screw_gripper_description/onshape",
+    "merge_stls": true,
+    "processors": [
+        "link_names:ProcessorLinkNames",
+        "ProcessorBallToEuler",
+        "ProcessorScad",
+        "ProcessorMergeParts",
+        "ProcessorSimplifySTLs",
+        "ProcessorFixedLinks",
+        "ProcessorDummyBaseLink",
+        "ProcessorConvexDecomposition",
+        "ProcessorNoCollisionMeshes",
+        "ProcessorCollisionAsVisual"
+    ],
+    "ignore": {
+        "*": "collision"
+    },
+    "joint_properties": {
+        "*": {"max_effort": 1.0, "max_velocity": 10.0},
+        "bell_crank_U": {"limits": [0.0, 1.2198], "max_effort": 3.0},
+        "front_crank_U": {"limits": [0.0, 1.2198]},
+        "finger_U": {"limits": [-1.2198, 0.0], "max_effort": 20.0},
+        "conrod_U": {"limits": [-0.825, 0.0], "max_effort": 0.5},
+        "bell_crank_L": {"limits": [-1.2198, 0.0], "max_effort": 20.0},
+        "front_crank_L": {"limits": [-1.2198, 0.0]},
+        "finger_L": {"limits": [0.0, 1.2198], "max_effort": 20.0},
+        "conrod_L": {"limits": [0.0, 0.825], "max_effort": 0.5},
+        "carriage": {"limits": [0.0, 0.0266], "max_effort": 50.0, "max_velocity": 0.1}
+    }
+}

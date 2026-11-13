@@ -1,0 +1,41 @@
+# No panels, so the 3D view fills the window for recording (Panels menu brings them back)
+Panels: []
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: false
+      Cell Size: 0.01
+      Plane Cell Count: 30
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Source: Topic
+      Description Topic:
+        Value: /robot_description
+      Alpha: 1
+  Global Options:
+    Fixed Frame: base_link
+    # White, like the CAD renders on the portfolio page
+    Background Color: 255; 255; 255
+    # Twice the 30 fps recording rate, so every recorded frame is a fresh render
+    Frame Rate: 60
+  Tools:
+    - Class: rviz_default_plugins/MoveCamera
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 0.27
+      Focal Point:
+        X: -0.01
+        Y: 0
+        Z: 0.0
+      Pitch: 0.8
+      Yaw: 3.85
+    Saved: ~
+Window Geometry:
+  Height: 760
+  Width: 1280
+  X: 60
+  Y: 60

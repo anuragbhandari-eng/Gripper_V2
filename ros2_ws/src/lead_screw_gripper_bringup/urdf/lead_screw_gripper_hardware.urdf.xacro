@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="lead_screw_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- The full gripper from the Onshape export, plus what ros2_control needs to run it. -->
+  <xacro:arg name="port" default="/dev/ttyACM0"/>
+  <xacro:arg name="use_mock_hardware" default="false"/>
+  <xacro:arg name="home_on_activate" default="true"/>
+
+  <xacro:include filename="$(find lead_screw_gripper_description)/urdf/lead_screw_gripper_full.urdf.xacro"/>
+
+  <!-- jaw_gap: a virtual joint for the one thing the gripper can do, open and close.
+       Its value is the narrow-tip pad gap in metres. It moves nothing visible by itself: the gap_to_joints
+       node turns it into the nine real linkage joints for RViz. -->
+  <link name="jaw_gap_link"/>
+  <joint name="jaw_gap" type="prismatic">
+    <parent link="base_link"/>
+    <child link="jaw_gap_link"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="0.0" upper="0.0605" effort="100.0" velocity="0.12"/>
+  </joint>
+
+  <ros2_control name="LeadScrewGripper" type="system">
+    <hardware>
+      <xacro:if value="$(arg use_mock_hardware)">
+        <!-- ros2_control's built-in pretend hardware: the state copies the command at once. Checks the
+             robot description and controller setup without any serial port. -->
+        <plugin>mock_components/GenericSystem</plugin>
+      </xacro:if>
+      <xacro:unless value="$(arg use_mock_hardware)">
+        <plugin>lead_screw_gripper_hardware/GripperSystem</plugin>
+        <param name="port">$(arg port)</param>
+        <param name="timeout_ms">50</param>
+        <param name="home_on_activate">$(arg home_on_activate)</param>
+        <param name="home_timeout_s">20</param>
+        <param name="default_force">30</param>
+      </xacro:unless>
+    </hardware>
+    <joint name="jaw_gap">
+      <command_interface name="position">
+        <param name="min">0.0</param>
+        <param name="max">0.0605</param>
+      </command_interface>
+      <!-- Grip force limit, N per jaw. The firmware turns it into motor current (predicted, not measured). -->
+      <command_interface name="effort"/>
+      <state_interface name="position">
+        <param name="initial_value">0.03</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+</robot>

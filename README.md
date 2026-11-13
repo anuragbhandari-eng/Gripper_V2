@@ -1,23 +1,20 @@
-# Lead Screw Gripper v2
+# Lead-Screw Parallel Gripper (v2, rev 7)
 
-Design work for version 2 of a lead-screw-driven parallel gripper: a parametric Python/CadQuery model that generates Onshape FeatureScript, with local checks for collisions, clearances, structure and printability.
+A 3D-printable parallel gripper for robot arms with an ISO 9409 flange. One NEMA 17 stepper turns a Tr8×8 lead screw; mirrored bell-crank and parallelogram linkages keep both jaws parallel over a 0–60 mm stroke (20–80 mm with the wide tips). Predicted grip: at least 26 N per jaw at a 0.7 A current limit, against 21 N needed for a 500 g part.
 
-**Start here:** read [`GRIPPER_HANDOFF.md`](GRIPPER_HANDOFF.md). It holds the goal, the rules, the agreed v2 changes and the step order.
+**Status:** a first prototype was printed and assembled; some parts rubbed, so it is being reprinted. The ROS 2 side runs in simulation and against a simulated Pico. Nothing has been measured on hardware yet.
 
 ## Layout
 
 | Path | What it is |
 |---|---|
-| `GRIPPER_HANDOFF.md` | v2 plan and rules (read first) |
+| `gripper_fabrication_rev7/` | The design: parametric model and checks (`source/`), `DESIGN_REPORT.md`, `BOM.csv`, print list, Onshape FeatureScript, images |
+| `gripper_fabrication_rev7/firmware/` | Raspberry Pi Pico firmware: `bench.py` (bring-up tests and stand-alone demo) and the ROS 2 firmware (`ros_main.py`, `gripper_core.py`, `hal_pico.py`), with laptop tests |
+| `docs/BUILD_AND_TEST_GUIDE.md` | Assembly and bench-test steps |
 | `docs/offset_pad_sets_concept_v4.png` | Concept: narrow and wide bolt-on tip sets |
-| `gripper_fabrication_rev6/` | Rev 6 baseline, kept as the reference. Don't edit it. |
-| `gripper_fabrication_rev6/source/` | Parametric model and checks. `design.py` + `params.py` are the single source of truth; `fs_gen.py` writes the FeatureScript |
-| `gripper_fabrication_rev6/DESIGN_REPORT.md` | Rev 6 design and validation report |
-| `gripper_fabrication_rev6/HANDOFF.md` | Rev 6 history and the regenerate-after-a-change pipeline |
-| `gripper_fabrication_rev6/onshape/LeadScrewGripper.fs` | Generated FeatureScript for Onshape |
-| `gripper_fabrication_rev7/` | v2 design (rev 7): source, results, report, BOM, Onshape captures. Start with its `DESIGN_REPORT.md` |
+| `ros2_ws/` | ROS 2 Jazzy workspace: robot description from Onshape, linkage kinematics, Gazebo grasp test, ros2_control hardware interface. See [`ros2_ws/README.md`](ros2_ws/README.md) |
 
-STL, STEP and build-guide images aren't stored. Regenerate them with `export.py` (run it before `fit_coupons.py`) and `guide_render.py`.
+STL, STEP and build-guide images aren't stored. Regenerate them with `export.py` (run it before `fit_coupons.py`) and `guide_render.py` in `gripper_fabrication_rev7/source/`. The rev 6 baseline is in the git history.
 
 ## Setup (Ubuntu)
 
@@ -29,4 +26,4 @@ source ~/.venvs/gripper/bin/activate
 pip install cadquery numpy scipy matplotlib pyvista
 ```
 
-Run the scripts from inside a `source/` folder, for example `cd gripper_fabrication_rev6/source && python3 check.py 41`. Run `deactivate` when you're done.
+Run the scripts from inside `gripper_fabrication_rev7/source/`, for example `python3 check.py 41`. Run `deactivate` when you're done.

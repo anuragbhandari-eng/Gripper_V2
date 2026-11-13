@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<robot name="lead_screw_gripper" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Full gripper, exported from the Onshape "Robot export" assembly by onshape-to-robot
+       (settings in onshape/config.json). Don't edit the exported file by hand: re-run the
+       export instead. Additions and overrides go in this file. -->
+  <xacro:include filename="$(find lead_screw_gripper_description)/onshape/lead_screw_gripper.urdf"/>
+
+</robot>

@@ -1,0 +1,2955 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/21eb00e5286d05130362fe39/v/5cdac080a8e3ed3cdc956c12/e/1637fb3a48d9ca739a013816 -->
+<robot name="lead_screw_gripper">
+  <!-- Link base_link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link bell_crank_U_link -->
+  <link name="bell_crank_U_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link finger_U_link -->
+  <link name="finger_U_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_F2_U_2 (dummy link + fixed joint) -->
+  <link name="closing_F2_U_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_U_2_frame" type="fixed">
+    <origin xyz="0.00641464 0.0435115 0" rpy="3.14159 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="closing_F2_U_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5 -->
+  <link name="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_U_link to finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5 -->
+  <joint name="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5_fixed" type="fixed">
+    <origin xyz="0.027663 0.0493705 0.00955" rpy="-0 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_5"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_U_link_tip_block_u -->
+  <link name="finger_U_link_tip_block_u">
+    <inertial>
+      <origin xyz="0.0875744 0.0285466 0.00985642" rpy="0 0 0"/>
+      <mass value="0.016744"/>
+      <inertia ixx="1.60919e-06" ixy="4.10476e-07" ixz="-9.409e-08" iyy="2.68652e-06" iyz="7.1223e-08" izz="3.18607e-06"/>
+    </inertial>
+    <!-- Part tip_block_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/tip_block_u.stl"/>
+      </geometry>
+      <material name="tip_block_u_material">
+        <color rgba="0.909804 0.45098 0.160784 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_U_link to finger_U_link_tip_block_u -->
+  <joint name="finger_U_link_tip_block_u_fixed" type="fixed">
+    <origin xyz="-0.0576722 0.0286571 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="finger_U_link_tip_block_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6 -->
+  <link name="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_U_link to finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6 -->
+  <joint name="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6_fixed" type="fixed">
+    <origin xyz="0.0229598 0.0440493 0.00955" rpy="-0 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="finger_U_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_6"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_U_link_finger_u -->
+  <link name="finger_U_link_finger_u">
+    <inertial>
+      <origin xyz="0.0554978 0.0431044 0.0111531" rpy="0 0 0"/>
+      <mass value="0.0106006"/>
+      <inertia ixx="9.48248e-07" ixy="9.46459e-07" ixz="-1.73903e-07" iyy="2.6759e-06" iyz="4.4703e-08" izz="3.42084e-06"/>
+    </inertial>
+    <!-- Part finger_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/finger_u.stl"/>
+      </geometry>
+      <material name="finger_u_material">
+        <color rgba="0.909804 0.45098 0.160784 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_U_link to finger_U_link_finger_u -->
+  <joint name="finger_U_link_finger_u_fixed" type="fixed">
+    <origin xyz="-0.0576722 0.0286571 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="finger_U_link_finger_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_U_link_pad_tpu_u -->
+  <link name="finger_U_link_pad_tpu_u">
+    <inertial>
+      <origin xyz="0.0902348 0.0162108 0.0103" rpy="0 0 0"/>
+      <mass value="0.00206959"/>
+      <inertia ixx="5.8892e-08" ixy="7.77e-10" ixz="-0" iyy="3.04652e-07" iyz="0" izz="2.48206e-07"/>
+    </inertial>
+    <!-- Part pad_tpu_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pad_tpu_u.stl"/>
+      </geometry>
+      <material name="pad_tpu_u_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_U_link to finger_U_link_pad_tpu_u -->
+  <joint name="finger_U_link_pad_tpu_u_fixed" type="fixed">
+    <origin xyz="-0.0576722 0.0286571 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="finger_U_link"/>
+    <child link="finger_U_link_pad_tpu_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from bell_crank_U_link to finger_U_link -->
+  <joint name="finger_U" type="revolute">
+    <origin xyz="0.0163121 -0.0227578 0" rpy="0 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="finger_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link conrod_U_link -->
+  <link name="conrod_U_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_C_U_2 (dummy link + fixed joint) -->
+  <link name="closing_C_U_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_U_2_frame" type="fixed">
+    <origin xyz="-0.022671 -0.000431263 0" rpy="3.14159 0 0.282782"/>
+    <parent link="conrod_U_link"/>
+    <child link="closing_C_U_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link conrod_U_link_conrod_u -->
+  <link name="conrod_U_link_conrod_u">
+    <inertial>
+      <origin xyz="-0.00533876 0.0278704 0.0103" rpy="0 0 0"/>
+      <mass value="0.0025036"/>
+      <inertia ixx="4.9111e-08" ixy="-4.3481e-08" ixz="0" iyy="1.98376e-07" iyz="-0" izz="2.23386e-07"/>
+    </inertial>
+    <!-- Part conrod_u -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/conrod_u.stl"/>
+      </geometry>
+      <material name="conrod_u_material">
+        <color rgba="0.709804 0.729412 0.74902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from conrod_U_link to conrod_U_link_conrod_u -->
+  <joint name="conrod_U_link_conrod_u_fixed" type="fixed">
+    <origin xyz="-0.0139854 0.0280375 0.01025" rpy="3.14159 0 0.282782"/>
+    <parent link="conrod_U_link"/>
+    <child link="conrod_U_link_conrod_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from bell_crank_U_link to conrod_U_link -->
+  <joint name="conrod_U" type="revolute">
+    <origin xyz="0.0169948 0.0121814 0" rpy="0 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="conrod_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.5" velocity="10" lower="-0.825" upper="0"/>
+  </joint>
+  <!-- Link bell_crank_U_link_shoulder_screw_4x12_m3_d_u -->
+  <link name="bell_crank_U_link_shoulder_screw_4x12_m3_d_u">
+    <inertial>
+      <origin xyz="0.00560669 0.0308262 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="-0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_d_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_d_u.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_d_u_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_U_link to bell_crank_U_link_shoulder_screw_4x12_m3_d_u -->
+  <joint name="bell_crank_U_link_shoulder_screw_4x12_m3_d_u_fixed" type="fixed">
+    <origin xyz="0.0319481 0.0397148 0.01025" rpy="-3.14159 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="bell_crank_U_link_shoulder_screw_4x12_m3_d_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_U_link_bellcrank_upper_u -->
+  <link name="bell_crank_U_link_bellcrank_upper_u">
+    <inertial>
+      <origin xyz="0.0117313 0.0469504 0.0163" rpy="0 0 0"/>
+      <mass value="0.00319604"/>
+      <inertia ixx="2.67284e-07" ixy="-1.17621e-07" ixz="0" iyy="2.60603e-07" iyz="0" izz="5.20195e-07"/>
+    </inertial>
+    <!-- Part bellcrank_upper_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bellcrank_upper_u.stl"/>
+      </geometry>
+      <material name="bellcrank_upper_u_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_U_link to bell_crank_U_link_bellcrank_upper_u -->
+  <joint name="bell_crank_U_link_bellcrank_upper_u_fixed" type="fixed">
+    <origin xyz="0.0319481 0.0397148 0.01025" rpy="-3.14159 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="bell_crank_U_link_bellcrank_upper_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_U_link_shoulder_screw_4x12_m3_f1_u -->
+  <link name="bell_crank_U_link_shoulder_screw_4x12_m3_f1_u">
+    <inertial>
+      <origin xyz="0.0269746 0.058478 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="-0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_f1_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_f1_u.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_f1_u_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_U_link to bell_crank_U_link_shoulder_screw_4x12_m3_f1_u -->
+  <joint name="bell_crank_U_link_shoulder_screw_4x12_m3_f1_u_fixed" type="fixed">
+    <origin xyz="0.0319481 0.0397148 0.01025" rpy="-3.14159 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="bell_crank_U_link_shoulder_screw_4x12_m3_f1_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_U_link_bellcrank_lower_u -->
+  <link name="bell_crank_U_link_bellcrank_lower_u">
+    <inertial>
+      <origin xyz="0.0103382 0.0474267 0.00414047" rpy="0 0 0"/>
+      <mass value="0.00573882"/>
+      <inertia ixx="4.82066e-07" ixy="-1.58333e-07" ixz="4.9867e-08" iyy="5.44355e-07" iyz="-1.709e-08" izz="9.28732e-07"/>
+    </inertial>
+    <!-- Part bellcrank_lower_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bellcrank_lower_u.stl"/>
+      </geometry>
+      <material name="bellcrank_lower_u_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_U_link to bell_crank_U_link_bellcrank_lower_u -->
+  <joint name="bell_crank_U_link_bellcrank_lower_u_fixed" type="fixed">
+    <origin xyz="0.0319481 0.0397148 0.01025" rpy="-3.14159 0 -0.677441"/>
+    <parent link="bell_crank_U_link"/>
+    <child link="bell_crank_U_link_bellcrank_lower_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from base_link to bell_crank_U_link -->
+  <joint name="bell_crank_U" type="revolute">
+    <origin xyz="0 0.0509701 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="bell_crank_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="3" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link front_crank_U_link -->
+  <link name="front_crank_U_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_F2_U_1 (dummy link + fixed joint) -->
+  <link name="closing_F2_U_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_U_1_frame" type="fixed">
+    <origin xyz="0.0163121 -0.0227578 0" rpy="3.14159 -0 -0.677441"/>
+    <parent link="front_crank_U_link"/>
+    <child link="closing_F2_U_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link front_crank_U_link_shoulder_screw_4x12_m3_f2_u -->
+  <link name="front_crank_U_link_shoulder_screw_4x12_m3_f2_u">
+    <inertial>
+      <origin xyz="0.0592458 0.0285955 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_f2_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_f2_u.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_f2_u_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_U_link to front_crank_U_link_shoulder_screw_4x12_m3_f2_u -->
+  <joint name="front_crank_U_link_shoulder_screw_4x12_m3_f2_u_fixed" type="fixed">
+    <origin xyz="-0.0119273 0.0366587 0.01025" rpy="3.14159 -0 -0.677441"/>
+    <parent link="front_crank_U_link"/>
+    <child link="front_crank_U_link_shoulder_screw_4x12_m3_f2_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link front_crank_U_link_frontcrank_upper_u -->
+  <link name="front_crank_U_link_frontcrank_upper_u">
+    <inertial>
+      <origin xyz="0.0457819 0.0248481 0.0163" rpy="0 0 0"/>
+      <mass value="0.00148586"/>
+      <inertia ixx="2.7173e-08" ixy="-3.7315e-08" ixz="-0" iyy="1.50852e-07" iyz="0" izz="1.74449e-07"/>
+    </inertial>
+    <!-- Part frontcrank_upper_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/frontcrank_upper_u.stl"/>
+      </geometry>
+      <material name="frontcrank_upper_u_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_U_link to front_crank_U_link_frontcrank_upper_u -->
+  <joint name="front_crank_U_link_frontcrank_upper_u_fixed" type="fixed">
+    <origin xyz="-0.0119273 0.0366587 0.01025" rpy="3.14159 -0 -0.677441"/>
+    <parent link="front_crank_U_link"/>
+    <child link="front_crank_U_link_frontcrank_upper_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link front_crank_U_link_frontcrank_lower_u -->
+  <link name="front_crank_U_link_frontcrank_lower_u">
+    <inertial>
+      <origin xyz="0.0432573 0.0241454 0.004627" rpy="0 0 0"/>
+      <mass value="0.00289497"/>
+      <inertia ixx="8.2442e-08" ixy="-8.1668e-08" ixz="4.2204e-08" iyy="3.5313e-07" iyz="1.1747e-08" izz="3.71542e-07"/>
+    </inertial>
+    <!-- Part frontcrank_lower_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/frontcrank_lower_u.stl"/>
+      </geometry>
+      <material name="frontcrank_lower_u_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_U_link to front_crank_U_link_frontcrank_lower_u -->
+  <joint name="front_crank_U_link_frontcrank_lower_u_fixed" type="fixed">
+    <origin xyz="-0.0119273 0.0366587 0.01025" rpy="3.14159 -0 -0.677441"/>
+    <parent link="front_crank_U_link"/>
+    <child link="front_crank_U_link_frontcrank_lower_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from base_link to front_crank_U_link -->
+  <joint name="front_crank_U" type="revolute">
+    <origin xyz="0.0322712 0.0210876 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="front_crank_U_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link bell_crank_L_link -->
+  <link name="bell_crank_L_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Link finger_L_link -->
+  <link name="finger_L_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_F2_L_2 (dummy link + fixed joint) -->
+  <link name="closing_F2_L_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_L_2_frame" type="fixed">
+    <origin xyz="0.00641464 -0.0435115 0" rpy="3.14159 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="closing_F2_L_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link finger_L_link_pad_tpu_l -->
+  <link name="finger_L_link_pad_tpu_l">
+    <inertial>
+      <origin xyz="0.0902348 -0.0162108 0.0103" rpy="0 0 0"/>
+      <mass value="0.00206959"/>
+      <inertia ixx="5.8892e-08" ixy="-7.77e-10" ixz="-0" iyy="3.04652e-07" iyz="0" izz="2.48206e-07"/>
+    </inertial>
+    <!-- Part pad_tpu_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pad_tpu_l.stl"/>
+      </geometry>
+      <material name="pad_tpu_l_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_L_link to finger_L_link_pad_tpu_l -->
+  <joint name="finger_L_link_pad_tpu_l_fixed" type="fixed">
+    <origin xyz="-0.0576722 -0.0286571 0.01025" rpy="-3.14159 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="finger_L_link_pad_tpu_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7 -->
+  <link name="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_L_link to finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7 -->
+  <joint name="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7_fixed" type="fixed">
+    <origin xyz="0.0229598 -0.0440493 0.00955" rpy="-0 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_7"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_L_link_finger_l -->
+  <link name="finger_L_link_finger_l">
+    <inertial>
+      <origin xyz="0.0554978 -0.0431044 0.0111531" rpy="0 0 0"/>
+      <mass value="0.0106006"/>
+      <inertia ixx="9.48248e-07" ixy="-9.46459e-07" ixz="-1.73903e-07" iyy="2.6759e-06" iyz="-4.4703e-08" izz="3.42084e-06"/>
+    </inertial>
+    <!-- Part finger_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/finger_l.stl"/>
+      </geometry>
+      <material name="finger_l_material">
+        <color rgba="0.909804 0.45098 0.160784 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_L_link to finger_L_link_finger_l -->
+  <joint name="finger_L_link_finger_l_fixed" type="fixed">
+    <origin xyz="-0.0576722 -0.0286571 0.01025" rpy="3.14159 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="finger_L_link_finger_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8 -->
+  <link name="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_L_link to finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8 -->
+  <joint name="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8_fixed" type="fixed">
+    <origin xyz="0.027663 -0.0493705 0.00955" rpy="-0 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="finger_L_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_8"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link finger_L_link_tip_block_l -->
+  <link name="finger_L_link_tip_block_l">
+    <inertial>
+      <origin xyz="0.0875744 -0.0285466 0.00985642" rpy="0 0 0"/>
+      <mass value="0.0167439"/>
+      <inertia ixx="1.60919e-06" ixy="-4.10478e-07" ixz="-9.4091e-08" iyy="2.68652e-06" iyz="-7.1222e-08" izz="3.18606e-06"/>
+    </inertial>
+    <!-- Part tip_block_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/tip_block_l.stl"/>
+      </geometry>
+      <material name="tip_block_l_material">
+        <color rgba="0.909804 0.45098 0.160784 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from finger_L_link to finger_L_link_tip_block_l -->
+  <joint name="finger_L_link_tip_block_l_fixed" type="fixed">
+    <origin xyz="-0.0576722 -0.0286571 0.01025" rpy="-3.14159 -0 -0.677441"/>
+    <parent link="finger_L_link"/>
+    <child link="finger_L_link_tip_block_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from bell_crank_L_link to finger_L_link -->
+  <joint name="finger_L" type="revolute">
+    <origin xyz="0.0163121 0.0227578 0" rpy="0 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="finger_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="0" upper="1.2198"/>
+  </joint>
+  <!-- Link conrod_L_link -->
+  <link name="conrod_L_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_C_L_2 (dummy link + fixed joint) -->
+  <link name="closing_C_L_2">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_L_2_frame" type="fixed">
+    <origin xyz="-0.022671 0.000431263 0" rpy="3.14159 0 -0.282782"/>
+    <parent link="conrod_L_link"/>
+    <child link="closing_C_L_2"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link conrod_L_link_conrod_l -->
+  <link name="conrod_L_link_conrod_l">
+    <inertial>
+      <origin xyz="-0.00533876 -0.0278704 0.0103" rpy="0 0 0"/>
+      <mass value="0.0025036"/>
+      <inertia ixx="4.9111e-08" ixy="4.3481e-08" ixz="-0" iyy="1.98376e-07" iyz="0" izz="2.23386e-07"/>
+    </inertial>
+    <!-- Part conrod_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="-0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/conrod_l.stl"/>
+      </geometry>
+      <material name="conrod_l_material">
+        <color rgba="0.709804 0.729412 0.74902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from conrod_L_link to conrod_L_link_conrod_l -->
+  <joint name="conrod_L_link_conrod_l_fixed" type="fixed">
+    <origin xyz="-0.0139854 -0.0280375 0.01025" rpy="3.14159 0 -0.282782"/>
+    <parent link="conrod_L_link"/>
+    <child link="conrod_L_link_conrod_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from bell_crank_L_link to conrod_L_link -->
+  <joint name="conrod_L" type="revolute">
+    <origin xyz="0.0169948 -0.0121814 0" rpy="0 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="conrod_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="0.5" velocity="10" lower="0" upper="0.825"/>
+  </joint>
+  <!-- Link bell_crank_L_link_bellcrank_upper_l -->
+  <link name="bell_crank_L_link_bellcrank_upper_l">
+    <inertial>
+      <origin xyz="0.0117313 -0.0469504 0.0163" rpy="0 0 0"/>
+      <mass value="0.00319604"/>
+      <inertia ixx="2.67284e-07" ixy="1.17621e-07" ixz="0" iyy="2.60603e-07" iyz="0" izz="5.20195e-07"/>
+    </inertial>
+    <!-- Part bellcrank_upper_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bellcrank_upper_l.stl"/>
+      </geometry>
+      <material name="bellcrank_upper_l_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_L_link to bell_crank_L_link_bellcrank_upper_l -->
+  <joint name="bell_crank_L_link_bellcrank_upper_l_fixed" type="fixed">
+    <origin xyz="0.0319481 -0.0397148 0.01025" rpy="-3.14159 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="bell_crank_L_link_bellcrank_upper_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_L_link_shoulder_screw_4x12_m3_d_l -->
+  <link name="bell_crank_L_link_shoulder_screw_4x12_m3_d_l">
+    <inertial>
+      <origin xyz="0.00560669 -0.0308262 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="-0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_d_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_d_l.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_d_l_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_L_link to bell_crank_L_link_shoulder_screw_4x12_m3_d_l -->
+  <joint name="bell_crank_L_link_shoulder_screw_4x12_m3_d_l_fixed" type="fixed">
+    <origin xyz="0.0319481 -0.0397148 0.01025" rpy="-3.14159 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="bell_crank_L_link_shoulder_screw_4x12_m3_d_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_L_link_shoulder_screw_4x12_m3_f1_l -->
+  <link name="bell_crank_L_link_shoulder_screw_4x12_m3_f1_l">
+    <inertial>
+      <origin xyz="0.0269746 -0.058478 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="-0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_f1_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_f1_l.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_f1_l_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_L_link to bell_crank_L_link_shoulder_screw_4x12_m3_f1_l -->
+  <joint name="bell_crank_L_link_shoulder_screw_4x12_m3_f1_l_fixed" type="fixed">
+    <origin xyz="0.0319481 -0.0397148 0.01025" rpy="-3.14159 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="bell_crank_L_link_shoulder_screw_4x12_m3_f1_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link bell_crank_L_link_bellcrank_lower_l -->
+  <link name="bell_crank_L_link_bellcrank_lower_l">
+    <inertial>
+      <origin xyz="0.0103381 -0.0474267 0.00414047" rpy="0 0 0"/>
+      <mass value="0.00573882"/>
+      <inertia ixx="4.82068e-07" ixy="1.58331e-07" ixz="4.9868e-08" iyy="5.44357e-07" iyz="1.7091e-08" izz="9.28737e-07"/>
+    </inertial>
+    <!-- Part bellcrank_lower_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bellcrank_lower_l.stl"/>
+      </geometry>
+      <material name="bellcrank_lower_l_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from bell_crank_L_link to bell_crank_L_link_bellcrank_lower_l -->
+  <joint name="bell_crank_L_link_bellcrank_lower_l_fixed" type="fixed">
+    <origin xyz="0.0319481 -0.0397148 0.01025" rpy="-3.14159 -0 0.677441"/>
+    <parent link="bell_crank_L_link"/>
+    <child link="bell_crank_L_link_bellcrank_lower_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from base_link to bell_crank_L_link -->
+  <joint name="bell_crank_L" type="revolute">
+    <origin xyz="0 -0.0509701 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="bell_crank_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="20" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link front_crank_L_link -->
+  <link name="front_crank_L_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_F2_L_1 (dummy link + fixed joint) -->
+  <link name="closing_F2_L_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_F2_L_1_frame" type="fixed">
+    <origin xyz="0.0163121 0.0227578 0" rpy="3.14159 -0 0.677441"/>
+    <parent link="front_crank_L_link"/>
+    <child link="closing_F2_L_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link front_crank_L_link_frontcrank_lower_l -->
+  <link name="front_crank_L_link_frontcrank_lower_l">
+    <inertial>
+      <origin xyz="0.0432573 -0.0241454 0.004627" rpy="0 0 0"/>
+      <mass value="0.00289497"/>
+      <inertia ixx="8.2442e-08" ixy="8.1668e-08" ixz="4.2204e-08" iyy="3.5313e-07" iyz="-1.1747e-08" izz="3.71542e-07"/>
+    </inertial>
+    <!-- Part frontcrank_lower_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="-0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/frontcrank_lower_l.stl"/>
+      </geometry>
+      <material name="frontcrank_lower_l_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_L_link to front_crank_L_link_frontcrank_lower_l -->
+  <joint name="front_crank_L_link_frontcrank_lower_l_fixed" type="fixed">
+    <origin xyz="-0.0119273 -0.0366587 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="front_crank_L_link"/>
+    <child link="front_crank_L_link_frontcrank_lower_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link front_crank_L_link_shoulder_screw_4x12_m3_f2_l -->
+  <link name="front_crank_L_link_shoulder_screw_4x12_m3_f2_l">
+    <inertial>
+      <origin xyz="0.0592458 -0.0285955 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="-0" ixz="0" iyy="7.5917e-08" iyz="-0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_f2_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="-0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_f2_l.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_f2_l_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_L_link to front_crank_L_link_shoulder_screw_4x12_m3_f2_l -->
+  <joint name="front_crank_L_link_shoulder_screw_4x12_m3_f2_l_fixed" type="fixed">
+    <origin xyz="-0.0119273 -0.0366587 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="front_crank_L_link"/>
+    <child link="front_crank_L_link_shoulder_screw_4x12_m3_f2_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link front_crank_L_link_frontcrank_upper_l -->
+  <link name="front_crank_L_link_frontcrank_upper_l">
+    <inertial>
+      <origin xyz="0.0457819 -0.0248481 0.0163" rpy="0 0 0"/>
+      <mass value="0.00148586"/>
+      <inertia ixx="2.7173e-08" ixy="3.7315e-08" ixz="-0" iyy="1.50852e-07" iyz="-0" izz="1.74449e-07"/>
+    </inertial>
+    <!-- Part frontcrank_upper_l -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="-0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/frontcrank_upper_l.stl"/>
+      </geometry>
+      <material name="frontcrank_upper_l_material">
+        <color rgba="0.788235 0.8 0.819608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from front_crank_L_link to front_crank_L_link_frontcrank_upper_l -->
+  <joint name="front_crank_L_link_frontcrank_upper_l_fixed" type="fixed">
+    <origin xyz="-0.0119273 -0.0366587 0.01025" rpy="3.14159 -0 0.677441"/>
+    <parent link="front_crank_L_link"/>
+    <child link="front_crank_L_link_frontcrank_upper_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from base_link to front_crank_L_link -->
+  <joint name="front_crank_L" type="revolute">
+    <origin xyz="0.0322712 -0.0210876 0.01025" rpy="3.14159 -0 0"/>
+    <parent link="base_link"/>
+    <child link="front_crank_L_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1" velocity="10" lower="-1.2198" upper="0"/>
+  </joint>
+  <!-- Link carriage_link -->
+  <link name="carriage_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+  </link>
+  <!-- Frame closing_C_U_1 (dummy link + fixed joint) -->
+  <link name="closing_C_U_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_U_1_frame" type="fixed">
+    <origin xyz="0.0249145 0 -0.015344" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="closing_C_U_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Frame closing_C_L_1 (dummy link + fixed joint) -->
+  <link name="closing_C_L_1">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-9"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+  </link>
+  <joint name="closing_C_L_1_frame" type="fixed">
+    <origin xyz="-0.0249145 0 -0.015344" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="closing_C_L_1"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+  <!-- Link carriage_link_shoulder_screw_4x12_m3_c_l -->
+  <link name="carriage_link_shoulder_screw_4x12_m3_c_l">
+    <inertial>
+      <origin xyz="-0.0162842 -0.0249145 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="0" ixz="0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_c_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_c_l.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_c_l_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_shoulder_screw_4x12_m3_c_l -->
+  <joint name="carriage_link_shoulder_screw_4x12_m3_c_l_fixed" type="fixed">
+    <origin xyz="0 0.01025 -0.0316282" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_shoulder_screw_4x12_m3_c_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link carriage_link_carriage -->
+  <link name="carriage_link_carriage">
+    <inertial>
+      <origin xyz="-0.0185625 -0 0.00855063" rpy="0 0 0"/>
+      <mass value="0.0209652"/>
+      <inertia ixx="6.21932e-06" ixy="0" ixz="5.7906e-08" iyy="2.18857e-06" iyz="0" izz="6.07437e-06"/>
+    </inertial>
+    <!-- Part carriage -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/carriage.stl"/>
+      </geometry>
+      <material name="carriage_material">
+        <color rgba="0.54902 0.580392 0.611765 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_carriage -->
+  <joint name="carriage_link_carriage_fixed" type="fixed">
+    <origin xyz="0 0.01025 -0.0316282" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_carriage"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link carriage_link_tr8_brass_flange_nut -->
+  <link name="carriage_link_tr8_brass_flange_nut">
+    <inertial>
+      <origin xyz="-0.0105976 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.0117426"/>
+      <inertia ixx="6.61769e-07" ixy="0" ixz="0" iyy="5.01258e-07" iyz="0" izz="5.01258e-07"/>
+    </inertial>
+    <!-- Part tr8_brass_flange_nut -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/tr8_brass_flange_nut.stl"/>
+      </geometry>
+      <material name="tr8_brass_flange_nut_material">
+        <color rgba="0.788235 0.639216 0.290196 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_tr8_brass_flange_nut -->
+  <joint name="carriage_link_tr8_brass_flange_nut_fixed" type="fixed">
+    <origin xyz="0 0.01025 -0.0316282" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_tr8_brass_flange_nut"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link carriage_link_shoulder_screw_4x12_m3_c_u -->
+  <link name="carriage_link_shoulder_screw_4x12_m3_c_u">
+    <inertial>
+      <origin xyz="-0.0162842 0.0249145 0.0141949" rpy="0 0 0"/>
+      <mass value="0.00229081"/>
+      <inertia ixx="7.5917e-08" ixy="0" ixz="0" iyy="7.5917e-08" iyz="0" izz="8.172e-09"/>
+    </inertial>
+    <!-- Part shoulder_screw_4x12_m3_c_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/shoulder_screw_4x12_m3_c_u.stl"/>
+      </geometry>
+      <material name="shoulder_screw_4x12_m3_c_u_material">
+        <color rgba="0.0980392 0.0980392 0.0980392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_shoulder_screw_4x12_m3_c_u -->
+  <joint name="carriage_link_shoulder_screw_4x12_m3_c_u_fixed" type="fixed">
+    <origin xyz="0 0.01025 -0.0316282" rpy="1.5708 1.5708 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_shoulder_screw_4x12_m3_c_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13 -->
+  <link name="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13 -->
+  <joint name="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13_fixed" type="fixed">
+    <origin xyz="0.008 -5e-05 -0.026394" rpy="3.14159 -0 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_13"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14 -->
+  <link name="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from carriage_link to carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14 -->
+  <joint name="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14_fixed" type="fixed">
+    <origin xyz="-0.008 -5e-05 -0.026394" rpy="3.14159 -0 0"/>
+    <parent link="carriage_link"/>
+    <child link="carriage_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_14"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from base_link to carriage_link -->
+  <joint name="carriage" type="prismatic">
+    <origin xyz="-0.0162842 0 0.01025" rpy="-1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="carriage_link"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="50" velocity="0.1" lower="0" upper="0.0266"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_fixed" type="fixed">
+    <origin xyz="-0.0129904 -0.0584701 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_dowel_4x38_5__40_cut__o2_l -->
+  <link name="base_link_dowel_4x38_5__40_cut__o2_l">
+    <inertial>
+      <origin xyz="0.0322712 -0.0210876 0.01025" rpy="0 0 0"/>
+      <mass value="0.00379787"/>
+      <inertia ixx="4.72914e-07" ixy="0" ixz="0" iyy="4.72914e-07" iyz="0" izz="7.596e-09"/>
+    </inertial>
+    <!-- Part dowel_4x38_5__40_cut__o2_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/dowel_4x38_5__40_cut__o2_l.stl"/>
+      </geometry>
+      <material name="dowel_4x38_5__40_cut__o2_l_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_dowel_4x38_5__40_cut__o2_l -->
+  <joint name="base_link_dowel_4x38_5__40_cut__o2_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_dowel_4x38_5__40_cut__o2_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_magnet_6x2_5_diametric -->
+  <link name="base_link_magnet_6x2_5_diametric">
+    <inertial>
+      <origin xyz="0.02421 -0 0.0103" rpy="0 0 0"/>
+      <mass value="0.000554884"/>
+      <inertia ixx="2.497e-09" ixy="0" ixz="0" iyy="1.537e-09" iyz="0" izz="1.537e-09"/>
+    </inertial>
+    <!-- Part magnet_6x2_5_diametric -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/magnet_6x2_5_diametric.stl"/>
+      </geometry>
+      <material name="magnet_6x2_5_diametric_material">
+        <color rgba="0.619608 0.619608 0.658824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_magnet_6x2_5_diametric -->
+  <joint name="base_link_magnet_6x2_5_diametric_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_magnet_6x2_5_diametric"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2_fixed" type="fixed">
+    <origin xyz="-0.01 0.0375 0.03515" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_cover -->
+  <link name="base_link_cover">
+    <inertial>
+      <origin xyz="-0.0208897 1.693e-09 0.0246373" rpy="0 0 0"/>
+      <mass value="0.0939444"/>
+      <inertia ixx="9.38717e-05" ixy="-7e-12" ixz="-1.10304e-06" iyy="0.000114747" iyz="2.8e-11" izz="0.000205872"/>
+    </inertial>
+    <!-- Part cover -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/cover.stl"/>
+      </geometry>
+      <material name="cover_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_cover -->
+  <joint name="base_link_cover_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_cover"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_fixed" type="fixed">
+    <origin xyz="0.01606 -0.016 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3_fixed" type="fixed">
+    <origin xyz="-0.0984867 -0.02995 0.0165" rpy="1.5708 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2_fixed" type="fixed">
+    <origin xyz="-0.0464867 0.026 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4_fixed" type="fixed">
+    <origin xyz="-0.0443367 -0.0155 -0.0052" rpy="1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5_fixed" type="fixed">
+    <origin xyz="-0.0984867 0.02995 0.004" rpy="-1.5708 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_5"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_bushing_4x6x6_o1_u -->
+  <link name="base_link_bushing_4x6x6_o1_u">
+    <inertial>
+      <origin xyz="-0 0.0509701 0.0251" rpy="0 0 0"/>
+      <mass value="0.000801106"/>
+      <inertia ixx="5.007e-09" ixy="0" ixz="0" iyy="5.007e-09" iyz="0" izz="5.207e-09"/>
+    </inertial>
+    <!-- Part bushing_4x6x6_o1_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bushing_4x6x6_o1_u.stl"/>
+      </geometry>
+      <material name="bushing_4x6x6_o1_u_material">
+        <color rgba="0.721569 0.54902 0.298039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_bushing_4x6x6_o1_u -->
+  <joint name="base_link_bushing_4x6x6_o1_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_bushing_4x6x6_o1_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_bushing_4x6x6_o2_u -->
+  <link name="base_link_bushing_4x6x6_o2_u">
+    <inertial>
+      <origin xyz="0.0322712 0.0210876 0.0251" rpy="0 0 0"/>
+      <mass value="0.000801106"/>
+      <inertia ixx="5.007e-09" ixy="0" ixz="0" iyy="5.007e-09" iyz="0" izz="5.207e-09"/>
+    </inertial>
+    <!-- Part bushing_4x6x6_o2_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bushing_4x6x6_o2_u.stl"/>
+      </geometry>
+      <material name="bushing_4x6x6_o2_u_material">
+        <color rgba="0.721569 0.54902 0.298039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_bushing_4x6x6_o2_u -->
+  <joint name="base_link_bushing_4x6x6_o2_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_bushing_4x6x6_o2_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_dowel_4x38_5__40_cut__o1_l -->
+  <link name="base_link_dowel_4x38_5__40_cut__o1_l">
+    <inertial>
+      <origin xyz="0 -0.0509701 0.01025" rpy="0 0 0"/>
+      <mass value="0.00379787"/>
+      <inertia ixx="4.72914e-07" ixy="0" ixz="0" iyy="4.72914e-07" iyz="0" izz="7.596e-09"/>
+    </inertial>
+    <!-- Part dowel_4x38_5__40_cut__o1_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/dowel_4x38_5__40_cut__o1_l.stl"/>
+      </geometry>
+      <material name="dowel_4x38_5__40_cut__o1_l_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_dowel_4x38_5__40_cut__o1_l -->
+  <joint name="base_link_dowel_4x38_5__40_cut__o1_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_dowel_4x38_5__40_cut__o1_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_fixed" type="fixed">
+    <origin xyz="0.021 -0.027 0.03675" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_capacitor_100uf_35v -->
+  <link name="base_link_capacitor_100uf_35v">
+    <inertial>
+      <origin xyz="0.019 -0.0014 0.0411" rpy="0 0 0"/>
+      <mass value="0.00111589"/>
+      <inertia ixx="1.7854e-08" ixy="0" ixz="0" iyy="1.7854e-08" iyz="0" izz="8.927e-09"/>
+    </inertial>
+    <!-- Part capacitor_100uf_35v -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/capacitor_100uf_35v.stl"/>
+      </geometry>
+      <material name="capacitor_100uf_35v_material">
+        <color rgba="0.0980392 0.2 0.498039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_capacitor_100uf_35v -->
+  <joint name="base_link_capacitor_100uf_35v_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_capacitor_100uf_35v"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_bushing_4x6x6_o2_l -->
+  <link name="base_link_bushing_4x6x6_o2_l">
+    <inertial>
+      <origin xyz="0.0322712 -0.0210876 0.0251" rpy="0 0 0"/>
+      <mass value="0.000801106"/>
+      <inertia ixx="5.007e-09" ixy="0" ixz="0" iyy="5.007e-09" iyz="0" izz="5.207e-09"/>
+    </inertial>
+    <!-- Part bushing_4x6x6_o2_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bushing_4x6x6_o2_l.stl"/>
+      </geometry>
+      <material name="bushing_4x6x6_o2_l_material">
+        <color rgba="0.721569 0.54902 0.298039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_bushing_4x6x6_o2_l -->
+  <joint name="base_link_bushing_4x6x6_o2_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_bushing_4x6x6_o2_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_usb_c_pd_trigger_9v -->
+  <link name="base_link_usb_c_pd_trigger_9v">
+    <inertial>
+      <origin xyz="0.007 -0.020997 0.0375322" rpy="0 0 0"/>
+      <mass value="0.00109948"/>
+      <inertia ixx="7.253e-08" ixy="0" ixz="0" iyy="1.2807e-08" iyz="6.225e-09" izz="8.1839e-08"/>
+    </inertial>
+    <!-- Part usb_c_pd_trigger_9v -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/usb_c_pd_trigger_9v.stl"/>
+      </geometry>
+      <material name="usb_c_pd_trigger_9v_material">
+        <color rgba="0.0980392 0.4 0.2 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_usb_c_pd_trigger_9v -->
+  <joint name="base_link_usb_c_pd_trigger_9v_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_usb_c_pd_trigger_9v"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6_fixed" type="fixed">
+    <origin xyz="-0.0984867 0.02995 0.0165" rpy="-1.5708 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_6"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_tmc2209_driver -->
+  <link name="base_link_tmc2209_driver">
+    <inertial>
+      <origin xyz="0.011611 0.0129531 0.0483842" rpy="0 0 0"/>
+      <mass value="0.00166589"/>
+      <inertia ixx="4.2931e-08" ixy="-4e-12" ixz="2.7e-11" iyy="2.9045e-08" iyz="6.26e-10" izz="5.9484e-08"/>
+    </inertial>
+    <!-- Part tmc2209_driver -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/tmc2209_driver.stl"/>
+      </geometry>
+      <material name="tmc2209_driver_material">
+        <color rgba="0.498039 0.121569 0.54902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_tmc2209_driver -->
+  <joint name="base_link_tmc2209_driver_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_tmc2209_driver"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_base -->
+  <link name="base_link_base">
+    <inertial>
+      <origin xyz="-0.0200882 -2.768e-09 -0.00325098" rpy="0 0 0"/>
+      <mass value="0.111462"/>
+      <inertia ixx="0.000128321" ixy="9e-12" ixz="7.4474e-07" iyy="0.000132107" iyz="2.9e-11" izz="0.000255683"/>
+    </inertial>
+    <!-- Part base -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/base.stl"/>
+      </geometry>
+      <material name="base_material">
+        <color rgba="0.239216 0.258824 0.290196 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_base -->
+  <joint name="base_link_base_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_tr8x8_lead_screw__cut_73_0mm -->
+  <link name="base_link_tr8x8_lead_screw__cut_73_0mm">
+    <inertial>
+      <origin xyz="-0.0129634 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.0280339"/>
+      <inertia ixx="2.24271e-07" ixy="0" ixz="0" iyy="1.19042e-05" iyz="0" izz="1.19042e-05"/>
+    </inertial>
+    <!-- Part tr8x8_lead_screw__cut_73_0mm -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/tr8x8_lead_screw__cut_73_0mm.stl"/>
+      </geometry>
+      <material name="tr8x8_lead_screw__cut_73_0mm_material">
+        <color rgba="0.768627 0.780392 0.780392 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_tr8x8_lead_screw__cut_73_0mm -->
+  <joint name="base_link_tr8x8_lead_screw__cut_73_0mm_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_tr8x8_lead_screw__cut_73_0mm"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_locating_pin_m3x16_headless_l -->
+  <link name="base_link_locating_pin_m3x16_headless_l">
+    <inertial>
+      <origin xyz="0.01351 -0.011 0.0103" rpy="0 0 0"/>
+      <mass value="0.000887814"/>
+      <inertia ixx="1.9439e-08" ixy="0" ixz="0" iyy="1.9439e-08" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part locating_pin_m3x16_headless_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/locating_pin_m3x16_headless_l.stl"/>
+      </geometry>
+      <material name="locating_pin_m3x16_headless_l_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_locating_pin_m3x16_headless_l -->
+  <joint name="base_link_locating_pin_m3x16_headless_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_locating_pin_m3x16_headless_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_dowel_4x38_5__40_cut__o2_u -->
+  <link name="base_link_dowel_4x38_5__40_cut__o2_u">
+    <inertial>
+      <origin xyz="0.0322712 0.0210876 0.01025" rpy="0 0 0"/>
+      <mass value="0.00379787"/>
+      <inertia ixx="4.72914e-07" ixy="0" ixz="0" iyy="4.72914e-07" iyz="0" izz="7.596e-09"/>
+    </inertial>
+    <!-- Part dowel_4x38_5__40_cut__o2_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/dowel_4x38_5__40_cut__o2_u.stl"/>
+      </geometry>
+      <material name="dowel_4x38_5__40_cut__o2_u_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_dowel_4x38_5__40_cut__o2_u -->
+  <joint name="base_link_dowel_4x38_5__40_cut__o2_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_dowel_4x38_5__40_cut__o2_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_bushing_4x6x6_o1_l -->
+  <link name="base_link_bushing_4x6x6_o1_l">
+    <inertial>
+      <origin xyz="-0 -0.0509701 0.0251" rpy="0 0 0"/>
+      <mass value="0.000801106"/>
+      <inertia ixx="5.007e-09" ixy="0" ixz="0" iyy="5.007e-09" iyz="0" izz="5.207e-09"/>
+    </inertial>
+    <!-- Part bushing_4x6x6_o1_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/bushing_4x6x6_o1_l.stl"/>
+      </geometry>
+      <material name="bushing_4x6x6_o1_l_material">
+        <color rgba="0.721569 0.54902 0.298039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_bushing_4x6x6_o1_l -->
+  <joint name="base_link_bushing_4x6x6_o1_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_bushing_4x6x6_o1_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_header_sockets_pico_2x20 -->
+  <link name="base_link_header_sockets_pico_2x20">
+    <inertial>
+      <origin xyz="-0.00361 0 0.0406" rpy="0 0 0"/>
+      <mass value="0.0026258"/>
+      <inertia ixx="5.91164e-07" ixy="0" ixz="0" iyy="2.7889e-08" iyz="0" izz="5.66099e-07"/>
+    </inertial>
+    <!-- Part header_sockets_pico_2x20 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/header_sockets_pico_2x20.stl"/>
+      </geometry>
+      <material name="header_sockets_pico_2x20_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_header_sockets_pico_2x20 -->
+  <joint name="base_link_header_sockets_pico_2x20_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_header_sockets_pico_2x20"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_protoboard_50x70 -->
+  <link name="base_link_protoboard_50x70">
+    <inertial>
+      <origin xyz="-4.80092e-05 0 0.0343" rpy="0 0 0"/>
+      <mass value="0.00842958"/>
+      <inertia ixx="2.48976e-06" ixy="0" ixz="0" iyy="1.61004e-06" iyz="0" izz="4.09621e-06"/>
+    </inertial>
+    <!-- Part protoboard_50x70 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/protoboard_50x70.stl"/>
+      </geometry>
+      <material name="protoboard_50x70_material">
+        <color rgba="0.160784 0.419608 0.219608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_protoboard_50x70 -->
+  <joint name="base_link_protoboard_50x70_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_protoboard_50x70"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_encoder_magnet_puck -->
+  <link name="base_link_encoder_magnet_puck">
+    <inertial>
+      <origin xyz="0.0237985 0 0.0103" rpy="0 0 0"/>
+      <mass value="7.18502e-05"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part encoder_magnet_puck -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/encoder_magnet_puck.stl"/>
+      </geometry>
+      <material name="encoder_magnet_puck_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_encoder_magnet_puck -->
+  <joint name="base_link_encoder_magnet_puck_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_encoder_magnet_puck"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7_fixed" type="fixed">
+    <origin xyz="-0.0443367 0.0155 0.0258" rpy="1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_7"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_lock_collar_8x14x7__thrust -->
+  <link name="base_link_lock_collar_8x14x7__thrust">
+    <inertial>
+      <origin xyz="0.01506 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.00569681"/>
+      <inertia ixx="1.85146e-07" ixy="0" ixz="0" iyy="1.15835e-07" iyz="0" izz="1.15835e-07"/>
+    </inertial>
+    <!-- Part lock_collar_8x14x7__thrust -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/lock_collar_8x14x7__thrust.stl"/>
+      </geometry>
+      <material name="lock_collar_8x14x7__thrust_material">
+        <color rgba="0.698039 0.721569 0.74902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_lock_collar_8x14x7__thrust -->
+  <joint name="base_link_lock_collar_8x14x7__thrust_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_lock_collar_8x14x7__thrust"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2_fixed" type="fixed">
+    <origin xyz="-0.0125 -0.027 0.03675" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3_fixed" type="fixed">
+    <origin xyz="0.01606 0.016 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_regulator_7805_to_220 -->
+  <link name="base_link_regulator_7805_to_220">
+    <inertial>
+      <origin xyz="0.0189 -0.0132264 0.0380258" rpy="0 0 0"/>
+      <mass value="0.000957437"/>
+      <inertia ixx="1.6605e-08" ixy="0" ixz="0" iyy="1.0066e-08" iyz="-8.52e-10" izz="2.3047e-08"/>
+    </inertial>
+    <!-- Part regulator_7805_to_220 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/regulator_7805_to_220.stl"/>
+      </geometry>
+      <material name="regulator_7805_to_220_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_regulator_7805_to_220 -->
+  <joint name="base_link_regulator_7805_to_220_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_regulator_7805_to_220"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8_fixed" type="fixed">
+    <origin xyz="-0.0129904 0.0584701 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_8"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_as5600_encoder_board -->
+  <link name="base_link_as5600_encoder_board">
+    <inertial>
+      <origin xyz="0.0287122 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.00166296"/>
+      <inertia ixx="1.38549e-07" ixy="0" ixz="0" iyy="6.9934e-08" iyz="0" izz="6.9845e-08"/>
+    </inertial>
+    <!-- Part as5600_encoder_board -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/as5600_encoder_board.stl"/>
+      </geometry>
+      <material name="as5600_encoder_board_material">
+        <color rgba="0.0980392 0.278431 0.619608 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_as5600_encoder_board -->
+  <joint name="base_link_as5600_encoder_board_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_as5600_encoder_board"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4_fixed" type="fixed">
+    <origin xyz="-0.0464867 -0.026 0.02795" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_20__a36a91f17289e228f9f9bd0e86f10504_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_header_sockets_pico_2x20_2 -->
+  <link name="base_link_header_sockets_pico_2x20_2">
+    <inertial>
+      <origin xyz="-0.02139 0 0.0406" rpy="0 0 0"/>
+      <mass value="0.0026258"/>
+      <inertia ixx="5.91164e-07" ixy="0" ixz="0" iyy="2.7889e-08" iyz="0" izz="5.66099e-07"/>
+    </inertial>
+    <!-- Part header_sockets_pico_2x20_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/header_sockets_pico_2x20__2.stl"/>
+      </geometry>
+      <material name="header_sockets_pico_2x20_2_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_header_sockets_pico_2x20_2 -->
+  <joint name="base_link_header_sockets_pico_2x20_2_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_header_sockets_pico_2x20_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9_fixed" type="fixed">
+    <origin xyz="-0.0984867 -0.02995 0.004" rpy="1.5708 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_9"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_nema17_stepper_yejmkj_42x38_7 -->
+  <link name="base_link_nema17_stepper_yejmkj_42x38_7">
+    <inertial>
+      <origin xyz="-0.0696345 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.536471"/>
+      <inertia ixx="0.000152564" ixy="0" ixz="0" iyy="0.00014482" iyz="0" izz="0.00014482"/>
+    </inertial>
+    <!-- Part nema17_stepper_yejmkj_42x38_7 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/nema17_stepper_yejmkj_42x38_7.stl"/>
+      </geometry>
+      <material name="nema17_stepper_yejmkj_42x38_7_material">
+        <color rgba="0.129412 0.141176 0.14902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_nema17_stepper_yejmkj_42x38_7 -->
+  <joint name="base_link_nema17_stepper_yejmkj_42x38_7_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_nema17_stepper_yejmkj_42x38_7"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3_fixed" type="fixed">
+    <origin xyz="0.021 0.027 0.03675" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_electronics_cover -->
+  <link name="base_link_electronics_cover">
+    <inertial>
+      <origin xyz="0.000424398 0.00242329 0.0463002" rpy="0 0 0"/>
+      <mass value="0.01728"/>
+      <inertia ixx="1.09187e-05" ixy="3.95489e-07" ixz="-1.42624e-07" iyy="7.98176e-06" iyz="1.54102e-07" izz="1.63416e-05"/>
+    </inertial>
+    <!-- Part electronics_cover -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/electronics_cover.stl"/>
+      </geometry>
+      <material name="electronics_cover_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_electronics_cover -->
+  <joint name="base_link_electronics_cover_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_electronics_cover"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_header_sockets_driver_2x8 -->
+  <link name="base_link_header_sockets_driver_2x8">
+    <inertial>
+      <origin xyz="0.01797 0.01316 0.0406" rpy="0 0 0"/>
+      <mass value="0.00105032"/>
+      <inertia ixx="4.6731e-08" ixy="0" ixz="0" iyy="1.1155e-08" iyz="0" izz="3.6705e-08"/>
+    </inertial>
+    <!-- Part header_sockets_driver_2x8 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/header_sockets_driver_2x8.stl"/>
+      </geometry>
+      <material name="header_sockets_driver_2x8_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_header_sockets_driver_2x8 -->
+  <joint name="base_link_header_sockets_driver_2x8_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_header_sockets_driver_2x8"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_controller_spacer_front_u -->
+  <link name="base_link_controller_spacer_front_u">
+    <inertial>
+      <origin xyz="0.021 0.027 0.0315" rpy="0 0 0"/>
+      <mass value="6.1065e-05"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part controller_spacer_front_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/controller_spacer_front_u.stl"/>
+      </geometry>
+      <material name="controller_spacer_front_u_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_controller_spacer_front_u -->
+  <joint name="base_link_controller_spacer_front_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_controller_spacer_front_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_controller_spacer_front_l -->
+  <link name="base_link_controller_spacer_front_l">
+    <inertial>
+      <origin xyz="0.021 -0.027 0.0315" rpy="0 0 0"/>
+      <mass value="6.1065e-05"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part controller_spacer_front_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/controller_spacer_front_l.stl"/>
+      </geometry>
+      <material name="controller_spacer_front_l_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_controller_spacer_front_l -->
+  <joint name="base_link_controller_spacer_front_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_controller_spacer_front_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_adapter_iso9409_50 -->
+  <link name="base_link_adapter_iso9409_50">
+    <inertial>
+      <origin xyz="-0.0991224 0 0.0101849" rpy="0 0 0"/>
+      <mass value="0.0394638"/>
+      <inertia ixx="1.73726e-05" ixy="0" ixz="-1.5349e-08" iyy="1.1359e-05" iyz="0" izz="7.56173e-06"/>
+    </inertial>
+    <!-- Part adapter_iso9409_50 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/adapter_iso9409_50.stl"/>
+      </geometry>
+      <material name="adapter_iso9409_50_material">
+        <color rgba="0.180392 0.2 0.231373 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_adapter_iso9409_50 -->
+  <joint name="base_link_adapter_iso9409_50_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_adapter_iso9409_50"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_608zz_bearing -->
+  <link name="base_link_608zz_bearing">
+    <inertial>
+      <origin xyz="0.02206 0 0.0103" rpy="0 0 0"/>
+      <mass value="0.0181262"/>
+      <inertia ixx="1.24165e-06" ixy="0" ixz="0" iyy="6.94838e-07" iyz="0" izz="6.94838e-07"/>
+    </inertial>
+    <!-- Part 608zz_bearing -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/608zz_bearing.stl"/>
+      </geometry>
+      <material name="608zz_bearing_material">
+        <color rgba="0.658824 0.678431 0.698039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_608zz_bearing -->
+  <joint name="base_link_608zz_bearing_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_608zz_bearing"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_header_sockets_driver_2x8_2 -->
+  <link name="base_link_header_sockets_driver_2x8_2">
+    <inertial>
+      <origin xyz="0.00527 0.01316 0.0406" rpy="0 0 0"/>
+      <mass value="0.00105032"/>
+      <inertia ixx="4.6731e-08" ixy="0" ixz="0" iyy="1.1155e-08" iyz="0" izz="3.6705e-08"/>
+    </inertial>
+    <!-- Part header_sockets_driver_2x8_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/header_sockets_driver_2x8__2.stl"/>
+      </geometry>
+      <material name="header_sockets_driver_2x8_2_material">
+        <color rgba="0.121569 0.121569 0.129412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_header_sockets_driver_2x8_2 -->
+  <joint name="base_link_header_sockets_driver_2x8_2_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_header_sockets_driver_2x8_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4_fixed" type="fixed">
+    <origin xyz="-0.0125 0.027 0.03675" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_10__ab5dc1006d13f2491c23b78383e7390f_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10_fixed" type="fixed">
+    <origin xyz="-0.01 -0.0375 0.03515" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_10"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_locating_pin_m3x16_headless_u -->
+  <link name="base_link_locating_pin_m3x16_headless_u">
+    <inertial>
+      <origin xyz="0.01351 0.011 0.0103" rpy="0 0 0"/>
+      <mass value="0.000887814"/>
+      <inertia ixx="1.9439e-08" ixy="0" ixz="0" iyy="1.9439e-08" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part locating_pin_m3x16_headless_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/locating_pin_m3x16_headless_u.stl"/>
+      </geometry>
+      <material name="locating_pin_m3x16_headless_u_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_locating_pin_m3x16_headless_u -->
+  <joint name="base_link_locating_pin_m3x16_headless_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_locating_pin_m3x16_headless_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11_fixed" type="fixed">
+    <origin xyz="-0.0443367 0.0155 -0.0052" rpy="1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_11"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12 -->
+  <link name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa.stl"/>
+      </geometry>
+      <material name="socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12_material">
+        <color rgba="0.603922 0.647059 0.686275 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12 -->
+  <joint name="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12_fixed" type="fixed">
+    <origin xyz="-0.0443367 -0.0155 0.0258" rpy="1.5708 -0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="base_link_socket_button_head_screw_m3x0_5_x_8__06a2044c27756322d8b45e7715e9afaa_12"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_controller_spacer_rear_u -->
+  <link name="base_link_controller_spacer_rear_u">
+    <inertial>
+      <origin xyz="-0.0125 0.027 0.0315" rpy="0 0 0"/>
+      <mass value="6.1065e-05"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part controller_spacer_rear_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/controller_spacer_rear_u.stl"/>
+      </geometry>
+      <material name="controller_spacer_rear_u_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_controller_spacer_rear_u -->
+  <joint name="base_link_controller_spacer_rear_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_controller_spacer_rear_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_controller_spacer_rear_l -->
+  <link name="base_link_controller_spacer_rear_l">
+    <inertial>
+      <origin xyz="-0.0125 -0.027 0.0315" rpy="0 0 0"/>
+      <mass value="6.1065e-05"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part controller_spacer_rear_l -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/controller_spacer_rear_l.stl"/>
+      </geometry>
+      <material name="controller_spacer_rear_l_material">
+        <color rgba="0.290196 0.321569 0.34902 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_controller_spacer_rear_l -->
+  <joint name="base_link_controller_spacer_rear_l_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_controller_spacer_rear_l"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_dowel_4x38_5__40_cut__o1_u -->
+  <link name="base_link_dowel_4x38_5__40_cut__o1_u">
+    <inertial>
+      <origin xyz="0 0.0509701 0.01025" rpy="0 0 0"/>
+      <mass value="0.00379787"/>
+      <inertia ixx="4.72914e-07" ixy="0" ixz="0" iyy="4.72914e-07" iyz="0" izz="7.596e-09"/>
+    </inertial>
+    <!-- Part dowel_4x38_5__40_cut__o1_u -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/dowel_4x38_5__40_cut__o1_u.stl"/>
+      </geometry>
+      <material name="dowel_4x38_5__40_cut__o1_u_material">
+        <color rgba="0.858824 0.858824 0.858824 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_dowel_4x38_5__40_cut__o1_u -->
+  <joint name="base_link_dowel_4x38_5__40_cut__o1_u_fixed" type="fixed">
+    <origin xyz="0 0 0" rpy="0 -0 0"/>
+    <parent link="base_link"/>
+    <child link="base_link_dowel_4x38_5__40_cut__o1_u"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_usb_step__none -->
+  <link name="base_link_pico_ref_usb_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_usb_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_usb_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_usb_step__none_material">
+        <color rgba="0.498039 0.498039 0.498039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_usb_step__none -->
+  <joint name="base_link_pico_ref_usb_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_usb_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_usb_step__none_2 -->
+  <link name="base_link_pico_ref_usb_step__none_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_usb_step__none_2 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_usb_step__none__2.stl"/>
+      </geometry>
+      <material name="pico_ref_usb_step__none_2_material">
+        <color rgba="0.768627 0.886275 0.952941 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_usb_step__none_2 -->
+  <joint name="base_link_pico_ref_usb_step__none_2_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_usb_step__none_2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_board_step__none -->
+  <link name="base_link_pico_ref_board_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_board_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_board_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_board_step__none_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_board_step__none -->
+  <joint name="base_link_pico_ref_board_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_board_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_winbond_step__none -->
+  <link name="base_link_pico_winbond_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_winbond_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_winbond_step__none.stl"/>
+      </geometry>
+      <material name="pico_winbond_step__none_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_winbond_step__none -->
+  <joint name="base_link_pico_winbond_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_winbond_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_usb_step__none_3 -->
+  <link name="base_link_pico_ref_usb_step__none_3">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_usb_step__none_3 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_usb_step__none__3.stl"/>
+      </geometry>
+      <material name="pico_ref_usb_step__none_3_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_usb_step__none_3 -->
+  <joint name="base_link_pico_ref_usb_step__none_3_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_usb_step__none_3"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_bourns_step__none -->
+  <link name="base_link_pico_bourns_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_bourns_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_bourns_step__none.stl"/>
+      </geometry>
+      <material name="pico_bourns_step__none_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_bourns_step__none -->
+  <joint name="base_link_pico_bourns_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_bourns_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ael_step__none -->
+  <link name="base_link_pico_ael_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ael_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ael_step__none.stl"/>
+      </geometry>
+      <material name="pico_ael_step__none_material">
+        <color rgba="0.917647 0.917647 0.917647 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ael_step__none -->
+  <joint name="base_link_pico_ael_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ael_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_diodes_step__none -->
+  <link name="base_link_pico_diodes_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_diodes_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_diodes_step__none.stl"/>
+      </geometry>
+      <material name="pico_diodes_step__none_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_diodes_step__none -->
+  <joint name="base_link_pico_diodes_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_diodes_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_onsemi_step__none -->
+  <link name="base_link_pico_ref_onsemi_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_onsemi_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_onsemi_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_onsemi_step__none_material">
+        <color rgba="0.615686 0.811765 0.929412 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_onsemi_step__none -->
+  <joint name="base_link_pico_ref_onsemi_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_onsemi_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_microcontroller_step__none -->
+  <link name="base_link_pico_ref_microcontroller_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_microcontroller_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_microcontroller_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_microcontroller_step__none_material">
+        <color rgba="0.647059 0.647059 0.647059 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_microcontroller_step__none -->
+  <joint name="base_link_pico_ref_microcontroller_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_microcontroller_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_led_step__none -->
+  <link name="base_link_pico_ref_led_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_led_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_led_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_led_step__none_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_led_step__none -->
+  <joint name="base_link_pico_ref_led_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_led_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_usb_step__none_4 -->
+  <link name="base_link_pico_ref_usb_step__none_4">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_usb_step__none_4 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_usb_step__none__4.stl"/>
+      </geometry>
+      <material name="pico_ref_usb_step__none_4_material">
+        <color rgba="0.972549 0.529412 0.00392157 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_usb_step__none_4 -->
+  <joint name="base_link_pico_ref_usb_step__none_4_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_usb_step__none_4"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_murata_step__none_1 -->
+  <link name="base_link_pico_murata_step__none_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_murata_step__none_1 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_murata_step__none_1.stl"/>
+      </geometry>
+      <material name="pico_murata_step__none_1_material">
+        <color rgba="0.768627 0.886275 0.952941 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_murata_step__none_1 -->
+  <joint name="base_link_pico_murata_step__none_1_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_murata_step__none_1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_richtek_step__none -->
+  <link name="base_link_pico_richtek_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_richtek_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_richtek_step__none.stl"/>
+      </geometry>
+      <material name="pico_richtek_step__none_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_richtek_step__none -->
+  <joint name="base_link_pico_richtek_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_richtek_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_usb_step__none_5 -->
+  <link name="base_link_pico_ref_usb_step__none_5">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_usb_step__none_5 -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_usb_step__none__5.stl"/>
+      </geometry>
+      <material name="pico_ref_usb_step__none_5_material">
+        <color rgba="0.980392 0.713725 0.00392157 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_usb_step__none_5 -->
+  <joint name="base_link_pico_ref_usb_step__none_5_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_usb_step__none_5"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_murata_step__none -->
+  <link name="base_link_pico_murata_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_murata_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_murata_step__none.stl"/>
+      </geometry>
+      <material name="pico_murata_step__none_material">
+        <color rgba="0.231373 0.380392 0.705882 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_murata_step__none -->
+  <joint name="base_link_pico_murata_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_murata_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link base_link_pico_ref_switch_step__none -->
+  <link name="base_link_pico_ref_switch_step__none">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1e-09"/>
+      <inertia ixx="1e-09" ixy="0" ixz="0" iyy="1e-09" iyz="0" izz="1e-09"/>
+    </inertial>
+    <!-- Part pico_ref_switch_step__none -->
+    <visual>
+      <origin xyz="0 0 0" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://lead_screw_gripper_description/onshape_render/assets/pico_ref_switch_step__none.stl"/>
+      </geometry>
+      <material name="pico_ref_switch_step__none_material">
+        <color rgba="0.498039 0.498039 0.498039 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- Joint from base_link to base_link_pico_ref_switch_step__none -->
+  <joint name="base_link_pico_ref_switch_step__none_fixed" type="fixed">
+    <origin xyz="-0.002 0.0255 0.0466" rpy="1.5708 -0 3.14159"/>
+    <parent link="base_link"/>
+    <child link="base_link_pico_ref_switch_step__none"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+</robot>

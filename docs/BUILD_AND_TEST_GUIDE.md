@@ -2,6 +2,8 @@
 
 This guide takes you from a box of parts to a working, portable gripper. Each step ends with a check, so a problem shows up where it starts. Work through it in order and tick the boxes as you go.
 
+**Illustrated version:** [BUILD_AND_TEST_GUIDE.html](BUILD_AND_TEST_GUIDE.html) has the same steps with a picture for each assembly step and tick boxes that are remembered. Open it in a browser.
+
 **If a check fails,** stop. Copy what the Thonny shell printed, or describe what you see, and ask Claude before going on.
 
 The reference documents behind this guide are:
@@ -21,13 +23,15 @@ The reference documents behind this guide are:
 
 | Tools | Consumables |
 |---|---|
-| Soldering iron (a spare or conical tip for heat-set inserts) | Solder, heat-shrink |
+| Soldering iron (a spare or conical tip for heat-set inserts) | Solder, heat-shrink, tape |
 | Multimeter | Hookup wire: thin (24 AWG) for signals, thicker (20 AWG) for 9 V and the motor |
 | Calipers | 30-minute epoxy, CA (super) glue |
-| Hex keys 2, 2.5, 4 and 5 mm, plus a 2.5 mm ball-end | Light grease (fablab) |
-| 4.0 mm drill bit, turned by hand | Zip ties |
-| Hacksaw or Dremel cut-off wheel, small file | 2 M8 hex nuts (fablab or hardware store) |
-| Flush cutters, pliers | A little wax or grease as a release agent |
+| Metric hex key set (2 mm for every M3 screw, 5 mm for M6; the M5 screws take 3 or 4 mm depending on the kit), plus a 2 mm ball-end | Light grease (fablab) |
+| 4.0 mm drill bit (turned by hand) and a 3.2 mm drill bit | Zip ties |
+| Dremel with an abrasive cut-off wheel (the dowels are hardened; a hacksaw won't cut them), hacksaw for the lead screw, small file | 2 M8 hex nuts (fablab or hardware store) |
+| Flush cutters, pliers, bench vise with soft jaws | A little wax or grease as a release agent |
+| Small plastic or ceramic screwdriver (for the driver's pot) | |
+| Safety glasses (cutting and pressing steel) | |
 | Optional: M5 tap | |
 
 Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power bank to the trigger board, and a 20 W USB-C PD power bank.
@@ -62,16 +66,16 @@ Also: a USB-C cable from the laptop to the Pico, a USB-C cable from the power ba
 
 These small test prints check every fit that depends on your printer. Print them in ABS on the printer you'll use for the real parts. They take a few hours, and they save a full reprint if a fit is off.
 
-1. **13b_FitTest_rev7.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
+1. **Fit test gripper x1.stl (ABS).** Install its 2 heat-set inserts (see D2 for how), then check:
    - [ ] The tongue stub slides into the tip-block pocket stub with no play and no forcing.
    - [ ] The 2 M3×10 screws go in and hold.
    - [ ] An AS5600 board slides into the slot.
    - [ ] An M6 nut drops into its pocket.
    - [ ] The 2020 extrusion fits its socket.
    - [ ] The magnet fits its puck, and the puck fits inside a 608.
-2. **13c_FitTest_pad_TPU95A.stl (TPU).**
+2. **Fit test pad x1.stl (TPU).**
    - [ ] It snaps into the pocket-stub groove and doesn't pull out by hand.
-3. **13_FitTest_coupons.stl (ABS).**
+3. **Fit test coupons x1.stl (ABS).**
    - [ ] Pin bores: a dowel presses into the Ø3.9 hole, is snug in Ø4.1, and turns freely in Ø4.2.
    - [ ] The stacked test plates move freely in their 0.2 / 0.3 mm gaps.
    - [ ] A 608 sits in the cradle with no rattle and no forcing, against the front lip.
@@ -84,9 +88,10 @@ Tell Claude the results. If a fit is off, one number in `design.py` changes and 
 The magnet sits inside the steel 608, which can weaken its field. This 5-minute test confirms the encoder still reads well there.
 
 1. Install MicroPython on the Pico (C1 below).
-2. Glue the magnet into the puck from 13b, and push the puck into a 608.
+2. Glue the magnet into the puck from Fit test gripper x1, and push the puck into a 608.
 3. Wire the AS5600 to the Pico: VCC → 3V3 (pin 36), GND → GND (pin 38), SDA → GP0 (pin 1), SCL → GP1 (pin 2), DIR → GND.
-4. Open [as5600_bench_test.py](../gripper_fabrication_rev7/firmware/as5600_bench_test.py) in Thonny, run it, and turn the 608's inner ring slowly by hand.
+4. Hold the AS5600 board flat in front of the magnet, with the chip centred on it and about 0.8 mm away. The test only means something in that position.
+5. Open [as5600_bench_test.py](../gripper_fabrication_rev7/firmware/as5600_bench_test.py) in Thonny, run it, and turn the 608's inner ring slowly by hand.
 
 - [ ] It prints "magnet: OK" the whole time.
 - [ ] AGC sits roughly between 30 and 100.
@@ -108,9 +113,9 @@ The print list with orientations is in the [design report, section 6](../gripper
 **Order:**
 1. Base and cover. These are the largest and most likely to warp.
 2. The small parts: carriage, adapter, cranks, conrods and fingers.
-3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (26_ElectronicsCover, top face on the bed).
-4. The 4 pads, in TPU.
-5. The stand parts. ABS is preferred; PLA is fine if the big base warps.
+3. Both tip sets, the encoder puck, the 4 controller spacers and the electronics cover (Electronics cover x1, top face on the bed).
+4. The 4 jaw pads and the 2 stand clamp pads, in TPU.
+5. The other stand parts (base, head bracket, 2 desk clamps). ABS is preferred; PLA is fine if the big base warps.
 
 - [ ] **Flatness check:** lay the base, cover and stand base on a flat surface (glass). Reprint any that rock.
 - [ ] Quantities: the cranks, conrods, pads and spacers come in 2s and 4s (see the Qty column).
@@ -131,9 +136,9 @@ The print list with orientations is in the [design report, section 6](../gripper
 
 ### C2. Solder the controller board
 
-First cut the 50 × 70 mm protoboard down to **48 × 60 mm**: score along a row of holes and snap it, or saw it. Then drill 4 mounting holes to 3.2 mm, 3 mm in from the long edges (54 mm apart):
-- one pair 3 mm from the driver end;
-- the other pair 36.5 mm from the driver end, so they land between the Pico's two socket rows.
+First cut the 50 × 70 mm protoboard down to **48 × 60 mm**: score along a row of holes and snap it, or saw it. Then drill 4 mounting holes to 3.2 mm, in two rows. Each row is 3 mm in from a short (48 mm) edge, so the rows are 54 mm apart. In each row:
+- one hole is 3 mm from the long edge on the driver side;
+- the other is 36.5 mm from that same edge (11.5 mm from the Pico-side long edge), so it lands on the Pico's centreline, between its two socket rows.
 
 Screw the board down before plugging the Pico in.
 
@@ -153,7 +158,7 @@ Screw the board down before plugging the Pico in.
 | 7805 | IN = 9 V, GND, OUT → 1N5817 anode. 100 nF from IN to GND, 100 nF from OUT to GND | Pins left to right, label facing you: IN, GND, OUT |
 | 1N5817 | Anode at the 7805 OUT, cathode (the band) → Pico **VSYS** (pin 39) | Lets USB and the 9 V be connected together |
 | Divider | 100 k from 9 V to Pico **GP26** (pin 31); 27 k from GP26 to GND | 9 V reads 1.91 V. Optional 100 nF across the 27 k |
-| Pico GND (pin 38 and others) | Common GND | |
+| Pico GND (pin 38 and others), both driver **GND** pins, AS5600 **GND** | Common GND | Every ground joins the same line |
 | Pico **3V3** (pin 36) | Driver **VIO**, AS5600 VCC | |
 | Pico GP2 (pin 4) | Driver **STEP** | |
 | Pico GP3 (pin 5) | Driver **DIR** | |
@@ -165,7 +170,7 @@ Screw the board down before plugging the Pico in.
 | Driver 1A, 1B, 2A, 2B | Motor coils (C6) | |
 
 - **Driver pins:** use the labels printed on the driver board. Leave MS1 and MS2 unconnected; that sets UART address 0.
-- **Sockets:** solder a 2 × 20 female socket for the Pico and a 2 × 8 for the driver. Check which way round the driver goes (EN pin to EN) *before* soldering its socket.
+- **Sockets:** cut the 1 × 40 female strips into two 1 × 20 rows for the Pico and two 1 × 8 rows for the driver. The driver's coil pins may be marked 1A/1B/2A/2B or A1/A2/B1/B2. Check which way round the driver goes (EN pin to EN) *before* soldering its socket.
 
 ### C3. Power check with the boards out of their sockets
 
@@ -173,10 +178,12 @@ Screw the board down before plugging the Pico in.
 2. Connect it to the board, with neither the Pico nor the driver plugged in, and measure:
    - [ ] 9 V between the driver socket's VM and GND.
    - [ ] 5.0 V at the 7805 OUT.
-   - [ ] 4.6–4.8 V between Pico socket pins 39 (VSYS) and 38 (GND).
+   - [ ] 4.6–5.0 V between Pico socket pins 39 (VSYS) and 38 (GND). With nothing plugged in it reads close to 5.0.
    - [ ] About 1.9 V between pin 31 (GP26) and GND.
    - [ ] Nothing gets warm.
 3. Unplug the power.
+
+**From here on, "unplug the power" means both the 9 V and the laptop USB cable** whenever a board or cable is going in or out.
 
 ### C4. Pico in: test 1
 
@@ -223,11 +230,15 @@ The numbers match the [design report's assembly sequence (section 8)](../gripper
 
 ### D2. Heat-set inserts (28)
 
-Set the iron to about 230 °C. Rest the insert on its hole and let it sink in under its own weight plus light pressure until it's **flush with the top face**. Keep it straight.
+Set the iron to about 230 °C. Rest the insert on its hole and let it sink in under its own weight plus light pressure until it's **flush with the face it goes in from**. Keep it straight.
+
+Two parts go in from underneath:
+- **Carriage:** the upper ear sits over each lower-ear hole, so press these 2 inserts in from underneath, until the insert is level with the lower ear's upper face. A shoulder screw should seat on it.
+- **Fingers:** the inserts go into the underside of the tongue.
 
 | Part | Inserts |
 |---|---|
-| BellCrank Lower A and B | 2 each (F1, D) |
+| BellCrank Lower U and L | 2 each (F1, D) |
 | FrontCrank Lower ×2 | 1 each (F2) |
 | Carriage | 2 (lower ears) |
 | Fingers ×2 | 2 each, in the tongue underside |
@@ -239,11 +250,11 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 
 ### D3. Pins, dowels and bushings
 
-1. **Locating pins:** cut the heads off two M3×16 screws. Screw them into the bearing-block half of the base, 8 mm deep.
-2. **Dowels:** cut each 4 × 40 dowel to **38.5 mm**. They are hardened, so use an abrasive cut-off disc (a Dremel or similar), not a hacksaw. Deburr the cut end with a file. Press them up through the base from underneath at O1 and O2 on both sides, square to the plate, until flush with the underside. A bench vise with soft jaws works well. Their tops end flush with the cover top.
-3. Smear wax or grease on the top 8 mm of each dowel. This stops the epoxy sticking to the dowel in D10. Then slide a bronze bushing onto each.
+1. **Locating pins:** screw two M3×16 screws into the bearing-block half of the base until 8 mm of thread is in (8 mm of shank is left showing). Then cut the heads off and deburr the ends.
+2. **Dowels:** cut each 4 × 40 dowel to **38.5 mm**. They are hardened, so use an abrasive cut-off disc (a Dremel or similar), not a hacksaw. Deburr the cut end with a file. Press them up through the base from underneath at O1 and O2 on both sides, square to the plate, until flush with the underside. A bench vise with soft jaws works well; about 29.5 mm of dowel comes out on top, so put a tube or a drilled block over it on that side. Their tops end flush with the cover top.
+3. Smear wax or grease on the top 8 mm of each dowel. This stops the epoxy sticking to the dowel in D10. **Don't fit the bushings yet:** the cranks have to go over the dowels first (D8).
 
-- [ ] Pins and dowels in, bushings on
+- [ ] Pins and dowels in
 
 ### D4. Prepare the lead screw
 
@@ -261,7 +272,7 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
    - the pilot goes in the wall recess;
    - the carriage tongue goes in the channel;
    - the 608 sits in its cradle against the front lip, with the collar behind it.
-4. Fit the 2 lower motor screws (M3×8) through the access slots with the 2.5 mm ball-end.
+4. Fit the 2 lower motor screws (M3×8) through the access slots with the 2 mm ball-end.
 5. Push the collar forward until it **just touches** the 608 inner ring, with no preload, and tighten its set screw.
 6. Turn the motor shaft by hand: the carriage must run end to end without binding. Then tighten the 2 nut screws.
 
@@ -274,6 +285,8 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 3. Drop the board into the slot in front of the 608, chip toward the magnet and pads up. Lead the wires up through the slit in the cover.
 
 ### D8. Linkage (each side)
+
+Parts marked U and L are mirror images, one for each side. If a part doesn't sit flat with its boss up, it belongs on the other side.
 
 1. BellCrank Lower on O1 and FrontCrank Lower on O2, bosses up.
 2. Finger onto F1/F2. Conrod onto D, and between the carriage ears at C.
@@ -289,10 +302,13 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 
 ### D10. Cover (epoxy: leave it overnight)
 
-1. Put a little epoxy into the 4 oversize dowel holes in the cover.
-2. Lower the cover over the bushings and dowels.
-3. Fit all its screws: 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
-4. **Let it cure fully** (overnight) with everything assembled. The bushings bond exactly where the dowels are.
+1. Thread the encoder wires up through the slit in the cover as you lower it, and check the motor connector is free.
+2. Put a little epoxy into the 4 oversize dowel holes in the cover, and lower the cover over the dowels.
+3. Push a bronze bushing down over each dowel top into its hole, until the bushing's top is about 1.4 mm below the cover top. It must not rest on the crank underneath: check again after 10 minutes that none has slid down. Wipe any epoxy off the dowel tops.
+4. Fit all its screws: 2× M3×20 at the motor wall, 2× M3×20 at the bearing-block ears, 2× M3×8 at the posts, then the 2 upper motor screws (M3×8) through the cover slots.
+5. **Let it cure fully** (overnight) with everything assembled. The bushings bond exactly where the dowels are.
+
+Once the controller is on (Part E), two of the cover screws sit under its board. To take the cover off later, remove the controller first.
 
 - [ ] Next day: with the power off, push the jaws open and closed by hand over the full range. Smooth, no clicks, no rubbing.
 
@@ -304,11 +320,11 @@ Set the iron to about 230 °C. Rest the insert on its hole and let it sink in un
 2. **Power off:** connect the motor cable to the driver and the AS5600 lead to the board.
 3. Zip-tie each cable (USB, power, motor, encoder) to the board as strain relief.
 4. **Electronics cover:** lower it over the board, with the cables in the notches at its rim:
-   - USB-C to the trigger board and USB-C to the Pico through the two notches on the long side next to the USB sockets;
+   - USB-C to the trigger board and USB-C to the Pico through the two notches in the short wall at the USB end;
    - motor cable at the motor end;
    - encoder wires at the jaw end.
 
-   Fit 2× M3×8 through its flanges into the cover-top inserts. The window in its top leaves the Pico's BOOTSEL button reachable for the demo.
+   Fit 2× M3×8 through its flanges into the cover-top inserts. Do this before plugging in the Pico's USB cable: the plug sits over one of the screws. The window in its top leaves the Pico's BOOTSEL button reachable for the demo.
 
 ---
 
@@ -322,8 +338,8 @@ Set the gripper on the bench, or clamp it in its stand (Part G) first. Plug in t
 | F2 | `bench.t2_encoder()`, pushing the jaws by hand | "magnet OK", and the angle and turns change as the jaws move |
 | F3 | `bench.t3_driver()` | "version 0x21", settings taken |
 | F4 | `bench.t4_direction()` | Follow the prompts: jaws half open, it moves 2 mm, answer y/n. Ends with "Saved: dir_close=…, enc_sign=…" |
-| F5 | `bench.t5_tracking()` | Both moves "OK" (encoder within 0.1 mm of the steps) |
-| F6 | `bench.t6_home()` | "Homed". Then the pads open to 30 mm: measure with calipers, within 1 mm |
+| F5 | `bench.t5_tracking()` | Start with the jaws about half open (it moves 4 mm each way). Both moves "OK" (encoder within 0.1 mm of the steps) |
+| F6 | `bench.t6_home()` | "Homed", **and** the pads then open to 30 mm: measure with calipers, within 1 mm. "Homed" alone is not a pass |
 
 Then try the gripper:
 
@@ -333,15 +349,15 @@ bench.grip()       # put an object between the pads first
 bench.goto(40)     # release
 ```
 
-- [ ] **Grip test:** grip a 500 ml water bottle (about 550 g) by its body and let go of it. It should hang without slipping, even when shaken gently.
+- [ ] **Grip test:** grip an object of about 500 g that is 30–55 mm wide (a slim bottle, or a small jar with coins in it) and let go of it. It should hang without slipping, even when shaken gently. A standard 500 ml bottle is about 65 mm wide, too wide for the narrow tips: test it with the wide tips and `bench.goto(75)`.
 - [ ] **Wide tips:** run `bench.off()`. Swap to the wide tip blocks (2 screws each side, slide down). Run `bench.tips('wide')`, `bench.home()`, then `bench.goto(60)`. The pads should be 60 mm apart.
 
 ---
 
 ## Part G. Bench stand and desk clamps
 
-1. Push the column into the base socket. Fit 2× M5×12 through the socket walls into T-nuts. Optional: M5×12 from below into the column end, if you tapped it M5.
-2. Drop an M8 nut into the slot of each desk clamp, and thread a star knob in from below.
+1. Slide the T-nuts into the column's slots first: 2 near the bottom for the base socket and 2 for the head bracket. Push the column into the base socket. Fit 2× M5×12 through the socket walls into T-nuts. Optional: M5×12 from below into the column end, if you tapped it M5.
+2. Drop an M8 nut into the slot of each desk clamp, and thread a star knob in from below. Seat a TPU clamp pad on the knob's screw tip, socket side down.
 3. Put the base on the desk with its front edge flush with the desk's front edge. Hook a clamp over each front corner (its boss drops into the corner counterbore), and tighten the knobs by hand under the black edge.
 4. Slide the head bracket onto the column and lock it with 2× M5×12 into T-nuts. Drop 4 M6 nuts into the bracket pockets from the back.
 5. Bolt the adapter to the bracket with 4× M6×20. Slide the gripper onto the adapter (the U-slot is open at the rear), and fit 4× M3×8 through the side walls.
@@ -378,7 +394,8 @@ bench.goto(40)     # release
 | Motor buzzes but doesn't turn | A coil pair is split across 1A/2A | Redo C6: each pair on 1A/1B or 2A/2B (**power off**) |
 | Motor turns, encoder doesn't count | Encoder cable or magnet | `t2_encoder()` while turning the jaws by hand |
 | `t5_tracking` off by a lot | Steps lost: binding in the mechanism, or the current too low | Power off and check the hand movement; check VREF is 0.99 V |
-| Homing never stops | Encoder not counting | `t2_encoder()`, then `t4_direction()` again |
+| Says "Homed" at once but the jaws didn't close, or the F6 gap is wrong | Encoder not counting, or its direction saved wrongly | `t2_encoder()`, then `t4_direction()` again |
+| "Homing failed (…)" | The jaws never stopped within 40 mm, or a power or driver fault | Read the reason in the brackets; run `t5_tracking()` |
 | Jaws open by themselves when the power is off | Normal: the screw back-drives | Keep the power on to hold a grip |
 | Driver very hot | VREF set too high | Set VREF to 0.99 V; the driver normally runs warm, not too hot to touch |
 | Gripper slips on objects | Low current at large gaps, or a dry screw | Grease the screw; tell Claude the gap and object |

@@ -9,7 +9,7 @@ This guide takes you from a box of parts to a working, portable gripper. Each st
 The reference documents behind this guide are:
 - [DESIGN_REPORT.md](../gripper_fabrication_rev7/DESIGN_REPORT.md): numbers, print list and the full assembly sequence.
 - [BOM.csv](../gripper_fabrication_rev7/BOM.csv): every part.
-- [AMAZON_CART_2026-10-24.md](AMAZON_CART_2026-10-24.md): what to buy.
+- [`gripper_fabrication_rev7/BOM.csv`](../gripper_fabrication_rev7/BOM.csv): what to buy.
 
 ## Safety rules (read once, keep in mind)
 
